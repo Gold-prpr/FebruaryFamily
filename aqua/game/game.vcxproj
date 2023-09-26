@@ -108,6 +108,15 @@
     <ClInclude Include="src\game\game_object\stage\stage.h" />
     <ClInclude Include="src\game\game_object\stage\tile_id.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="data\abe.png" />
+    <Image Include="data\tile.png" />
+    <Image Include="data\tile1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\stage.csv" />
+    <None Include="data\stage.xlsm" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
