@@ -99,12 +99,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\game_object\Item_manager\item\item.cpp" />
+    <ClCompile Include="src\game\game_object\Item_manager\item\speeddown_item\speeddown_item.cpp" />
+    <ClCompile Include="src\game\game_object\Item_manager\item\speedup_item\speedup_item.cpp" />
+    <ClCompile Include="src\game\game_object\Item_manager\item_manager.cpp" />
     <ClCompile Include="src\game\game_object\stage\stage.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\game_object\game_object.h" />
+    <ClInclude Include="src\game\game_object\Item_manager\item\item.h" />
+    <ClInclude Include="src\game\game_object\Item_manager\item\item_id.h" />
+    <ClInclude Include="src\game\game_object\Item_manager\item\speeddown_item\speeddown_item.h" />
+    <ClInclude Include="src\game\game_object\Item_manager\item\speedup_item\speedup_item.h" />
+    <ClInclude Include="src\game\game_object\Item_manager\item_manager.h" />
     <ClInclude Include="src\game\game_object\stage\stage.h" />
     <ClInclude Include="src\game\game_object\stage\tile_id.h" />
   </ItemGroup>
