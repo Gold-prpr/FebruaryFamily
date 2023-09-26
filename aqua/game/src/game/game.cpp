@@ -10,6 +10,7 @@
  */
 
 #include "game.h"
+#include "game_object/game_object.h"
 
 const unsigned int  CGame::m_clear_color = 0xff808080;
 
@@ -29,6 +30,9 @@ void
 CGame::
 Initialize(void)
 {
+    aqua::CreateGameObject<CStage>(this);
+
+    IGameObject::Initialize();
 }
 
 /*
