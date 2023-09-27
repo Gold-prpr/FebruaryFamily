@@ -4,8 +4,8 @@
 #include "../stage/stage.h"
 
 CUnitManager::CUnitManager(aqua::IGameObject* parent)
-	:aqua::IGameObject(parent,"UnitManager")
-	,m_pStage(nullptr)
+	:aqua::IGameObject(parent, "UnitManager")
+	, m_pStage(nullptr)
 {
 }
 
@@ -17,6 +17,9 @@ void CUnitManager::Initialize()
 
 void CUnitManager::Update()
 {
+	if (!m_pStage)
+		m_pStage = (CStage*)aqua::FindGameObject("Stage");
+
 	IGameObject::Update();
 }
 
@@ -35,7 +38,7 @@ IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos)
 	IUnit* unit = nullptr;
 	switch (unitid)
 	{
-	case UNIT_ID::PLAYER: unit = aqua::CreateGameObject<CPlayer>(this);break;
+	case UNIT_ID::PLAYER: unit = aqua::CreateGameObject<CPlayer>(this); break;
 	}
 
 	if (!unit)return nullptr;

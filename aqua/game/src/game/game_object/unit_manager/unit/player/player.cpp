@@ -22,7 +22,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
-	m_Chara.Create("date/Player1.ass","right");
+	m_Chara.Create("data//player1p.ass","right");
 	m_Chara.anchor.x = m_Chara.GetTextureWidth() / 2.0f;
 	m_Chara.anchor.y = m_Chara.GetTextureHeight() / 2.0f;
 	m_Position = position;
@@ -46,8 +46,8 @@ void CPlayer::Update()
 	case CPlayer::STATE::DEAD:  State_Dead();   break;
 	case CPlayer::STATE::STOP:  State_Stop();   break;
 	}
-	m_Chara.position = m_pCamera->GetScroll() + GetPosition() - m_Chara.anchor;
-
+	m_Chara.position = aqua::CVector2::ZERO;
+   //m_pCamera->GetScroll() + GetPosition() - m_Chara.anchor;
 
 	IGameObject::Update();
 }

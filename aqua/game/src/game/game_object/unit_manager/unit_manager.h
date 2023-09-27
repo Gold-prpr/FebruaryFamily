@@ -4,6 +4,7 @@
 
 
 class CStage;
+
 class CUnitManager :public aqua::IGameObject
 {
 public:

@@ -30,10 +30,13 @@ void
 CGame::
 Initialize(void)
 {
-    aqua::CreateGameObject<CStageManager>(this);
-    aqua::CreateGameObject<CUnitManager>(this);
+
+    aqua::CreateGameObject<CStage>(this);
+    m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
 
     IGameObject::Initialize();
+
+    m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO);
 }
 
 /*

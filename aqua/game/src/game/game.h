@@ -24,6 +24,8 @@
  *
  *  @version    1.0
  */
+class CPlayer;
+class CUnitManager;
 class CGame
     : public aqua::IGameObject
 {
@@ -63,4 +65,6 @@ public:
 private:
     //!< 画面クリアカラー
     static const unsigned int   m_clear_color;
+    CPlayer* m_pPlayer;
+    CUnitManager* m_pUnitManager;
 };
