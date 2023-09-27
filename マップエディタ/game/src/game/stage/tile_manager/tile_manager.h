@@ -1,7 +1,9 @@
 #pragma once
 #include "aqua.h"
 #include "tile/tile_id.h"
+#include <fstream>
 
+class CBackGroundManager;
 class CTile;
 
 class CTileManager : public aqua::IGameObject
@@ -39,5 +41,8 @@ private:
 	aqua::CLabel   m_SizeLabel;
 
 	aqua::CBoxPrimitive m_SizeBox;
+
+	std::ofstream             m_TileDataText;            //!
+	CBackGroundManager*			m_BackGroundManager;
 };
 

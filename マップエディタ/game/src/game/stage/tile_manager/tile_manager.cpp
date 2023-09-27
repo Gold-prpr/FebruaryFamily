@@ -1,8 +1,11 @@
 #include "tile_manager.h"
 #include "tile/tile.h"
+#include "../back_ground_manager/back_ground_manager.h"
+#include <filesystem>
 
 namespace mouse = aqua::mouse;
 namespace keyboard = aqua::keyboard;
+namespace files = std::filesystem;
 
 const int CTileManager::m_object_max_size = 60;
 
@@ -154,6 +157,32 @@ void CTileManager::Finalize()
 
 void CTileManager::SaveTile()
 {
+	m_BackGroundManager = (CBackGroundManager*)aqua::FindGameObject("BackGroundManager");
+
+	// 存在しないファイル名を検索
+	std::string file;
+
+	int j = 0;
+
+	do {
+		file = "data\\map_data\\map_data_" + std::to_string(j) + ".txt";
+		++j;
+	} while (files::exists(file));
+
+	// ファイルを生成
+	m_TileDataText.open(file, std::ios::out);
+
+	m_TileDataText << m_BackGroundManager->GetSpritePath() << ",DUMMY\n";
+
+	for (auto& i : m_TileList)
+	{
+		m_TileDataText << std::to_string((int)i->tile_id) << ",";
+		m_TileDataText << std::to_string(i->GetPosition().x - i->GetAddPosition().x) << ",";
+		m_TileDataText << std::to_string(i->GetPosition().y - i->GetAddPosition().y) << ",DUMMY\n";
+	}
+
+	m_TileDataText.close();
+
 }
 
 void CTileManager::ReSize()

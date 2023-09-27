@@ -45,7 +45,6 @@ void CBackGroundManager::Finalize()
 
 	if (m_BackGroundSprite.GetResourceHandle() != -1)
 	{
-		SaveSprite();
 		m_BackGroundSprite.Delete();
 	}
 
