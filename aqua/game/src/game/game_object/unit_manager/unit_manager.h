@@ -2,6 +2,8 @@
 #include "aqua.h"
 #include "unit/unit.h"
 
+
+class CStage;
 class CUnitManager :public aqua::IGameObject
 {
 public:
@@ -27,4 +29,6 @@ public:
 	IUnit* CreateUnit(UNIT_ID unitid, aqua::CVector2 pos);
 
 private:
+
+	CStage* m_pStage;
 };

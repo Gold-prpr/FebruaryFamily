@@ -16,6 +16,13 @@ private:
 		DEAD,
 		STOP,
 	};
+
+	enum class CHARA_DIR
+	{
+		RIGHT,
+		LEFT,
+	};
+
 public:
 	//コンストラクタ
 	CPlayer(aqua::IGameObject* parent);
@@ -38,7 +45,7 @@ public:
 	bool IsDead();
 
 	//ゴールした時の状態
-	bool IsGoal();
+	bool IsStop();
 
 	//半径に当たった時の取得
 	float GetHitRadius(void);
@@ -53,8 +60,10 @@ private:
 	void State_Dead();//死んだ状態
 	void State_Stop();//ゴールした状態
 
-	aqua::CSprite m_Chara;
+	aqua::CAnimationSprite m_Chara;
 	STATE m_State;
+	CHARA_DIR m_DirNext;
+	CHARA_DIR m_DirCurrent;
 	CStage* m_pStage;
 	CCamera* m_pCamera;
 	CUnitManager* m_pUnitManager;
