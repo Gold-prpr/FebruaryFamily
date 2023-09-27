@@ -15,6 +15,8 @@ public:
 	void Draw()override;
 	void Finalize()override;
 
+	void SaveTile();
+
 private:
 
 	// ステージの大きさを再設定
