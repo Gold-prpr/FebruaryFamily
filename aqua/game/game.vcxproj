@@ -98,6 +98,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\camera\camera.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\game_object\Item_manager\item\item.cpp" />
     <ClCompile Include="src\game\game_object\Item_manager\item\speeddown_item\speeddown_item.cpp" />
@@ -110,6 +111,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\camera\camera.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\game_object\game_object.h" />
     <ClInclude Include="src\game\game_object\Item_manager\item\item.h" />
