@@ -63,8 +63,6 @@ void CStage::Update(void)
 		m_Scroll.x = 0.0f;
 	if (m_Scroll.y < 0.0f)
 		m_Scroll.y = 0.0f;
-	else if (m_Scroll.y > 540.0f)
-		m_Scroll.y = 540.0f;
 
 	IGameObject::Update();
 }
@@ -77,7 +75,7 @@ void CStage::Draw(void)
 	{
 		//1ŽŸŒ³”z—ñ‚¾‚©‚ç‚™Žg‚í‚È‚¢
 		m_TileSprite[*it].position.x = (float)(i % map_x) * 60 - m_Scroll.x;
-		m_TileSprite[*it].position.y = (float)(i / map_x) * 60 - 540.0f + m_Scroll.y;
+		m_TileSprite[*it].position.y = (float)(i / map_x) * 60 + m_Scroll.y;
 
 		m_TileSprite[*it].Draw();
 	}
