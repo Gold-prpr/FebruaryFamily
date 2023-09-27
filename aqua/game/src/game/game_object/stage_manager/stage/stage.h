@@ -13,7 +13,7 @@ public:
 	~CStage() = default;
 
 	//‰Šú‰»
-	void Initialize(void);
+	void Initialize(const aqua::CVector2& map_pos);
 	//XV
 	void Update(void);
 	//•`‰æ
