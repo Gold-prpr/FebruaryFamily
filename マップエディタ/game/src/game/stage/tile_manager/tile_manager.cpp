@@ -152,6 +152,10 @@ void CTileManager::Finalize()
 	IGameObject::Finalize();
 }
 
+void CTileManager::SaveTile()
+{
+}
+
 void CTileManager::ReSize()
 {
 	if (keyboard::Trigger(keyboard::KEY_ID::TAB))
