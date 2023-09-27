@@ -72,7 +72,7 @@ private:
 
 	std::vector<int> m_MapData;
 
-	float m_Scroll;
+	aqua::CVector2 m_Scroll;
 
 	//aqua::CSprite m_background;				//îwåi
 	//aqua::CSprite m_goal;					//ÉSÅ[Éã
