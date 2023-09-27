@@ -104,7 +104,8 @@
     <ClCompile Include="src\game\game_object\Item_manager\item\speeddown_item\speeddown_item.cpp" />
     <ClCompile Include="src\game\game_object\Item_manager\item\speedup_item\speedup_item.cpp" />
     <ClCompile Include="src\game\game_object\Item_manager\item_manager.cpp" />
-    <ClCompile Include="src\game\game_object\stage\stage.cpp" />
+    <ClCompile Include="src\game\game_object\stage_manager\stage\stage.cpp" />
+    <ClCompile Include="src\game\game_object\stage_manager\stage_manager.cpp" />
     <ClCompile Include="src\game\game_object\unit_manager\unit\player\player.cpp" />
     <ClCompile Include="src\game\game_object\unit_manager\unit\unit.cpp" />
     <ClCompile Include="src\game\game_object\unit_manager\unit_manager.cpp" />
@@ -119,8 +120,9 @@
     <ClInclude Include="src\game\game_object\Item_manager\item\speeddown_item\speeddown_item.h" />
     <ClInclude Include="src\game\game_object\Item_manager\item\speedup_item\speedup_item.h" />
     <ClInclude Include="src\game\game_object\Item_manager\item_manager.h" />
-    <ClInclude Include="src\game\game_object\stage\stage.h" />
-    <ClInclude Include="src\game\game_object\stage\tile_id.h" />
+    <ClInclude Include="src\game\game_object\stage_manager\stage\stage.h" />
+    <ClInclude Include="src\game\game_object\stage_manager\stage\tile_id.h" />
+    <ClInclude Include="src\game\game_object\stage_manager\stage_manager.h" />
     <ClInclude Include="src\game\game_object\unit_manager\unit\player\player.h" />
     <ClInclude Include="src\game\game_object\unit_manager\unit\unit.h" />
     <ClInclude Include="src\game\game_object\unit_manager\unit_manager.h" />
