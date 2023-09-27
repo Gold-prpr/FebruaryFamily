@@ -101,3 +101,13 @@ void CStage::Parse(const std::string& file_name)
 
 	loader.Unload();
 }
+
+float CStage::GetMapWidth(void)
+{
+	return map_chip_size * map_x;
+}
+
+float CStage::GetMapHeight(void)
+{
+	return map_chip_size * map_y;
+}
