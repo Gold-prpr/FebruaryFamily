@@ -56,14 +56,6 @@ void CTile::Finalize()
 }
 
 /*
-*	À•Wæ“¾
-*/
-aqua::CVector2 CTile::GetPosition()
-{
-	return m_Position + m_AddPosition;
-}
-
-/*
 *  À•W‚Ìİ’è
 */
 void CTile::SetPosition(aqua::CVector2 position)

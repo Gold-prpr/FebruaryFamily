@@ -36,8 +36,6 @@ private:
 	bool           m_ReSetSizeFlag;
 	aqua::CLabel   m_SizeLabel;
 
-	aqua::CSprite  m_BackGround;
-
 	aqua::CBoxPrimitive m_SizeBox;
 };
 
