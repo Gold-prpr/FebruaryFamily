@@ -31,6 +31,7 @@ CGame::
 Initialize(void)
 {
     aqua::CreateGameObject<CStage>(this);
+    aqua::CreateGameObject<CUnitManager>(this);
 
     IGameObject::Initialize();
 }
