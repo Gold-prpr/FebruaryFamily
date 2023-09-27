@@ -24,6 +24,10 @@ public:
 	//CSV“Ç‚İ‚İ
 	void Parse(const std::string& file_name);
 
+	float GetMapWidth(void);
+
+	float GetMapHeight(void);
+
 	//“–‚½‚è”»’è
 	//bool CheckHit(int x, int y);
 
