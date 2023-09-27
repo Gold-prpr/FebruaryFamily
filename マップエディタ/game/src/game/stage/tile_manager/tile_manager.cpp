@@ -43,16 +43,11 @@ void CTileManager::Initialize(aqua::CVector2 stage_size)
 
 	m_SizeLabel.Create(80);
 	m_SizeLabel.text =
-		"↓+　縦：" +
-		std::to_string(m_TileCount.y) +
-		"↑-　" + "\n→+　横：" +
-		std::to_string(m_TileCount.x) +
-		"←-　";
+		"-↑キー　縦：" + std::to_string(m_TileCount.y) + "　↓キー+" +
+		"\n-←キー　横：" + std::to_string(m_TileCount.x) + "　→キー+　";
 
 	m_SizeBox.Setup((*m_TileList.begin())->GetPosition(), m_TileCount.x * m_object_max_size, m_TileCount.y * m_object_max_size);
 	m_SizeBox.fill = false;
-
-	m_BackGround.Create("data\\背景.png");
 }
 
 void CTileManager::Update()
@@ -141,7 +136,6 @@ void CTileManager::Update()
 
 void CTileManager::Draw()
 {
-	m_BackGround.Draw();
 	IGameObject::Draw();
 
 	m_SelectTile->Draw();
@@ -154,7 +148,6 @@ void CTileManager::Draw()
 
 void CTileManager::Finalize()
 {
-	m_BackGround.Delete();
 	m_SizeLabel.Delete();
 	IGameObject::Finalize();
 }
@@ -188,9 +181,7 @@ void CTileManager::ReSize()
 		{
 			tile_it--;
 
-			aqua::CVector2 tile_pos = (*tile_it)->GetPosition();
-
-			if (tile_pos.x >= (m_TileCount.x - 1) * m_object_max_size)
+			if ((*tile_it)->GetPosition().x >= (m_TileCount.x - 1) * m_object_max_size + (*tile_it)->GetAddPosition().x)
 			{
 				flag = true;
 				(*tile_it)->Finalize();
@@ -228,14 +219,11 @@ void CTileManager::ReSize()
 		{
 			tile_it--;
 
-			aqua::CVector2 tile_pos = (*tile_it)->GetPosition();
-
-			if (tile_pos.y >= (m_TileCount.y - 1) * m_object_max_size)
+			if ((*tile_it)->GetPosition().y >= (m_TileCount.y - 1) * m_object_max_size + (*tile_it)->GetAddPosition().y)
 			{
 				flag = true;
 				(*tile_it)->Finalize();
 				tile_it = aqua::ListErase(&m_TileList, tile_it);
-
 			}
 
 		}
@@ -244,10 +232,6 @@ void CTileManager::ReSize()
 	}
 
 	m_SizeLabel.text =
-		" ↓+　" + std::to_string((int)m_TileSize.y) +
-		"縦： " + std::to_string(m_TileCount.y) +
-		" ↑-　" + std::to_string((int)m_TileSize.y) + "\n" +
-		" →+　" + std::to_string((int)m_TileSize.x) +
-		"横： " + std::to_string(m_TileCount.x) +
-		" ←-　" + std::to_string((int)m_TileSize.x);
+		"-↑キー　縦：" + std::to_string(m_TileCount.y) + "　↓キー+" +
+		"\n-←キー　横：" + std::to_string(m_TileCount.x) + "　→キー+　";
 }

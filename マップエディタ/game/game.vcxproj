@@ -100,6 +100,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\stage\back_ground_manager\back_ground_manager.cpp" />
     <ClCompile Include="src\game\stage\tile_manager\tile_manager.cpp" />
     <ClCompile Include="src\game\stage\stage.cpp" />
     <ClCompile Include="src\game\game.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="src\game\stage\tile_manager\tile\tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\stage\back_ground_manager\back_ground_manager.h" />
     <ClInclude Include="src\game\stage\tile_manager\tile\tile_id.h" />
     <ClInclude Include="src\game\stage\tile_manager\tile_manager.h" />
     <ClInclude Include="src\game\stage\stage.h" />

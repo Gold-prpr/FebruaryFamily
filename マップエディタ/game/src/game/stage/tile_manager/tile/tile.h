@@ -14,7 +14,16 @@ public:
 	void Draw()override;
 	void Finalize()override;
 
-	aqua::CVector2	GetPosition();
+	/*
+	*	À•Wæ“¾
+	*/
+	aqua::CVector2	GetPosition(){ return m_Position + m_AddPosition; };
+
+	/*
+	*	‰ÁZ•ª‚ÌÀ•Wæ“¾
+	*/
+	aqua::CVector2	GetAddPosition(){ return m_AddPosition; };
+
 	void			SetPosition(aqua::CVector2 position);
 	void			SetAddPosition(aqua::CVector2 add_position);
 
