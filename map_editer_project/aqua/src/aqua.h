@@ -1,0 +1,172 @@
+
+/*!
+ *  @file       aqua.h
+ *  @brief      AQUA Game Library
+ *  @author     Kazuya Maruyama
+ *  @date       2021/03/10
+ *  @version    7.17
+ *
+ *  Copyright (c) 2013-2021, Kazuya Maruyama. All rights reserved.
+ */
+
+#pragma once
+
+#include <windows.h>
+#include <DxLib.h>
+#include <string>
+#include <list>
+#include <vector>
+#include "controls\controls.h"
+#include "debug\debug.h"
+#include "framework\framework.h"
+#include "game_object\game_object.h"
+#include "graphics\graphics.h"
+#include "mathematics\mathematics.h"
+#include "sounds\sounds.h"
+#include "utility\utility.h"
+#include "videos\videos.h"
+
+ /*!
+  *  @brief      aqua名前空間
+  */
+namespace aqua
+{
+	/*!
+	 *  @brief      AQUA Game Library起動/実行
+	 *              使用する際に必ず呼び出すこと。
+	 *
+	 *  @param[in]  instance_handle     インスタンスハンドル
+	 *  @param[in]  game                ゲームクラス
+	 */
+	void                Setup(HINSTANCE instance_handle, aqua::IGameObject* game);
+
+	/*!
+	 *  @brief      インスタンスハンドルの取得
+	 *
+	 *  @return     インスタンスハンドル
+	 */
+	HINSTANCE           GetInstanceHandle(void);
+
+	/*!
+	 *  @brief      ウィンドウハンドルの取得
+	 *
+	 *  @return     ウィンドウハンドル
+	 */
+	HWND                GetWindowHandle(void);
+
+	/*!
+	 *  @brief      ウィンドウの横幅取得
+	 *
+	 *  @return     ウィンドウの横幅
+	 */
+	unsigned int        GetWindowWidth(void);
+
+	/*!
+	 *  @brief      ウィンドウの縦幅取得
+	 *
+	 *  @return     ウィンドウの縦幅
+	 */
+	unsigned int        GetWindowHeight(void);
+
+	/*!
+	*
+	*  @brief      ウィンドウの幅取得
+	*
+	*  @return     ウィンドウの幅
+	*/
+	aqua::CPoint        GetWindowSize();
+
+	/*!
+	 *  @brief      デルタタイム取得
+	 *
+	 *  @return     デルタタイム
+	 */
+	float               GetDeltaTime(void);
+
+	/*!
+	 *  @brief      デルタタイム(タイムスケールなし)取得
+	 *              デルタタイムは前回の更新からどれくらいの時間が経過したかの値
+	 *
+	 *  @return     デルタタイム
+	 */
+	float               GetUnscaledDeltaTime(void);
+
+	/*!
+	 *  @brief      デルタタイム倍率取得
+	 *
+	 *  @return     デルタタイム倍率
+	 */
+	float               GetDeltaTimeScale(void);
+
+	/*!
+	 *  @brief      デルタタイム倍率設定
+	 *
+	 *  @param[in]  scale   デルタタイム倍率
+	 */
+	void                SetDeltaTimeScale(float scale);
+
+	/*!
+	 *  @brief      フレームレート設定
+	 *
+	 *  @param[in]  frame_rate  フレームレート
+	 */
+	void                SetFrameRate(int frame_rate);
+
+	/*!
+	 *  @brief      ゲームオブジェクトの検索
+	 *
+	 *  @param[in]  name    オブジェクト名
+	 *
+	 *  @return     検索オブジェクト<br>
+	 *              見つからなかった場合はNULL
+	 */
+	aqua::IGameObject* FindGameObject(const std::string& name);
+
+	/*!
+	 *  @brief      ゲームオブジェクトの検索
+	 *
+	 *  @param[in]  func    検索条件メソッド
+	 *
+	 *  @return     検索オブジェクト<br>
+	 *              見つからなかった場合はNULL
+	 */
+	aqua::IGameObject* FindGameObject(aqua::FIND_METHOD func);
+
+	/*!
+	 *  @brief      画面のクリア
+	 *
+	 *  @param[in]  color   クリアカラー
+	 */
+	void                Clear(unsigned int color);
+
+	/*
+	 *  @brief      リストから指定の要素を削除する
+	 */
+	template <class T1,class T2> T2  ListErase(std::list<T1>* list,T2 erase_point)
+	{
+		if (!list->empty())
+			return 	(*list).erase(std::find((*list).begin(), (*list).end(), *erase_point));
+	};
+
+	/*
+	 *  @brief      リストから指定の要素を描画する
+	 * 
+	 *  @param[in]  連続使用は重くなるので注意
+	 */
+	template <class T> void  AquaListLayerDraw(GAME_OBJECT_LIST* list,T draw_point)
+	{
+		if (!list->empty())
+			std::find((*list).begin(), (*list).end(), draw_point)->Draw();
+	};
+
+	/*!
+	 *
+	 *  @brief float型の小数点を決めてstring型に変換
+	 *
+	 *  @param[in] num　　　　　/   float型
+	 * 	@param[in] decimal_point　/ 小数点の数
+	 * 
+	 */
+	std::string FloatToString(float num,int decimal_point = 1);
+
+}
