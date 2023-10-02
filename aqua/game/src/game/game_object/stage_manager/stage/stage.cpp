@@ -17,8 +17,10 @@ CStage::CStage(aqua::IGameObject* parent)
 {
 }
 
-void CStage::Initialize(const aqua::CVector2& map_pos)
+CStage* CStage::Initialize(const aqua::CVector2& map_pos)
 {
+	m_MapPos = map_pos;
+
 	m_Scroll = aqua::CVector2::ZERO;
 
 	std::string file_name = "data//stage.csv";
@@ -38,27 +40,12 @@ void CStage::Initialize(const aqua::CVector2& map_pos)
 	Parse(file_name);
 
 	IGameObject::Initialize();
+
+	return nullptr;
 }
 
 void CStage::Update(void)
 {
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::LEFT))
-	{
-		m_Scroll.x -= 1.0f;
-	}
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::RIGHT))
-	{
-		m_Scroll.x += 1.0f;
-	}
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::DOWN))
-	{
-		m_Scroll.y += 1.0f;
-	}
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::UP))
-	{
-		m_Scroll.y -= 1.0f;
-	}
-
 	IGameObject::Update();
 }
 
@@ -68,14 +55,11 @@ void CStage::Draw(void)
 
 	for (auto it = m_MapData.begin(); it != m_MapData.end(); ++it, ++i)
 	{
-		//1次元配列だからｙ使わない
-		m_TileSprite[*it].position.x = (float)(i % map_x) * 60 - m_Scroll.x;
-		m_TileSprite[*it].position.y = (float)(i / map_x) * 60 + m_Scroll.y;
+		m_TileSprite[*it].position.x = (float)(i % map_x) * 60 - m_Scroll.x + m_MapPos.x;
+		m_TileSprite[*it].position.y = (float)(i / map_x) * 60 - m_Scroll.y + m_MapPos.y;
 
 		m_TileSprite[*it].Draw();
 	}
-
-	DrawFormatString(10, 10, GetColor(255, 0, 0), "スクロール値：%f,%f", m_Scroll.x, m_Scroll.y);
 
 	IGameObject::Draw();
 }

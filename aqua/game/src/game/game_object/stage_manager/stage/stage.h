@@ -13,7 +13,7 @@ public:
 	~CStage() = default;
 
 	//‰Šú‰»
-	void Initialize(const aqua::CVector2& map_pos);
+	CStage* Initialize(const aqua::CVector2& map_pos);
 	//XV
 	void Update(void);
 	//•`‰æ
@@ -57,6 +57,8 @@ public:
 
 	aqua::CSprite* m_TileSprite;			//Tile•`‰æ
 
+	aqua::CVector2 m_Scroll;
+
 private:
 	static const int map_chip_size;			//TileƒTƒCƒY
 
@@ -72,7 +74,7 @@ private:
 
 	std::vector<int> m_MapData;
 
-	aqua::CVector2 m_Scroll;
+	aqua::CVector2 m_MapPos;
 
 	//aqua::CSprite m_background;				//”wŒi
 	//aqua::CSprite m_goal;					//ƒS[ƒ‹
