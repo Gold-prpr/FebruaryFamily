@@ -33,8 +33,6 @@ void CStage::Initialize(const aqua::CVector2& map_pos)
 		int ch = i / 3 * map_chip_size;
 
 		m_TileSprite[i].rect = aqua::CRect(cw, ch, cw + map_chip_size, ch + map_chip_size);
-
-		m_TileSprite[0].position = map_pos;
 	}
 
 	Parse(file_name);
@@ -60,11 +58,6 @@ void CStage::Update(void)
 	{
 		m_Scroll.y -= 1.0f;
 	}
-
-	if (m_Scroll.x < 0.0f)
-		m_Scroll.x = 0.0f;
-	if (m_Scroll.y < 0.0f)
-		m_Scroll.y = 0.0f;
 
 	IGameObject::Update();
 }

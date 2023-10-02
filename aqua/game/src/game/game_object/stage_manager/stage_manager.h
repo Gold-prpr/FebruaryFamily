@@ -1,16 +1,23 @@
 #pragma once
 #include "aqua.h"
 
+class CStage;
+
 class CStageManager
 	:public aqua::IGameObject
 {
+public:
 	//コンストラクタ
 	CStageManager(aqua::IGameObject* parent);
 	//デストラクタ
 	~CStageManager() = default;
 
 	//初期化
-	void Initialize(const aqua::CVector2& map_1p_pos, const aqua::CVector2& map_2p_pos);
-private:
+	void Initialize(void);
 
+private:
+	aqua::CVector2 m_StagePos1P;
+	aqua::CVector2 m_StagePos2P;
+
+	CStage* m_pStage;
 };

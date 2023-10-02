@@ -1,7 +1,7 @@
 #include "unit_manager.h"
 #include "unit/unit.h"
 #include "unit/player/player.h"
-#include "../stage/stage.h"
+#include "../stage_manager/stage/stage.h"
 
 CUnitManager::CUnitManager(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "UnitManager")
