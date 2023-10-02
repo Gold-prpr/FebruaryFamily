@@ -6,6 +6,7 @@ CTile::CTile(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "Tile")
 	, tile_id(TileID::AIR)
 	, m_PrevTileID(TileID::AIR)
+	, not_elase_flag(false)
 {
 }
 
@@ -16,11 +17,11 @@ void CTile::Create(aqua::CVector2 position, aqua::CVector2 size)
 {
 	m_Position = position;
 
-	m_TileSprite.Create("data\\object.png");
+	m_TileSprite.Create("data\\tile1.png");
 
 	// RECT
 	m_TileSprite.rect.left = 0;
-	m_TileSprite.rect.right = size.x;
+	m_TileSprite.rect.right = (int)size.x;
 
 	m_TileSize = size;
 
@@ -39,8 +40,8 @@ void CTile::Update()
 
 		if (tile_id != TileID::AIR)
 		{
-			m_TileSprite.rect.left = ((int)tile_id - 1) * m_TileSize.x;
-			m_TileSprite.rect.right = (int)tile_id * m_TileSize.x;
+			m_TileSprite.rect.left = ((int)tile_id - 1) * (int)m_TileSize.x;
+			m_TileSprite.rect.right = (int)tile_id * (int)m_TileSize.x;
 		}
 	}
 

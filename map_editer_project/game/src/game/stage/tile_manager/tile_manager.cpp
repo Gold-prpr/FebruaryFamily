@@ -36,13 +36,12 @@ void CTileManager::Initialize(aqua::CVector2 stage_size)
 			tile->Create(aqua::CVector2(j, i) * m_object_max_size, aqua::CVector2::ONE * m_object_max_size);
 
 			m_TileList.push_back(tile);
-
 		}
 	}
 
-
 	m_SelectTile = aqua::CreateGameObject<CTile>(this);
 	m_SelectTile->Create(mouse::GetCursorPos(), aqua::CVector2::ONE * m_object_max_size);
+	m_SelectTile->not_elase_flag = true;
 
 	m_SizeLabel.Create(80);
 	m_SizeLabel.text =
@@ -120,7 +119,24 @@ void CTileManager::Update()
 	// マウスの右を押しながらホイール
 	if (mouse::Button(mouse::BUTTON_ID::RIGHT))
 	{
-		m_NowSelectTile = aqua::Mod<TileID, int>((int)m_NowSelectTile + (int)(mouse::GetWheel()), TileID::AIR, TileID::WALL);
+		m_NowSelectTile = aqua::Mod<TileID, int>((int)m_NowSelectTile + (int)(mouse::GetWheel()), (int)TileID::AIR, (int)TileID::MAX);
+	}
+
+	if (keyboard::Button(keyboard::KEY_ID::LSHIFT))
+	{
+		if (mouse::Button(mouse::BUTTON_ID::RIGHT))
+		{
+			for (auto& it : m_TileList)
+			{
+				aqua::CVector2 tile_pos = it->GetPosition();
+
+				if (tile_pos.x <= pos.x && tile_pos.x + m_object_max_size > pos.x &&
+					tile_pos.y <= pos.y && tile_pos.y + m_object_max_size > pos.y)
+				{
+					m_NowSelectTile = it->tile_id;
+				}
+			}
+		}
 	}
 
 	m_SelectTile->tile_id = m_NowSelectTile;
@@ -202,6 +218,7 @@ void CTileManager::ReSize()
 		auto tile_it = m_TileList.end();
 		bool flag = false;
 
+		// タイルリストから解放
 		while (tile_it != m_TileList.begin())
 		{
 			tile_it--;
@@ -215,6 +232,30 @@ void CTileManager::ReSize()
 			}
 
 		}
+		
+		auto child_it = m_ChildObjectList.end();
+
+		// 子オブジェクトリストから解放
+		while (child_it != m_ChildObjectList.begin())
+		{
+			child_it--;
+
+			if ((*child_it)->GetGameObjectName() == "Tile")
+			{
+				if (!((CTile*)(*child_it))->not_elase_flag)
+				{
+					if (((CTile*)(*child_it))->GetPosition().x >= (m_TileCount.x - 1) * m_object_max_size + ((CTile*)(*child_it))->GetAddPosition().x)
+					{
+
+						((CTile*)(*child_it))->Finalize();
+						child_it = aqua::ListErase(&m_ChildObjectList, child_it);
+
+					}
+				}
+			}
+
+		}
+
 		if (flag)
 			m_TileCount.x--;
 
@@ -240,6 +281,7 @@ void CTileManager::ReSize()
 		auto tile_it = m_TileList.end();
 		bool flag = false;
 
+		// タイルリストから解放
 		while (tile_it != m_TileList.begin())
 		{
 			tile_it--;
@@ -252,6 +294,30 @@ void CTileManager::ReSize()
 			}
 
 		}
+
+		auto child_it = m_ChildObjectList.end();
+
+		// 子オブジェクトリストから解放
+		while (child_it != m_ChildObjectList.begin())
+		{
+			child_it--;
+
+			if ((*child_it)->GetGameObjectName() == "Tile")
+			{
+				if (!((CTile*)(*child_it))->not_elase_flag)
+				{
+					if (((CTile*)(*child_it))->GetPosition().y >= (m_TileCount.y - 1) * m_object_max_size + ((CTile*)(*child_it))->GetAddPosition().y)
+					{
+
+						((CTile*)(*child_it))->Finalize();
+						child_it = aqua::ListErase(&m_ChildObjectList, child_it);
+
+					}
+				}
+			}
+
+		}
+
 		if (flag)
 			m_TileCount.y--;
 	}

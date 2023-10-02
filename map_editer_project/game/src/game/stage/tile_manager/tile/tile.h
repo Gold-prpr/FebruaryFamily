@@ -29,6 +29,8 @@ public:
 
 	TileID			tile_id;
 
+	bool			not_elase_flag;
+
 private:
 
 	static const float				m_thickness_size;
