@@ -73,7 +73,9 @@ private:
 	CUnitManager* m_pUnitManager;
 	float m_AddSpeed;
 	static const float speed;
+	static const float jump;
 	static const float width;
 	static const float height;
 	static const float radius;
+	bool m_LandingFlag;
 };
