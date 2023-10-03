@@ -31,6 +31,10 @@ public:
 	//d—Í
 	float GetGravity(void);
 
+	bool CheckHit(int x, int y);
+
+	int GetTileSize(void);
+
 	/*//“–‚½‚è”»’è
 	bool CheckHit(int x, int y);
 
