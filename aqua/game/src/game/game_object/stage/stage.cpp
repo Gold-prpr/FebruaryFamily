@@ -17,10 +17,8 @@ CStage::CStage(aqua::IGameObject* parent)
 {
 }
 
-CStage* CStage::Initialize(const aqua::CVector2& map_pos)
+void CStage::Initialize(void)
 {
-	m_MapPos = map_pos;
-
 	m_Scroll = aqua::CVector2::ZERO;
 
 	std::string file_name = "data//stage.csv";
@@ -40,8 +38,6 @@ CStage* CStage::Initialize(const aqua::CVector2& map_pos)
 	Parse(file_name);
 
 	IGameObject::Initialize();
-
-	return nullptr;
 }
 
 void CStage::Update(void)
@@ -55,8 +51,8 @@ void CStage::Draw(void)
 
 	for (auto it = m_MapData.begin(); it != m_MapData.end(); ++it, ++i)
 	{
-		m_TileSprite[*it].position.x = (float)(i % map_x) * 60 - m_Scroll.x + m_MapPos.x;
-		m_TileSprite[*it].position.y = (float)(i / map_x) * 60 - m_Scroll.y + m_MapPos.y;
+		m_TileSprite[*it].position.x = (float)(i % map_x) * 60 - m_Scroll.x;
+		m_TileSprite[*it].position.y = (float)(i / map_x) * 60 - m_Scroll.y;
 
 		m_TileSprite[*it].Draw();
 	}
@@ -99,4 +95,9 @@ float CStage::GetMapWidth(void)
 float CStage::GetMapHeight(void)
 {
 	return map_chip_size * map_y;
+}
+
+float CStage::GetGravity(void)
+{
+	return m_gravity;
 }

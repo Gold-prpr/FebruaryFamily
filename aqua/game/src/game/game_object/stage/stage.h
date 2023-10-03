@@ -13,7 +13,7 @@ public:
 	~CStage() = default;
 
 	//初期化
-	CStage* Initialize(const aqua::CVector2& map_pos);
+	void Initialize(void);
 	//更新
 	void Update(void);
 	//描画
@@ -28,32 +28,32 @@ public:
 
 	float GetMapHeight(void);
 
-	//当たり判定
-	//bool CheckHit(int x, int y);
+	//重力
+	float GetGravity(void);
+
+	/*//当たり判定
+	bool CheckHit(int x, int y);
 
 	//ゴール判定
-	//bool CheckGoal(int x, int y);
+	bool CheckGoal(int x, int y);
 
 	////落ちる判定
-	//bool CheckFallBlock(int x, int y);
+	bool CheckFallBlock(int x, int y);
 
 	//アイテム判定
-	//bool CheckItem(int x, int y);
+	bool CheckItem(int x, int y);
 
 	////ギミック判定(針)
-	//bool CheckSpine(int x, int y);
-
-	//重力
-	//float GetGravity(void) const;
+	bool CheckSpine(int x, int y);
 
 	//Tileサイズを呼ぶ
-	//int GetSize(void);
+	int GetSize(void);
 
 	//空のタイルに変更
-	//void ChangeAir(int x, int y);
+	void ChangeAir(int x, int y);
 
 	////ゴール演出
-	//void GoalMove(void);
+	void GoalMove(void);*/
 
 	aqua::CSprite* m_TileSprite;			//Tile描画
 
