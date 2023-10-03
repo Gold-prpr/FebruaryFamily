@@ -2,10 +2,14 @@
 #include "../../../stage/stage.h"
 #include "../../../camera/camera.h"
 #include "../../unit_manager.h"
+using namespace aqua::controller;
+using namespace aqua::keyboard;
 
+const float CPlayer::speed = 8.0f;
 const float CPlayer::width = 60.0f;
 const float CPlayer::height = 60.0f;
 const float CPlayer::radius = 30.0f;
+
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
 	:IUnit(parent,"Player")
@@ -36,18 +40,17 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 void CPlayer::Update()
 {
-
 	m_Chara.Update();
 
 	switch (m_State)
 	{
-	case CPlayer::STATE::START: State_Start();  break;
-	case CPlayer::STATE::MOVE:  State_Move();   break;
-	case CPlayer::STATE::DEAD:  State_Dead();   break;
-	case CPlayer::STATE::STOP:  State_Stop();   break;
+	case STATE::START: State_Start();  break;
+	case STATE::MOVE:  State_Move();   break;
+	case STATE::DEAD:  State_Dead();   break;
+	case STATE::STOP:  State_Stop();   break;
 	}
-	m_Chara.position = aqua::CVector2::ZERO;
-   //m_pCamera->GetScroll() + GetPosition() - m_Chara.anchor;
+	//m_Chara.position = aqua::CVector2::ZERO;
+    //m_pCamera->GetScroll() + GetPosition() - m_Chara.anchor;
 
 	IGameObject::Update();
 }
@@ -84,6 +87,11 @@ void CPlayer::Damage(void)
 	m_State = STATE::DEAD;
 }
 
+void CPlayer::AddSpeed(float add_speed)
+{
+	m_AddSpeed = add_speed;
+}
+
 void CPlayer::State_Start()
 {
 	m_Position = aqua::CVector2(100.0f,100.0f);
@@ -92,15 +100,13 @@ void CPlayer::State_Start()
 
 void CPlayer::State_Move()
 {
-
-	using namespace aqua::controller;
-	using namespace aqua::keyboard;
-
 	int inputX = (
 		(Button(KEY_ID::D) || GetAnalogStickLeft(DEVICE_ID::P1).x >= 0.7f) -
 		(Button(KEY_ID::A) || GetAnalogStickLeft(DEVICE_ID::P1).x <= -0.7f));
-	m_Velocity.x = 8.0f * inputX;
 
+	m_Velocity.x = speed * inputX;
+	m_Chara.position = m_Position;
+	m_Position += m_Velocity;
 
 	if (m_DirCurrent != m_DirNext)
 	{
@@ -113,8 +119,6 @@ void CPlayer::State_Move()
 			break;
 		case CHARA_DIR::RIGHT:
 			m_Chara.Change("right");
-			break;
-		default:
 			break;
 		}
 	}
