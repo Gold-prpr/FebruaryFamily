@@ -1,6 +1,6 @@
 #include "camera.h"
 #include "../unit_manager/unit/player/player.h"
-#include "../stage_manager/stage/stage.h"
+#include "../stage/stage.h"
 
 CCamera::CCamera(IGameObject* parent)
 	:IGameObject(parent,"Camera")

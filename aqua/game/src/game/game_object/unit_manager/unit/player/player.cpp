@@ -1,5 +1,5 @@
 #include "player.h"
-#include "../../../stage_manager/stage/stage.h"
+#include "../../../stage/stage.h"
 #include "../../../camera/camera.h"
 #include "../../unit_manager.h"
 
