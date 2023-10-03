@@ -55,6 +55,8 @@ public:
 
 	void AddSpeed(float add_speed);
 
+	void CheckHitBlok(void);
+
 private:
 
 	void State_Start();//ŠJn‚Ìó‘Ô
