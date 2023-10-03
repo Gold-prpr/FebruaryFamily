@@ -101,3 +101,19 @@ float CStage::GetGravity(void)
 {
 	return m_gravity;
 }
+
+bool CStage::CheckHit(int x, int y)
+{
+	int ix = x / map_chip_size;
+	int iy = y / map_chip_size;
+
+	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::GROUND_TILE)
+		return true;
+
+	return false;
+}
+
+int CStage::GetTileSize(void)
+{
+	return map_chip_size;
+}
