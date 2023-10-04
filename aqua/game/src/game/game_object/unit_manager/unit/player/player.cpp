@@ -94,12 +94,12 @@ void CPlayer::Update()
 
 void CPlayer::CheckHitBlok(void)
 {
-	int x = (int)(m_Position.x);
-	int y = (int)(m_Position.y);
-	int nx = (int)(m_Position.x + m_Velocity.x);
-	int ny = (int)(m_Position.y + m_Velocity.y);
-	int w = (int)m_Width;
-	int h = (int)m_Height;
+	int x = (int)(m_Position.x); //
+	int y = (int)(m_Position.y); //
+	int nx = (int)(m_Position.x + m_Velocity.x); //
+	int ny = (int)(m_Position.y + m_Velocity.y); //
+	int w = (int)m_Width; //
+	int h = (int)m_Height; //
 	int size = 60;
 
 	if (m_pStage->CheckHit(nx, y)
@@ -119,6 +119,16 @@ void CPlayer::CheckHitBlok(void)
 
 		// ブロックにあたっているので速度を消す
 		m_Velocity.x = 0;
+	}
+
+	if (m_pStage->CheckGoal(nx, y)
+		|| m_pStage->CheckGoal(nx + w - 1, y)
+		|| m_pStage->CheckGoal(nx, y + h / 2)
+		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckGoal(nx, y + h - 1)
+		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
+	{
+		m_Chara.position = aqua::CVector2::ZERO;
 	}
 
 	if (m_LandingFlag == true)
