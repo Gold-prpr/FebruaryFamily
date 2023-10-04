@@ -6,7 +6,7 @@ using namespace aqua::controller;
 using namespace aqua::keyboard;
 
 const float CPlayer::speed = 8.0f;
-const float CPlayer::jump = -60.0f;
+const float CPlayer::jump = -25.0f;
 const float CPlayer::width = 60.0f;
 const float CPlayer::height = 60.0f;
 const float CPlayer::radius = 30.0f;
@@ -52,7 +52,7 @@ void CPlayer::Update()
 		m_Velocity.x = 5;
 	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))
 	{
-		if (m_LandingFlag)
+		if (m_LandingFlag == true)
 		{
 			m_Velocity.y = jump;
 			m_LandingFlag = false;
