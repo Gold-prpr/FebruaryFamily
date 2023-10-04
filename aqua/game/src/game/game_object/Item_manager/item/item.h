@@ -12,7 +12,9 @@ public:
 	virtual ~IItem(void) = default;
 
 	//初期化
-	virtual void Initialize(/*const aqua::CVector2& position*/) override;
+	void Initialize(aqua::CVector2 position ,std::string item_file);
+
+	virtual void Initialize(aqua::CVector2 position) = 0;
 
 	//更新
 	virtual void Update()override;
@@ -26,6 +28,6 @@ public:
 	//アイテムの位置
 	const aqua::CVector2& GetPosition();
 
-protected:
-	aqua::CVector2				m_Position;		//アイテムの位置
+private:
+	aqua::CSprite				m_ItemSprite;		//アイテム描画
 };

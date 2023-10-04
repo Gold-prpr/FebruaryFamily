@@ -15,13 +15,17 @@ void CItemManager::Initialize(void)
 {
 	//m_item_rand = 0;
 
+	Create(ITEM_ID::SPEEDUP);
+
 	IGameObject::Initialize();
 }
 
 //çXêV
 void CItemManager::Update(void)
 {
-	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::NUMPADENTER))
+	using namespace aqua::keyboard;
+
+	if (Trigger(KEY_ID::NUMPADENTER))
 	{
 		m_item_rand = rand() % m_item;
 
@@ -49,15 +53,15 @@ void CItemManager::Finalize(void)
 //ê∂ê¨
 void CItemManager::Create(ITEM_ID id)
 {
-	IGameObject* item = nullptr;
+	IItem* item = nullptr;
 
 	switch (id)
 	{
-	case ITEM_ID::SPEEDUP:		item = aqua::CreateGameObject<CItemSpeedUp>(this);		break;
-	case ITEM_ID::SPEEDDOWN:	item = aqua::CreateGameObject<CItemSpeedDown>(this);	break;
+	case ITEM_ID::SPEEDUP:		item = aqua::CreateGameObject<CSpeedUpItem>(this);		break;
+	case ITEM_ID::SPEEDDOWN:	item = aqua::CreateGameObject<CSpeedDownItem>(this);	break;
 	}
 
 	if (!item) return;
 
-	item->Initialize();
+	item->Initialize(aqua::CVector2::ZERO);
 }

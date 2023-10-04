@@ -1,19 +1,25 @@
 #pragma once
 #include "../item.h"
 
-class CItemSpeedDown
+class CSpeedDownItem
 	:public IItem
 {
 public:
 	//コンストラクタ
-	CItemSpeedDown(aqua::IGameObject* parent);
+	CSpeedDownItem(aqua::IGameObject* parent);
 
 	//デストラクタ
-	~CItemSpeedDown(void);
+	~CSpeedDownItem(void) = default;
 
 	//初期化
-	void	Initialize(void);
+	void Initialize(aqua::CVector2 position);
 
-private:
-	aqua::CSprite		m_Speeddown;		//スピードアップアイテム
+	//更新
+	void Update()override;
+
+	//描画
+	void Draw()override;
+
+	//解放
+	void Finalize()override;
 };

@@ -1,20 +1,32 @@
 #include "speedup_item.h"
 
 //コンストラクタ
-CItemSpeedUp::CItemSpeedUp(aqua::IGameObject* parent)
-	:IItem(parent, "SpeedUp")
-{
-}
-
-//デストラクタ
-CItemSpeedUp::~CItemSpeedUp(void)
+CSpeedUpItem::CSpeedUpItem(aqua::IGameObject* parent)
+	:IItem(parent,"SpeedUpItem")
 {
 }
 
 //初期化
-void CItemSpeedUp::Initialize(void)
+void CSpeedUpItem::Initialize(aqua::CVector2 position)
 {
-	m_Speedup.Create("data\\speedup.png");
+	IItem::Initialize(position, "data\\speedup.png");
 
-	m_Speedup.position = m_Position;
+}
+
+//更新
+void CSpeedUpItem::Update()
+{
+	IItem::Update();
+}
+
+//描画
+void CSpeedUpItem::Draw()
+{
+	IItem::Draw();
+}
+
+//解放
+void CSpeedUpItem::Finalize()
+{
+	IItem::Finalize();
 }

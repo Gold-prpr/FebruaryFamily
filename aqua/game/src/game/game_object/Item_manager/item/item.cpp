@@ -7,9 +7,10 @@ IItem::IItem(aqua::IGameObject* parent, const std::string& name)
 }
 
 //初期化
-void IItem::Initialize(/*const aqua::CVector2& position*/)
+void IItem::Initialize(aqua::CVector2 position, std::string item_file)
 {
-	m_Position = {100.0f,100.0f};
+	m_ItemSprite.Create(item_file);
+	m_ItemSprite.position = position;
 
 	IGameObject::Initialize();
 }
@@ -23,17 +24,20 @@ void IItem::Update()
 //描画
 void IItem::Draw()
 {
+	m_ItemSprite.Draw();
 	IGameObject::Draw();
 }
 
 //解放
 void IItem::Finalize()
 {
+	m_ItemSprite.Delete();
+
 	IGameObject::Finalize();
 }
 
 //アイテムの位置
 const aqua::CVector2& IItem::GetPosition()
 {
-	return m_Position;
+	return m_ItemSprite.position;
 }

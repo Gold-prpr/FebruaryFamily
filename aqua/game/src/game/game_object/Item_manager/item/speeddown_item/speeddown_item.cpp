@@ -1,20 +1,31 @@
 #include "speeddown_item.h"
 
 //コンストラクタ
-CItemSpeedDown::CItemSpeedDown(aqua::IGameObject* parent)
-	:IItem(parent, "SpeedDown")
-{
-}
-
-//デストラクタ
-CItemSpeedDown::~CItemSpeedDown(void)
+CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
+	:IItem(parent, "SpeedDownItem")
 {
 }
 
 //初期化
-void CItemSpeedDown::Initialize(void)
+void CSpeedDownItem::Initialize(aqua::CVector2 position)
 {
-	m_Speeddown.Create("data\\speeddown.png");
+	IItem::Initialize(position, "data\\speeddown.png");
+}
 
-	m_Speeddown.position = m_Position;
+//更新
+void CSpeedDownItem::Update()
+{
+	IItem::Update();
+}
+
+//描画
+void CSpeedDownItem::Draw()
+{
+	IItem::Draw();
+}
+
+//解放
+void CSpeedDownItem::Finalize()
+{
+	IItem::Finalize();
 }
