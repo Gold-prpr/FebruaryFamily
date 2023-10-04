@@ -29,8 +29,8 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	
 
 	m_Chara.Create("data//player1p.ass","right");
-	m_Chara.anchor.x = m_Chara.GetTextureWidth() / 2.0f;
-	m_Chara.anchor.y = m_Chara.GetTextureHeight() / 2.0f;
+	m_Chara.anchor.x = m_Chara.GetFrameWidth() / 2.0f;
+	m_Chara.anchor.y = m_Chara.GetFrameHeight() / 2.0f;
 	m_Position = position;
 	m_Velocity = aqua::CVector2::ZERO;
 	m_Width = width;
@@ -64,7 +64,7 @@ void CPlayer::Update()
 			m_Velocity.y = jump;
 			m_LandingFlag = false;
 		}
-	}
+	} 
 
 	if (m_DirCurrent != m_DirNext)
 	{
@@ -86,7 +86,8 @@ void CPlayer::Update()
 
 	CheckHitBlok();
 	
-	m_Chara.position = m_pCamera->GetScroll() + GetPosition() - m_Chara.anchor;
+	//m_Chara.position = m_pCamera->GetScroll() + GetPosition() - m_Chara.anchor;
+	m_Chara.position = m_Position + m_pCamera->GetScroll();
 
 	IGameObject::Update();
 }

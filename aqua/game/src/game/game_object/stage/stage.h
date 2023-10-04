@@ -2,6 +2,8 @@
 #include "aqua.h"
 #include "tile_id.h"
 
+class CCamera;
+
 class CStage
 	: public aqua::IGameObject
 {
@@ -82,4 +84,6 @@ private:
 
 	//aqua::CSprite m_background;				//îwåi
 	//aqua::CSprite m_goal;					//ÉSÅ[Éã
+
+	CCamera* m_pCamera;
 };
