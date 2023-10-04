@@ -129,3 +129,14 @@ bool CStage::CheckGoal(int x, int y)
 
 	return false;
 }
+
+bool CStage::CheckItem(int x, int y)
+{
+	int ix = x / map_chip_size;
+	int iy = y / map_chip_size;
+
+	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::ITEM_TILE)
+		return true;
+
+	return false;
+}

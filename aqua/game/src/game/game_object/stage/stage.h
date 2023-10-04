@@ -40,11 +40,11 @@ public:
 	//ゴール判定
 	bool CheckGoal(int x, int y);
 
-	/*//落ちる判定
-	bool CheckFallBlock(int x, int y);
-
 	//アイテム判定
 	bool CheckItem(int x, int y);
+
+	/*//落ちる判定
+	bool CheckFallBlock(int x, int y);
 
 	////ギミック判定(針)
 	bool CheckSpine(int x, int y);
