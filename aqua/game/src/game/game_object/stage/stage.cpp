@@ -1,4 +1,5 @@
 #include "stage.h"
+#include "../camera/camera.h"
 
 const int CStage::map_chip_size = 60;
 
@@ -7,7 +8,7 @@ const int CStage::num_chip_size_y = 1;
 
 const int CStage::all_num_chip = num_chip_size_x * num_chip_size_y;
 
-const int CStage::map_x = 33;
+const int CStage::map_x = 60;
 const int CStage::map_y = 18;
 
 const float CStage::m_gravity = 1.0f;
@@ -17,11 +18,9 @@ CStage::CStage(aqua::IGameObject* parent)
 {
 }
 
-CStage* CStage::Initialize(const aqua::CVector2& map_pos)
+void CStage::Initialize(void)
 {
-	m_MapPos = map_pos;
-
-	m_Scroll = aqua::CVector2::ZERO;
+	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
 
 	std::string file_name = "data//stage.csv";
 
@@ -40,8 +39,6 @@ CStage* CStage::Initialize(const aqua::CVector2& map_pos)
 	Parse(file_name);
 
 	IGameObject::Initialize();
-
-	return nullptr;
 }
 
 void CStage::Update(void)
@@ -55,8 +52,8 @@ void CStage::Draw(void)
 
 	for (auto it = m_MapData.begin(); it != m_MapData.end(); ++it, ++i)
 	{
-		m_TileSprite[*it].position.x = (float)(i % map_x) * 60 - m_Scroll.x + m_MapPos.x;
-		m_TileSprite[*it].position.y = (float)(i / map_x) * 60 - m_Scroll.y + m_MapPos.y;
+		m_TileSprite[*it].position.x = (float)(i % map_x) * map_chip_size + m_pCamera->GetScroll().x;
+		m_TileSprite[*it].position.y = (float)(i / map_x) * map_chip_size + m_pCamera->GetScroll().y;
 
 		m_TileSprite[*it].Draw();
 	}
@@ -99,4 +96,25 @@ float CStage::GetMapWidth(void)
 float CStage::GetMapHeight(void)
 {
 	return map_chip_size * map_y;
+}
+
+float CStage::GetGravity(void)
+{
+	return m_gravity;
+}
+
+bool CStage::CheckHit(int x, int y)
+{
+	int ix = x / map_chip_size;
+	int iy = y / map_chip_size;
+
+	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::GROUND_TILE)
+		return true;
+
+	return false;
+}
+
+int CStage::GetTileSize(void)
+{
+	return map_chip_size;
 }

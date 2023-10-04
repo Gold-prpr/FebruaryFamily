@@ -53,6 +53,10 @@ public:
 	//ダメージをくらった時の処理
 	void Damage(void)override;
 
+	void AddSpeed(float add_speed);
+
+	void CheckHitBlok(void);
+
 private:
 
 	void State_Start();//開始の状態
@@ -67,7 +71,11 @@ private:
 	CStage* m_pStage;
 	CCamera* m_pCamera;
 	CUnitManager* m_pUnitManager;
+	float m_AddSpeed;
+	static const float speed;
+	static const float jump;
 	static const float width;
 	static const float height;
 	static const float radius;
+	bool m_LandingFlag;
 };

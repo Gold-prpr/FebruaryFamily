@@ -27,7 +27,8 @@
 
 class CPlayer;
 class CUnitManager;
-//class CStageManager;
+class CStage;
+class CCamera;
 
 class CGame
     : public aqua::IGameObject
@@ -70,5 +71,6 @@ private:
     static const unsigned int   m_clear_color;
     CPlayer* m_pPlayer;
     CUnitManager* m_pUnitManager;
-    //CStageManager* m_pStageManager;
+    CStage* m_pStage;
+    CCamera* m_pCamera;
 };
