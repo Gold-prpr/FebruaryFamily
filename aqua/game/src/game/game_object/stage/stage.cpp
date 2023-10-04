@@ -7,7 +7,7 @@ const int CStage::num_chip_size_y = 1;
 
 const int CStage::all_num_chip = num_chip_size_x * num_chip_size_y;
 
-const int CStage::map_x = 33;
+const int CStage::map_x = 60;
 const int CStage::map_y = 18;
 
 const float CStage::m_gravity = 1.0f;
