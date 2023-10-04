@@ -27,7 +27,7 @@ public:
 	//アイテムID
 	void Create(ITEM_ID id);
 
+	int m_item_rand;				//ランダムにアイテムを出す
 private:
 	static const int m_item;		//アイテム数
-	int m_item_rand;				//ランダムにアイテムを出す
 };

@@ -9,14 +9,14 @@ CSpeedUpItem::CSpeedUpItem(aqua::IGameObject* parent)
 //‰Šú‰»
 void CSpeedUpItem::Initialize(aqua::CVector2 position)
 {
+	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 	IItem::Initialize(position, "data\\speedup.png");
-
 }
 
 //XV
 void CSpeedUpItem::Update()
 {
-	IItem::Update();
+	SpeedUp();
 }
 
 //•`‰æ
@@ -29,4 +29,15 @@ void CSpeedUpItem::Draw()
 void CSpeedUpItem::Finalize()
 {
 	IItem::Finalize();
+}
+
+//‰Á‘¬
+void CSpeedUpItem::SpeedUp()
+{
+	//using namespace aqua::keyboard;
+
+	//if (Trigger(KEY_ID::S))
+	//{
+	//	m_pPlayer->AddSpeed(1.5);
+	//}
 }

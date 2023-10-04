@@ -24,16 +24,17 @@ CGame( aqua::IGameObject* parent )
 }
 
 /*
- *  èâä˙âª
- */
+*  èâä˙âª
+*/
 void
 CGame::
 Initialize(void)
-{
 
-    //m_pStageManager = aqua::CreateGameObject<CStageManager>(this);
-    //m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
-    //m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO);
+{
+    m_pCamera = aqua::CreateGameObject<CCamera>(this);
+    m_pStage = aqua::CreateGameObject<CStage>(this);
+    m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
+    m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO);
     aqua::CreateGameObject<CItemManager>(this);
 
     IGameObject::Initialize();

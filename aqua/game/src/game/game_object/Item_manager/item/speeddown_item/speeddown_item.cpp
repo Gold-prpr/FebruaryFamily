@@ -9,13 +9,15 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 //‰Šú‰»
 void CSpeedDownItem::Initialize(aqua::CVector2 position)
 {
+	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+
 	IItem::Initialize(position, "data\\speeddown.png");
 }
 
 //XV
 void CSpeedDownItem::Update()
 {
-	IItem::Update();
+	SpeedDown();
 }
 
 //•`‰æ
@@ -28,4 +30,15 @@ void CSpeedDownItem::Draw()
 void CSpeedDownItem::Finalize()
 {
 	IItem::Finalize();
+}
+
+//Œ¸‘¬
+void CSpeedDownItem::SpeedDown()
+{
+	//using namespace aqua::keyboard;
+
+	//if (Trigger(KEY_ID::S))
+	//{
+	//	m_pPlayer->AddSpeed(0.8);
+	//}
 }

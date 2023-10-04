@@ -32,7 +32,6 @@ void IItem::Draw()
 void IItem::Finalize()
 {
 	m_ItemSprite.Delete();
-
 	IGameObject::Finalize();
 }
 

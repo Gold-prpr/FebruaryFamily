@@ -15,7 +15,7 @@ void CItemManager::Initialize(void)
 {
 	//m_item_rand = 0;
 
-	Create(ITEM_ID::SPEEDUP);
+	//Create(ITEM_ID::SPEEDUP);
 
 	IGameObject::Initialize();
 }
@@ -62,6 +62,5 @@ void CItemManager::Create(ITEM_ID id)
 	}
 
 	if (!item) return;
-
 	item->Initialize(aqua::CVector2::ZERO);
 }

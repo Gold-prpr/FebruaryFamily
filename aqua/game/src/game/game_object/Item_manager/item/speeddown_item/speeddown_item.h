@@ -1,5 +1,8 @@
 #pragma once
 #include "../item.h"
+#include "../../../unit_manager/unit/player/player.h"
+
+class CPlayer;
 
 class CSpeedDownItem
 	:public IItem
@@ -22,4 +25,10 @@ public:
 
 	//‰ð•ú
 	void Finalize()override;
+
+	//Œ¸‘¬
+	void SpeedDown();
+
+private:
+	CPlayer* m_pPlayer;
 };

@@ -1,5 +1,8 @@
 #pragma once
 #include "../item.h"
+#include "../../../unit_manager/unit/player/player.h"
+
+class CPlayer;
 
 class CSpeedUpItem
 	:public IItem
@@ -12,14 +15,20 @@ public:
 	~CSpeedUpItem(void) = default;
 
 	//‰Šú‰»
-	  void Initialize(aqua::CVector2 position);
+	 void Initialize(aqua::CVector2 position);
 
 	//XV
-	  void Update()override;
+	 void Update()override;
 
 	//•`‰æ
-	  void Draw()override;
+	 void Draw()override;
 
 	//‰ğ•ú
-	  void Finalize()override;
+	 void Finalize()override;
+
+	 //‰Á‘¬ŒvZ
+	 void SpeedUp();
+
+private:
+	CPlayer*		m_pPlayer;
 };
