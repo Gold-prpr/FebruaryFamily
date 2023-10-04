@@ -3,7 +3,7 @@
 
 const int CStage::map_chip_size = 60;
 
-const int CStage::num_chip_size_x = 3;
+const int CStage::num_chip_size_x = 4;
 const int CStage::num_chip_size_y = 1;
 
 const int CStage::all_num_chip = num_chip_size_x * num_chip_size_y;
@@ -30,8 +30,8 @@ void CStage::Initialize(void)
 	{
 		m_TileSprite[i].Create("data\\tile.png");
 
-		int cw = i % 3 * map_chip_size;
-		int ch = i / 3 * map_chip_size;
+		int cw = i % 4 * map_chip_size;
+		int ch = i / 4 * map_chip_size;
 
 		m_TileSprite[i].rect = aqua::CRect(cw, ch, cw + map_chip_size, ch + map_chip_size);
 	}
@@ -117,4 +117,15 @@ bool CStage::CheckHit(int x, int y)
 int CStage::GetTileSize(void)
 {
 	return map_chip_size;
+}
+
+bool CStage::CheckGoal(int x, int y)
+{
+	int ix = x / map_chip_size;
+	int iy = y / map_chip_size;
+
+	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::GOAL_TILE)
+		return true;
+
+	return false;
 }
