@@ -13,6 +13,9 @@ void CCamera::Initialize()
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
+	m_1PStage.Create(m_DivScreen);
+	m_2PStage.Create(m_DivScreen);
+	
 }
 
 void CCamera::Update()
@@ -25,6 +28,19 @@ void CCamera::Update()
 	m_Scroll.x = max(m_Scroll.x, (float)aqua::GetWindowWidth() - m_pStage->GetMapWidth());
 	m_Scroll.y = min(m_Scroll.y, 0.0f);
 	m_Scroll.y = max(m_Scroll.y, (float)aqua::GetWindowHeight() - m_pStage->GetMapHeight());
+
+	m_DivScreen.Begin();
+	
+}
+
+void CCamera::Draw()
+{
+	m_DivScreen.CopyDrawScreen();
+}
+
+void CCamera::Finalize()
+{
+	m_DivScreen.End();
 }
 
 const aqua::CVector2& CCamera::GetScroll()

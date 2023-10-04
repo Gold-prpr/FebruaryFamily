@@ -19,11 +19,18 @@ public:
 	//XV
 	void Update()override;
 
+	void Draw()override;
+
+	void Finalize()override;
+
 	//OffSet‚Ìæ“¾
 	const aqua::CVector2& GetScroll();
 
 private:
 	aqua::CVector2 m_Scroll;
+	aqua::CSurface m_DivScreen;
+	aqua::CSprite m_1PStage;
+	aqua::CSprite m_2PStage;
 	CPlayer* m_pPlayer;
 	CStage* m_pStage;
 
