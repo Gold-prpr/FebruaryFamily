@@ -33,6 +33,7 @@ Initialize(void)
     m_pStage = aqua::CreateGameObject<CStage>(this);
     m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
     m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO);
+    m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
 
     IGameObject::Initialize();
 }

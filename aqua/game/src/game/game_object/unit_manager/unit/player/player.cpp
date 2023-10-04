@@ -26,6 +26,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	
 
 	m_Chara.Create("data//player1p.ass","right");
 	m_Chara.anchor.x = m_Chara.GetTextureWidth() / 2.0f;
@@ -47,9 +48,15 @@ void CPlayer::Update()
 	m_Velocity.x = 0.0f;
 
 	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::A))
-		m_Velocity.x = -5;
+	{
+		m_DirNext = CHARA_DIR::LEFT;
+		m_Velocity.x = -speed;
+	}
 	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::D))
-		m_Velocity.x = 5;
+	{
+		m_DirNext = CHARA_DIR::RIGHT;
+		m_Velocity.x = speed;
+	}
 	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))
 	{
 		if (m_LandingFlag == true)
@@ -59,9 +66,27 @@ void CPlayer::Update()
 		}
 	}
 
+	if (m_DirCurrent != m_DirNext)
+	{
+		m_DirCurrent = m_DirNext;
+
+		switch (m_DirNext)
+		{
+		case CHARA_DIR::LEFT:
+			m_Chara.Change("left");
+			break;
+
+		case CHARA_DIR::RIGHT:
+			m_Chara.Change("right");
+			break;
+		default:
+			break;
+		}
+	}
+
 	CheckHitBlok();
 	
-	m_Chara.position = m_Position;
+	m_Chara.position = m_pCamera->GetScroll() + GetPosition() - m_Chara.anchor;
 
 	IGameObject::Update();
 }
