@@ -1,11 +1,11 @@
 #pragma once
 #include "../change_scene.h"
 
-class CBloackMosaic :public IChangeScene
+class CSlideClose :public IChangeScene
 {
 public:
-	CBloackMosaic(aqua::IGameObject* parent);
-	~CBloackMosaic() = default;
+	CSlideClose(aqua::IGameObject* parent);
+	~CSlideClose() = default;
 
 	/*
 	 *  @brief èâä˙âª
@@ -39,18 +39,14 @@ public:
 
 private:
 
-	static const aqua::CPoint	m_max_block_mosaic;
+	static const float			m_start_position_x;
 	static const float			m_max_block_time;
-	static const unsigned char  m_max_block_alpha;
-	static const unsigned char  m_min_block_alpha;
+	static const int			m_max_block;
 
 	aqua::CBoxPrimitive*		m_MosaicBox;
 
 	aqua::CVector2				m_MosaicSize;
 
 	aqua::CTimer				m_BlockTime;
-
-	int							m_CountMosaic;
-
 };
 

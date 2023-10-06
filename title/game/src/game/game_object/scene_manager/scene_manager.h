@@ -1,6 +1,7 @@
 #pragma once
 #include "aqua.h"
 #include "scene/scene_id.h"
+#include "change_scene/change_scene_id.h"
 
 enum class SCENE_STATE
 {
@@ -27,12 +28,20 @@ private:
 
 	void CreateScene(SCENE_ID scene_id);
 
+	void DeleteScene();
+
+	void CreateChangeScene(CHANGE_SCENE_ID change_scene_id);
+
+	void DeleteChangeScene();
+
 private:
 
 	SCENE_STATE m_SceneState;
 	SCENE_ID    m_NextSceneID;
 
-	IChangeScene* m_ChangeSceneClass;
-	IChangeScene* m_SceneClass;
+	IChangeScene*	m_ChangeSceneClass;
+	IScene*			m_SceneClass;
+
+	aqua::CSurface  m_SceneSurface;
 
 };

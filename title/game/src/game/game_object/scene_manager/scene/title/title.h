@@ -16,7 +16,7 @@ public:
 
 private:
 
-
+	aqua::CSprite m_BackGround;
 
 };
 

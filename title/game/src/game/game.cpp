@@ -30,6 +30,7 @@ void
 CGame::
 Initialize(void)
 {
+    aqua::CreateGameObject<CSceneManager>(this);
 
     IGameObject::Initialize();
 }

@@ -98,6 +98,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\game_object\scene_manager\change_scene\slide_close\slide_close.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\change_scene\block_mosaic\block_mosaic.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\change_scene\fead\fade.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\change_scene\change_scene.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="src\game\game_object\scene_manager\scene\title\title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\game_object\scene_manager\change_scene\slide_close\slide_close.h" />
     <ClInclude Include="src\game\game_object\scene_manager\change_scene\block_mosaic\block_mosaic.h" />
     <ClInclude Include="src\game\game_object\scene_manager\change_scene\change_scecne_channel.h" />
     <ClInclude Include="src\game\game_object\scene_manager\change_scene\change_scene_id.h" />
@@ -125,12 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="data\abe.png" />
-    <Image Include="data\tile.png" />
-    <Image Include="data\tile1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="data\stage.csv" />
-    <None Include="data\stage.xlsm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

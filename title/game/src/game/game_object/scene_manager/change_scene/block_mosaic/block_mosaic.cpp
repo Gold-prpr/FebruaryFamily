@@ -1,13 +1,13 @@
 #include "block_mosaic.h"
 
-const aqua::CPoint		CBloackMosaic::m_max_block_mosaic(16,9);
-const float				CBloackMosaic::m_max_block_time = 0.5f;
+const aqua::CPoint		CBloackMosaic::m_max_block_mosaic(16, 9);
+const float				CBloackMosaic::m_max_block_time = 1.75f;
 const unsigned char		CBloackMosaic::m_max_block_alpha = 0xff;
 const unsigned char		CBloackMosaic::m_min_block_alpha = 0x00;
 
 CBloackMosaic::CBloackMosaic(aqua::IGameObject* parent)
 	:IChangeScene(parent, "BloackMosaic")
-	, m_BlockInFlag(false)
+	, m_MosaicBox(nullptr)
 {
 }
 
@@ -16,33 +16,25 @@ CBloackMosaic::CBloackMosaic(aqua::IGameObject* parent)
 */
 void CBloackMosaic::Initialize()
 {
+	m_CountMosaic = (int)(m_max_block_mosaic.x * m_max_block_mosaic.y);
+
+	m_MosaicBox = AQUA_NEW aqua::CBoxPrimitive[m_CountMosaic];
+
 	m_BlockTime.Setup(m_max_block_time);
-}
 
-void CBloackMosaic::CreateSprite(aqua::CSurface& surface)
-{
-	m_MosaicSize.x = (float)aqua::GetWindowWidth()  / (float)m_max_block_mosaic.x;
+	m_MosaicSize.x = (float)aqua::GetWindowWidth() / (float)m_max_block_mosaic.x;
 	m_MosaicSize.y = (float)aqua::GetWindowHeight() / (float)m_max_block_mosaic.y;
-
+	
 	for (int i = 0; i < m_max_block_mosaic.y; i++)
 	{
 		for (int j = 0; j < m_max_block_mosaic.x; j++)
 		{
-			aqua::CSprite s;
+			int a = i * m_max_block_mosaic.x + j;
 
-			s.Create(surface);
+			m_MosaicBox[a].Setup(aqua::CVector2(j, i) * m_MosaicSize, m_MosaicSize.x, m_MosaicSize.y, aqua::CColor::BLACK);
 
-			s.rect.top = i * m_MosaicSize.y;
-			s.rect.bottom = (i + 1) * m_MosaicSize.y;
+			m_MosaicBox[a].visible = false;
 
-			s.rect.left  = j * m_MosaicSize.x;
-			s.rect.right = (j + 1) * m_MosaicSize.x;
-
-			s.position = aqua::CVector2(j, i) * m_MosaicSize;
-
-			m_BlockSprite.push_back(s);
-
-			s.Delete();
 		}
 	}
 }
@@ -52,6 +44,11 @@ void CBloackMosaic::CreateSprite(aqua::CSurface& surface)
 */
 void CBloackMosaic::Update()
 {
+	if (m_BlockTime.Finished())
+	{
+		m_BlockTime.Reset();
+	}
+
 	m_BlockTime.Update();
 }
 
@@ -61,11 +58,10 @@ void CBloackMosaic::Update()
 void CBloackMosaic::Draw()
 {
 
-	for (auto sprite_it : m_BlockSprite)
+	for (int i = 0; i < m_CountMosaic; i++)
 	{
-		sprite_it.Draw();
+		m_MosaicBox[i].Draw();
 	}
-
 }
 
 /*
@@ -73,10 +69,14 @@ void CBloackMosaic::Draw()
 */
 void CBloackMosaic::Finalize()
 {
-	for (auto sprite_it : m_BlockSprite)
+	for (int i = 0; i < m_CountMosaic; i++)
 	{
-		sprite_it.Draw();
+		m_MosaicBox[i] = {};
 	}
+
+	AQUA_SAFE_DELETE_ARRAY(m_MosaicBox);
+
+	aqua::IGameObject::Finalize();
 }
 
 /*
@@ -84,34 +84,52 @@ void CBloackMosaic::Finalize()
 */
 bool CBloackMosaic::In()
 {
-	if (m_BlockTime.Finished() && !m_BlockInFlag)
-	{
-		m_BlockTime.Reset();
-		m_BlockInFlag = true;
-	}
-
-	float easing_speed = aqua::easing::InBack
+	int mosaic_num = (int)aqua::easing::InCirc
 	(
 		m_BlockTime.GetTime(),
 		m_BlockTime.GetLimit(),
-		0,
-		10.0f
+		0.0f,
+		(float)m_CountMosaic
 	);
 
-	unsigned char alpha  =
-		(unsigned char)aqua::easing::InCubic
-		(
-			m_BlockTime.GetTime(),
-			m_BlockTime.GetLimit(),
-			m_max_block_alpha,
-			m_min_block_alpha
-		);
+	int i = 0, j = 0;
 
-	for (auto sprite_it : m_BlockSprite)
+	int count = 0;
+
+	while (i < m_CountMosaic)
 	{
-		sprite_it.position.x += easing_speed;
+		if (mosaic_num == j || mosaic_num == m_CountMosaic)
+			break;
 
-		sprite_it.color.alpha = alpha;
+		int probability = aqua::Rand(1000, 1);
+
+		if (probability % 2 == 0 && m_MosaicBox[i].visible)
+		{
+			j++;
+
+			m_MosaicBox[i].visible = false;
+		}
+
+		if (i == m_CountMosaic - 1 && mosaic_num > j)
+		{
+			i = 0;
+
+			count++;
+		}
+
+		if (count > 10)
+		{
+
+			for (int k = 0; k < m_CountMosaic; k++)
+			{
+				if (m_MosaicBox[k].visible)
+					m_MosaicBox[i].visible = false;
+			}
+
+			break;
+		}
+
+		i++;
 	}
 
 	return m_BlockTime.Finished();
@@ -122,5 +140,52 @@ bool CBloackMosaic::In()
 */
 bool CBloackMosaic::Out()
 {
-	return true;
+	int mosaic_num = (int)aqua::easing::InCirc
+	(
+		m_BlockTime.GetTime(),
+		m_BlockTime.GetLimit(),
+		0.0f,
+		(float)m_CountMosaic
+	);
+
+	int i = 0, j = 0;
+
+	int count = 0;
+
+	while (i < m_CountMosaic)
+	{
+		if (mosaic_num == j || mosaic_num == m_CountMosaic)
+			break;
+
+		int probability = aqua::Rand(1000, 1);
+
+		if (probability % 2 == 0 && !m_MosaicBox[i].visible)
+		{
+			j++;
+
+			m_MosaicBox[i].visible = true;
+		}
+
+		if (i == m_CountMosaic -1 && mosaic_num > j)
+		{
+			i = 0;
+			count++;
+		}
+
+		if (count > 10)
+		{
+
+			for (int k = 0; k < m_CountMosaic; k++)
+			{
+				if(!m_MosaicBox[k].visible)
+					m_MosaicBox[i].visible = true;
+			}
+
+			break;
+		}
+
+		i++;
+	}
+
+	return m_BlockTime.Finished();
 }

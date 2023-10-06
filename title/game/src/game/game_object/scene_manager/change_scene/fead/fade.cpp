@@ -1,6 +1,6 @@
 #include "fade.h"
 
-const float CFade::m_max_fade_time = 0.5f;
+const float CFade::m_max_fade_time = 3.75f;
 const unsigned char CFade::m_max_fade_alpha = 0xff;
 const unsigned char CFade::m_min_fade_alpha = 0x00;
 
@@ -16,7 +16,7 @@ void CFade::Initialize()
 {
 	m_FadeTime.Setup(m_max_fade_time);
 
-	m_FadeBox.Setup(aqua::CVector2::ZERO, aqua::GetWindowWidth(), aqua::GetWindowHeight(), aqua::CColor::BLACK);
+	m_FadeBox.Setup(aqua::CVector2::ZERO,(float)aqua::GetWindowWidth(), (float)aqua::GetWindowHeight(), aqua::CColor::BLACK);
 }
 
 /*
@@ -52,7 +52,7 @@ bool CFade::In()
 		m_FadeTime.Reset();
 
 	m_FadeBox.color.alpha =
-		aqua::easing::InCubic
+		(unsigned char)aqua::easing::InBack
 		(
 			m_FadeTime.GetTime(),
 			m_FadeTime.GetLimit(),
@@ -60,7 +60,13 @@ bool CFade::In()
 			m_min_fade_alpha
 		);
 
-	return m_FadeTime.Finished();
+	if (m_FadeTime.Finished())
+		m_FadeTime.Reset();
+
+	if (m_FadeBox.color.alpha < m_min_fade_alpha + (unsigned char)10)
+		m_FadeBox.color.alpha = m_min_fade_alpha;
+
+	return m_FadeBox.color.alpha == m_min_fade_alpha;
 }
 
 /*
@@ -72,7 +78,7 @@ bool CFade::Out()
 		m_FadeTime.Reset();
 
 	m_FadeBox.color.alpha =
-		aqua::easing::OutCubic
+		(unsigned char)aqua::easing::OutBack
 		(
 			m_FadeTime.GetTime(),
 			m_FadeTime.GetLimit(),
@@ -80,5 +86,8 @@ bool CFade::Out()
 			m_max_fade_alpha
 		);
 
-	return m_FadeTime.Finished();
+	if (m_FadeTime.Finished())
+		m_FadeTime.Reset();
+
+	return m_FadeBox.color.alpha == m_max_fade_alpha;
 }

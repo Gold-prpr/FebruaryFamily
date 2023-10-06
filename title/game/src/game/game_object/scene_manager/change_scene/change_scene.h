@@ -42,8 +42,4 @@ public:
 	 */
 	virtual bool Out();
 
-private:
-
-
-
 };
