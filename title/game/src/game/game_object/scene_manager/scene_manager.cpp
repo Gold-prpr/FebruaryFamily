@@ -16,41 +16,52 @@ void CSceneManager::Initialize()
 	m_SceneSurface.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
 
 	CreateScene(m_NextSceneID);
-
-	//CreateChangeScene(CHANGE_SCENE_ID::FADE);
 }
 
 void CSceneManager::Update()
 {
 	switch (m_SceneState)
 	{
+		// シーンへ移動状態
 	case SCENE_STATE::SCENE_IN:
 
+		// シーンの生成
 		CreateScene(m_NextSceneID);
 
 		if (m_ChangeSceneClass->In())
 		{
 			DeleteChangeScene();
+
+			// 次の状態に設定
 			m_SceneState = SCENE_STATE::UPDATE;
 		}
 
 		break;
+
+		// 更新状態
 	case SCENE_STATE::UPDATE:
 
 
 		if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
 		{
+			// 次の状態に設定
 			m_SceneState = SCENE_STATE::SCENE_OUT;
+
+			// シーン遷移の演出IDを取得
+			m_NextChangeSceneID = m_SceneClass->GetNextChangeSceneID();
 		}
 		m_SceneClass->Update();
 
 		break;
+		// シーン遷移演出へ移動状態
 	case SCENE_STATE::SCENE_OUT:
 
+		// 次のシーンIDを取得
 		if (m_SceneClass)
 			m_NextSceneID = m_SceneClass->GetNextSceneID();
 
-		CreateChangeScene(CHANGE_SCENE_ID::BLOCK_MOSAIC);
+		// シーン遷移の演出を生成
+		CreateChangeScene(m_NextChangeSceneID);
 
 		if (m_ChangeSceneClass->Out())
 		{
@@ -62,6 +73,7 @@ void CSceneManager::Update()
 		break;
 	}
 
+	// シーン遷移演出の更新
 	if (m_ChangeSceneClass)
 		m_ChangeSceneClass->Update();
 
@@ -165,6 +177,13 @@ void CSceneManager::CreateChangeScene(CHANGE_SCENE_ID change_scene_id)
 	case CHANGE_SCENE_ID::BLOCK_MOSAIC:
 
 		m_ChangeSceneClass = (IChangeScene*)aqua::CreateGameObject<CBloackMosaic>(this);
+
+
+		break;
+
+	case CHANGE_SCENE_ID::SLIDE_CLOSE:
+
+		m_ChangeSceneClass = (IChangeScene*)aqua::CreateGameObject<CSlideClose>(this);
 
 
 		break;

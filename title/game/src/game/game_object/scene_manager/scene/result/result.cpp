@@ -1,7 +1,7 @@
 #include "result.h"
 
 CResult::CResult(aqua::IGameObject* parent)
-	:IScene(parent,"Result",SCENE_ID::TITLE)
+	:IScene(parent,"Result",SCENE_ID::TITLE,CHANGE_SCENE_ID::SLIDE_CLOSE)
 {
 }
 

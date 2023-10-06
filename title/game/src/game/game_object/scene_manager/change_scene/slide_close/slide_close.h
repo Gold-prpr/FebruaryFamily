@@ -45,8 +45,8 @@ private:
 
 	aqua::CBoxPrimitive*		m_MosaicBox;
 
-	aqua::CVector2				m_MosaicSize;
+	aqua::CTimer				m_SlideTime;
 
-	aqua::CTimer				m_BlockTime;
+	bool						m_OutFlag;
 };
 

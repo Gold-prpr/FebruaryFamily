@@ -36,8 +36,9 @@ private:
 
 private:
 
-	SCENE_STATE m_SceneState;
-	SCENE_ID    m_NextSceneID;
+	SCENE_STATE			m_SceneState;
+	SCENE_ID			m_NextSceneID;
+	CHANGE_SCENE_ID		m_NextChangeSceneID;
 
 	IChangeScene*	m_ChangeSceneClass;
 	IScene*			m_SceneClass;

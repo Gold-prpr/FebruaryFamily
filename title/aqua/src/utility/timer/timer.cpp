@@ -112,6 +112,14 @@ SetLimit( float limit )
 }
 
 /*
+ *  現在の経過時間を設定
+ */
+void aqua::CTimer::SetTimer(float timer)
+{
+    m_CurrentTime = timer;
+}
+
+/*
  *  タイムスケールを取得
  */
 float
