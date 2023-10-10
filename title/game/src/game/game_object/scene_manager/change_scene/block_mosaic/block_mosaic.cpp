@@ -126,6 +126,8 @@ bool CBloackMosaic::In()
 					m_MosaicBox[i].visible = false;
 			}
 
+			m_BlockTime.SetTimer(m_BlockTime.GetLimit());
+
 			break;
 		}
 
@@ -179,7 +181,9 @@ bool CBloackMosaic::Out()
 			{
 				if(!m_MosaicBox[k].visible)
 					m_MosaicBox[i].visible = true;
-			}
+			}			
+
+			m_BlockTime.SetTimer(m_BlockTime.GetLimit());
 
 			break;
 		}

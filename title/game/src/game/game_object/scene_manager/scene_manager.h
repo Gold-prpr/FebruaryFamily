@@ -28,11 +28,41 @@ private:
 
 	void CreateScene(SCENE_ID scene_id);
 
-	void DeleteScene();
-
 	void CreateChangeScene(CHANGE_SCENE_ID change_scene_id);
 
-	void DeleteChangeScene();
+	/*
+	*	@brief 子オブジェクトから特定のクラスすべてを解放する
+	* 
+	*	@param[in] bc				基底クラス
+	*	@param[in] category_name	カテゴリー名
+	*/
+	template<class BaseClass> void DeleteChildObject(BaseClass *bc,std::string category_name)
+	{
+		if (!bc)return;
+
+		auto child_it = m_ChildObjectList.begin();
+
+		while (child_it != m_ChildObjectList.end())
+		{
+
+			if ((*child_it)->GetGameObjectCategory() == category_name)
+			{
+				(*child_it)->Finalize();
+
+				child_it = aqua::ListErase(&m_ChildObjectList, child_it);
+
+				break;
+			}
+
+			if (child_it == m_ChildObjectList.end())
+				break;
+
+			child_it++;
+		}
+
+		*bc = nullptr;
+
+	};
 
 private:
 

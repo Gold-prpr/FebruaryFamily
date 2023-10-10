@@ -11,6 +11,9 @@ CSceneManager::CSceneManager(aqua::IGameObject* parent)
 {
 }
 
+/*
+*	初期化
+*/
 void CSceneManager::Initialize()
 {
 	m_SceneSurface.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
@@ -18,6 +21,9 @@ void CSceneManager::Initialize()
 	CreateScene(m_NextSceneID);
 }
 
+/*
+*	更新
+*/
 void CSceneManager::Update()
 {
 	switch (m_SceneState)
@@ -30,7 +36,7 @@ void CSceneManager::Update()
 
 		if (m_ChangeSceneClass->In())
 		{
-			DeleteChangeScene();
+			DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
 
 			// 次の状態に設定
 			m_SceneState = SCENE_STATE::UPDATE;
@@ -66,8 +72,8 @@ void CSceneManager::Update()
 		if (m_ChangeSceneClass->Out())
 		{
 			m_SceneState = SCENE_STATE::SCENE_IN;
-			DeleteScene();
 
+			DeleteChildObject(&m_SceneClass, "Scene");
 		}
 
 		break;
@@ -75,12 +81,15 @@ void CSceneManager::Update()
 
 	// シーン遷移演出の更新
 	if (m_ChangeSceneClass)
-		m_ChangeSceneClass->Update();
+		m_ChangeSceneClass->Update();	
 
 
 	aqua::IGameObject::Update();
 }
 
+/*
+*	描画
+*/
 void CSceneManager::Draw()
 {
 	m_SceneSurface.Begin();
@@ -97,17 +106,20 @@ void CSceneManager::Draw()
 		m_ChangeSceneClass->Draw();
 }
 
+/*
+*	解放
+*/
 void CSceneManager::Finalize()
 {
-	DeleteScene();
+	DeleteChildObject(&m_SceneClass, "Scene");
 
-	DeleteChangeScene();
+	DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
 
 	aqua::IGameObject::Finalize();
 }
 
 /*
-*
+*	シーンクラスの生成
 */
 void CSceneManager::CreateScene(SCENE_ID scene_id)
 {
@@ -132,35 +144,7 @@ void CSceneManager::CreateScene(SCENE_ID scene_id)
 }
 
 /*
-*
-*/
-void CSceneManager::DeleteScene()
-{
-	if (!m_SceneClass)return;
-
-	auto child_it = m_ChildObjectList.begin();
-
-	while (child_it != m_ChildObjectList.end())
-	{
-
-		if ((*child_it)->GetGameObjectCategory() == "Scene")
-		{
-			((IScene*)(*child_it))->Finalize();
-
-			child_it = aqua::ListErase(&m_ChildObjectList, child_it);
-		}
-
-		if (child_it == m_ChildObjectList.end())
-			break;
-
-		child_it++;
-	}
-
-	m_SceneClass = nullptr;
-}
-
-/*
-*
+*	シーン切り替えクラスの生成
 */
 void CSceneManager::CreateChangeScene(CHANGE_SCENE_ID change_scene_id)
 {
@@ -192,34 +176,4 @@ void CSceneManager::CreateChangeScene(CHANGE_SCENE_ID change_scene_id)
 	m_ChangeSceneClass->CreateSprite(m_SceneSurface);
 
 	m_ChangeSceneClass->Initialize();
-}
-
-
-/*
-*
-*/
-void CSceneManager::DeleteChangeScene()
-{
-	if (!m_ChangeSceneClass)return;
-
-	auto child_it = m_ChildObjectList.begin();
-
-	while (child_it != m_ChildObjectList.end())
-	{
-
-		if ((*child_it)->GetGameObjectCategory() == "ChangeScene")
-		{
-			((IChangeScene*)(*child_it))->Finalize();
-
-			child_it = aqua::ListErase(&m_ChildObjectList, child_it);
-
-		}
-
-		if (child_it == m_ChildObjectList.end())
-			break;
-
-		child_it++;
-	}
-
-	m_ChangeSceneClass = nullptr;
 }
