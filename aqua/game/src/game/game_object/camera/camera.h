@@ -28,9 +28,10 @@ public:
 
 private:
 	aqua::CVector2 m_Scroll;
-	aqua::CSurface m_DivScreen;
-	aqua::CSprite m_1PStage;
-	aqua::CSprite m_2PStage;
+	aqua::CSurface m_P1DivScreen;
+	aqua::CSurface m_P2DivScreen;
+	aqua::CSprite m_P1Stage;
+	aqua::CSprite m_P2Stage;
 	CPlayer* m_pPlayer;
 	CStage* m_pStage;
 
