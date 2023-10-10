@@ -43,6 +43,9 @@ public:
 	//アイテム判定
 	bool CheckItem(int x, int y);
 
+	//ギミック判定
+	bool CheckGimmick(int x, int y);
+
 	/*//落ちる判定
 	bool CheckFallBlock(int x, int y);
 
@@ -81,6 +84,9 @@ private:
 
 	//aqua::CSprite m_background;				//背景
 	//aqua::CSprite m_goal;					//ゴール
+
+	int m_MapTileX;
+	int m_MapTileY;
 
 	CCamera* m_pCamera;
 };
