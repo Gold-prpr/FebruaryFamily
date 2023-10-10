@@ -30,5 +30,10 @@ public:
 	 void SpeedUp();
 
 private:
-	CPlayer*		m_pPlayer;
+	//static const float	m_one_second;	//1秒
+	//static const int	m_time_limit;	//
+	//int					m_count_down;	//
+	bool				m_flag;				//アイテム使ったか
+	aqua::CTimer		m_EffectTimer;		//効果時間
+	CPlayer*			m_pPlayer;
 };
