@@ -10,7 +10,11 @@ CSpeedUpItem::CSpeedUpItem(aqua::IGameObject* parent)
 void CSpeedUpItem::Initialize(aqua::CVector2 position)
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+
+	//5秒間
 	m_EffectTimer.Setup(5.0f);
+	//アイテム使っていない状態
+	m_itemflag = false;
 	IItem::Initialize(position, "data\\speedup.png");
 }
 
@@ -35,14 +39,25 @@ void CSpeedUpItem::Finalize()
 //加速
 void CSpeedUpItem::SpeedUp()
 {
-	//using namespace aqua::keyboard;
+	using namespace aqua::keyboard;
 
-	//if (Trigger(KEY_ID::S))
-	//{
-	// 	m_EffectTimer.Update();
-	//if (!m_EffectTimer.Finished())
-	//	m_pPlayer->AddSpeed(1.5);
-	//}
+	//使ってない時は通常スピード
+	if (m_itemflag = false)
+		m_pPlayer->AddSpeed(1.0f);
 
+	//押したらアイテム使用
+	if (Trigger(KEY_ID::S))
+		m_itemflag = true;
+
+	//アイテムを使っていたら
+	if (m_itemflag = true)
+	{
+	 	m_EffectTimer.Update();
+		m_pPlayer->AddSpeed(1.5f);
+	}
+
+	//アイテム効果時間が終わったら
+	if (m_EffectTimer.Finished())
+		m_itemflag = false;
 
 }
