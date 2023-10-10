@@ -23,13 +23,13 @@ void CSpeedDownItem::Update()
 //•`‰æ
 void CSpeedDownItem::Draw()
 {
-	IItem::Draw();
+	//IItem::Draw();
 }
 
 //‰ð•ú
 void CSpeedDownItem::Finalize()
 {
-	IItem::Finalize();
+	//IItem::Finalize();
 }
 
 //Œ¸‘¬

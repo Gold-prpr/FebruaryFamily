@@ -10,6 +10,7 @@ CSpeedUpItem::CSpeedUpItem(aqua::IGameObject* parent)
 void CSpeedUpItem::Initialize(aqua::CVector2 position)
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	m_EffectTimer.Setup(5.0f);
 	IItem::Initialize(position, "data\\speedup.png");
 }
 
@@ -22,13 +23,13 @@ void CSpeedUpItem::Update()
 //•`‰æ
 void CSpeedUpItem::Draw()
 {
-	IItem::Draw();
+	//IItem::Draw();
 }
 
 //‰ð•ú
 void CSpeedUpItem::Finalize()
 {
-	IItem::Finalize();
+	//IItem::Finalize();
 }
 
 //‰Á‘¬
@@ -38,6 +39,10 @@ void CSpeedUpItem::SpeedUp()
 
 	//if (Trigger(KEY_ID::S))
 	//{
+	// 	m_EffectTimer.Update();
+	//if (!m_EffectTimer.Finished())
 	//	m_pPlayer->AddSpeed(1.5);
 	//}
+
+
 }
