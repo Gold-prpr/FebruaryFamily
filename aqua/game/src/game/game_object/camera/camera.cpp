@@ -49,6 +49,8 @@ void CCamera::Draw()
 
 void CCamera::Finalize()
 {
+	m_P1Stage.Delete();
+	m_P2Stage.Delete();
 }
 
 const aqua::CVector2& CCamera::GetScroll()
