@@ -22,9 +22,6 @@ public:
 	//‰ğ•ú
 	void Finalize()override;
 
-	//Unit‚Ì¶¬‚Æİ’u
-	void Create(STAGE_GIMMICK id);
-
 private:
 
 };

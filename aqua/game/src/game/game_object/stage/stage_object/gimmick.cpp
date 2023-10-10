@@ -12,27 +12,15 @@ void CGimmick::Initialize()
 
 void CGimmick::Update()
 {
-	IGameObject::Initialize();
+	IGameObject::Update();
 }
 
 void CGimmick::Draw()
 {
-	IGameObject::Initialize();
+	IGameObject::Draw();
 }
 
 void CGimmick::Finalize()
 {
-	IGameObject::Initialize();
-}
-
-void CGimmick::Create(STAGE_GIMMICK id)
-{
-	/*IGameObject* gimmick = nullptr;
-
-	switch (id)
-	{
-	case STAGE_GIMMICK::NEEDLE: gimmick = aqua::CreateGameObject<CNeedle>(this); break;
-	}
-
-	gimmick->Initialize();*/
+	IGameObject::Finalize();
 }
