@@ -34,6 +34,7 @@ Initialize(void)
 
     m_pCamera = aqua::CreateGameObject<CCamera>(this);
 
+
     IGameObject::Initialize();
 }
 

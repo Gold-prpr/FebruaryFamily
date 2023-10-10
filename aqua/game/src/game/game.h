@@ -29,6 +29,7 @@ class CPlayer;
 class CUnitManager;
 class CStage;
 class CCamera;
+class CGimmick;
 
 class CGame
     : public aqua::IGameObject
@@ -71,4 +72,5 @@ private:
     static const unsigned int   m_clear_color;
 
     CCamera* m_pCamera;
+    CGimmick* m_pGimmick;
 };
