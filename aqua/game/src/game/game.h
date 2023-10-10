@@ -69,8 +69,6 @@ public:
 private:
     //!< 画面クリアカラー
     static const unsigned int   m_clear_color;
-    CPlayer* m_pPlayer;
-    CUnitManager* m_pUnitManager;
-    CStage* m_pStage;
+
     CCamera* m_pCamera;
 };

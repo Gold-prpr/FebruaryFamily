@@ -13,11 +13,11 @@ const float CPlayer::radius = 30.0f;
 
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
-	:IUnit(parent,"Player")
-	,m_pStage(nullptr)
-	,m_pCamera(nullptr)
-	,m_pUnitManager(nullptr)
-	,m_State(STATE::START)
+	:IUnit(parent, "Player")
+	, m_pStage(nullptr)
+	, m_pCamera(nullptr)
+	, m_pUnitManager(nullptr)
+	, m_State(STATE::START)
 {
 }
 
@@ -26,9 +26,9 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	
 
-	m_Chara.Create("data//player1p.ass","right");
+
+	m_Chara.Create("data//player1p.ass", "right");
 	m_Chara.anchor.x = m_Chara.GetFrameWidth() / 2.0f;
 	m_Chara.anchor.y = m_Chara.GetFrameHeight() / 2.0f;
 	m_Position = position;
@@ -43,49 +43,17 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 void CPlayer::Update()
 {
-	m_Chara.Update();
 
-	m_Velocity.x = 0.0f;
-
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::A))
+	switch (m_State)
 	{
-		m_DirNext = CHARA_DIR::LEFT;
-		m_Velocity.x = -speed;
-	}
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::D))
-	{
-		m_DirNext = CHARA_DIR::RIGHT;
-		m_Velocity.x = speed;
-	}
-	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))
-	{
-		if (m_LandingFlag == true)
-		{
-			m_Velocity.y = jump;
-			m_LandingFlag = false;
-		}
-	} 
-
-	if (m_DirCurrent != m_DirNext)
-	{
-		m_DirCurrent = m_DirNext;
-
-		switch (m_DirNext)
-		{
-		case CHARA_DIR::LEFT:
-			m_Chara.Change("left");
-			break;
-
-		case CHARA_DIR::RIGHT:
-			m_Chara.Change("right");
-			break;
-		default:
-			break;
-		}
+	case STATE::START: State_Start(); break;
+	case STATE::MOVE: State_Move(); break;
+	case STATE::DEAD: State_Dead(); break;
+	case STATE::STOP: State_Stop(); break;
 	}
 
 	CheckHitBlok();
-	
+
 	m_Chara.position = m_Position + m_pCamera->GetScroll();
 
 	IGameObject::Update();
@@ -216,13 +184,54 @@ void CPlayer::AddSpeed(float add_speed)
 
 void CPlayer::State_Start()
 {
-	m_Position = aqua::CVector2(100.0f,100.0f);
+	m_Position = aqua::CVector2(100.0f, 100.0f);
 	m_State = STATE::MOVE;
 }
 
 void CPlayer::State_Move()
 {
-	
+	m_Chara.Update();
+
+	int inputx = (
+		(Button(KEY_ID::D) || GetAnalogStickLeft(DEVICE_ID::P1).x >= 0.7f) -
+		(Button(KEY_ID::A) || GetAnalogStickLeft(DEVICE_ID::P1).x <= -0.7f));
+
+	m_Velocity.x = speed * inputx;
+	if (inputx == 1)
+	{
+		m_DirNext = CHARA_DIR::RIGHT;
+	}
+	else if (inputx == -1)
+	{
+		m_DirNext = CHARA_DIR::LEFT;
+	}
+
+	if ((Trigger(KEY_ID::SPACE) || Trigger(DEVICE_ID::P1, BUTTON_ID::A)))
+	{
+		if (m_LandingFlag == true)
+		{
+			m_Velocity.y = jump;
+			m_LandingFlag = false;
+		}
+	}
+
+	if (m_DirCurrent != m_DirNext)
+	{
+		m_DirCurrent = m_DirNext;
+
+		switch (m_DirNext)
+		{
+		case CHARA_DIR::LEFT:
+			m_Chara.Change("left");
+			break;
+
+		case CHARA_DIR::RIGHT:
+			m_Chara.Change("right");
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void CPlayer::State_Dead()

@@ -3,6 +3,7 @@
 
 class CPlayer;
 class CStage;
+class CUnitManager;
 class CCamera
 	:public aqua::IGameObject
 {
@@ -19,6 +20,8 @@ public:
 	//çXêV
 	void Update()override;
 
+	void CharaCameraPos(aqua::CSprite* cp,aqua::CVector2 pos);
+
 	void Draw()override;
 
 	void Finalize()override;
@@ -28,11 +31,12 @@ public:
 
 private:
 	aqua::CVector2 m_Scroll;
-	aqua::CSurface m_P1DivScreen;
-	aqua::CSurface m_P2DivScreen;
+	aqua::CSurface m_DivScreen;
 	aqua::CSprite m_P1Stage;
 	aqua::CSprite m_P2Stage;
 	CPlayer* m_pPlayer;
 	CStage* m_pStage;
+
+	CUnitManager* m_pUnitManager;
 
 };
