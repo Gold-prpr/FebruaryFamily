@@ -4,3 +4,4 @@
 #include "unit_manager/unit/player/player.h"
 #include "camera/camera.h"
 #include "item_manager/item_manager.h"
+#include "stage/stage_object/gimmick.h"

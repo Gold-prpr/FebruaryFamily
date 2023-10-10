@@ -1,11 +1,14 @@
 #pragma once
 #include "../stage_object/gimmick_id.h"
 
-class CGimmick :public aqua::IGameObject
+class CStage;
+
+class CGimmick :
+	public aqua::IGameObject
 {
 public:
 	//コンストラクタ
-	CGimmick(aqua::IGameObject* parent);
+	CGimmick(aqua::IGameObject* parent, const std::string& object_name);
 
 	//デストラクタ
 	~CGimmick()override = default;
@@ -13,15 +16,8 @@ public:
 	//初期化
 	void Initialize()override;
 
-	//更新
-	void Update() override;
+	void DamageAction(void);
 
-	//描画
-	void Draw()override;
-
-	//解放
-	void Finalize()override;
-
+	CStage* m_pStage;
 private:
-
 };

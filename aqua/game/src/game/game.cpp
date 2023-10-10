@@ -33,6 +33,7 @@ Initialize(void)
 {
     m_pCamera = aqua::CreateGameObject<CCamera>(this);
     m_pStage = aqua::CreateGameObject<CStage>(this);
+    //m_pGimmick = aqua::CreateGameObject<CGimmick>(this);
     m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
     m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO);
     aqua::CreateGameObject<CItemManager>(this);

@@ -29,6 +29,7 @@ class CPlayer;
 class CUnitManager;
 class CStage;
 class CCamera;
+class CGimmick;
 
 class CGame
     : public aqua::IGameObject
@@ -73,4 +74,5 @@ private:
     CUnitManager* m_pUnitManager;
     CStage* m_pStage;
     CCamera* m_pCamera;
+    CGimmick* m_pGimmick;
 };
