@@ -45,8 +45,6 @@ void CCamera::Update()
 
 	aqua::CVector2 pos = m_pPlayer->GetPosition();
 
-	
-
 	aqua::IGameObject::Update();
 
 }

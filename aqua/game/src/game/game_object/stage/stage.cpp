@@ -1,7 +1,7 @@
 #include "stage.h"
 #include "../camera/camera.h"
 
-const int CStage::map_chip_size = 61;
+const int CStage::map_chip_size = 60;
 
 const int CStage::num_chip_size_x = 5;
 const int CStage::num_chip_size_y = 1;
