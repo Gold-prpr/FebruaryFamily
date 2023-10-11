@@ -7,7 +7,7 @@ CSpeedUpItem::CSpeedUpItem(aqua::IGameObject* parent)
 }
 
 //初期化
-void CSpeedUpItem::Initialize(aqua::CVector2 position)
+void CSpeedUpItem::Initialize(aqua::CVector2* position)
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
@@ -42,7 +42,7 @@ void CSpeedUpItem::SpeedUp()
 	using namespace aqua::keyboard;
 
 	//使ってない時は通常スピード
-	if (m_itemflag = false)
+	if (m_itemflag == false)
 		m_pPlayer->AddSpeed(1.0f);
 
 	//押したらアイテム使用
@@ -50,7 +50,7 @@ void CSpeedUpItem::SpeedUp()
 		m_itemflag = true;
 
 	//アイテムを使っていたら
-	if (m_itemflag = true)
+	if (m_itemflag == true)
 	{
 	 	m_EffectTimer.Update();
 		m_pPlayer->AddSpeed(1.5f);

@@ -7,7 +7,7 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 }
 
 //初期化
-void CSpeedDownItem::Initialize(aqua::CVector2 position)
+void CSpeedDownItem::Initialize(aqua::CVector2* position)
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
@@ -51,7 +51,7 @@ void CSpeedDownItem::SpeedDown()
 	using namespace aqua::keyboard;
 
 	//使ってない時は通常スピード
-	if (m_itemflag = false)
+	if (m_itemflag == false)
 		m_pPlayer->AddSpeed(1.0f);
 
 	//押したらアイテム使用
@@ -59,7 +59,7 @@ void CSpeedDownItem::SpeedDown()
 		m_itemflag = true;
 
 	//アイテムを使っていたら
-	if (m_itemflag = true)
+	if (m_itemflag == true)
 	{
 		m_EffectTimer.Update();
 		m_pPlayer->AddSpeed(0.8f);

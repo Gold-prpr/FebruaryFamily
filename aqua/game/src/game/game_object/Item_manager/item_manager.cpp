@@ -3,6 +3,7 @@
 #include "item/speeddown_item/speeddown_item.h"
 
 const int CItemManager::m_item = 2;		//アイテム数
+using namespace aqua::keyboard;
 
 //コンストラクタ
 CItemManager::CItemManager(aqua::IGameObject* parent)
@@ -13,28 +14,23 @@ CItemManager::CItemManager(aqua::IGameObject* parent)
 //初期化
 void CItemManager::Initialize(void)
 {
-	//m_item_rand = 0;
-
-	//Create(ITEM_ID::SPEEDUP);
-
 	IGameObject::Initialize();
 }
 
 //更新
 void CItemManager::Update(void)
 {
-	using namespace aqua::keyboard;
-
 	if (Trigger(KEY_ID::NUMPADENTER))
 	{
 		m_item_rand = rand() % m_item;
 
 		switch (m_item_rand)
 		{
-		case 0:Create(ITEM_ID::SPEEDUP);	break;
-		case 1:Create(ITEM_ID::SPEEDDOWN);	break;
+		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
+		case 1:Create(ITEM_ID::SPEEDDOWN,&pos);	break;
 		}
 	}
+
 	IGameObject::Update();
 }
 
@@ -51,7 +47,7 @@ void CItemManager::Finalize(void)
 }
 
 //生成
-void CItemManager::Create(ITEM_ID id)
+void CItemManager::Create(ITEM_ID id, aqua::CVector2* position)
 {
 	IItem* item = nullptr;
 
@@ -62,5 +58,5 @@ void CItemManager::Create(ITEM_ID id)
 	}
 
 	if (!item) return;
-	item->Initialize(aqua::CVector2::ZERO);
+	item->Initialize(position);
 }

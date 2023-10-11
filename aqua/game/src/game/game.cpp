@@ -33,6 +33,8 @@ Initialize(void)
 {
 
     m_pCamera = aqua::CreateGameObject<CCamera>(this);
+    aqua::CreateGameObject<CUi>(this);
+
 
 
     IGameObject::Initialize();
