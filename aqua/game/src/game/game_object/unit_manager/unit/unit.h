@@ -1,10 +1,11 @@
 #pragma once
 #include "aqua.h"
 
+using namespace aqua::controller;
+
 enum class UNIT_ID
 {
 	PLAYER,
-
 	MAX
 };
 
@@ -15,7 +16,7 @@ public:
 
 	virtual ~IUnit(void) = default;
 
-	virtual void Initialize(const aqua::CVector2& position) = 0;
+	virtual void Initialize(const aqua::CVector2& position,DEVICE_ID device ) = 0;
 
 	virtual void Update() = 0;
 

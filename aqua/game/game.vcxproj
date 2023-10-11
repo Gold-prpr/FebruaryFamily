@@ -104,6 +104,7 @@
     <ClCompile Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item_manager.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speedup_item\speedup_item.cpp" />
+    <ClCompile Include="src\game\game_object\Scecn\SampleScecn.cpp" />
     <ClCompile Include="src\game\game_object\stage\stage.cpp" />
     <ClCompile Include="src\game\game_object\stage\stage_object\gimmick.cpp" />
     <ClCompile Include="src\game\game_object\ui\ui.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item_manager.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\speedup_item\speedup_item.h" />
+    <ClInclude Include="src\game\game_object\Scecn\SampleScecn.h" />
     <ClInclude Include="src\game\game_object\stage\stage.h" />
     <ClInclude Include="src\game\game_object\stage\stage_object\gimmick.h" />
     <ClInclude Include="src\game\game_object\stage\stage_object\gimmick_id.h" />
