@@ -17,6 +17,7 @@ void CGimmick::Initialize()
 
 	m_AlphaCurrCnt = 0;
 	m_AlphaTimer = 0;
+	flame = 0;
 
 	IGameObject::Initialize();
 }
@@ -24,6 +25,7 @@ void CGimmick::Initialize()
 void CGimmick::DamageAction(void)
 {
 	m_AlphaTimer += 1;
+
 	if (m_AlphaTimer > alpha_interval && m_AlphaCurrCnt < alpha_cnt)
 	{
 		m_pPlayer->m_Chara.color.alpha = 0;
@@ -34,4 +36,6 @@ void CGimmick::DamageAction(void)
 	{
 		m_pPlayer->m_Chara.color.alpha = 255;
 	}
+	/*aqua::DegToRad()
+	m_pPlayer->m_Position = sin()*/
 }

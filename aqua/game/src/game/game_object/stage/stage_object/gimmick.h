@@ -25,6 +25,8 @@ private:
 	int m_AlphaCurrCnt;
 	int m_AlphaTimer;
 
+	int flame;
+
 	CStage* m_pStage;
 	CPlayer* m_pPlayer;
 };
