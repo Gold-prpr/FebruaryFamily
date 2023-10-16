@@ -138,6 +138,12 @@ void CSceneManager::CreateScene(SCENE_ID scene_id)
 
 		break;
 
+	case SCENE_ID::GAME:
+
+		m_SceneClass = aqua::CreateGameObject<CGameMain>(this);
+
+		break;
+
 	case SCENE_ID::RESULT:
 
 		m_SceneClass = aqua::CreateGameObject<CResult>(this);
