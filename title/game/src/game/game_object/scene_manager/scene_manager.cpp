@@ -47,7 +47,6 @@ void CSceneManager::Update()
 		// 更新状態
 	case SCENE_STATE::UPDATE:
 
-
 		if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
 		{
 			// 次の状態に設定
@@ -56,9 +55,11 @@ void CSceneManager::Update()
 			// シーン遷移の演出IDを取得
 			m_NextChangeSceneID = m_SceneClass->GetNextChangeSceneID();
 		}
+
 		m_SceneClass->Update();
 
 		break;
+
 		// シーン遷移演出へ移動状態
 	case SCENE_STATE::SCENE_OUT:
 
@@ -162,13 +163,11 @@ void CSceneManager::CreateChangeScene(CHANGE_SCENE_ID change_scene_id)
 
 		m_ChangeSceneClass = (IChangeScene*)aqua::CreateGameObject<CBloackMosaic>(this);
 
-
 		break;
 
 	case CHANGE_SCENE_ID::SLIDE_CLOSE:
 
 		m_ChangeSceneClass = (IChangeScene*)aqua::CreateGameObject<CSlideClose>(this);
-
 
 		break;
 	}
