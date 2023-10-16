@@ -77,6 +77,8 @@ void CCamera::Finalize()
 {
 	m_P1Stage.Delete();
 	m_P2Stage.Delete();
+
+	aqua::IGameObject::Finalize();
 }
 
 const aqua::CVector2& CCamera::GetScroll()
