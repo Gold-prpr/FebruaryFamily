@@ -36,8 +36,8 @@ public:
 
 	virtual void Damage(void) = 0;
 
-protected:
 	aqua::CVector2 m_Position;
+protected:
 	aqua::CVector2 m_Velocity;
 	float m_Width;
 	float m_Height;

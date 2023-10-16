@@ -15,7 +15,7 @@
 const unsigned int  CGame::m_clear_color = 0xff808080;
 
 /*
- *  �R���X�g���N�^
+ *  コンストラクト
  */
 CGame::
 CGame( aqua::IGameObject* parent )
@@ -24,7 +24,7 @@ CGame( aqua::IGameObject* parent )
 }
 
 /*
-*  ������
+*  初期化
 */
 void
 CGame::
@@ -37,7 +37,7 @@ Initialize(void)
 }
 
 /*
- *  �X�V
+ *  更新
  */
 void
 CGame::
@@ -47,7 +47,7 @@ Update(void)
 }
 
 /*
- *  �`��
+ *  描画
  */
 void
 CGame::
@@ -60,7 +60,7 @@ Draw(void)
 }
 
 /*
- *  ���
+ *  解放
  */
 void
 CGame::
