@@ -2,6 +2,7 @@
 #include "../../../stage/stage.h"
 #include "../../../camera/camera.h"
 #include "../../unit_manager.h"
+#include "../../../stage/stage_object/gimmick.h"
 using namespace aqua::keyboard;
 
 const float CPlayer::speed = 8.0f;//キャラのスピード
@@ -17,6 +18,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pStage(nullptr)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
+	, m_pGimmick(nullptr)
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -24,9 +26,10 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 
 void CPlayer::Initialize(const aqua::CVector2& position,DEVICE_ID device)
 {
-	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
+	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
 
 
 	m_Chara.Create("data//player1p.ass", "right");
@@ -55,7 +58,6 @@ void CPlayer::Update()
 	}
 
 	CheckHitBlok();//壁の当たり判定
-
 	m_Chara.position = m_Position + m_pCamera->GetScroll();//カメラのスクロール
 
 	IGameObject::Update();
@@ -90,7 +92,7 @@ void CPlayer::CheckHitBlok(void)
 		m_Velocity.x = 0;
 	}
 
-	if (m_pStage->CheckGoal(nx, y)
+	/*if (m_pStage->CheckGoal(nx, y)
 		|| m_pStage->CheckGoal(nx + w - 1, y)
 		|| m_pStage->CheckGoal(nx, y + h / 2)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
@@ -98,6 +100,16 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
 		m_Velocity.x = 0;
+	}*/
+
+	if (m_pStage->CheckGimmick(nx, y)
+		|| m_pStage->CheckGimmick(nx + w - 1, y)
+		|| m_pStage->CheckGimmick(nx, y + h / 2)
+		|| m_pStage->CheckGimmick(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckGimmick(nx, y + h - 1)
+		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
+	{
+		m_pGimmick->DamageAction();
 	}
 
 	if (m_LandingFlag == true)

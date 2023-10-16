@@ -4,6 +4,7 @@
 class CStage;
 class CCamera;
 class CUnitManager;
+class CGimmick;
 
 class CPlayer :public IUnit
 {
@@ -61,6 +62,7 @@ public:
 	//壁の当たり判定
 	void CheckHitBlok(void);
 
+	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 private:
 
 	void State_Start();//開始の状態
@@ -68,7 +70,6 @@ private:
 	void State_Dead();//死んだ状態
 	void State_Stop();//ゴールした状態
 
-	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 	STATE m_State;//キャラの状態
 	CHARA_DIR m_DirNext;//キャラの次の向き
 	CHARA_DIR m_DirCurrent;//キャラの今の向き
@@ -76,6 +77,7 @@ private:
 	CStage* m_pStage;//ステージのポインタ
 	CCamera* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
+	CGimmick* m_pGimmick;//
 	float m_AddSpeed;//スピード加算
 	static const float speed;//スピードの値
 	static const float jump;//ジャンプの値
