@@ -144,10 +144,12 @@ namespace aqua
 	 */
 	template <class T1,class T2> T2  ListErase(std::list<T1>* list,T2 erase_point)
 	{
-		AQUA_SAFE_DELETE(*erase_point);
+		//AQUA_SAFE_DELETE(erase_point);
 
 		if (!list->empty())
 			return 	(*list).erase(std::find((*list).begin(), (*list).end(), *erase_point));
+
+		return erase_point;
 	};
 
 	/*
@@ -155,10 +157,10 @@ namespace aqua
 	 * 
 	 *  @param[in]  連続使用は重くなるので注意
 	 */
-	template <class T> void  AquaListLayerDraw(GAME_OBJECT_LIST* list,T draw_point)
+	template <class T> void  AquaListLayerDraw(GAME_OBJECT_LIST* list,T* draw_point)
 	{
 		if (!list->empty())
-			std::find((*list).begin(), (*list).end(), draw_point)->Draw();
+			std::find((*list).begin(), (*list).end(),draw_point)->Draw();
 	};
 
 	/*!

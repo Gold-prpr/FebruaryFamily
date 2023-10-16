@@ -38,8 +38,6 @@ private:
 	*/
 	template<class BaseClass> void DeleteChildObject(BaseClass *bc,std::string category_name)
 	{
-		if (!bc)return;
-
 		auto child_it = m_ChildObjectList.begin();
 
 		while (child_it != m_ChildObjectList.end())
@@ -49,7 +47,7 @@ private:
 			{
 				(*child_it)->Finalize();
 
-				child_it = aqua::ListErase(&m_ChildObjectList, child_it);
+				child_it = aqua::ListErase(&m_ChildObjectList,child_it);
 
 				break;
 			}

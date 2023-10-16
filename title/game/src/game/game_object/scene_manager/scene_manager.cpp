@@ -4,8 +4,9 @@
 
 CSceneManager::CSceneManager(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "SceneManager")
-	, m_SceneState(SCENE_STATE::UPDATE)
+	, m_SceneState(SCENE_STATE::SCENE_IN)
 	, m_NextSceneID(SCENE_ID::TITLE)
+	, m_NextChangeSceneID(CHANGE_SCENE_ID::SLIDE_CLOSE)
 	, m_SceneClass(nullptr)
 	, m_ChangeSceneClass(nullptr)
 {
@@ -18,7 +19,7 @@ void CSceneManager::Initialize()
 {
 	m_SceneSurface.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
 
-	CreateScene(m_NextSceneID);
+	CreateChangeScene(m_NextChangeSceneID);
 }
 
 /*
@@ -37,16 +38,18 @@ void CSceneManager::Update()
 		if (m_ChangeSceneClass->In())
 		{
 			DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
+			
+			m_ChangeSceneClass = nullptr;
 
 			// 次の状態に設定
 			m_SceneState = SCENE_STATE::UPDATE;
+
 		}
 
 		break;
 
 		// 更新状態
 	case SCENE_STATE::UPDATE:
-
 
 		if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
 		{
@@ -56,9 +59,11 @@ void CSceneManager::Update()
 			// シーン遷移の演出IDを取得
 			m_NextChangeSceneID = m_SceneClass->GetNextChangeSceneID();
 		}
+
 		m_SceneClass->Update();
 
 		break;
+
 		// シーン遷移演出へ移動状態
 	case SCENE_STATE::SCENE_OUT:
 
@@ -74,6 +79,8 @@ void CSceneManager::Update()
 			m_SceneState = SCENE_STATE::SCENE_IN;
 
 			DeleteChildObject(&m_SceneClass, "Scene");
+
+			m_SceneClass = nullptr;
 		}
 
 		break;
@@ -114,6 +121,8 @@ void CSceneManager::Finalize()
 	DeleteChildObject(&m_SceneClass, "Scene");
 
 	DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
+
+	m_SceneSurface.Delete();
 
 	aqua::IGameObject::Finalize();
 }
@@ -162,13 +171,11 @@ void CSceneManager::CreateChangeScene(CHANGE_SCENE_ID change_scene_id)
 
 		m_ChangeSceneClass = (IChangeScene*)aqua::CreateGameObject<CBloackMosaic>(this);
 
-
 		break;
 
 	case CHANGE_SCENE_ID::SLIDE_CLOSE:
 
 		m_ChangeSceneClass = (IChangeScene*)aqua::CreateGameObject<CSlideClose>(this);
-
 
 		break;
 	}

@@ -60,13 +60,10 @@ bool CFade::In()
 			m_min_fade_alpha
 		);
 
-	if (m_FadeTime.Finished())
-		m_FadeTime.Reset();
-
 	if (m_FadeBox.color.alpha < m_min_fade_alpha + (unsigned char)10)
 		m_FadeBox.color.alpha = m_min_fade_alpha;
 
-	return m_FadeBox.color.alpha == m_min_fade_alpha;
+	return m_FadeTime.Finished();
 }
 
 /*
