@@ -29,7 +29,7 @@ void CPlayer::Initialize(const aqua::CVector2& position,DEVICE_ID device)
 	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
+	
 
 
 	m_Chara.Create("data//player1p.ass", "right");
@@ -109,6 +109,7 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGimmick(nx, y + h - 1)
 		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
 	{
+		m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
 		m_pGimmick->DamageAction();
 	}
 
