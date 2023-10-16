@@ -49,7 +49,7 @@ private:
 			{
 				(*child_it)->Finalize();
 
-				child_it = aqua::ListErase(&m_ChildObjectList, child_it);
+				child_it = aqua::ListErase(&m_ChildObjectList,child_it);
 
 				break;
 			}

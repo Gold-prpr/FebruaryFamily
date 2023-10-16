@@ -17,7 +17,7 @@ void CTile::Create(aqua::CVector2 position, aqua::CVector2 size)
 {
 	m_Position = position;
 
-	m_TileSprite.Create("data\\tile1.png");
+	m_TileSprite.Create("data\\tile2.png");
 
 	// RECT
 	m_TileSprite.rect.left = 0;
