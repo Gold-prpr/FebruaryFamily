@@ -84,10 +84,7 @@ void CSceneManager::Update()
 
 	// シーン遷移演出の更新
 	if (m_ChangeSceneClass)
-		m_ChangeSceneClass->Update();	
-
-
-	aqua::IGameObject::Update();
+		m_ChangeSceneClass->Update();
 }
 
 /*
@@ -95,13 +92,6 @@ void CSceneManager::Update()
 */
 void CSceneManager::Draw()
 {
-	m_SceneSurface.Begin();
-
-	if (m_SceneClass)
-		m_SceneClass->Draw();
-
-	m_SceneSurface.End();
-
 	if (m_SceneClass)
 		m_SceneClass->Draw();
 
@@ -181,8 +171,6 @@ void CSceneManager::CreateChangeScene(CHANGE_SCENE_ID change_scene_id)
 
 		break;
 	}
-
-	m_ChangeSceneClass->CreateSprite(m_SceneSurface);
 
 	m_ChangeSceneClass->Initialize();
 }

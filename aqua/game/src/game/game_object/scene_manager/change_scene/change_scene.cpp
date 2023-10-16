@@ -6,13 +6,6 @@ IChangeScene::IChangeScene(aqua::IGameObject* parent, std::string name)
 }
 
 /*
-*  スプライトの生成
-*/
-void IChangeScene::CreateSprite(aqua::CSurface& surface)
-{
-}
-
-/*
 *  初期化
 */
 void IChangeScene::Initialize()
