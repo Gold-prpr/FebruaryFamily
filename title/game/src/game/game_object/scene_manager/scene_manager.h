@@ -38,8 +38,6 @@ private:
 	*/
 	template<class BaseClass> void DeleteChildObject(BaseClass *bc,std::string category_name)
 	{
-		if (!bc)return;
-
 		auto child_it = m_ChildObjectList.begin();
 
 		while (child_it != m_ChildObjectList.end())

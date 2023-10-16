@@ -4,8 +4,9 @@
 
 CSceneManager::CSceneManager(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "SceneManager")
-	, m_SceneState(SCENE_STATE::UPDATE)
+	, m_SceneState(SCENE_STATE::SCENE_IN)
 	, m_NextSceneID(SCENE_ID::TITLE)
+	, m_NextChangeSceneID(CHANGE_SCENE_ID::SLIDE_CLOSE)
 	, m_SceneClass(nullptr)
 	, m_ChangeSceneClass(nullptr)
 {
@@ -18,7 +19,7 @@ void CSceneManager::Initialize()
 {
 	m_SceneSurface.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
 
-	CreateScene(m_NextSceneID);
+	CreateChangeScene(m_NextChangeSceneID);
 }
 
 /*
@@ -37,9 +38,12 @@ void CSceneManager::Update()
 		if (m_ChangeSceneClass->In())
 		{
 			DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
+			
+			m_ChangeSceneClass = nullptr;
 
 			// éüÇÃèÛë‘Ç…ê›íË
 			m_SceneState = SCENE_STATE::UPDATE;
+
 		}
 
 		break;
@@ -75,6 +79,8 @@ void CSceneManager::Update()
 			m_SceneState = SCENE_STATE::SCENE_IN;
 
 			DeleteChildObject(&m_SceneClass, "Scene");
+
+			m_SceneClass = nullptr;
 		}
 
 		break;
@@ -115,6 +121,8 @@ void CSceneManager::Finalize()
 	DeleteChildObject(&m_SceneClass, "Scene");
 
 	DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
+
+	m_SceneSurface.Delete();
 
 	aqua::IGameObject::Finalize();
 }
