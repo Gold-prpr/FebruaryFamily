@@ -33,7 +33,7 @@ void CUnitManager::Finalize()
 	IGameObject::Finalize();
 }
 
-IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos)
+IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID device)
 {
 	IUnit* unit = nullptr;
 	switch (unitid)
@@ -42,6 +42,6 @@ IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos)
 	}
 
 	if (!unit)return nullptr;
-	unit->Initialize(pos);
+	unit->Initialize(pos,device);
 	return unit;
 }

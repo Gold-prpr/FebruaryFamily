@@ -27,7 +27,7 @@ public:
 	void Finalize()override;
 
 	//UnitÇÃê∂ê¨Ç∆ê›íu
-	IUnit* CreateUnit(UNIT_ID unitid, aqua::CVector2 pos);
+	IUnit* CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID device);
 
 private:
 

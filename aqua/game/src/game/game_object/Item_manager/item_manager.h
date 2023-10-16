@@ -27,10 +27,9 @@ public:
 	//アイテムID
 	void Create(ITEM_ID id, aqua::CVector2* position);
 
-	int m_item_rand;						//ランダムにアイテムを出す
+	int m_item_rand;				//ランダムにアイテムを出す
 private:
-	static const int m_item;				//アイテム数
+	static const int m_item;		//アイテム数
 
 	aqua::CVector2 pos;
-
 };

@@ -2,14 +2,15 @@
 #include "../../../stage/stage.h"
 #include "../../../camera/camera.h"
 #include "../../unit_manager.h"
-using namespace aqua::controller;
+#include "../../../stage/stage_object/gimmick.h"
 using namespace aqua::keyboard;
 
-const float CPlayer::speed = 8.0f;
-const float CPlayer::jump = -25.0f;
-const float CPlayer::width = 60.0f;
-const float CPlayer::height = 60.0f;
-const float CPlayer::radius = 30.0f;
+const float CPlayer::speed = 8.0f;//キャラのスピード
+const float CPlayer::jump = -25.0f;//キャラのジャンプ
+const float CPlayer::width = 60.0f;//キャラの幅
+const float CPlayer::height = 60.0f;//キャラの高さ
+const float CPlayer::radius = 30.0f;//キャラの半径
+const float CPlayer::dash = 1.7f;//キャラのダッシュ力
 
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
@@ -17,15 +18,18 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pStage(nullptr)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
+	, m_pGimmick(nullptr)
 	, m_State(STATE::START)
+	, m_Device(DEVICE_ID::P1)
 {
 }
 
-void CPlayer::Initialize(const aqua::CVector2& position)
+void CPlayer::Initialize(const aqua::CVector2& position,DEVICE_ID device)
 {
-	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
+	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	
 
 
 	m_Chara.Create("data//player1p.ass", "right");
@@ -36,6 +40,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_Width = width;
 	m_Height = height;
 	m_UnitID = UNIT_ID::PLAYER;
+	m_Device = device;
 	m_LandingFlag = false;
 
 	IGameObject::Initialize();
@@ -46,15 +51,14 @@ void CPlayer::Update()
 
 	switch (m_State)
 	{
-	case STATE::START: State_Start(); break;
-	case STATE::MOVE: State_Move(); break;
-	case STATE::DEAD: State_Dead(); break;
-	case STATE::STOP: State_Stop(); break;
+	case STATE::START: State_Start(); break;//開始の状態
+	case STATE::MOVE: State_Move(); break;//キャラが動ける状態
+	case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
+	case STATE::STOP: State_Stop(); break;//キャラがゴールした時の状態
 	}
 
-	CheckHitBlok();
-
-	m_Chara.position = m_Position + m_pCamera->GetScroll();
+	CheckHitBlok();//壁の当たり判定
+	m_Chara.position = m_Position + m_pCamera->GetScroll();//カメラのスクロール
 
 	IGameObject::Update();
 }
@@ -88,7 +92,7 @@ void CPlayer::CheckHitBlok(void)
 		m_Velocity.x = 0;
 	}
 
-	if (m_pStage->CheckGoal(nx, y)
+	/*if (m_pStage->CheckGoal(nx, y)
 		|| m_pStage->CheckGoal(nx + w - 1, y)
 		|| m_pStage->CheckGoal(nx, y + h / 2)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
@@ -96,6 +100,17 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
 		m_Velocity.x = 0;
+	}*/
+
+	if (m_pStage->CheckGimmick(nx, y)
+		|| m_pStage->CheckGimmick(nx + w - 1, y)
+		|| m_pStage->CheckGimmick(nx, y + h / 2)
+		|| m_pStage->CheckGimmick(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckGimmick(nx, y + h - 1)
+		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
+	{
+		m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
+		m_pGimmick->DamageAction();
 	}
 
 	if (m_LandingFlag == true)
@@ -147,13 +162,13 @@ void CPlayer::CheckHitBlok(void)
 
 void CPlayer::Draw()
 {
-	m_Chara.Draw();
+	m_Chara.Draw();//キャラの描画
 	IGameObject::Draw();
 }
 
 void CPlayer::Finalize()
 {
-	m_Chara.Delete();
+	m_Chara.Delete();//キャラの解放
 	IGameObject::Finalize();
 }
 
@@ -177,36 +192,39 @@ void CPlayer::Damage(void)
 	m_State = STATE::DEAD;
 }
 
+//スピードの加算
 void CPlayer::AddSpeed(float add_speed)
 {
 	m_AddSpeed = add_speed;
 }
 
+//開始の状態
 void CPlayer::State_Start()
 {
 	m_Position = aqua::CVector2(100.0f, 100.0f);
 	m_State = STATE::MOVE;
 }
 
+//動ける状態
 void CPlayer::State_Move()
 {
 	m_Chara.Update();
 
-	int inputx = (
-		(Button(KEY_ID::D) || GetAnalogStickLeft(DEVICE_ID::P1).x >= 0.7f) -
-		(Button(KEY_ID::A) || GetAnalogStickLeft(DEVICE_ID::P1).x <= -0.7f));
+	float input_x_value = GetAnalogStickLeft(m_Device).x;
+	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
 
 	m_Velocity.x = speed * inputx;
-	if (inputx == 1)
+	if (inputx != 0)
 	{
-		m_DirNext = CHARA_DIR::RIGHT;
-	}
-	else if (inputx == -1)
-	{
-		m_DirNext = CHARA_DIR::LEFT;
+		m_DirNext = (CHARA_DIR)inputx;
 	}
 
-	if ((Trigger(KEY_ID::SPACE) || Trigger(DEVICE_ID::P1, BUTTON_ID::A)))
+	if (Button(m_Device, BUTTON_ID::X))
+	{
+		m_Velocity.x = m_Velocity.x * dash;
+	}
+
+	if (Trigger(m_Device, BUTTON_ID::A))
 	{
 		if (m_LandingFlag == true)
 		{

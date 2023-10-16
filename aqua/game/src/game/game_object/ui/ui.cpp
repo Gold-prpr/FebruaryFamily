@@ -9,7 +9,7 @@ CUi::CUi(aqua::IGameObject* parent)
 
 void CUi::Initialize(void)
 {
-	m_pItemManager=(CItemManager*)aqua::FindGameObject("ItemManager");
+	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 
 	//m_2P_item_position_y = 540;
 

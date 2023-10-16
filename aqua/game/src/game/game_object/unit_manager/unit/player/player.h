@@ -4,11 +4,13 @@
 class CStage;
 class CCamera;
 class CUnitManager;
+class CGimmick;
 
 class CPlayer :public IUnit
 {
 private:
 
+	//キャラクターの状態
 	enum class STATE
 	{
 		START,
@@ -17,10 +19,11 @@ private:
 		STOP,
 	};
 
-	enum class CHARA_DIR
+	//キャラクターの向き
+	enum class CHARA_DIR : int
 	{
-		RIGHT,
-		LEFT,
+		LEFT = -1,
+		RIGHT = 1,
 	};
 
 public:
@@ -30,7 +33,7 @@ public:
 	~CPlayer()override = default;
 
 	//初期化
-	void Initialize(const aqua::CVector2 & position) override;
+	void Initialize(const aqua::CVector2 & position,DEVICE_ID device);
 
 	//更新
 	void Update() override;
@@ -53,10 +56,13 @@ public:
 	//ダメージをくらった時の処理
 	void Damage(void)override;
 
+	//アイテムを取った時のスピードの加算
 	void AddSpeed(float add_speed);
 
+	//壁の当たり判定
 	void CheckHitBlok(void);
 
+	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 private:
 
 	void State_Start();//開始の状態
@@ -64,18 +70,21 @@ private:
 	void State_Dead();//死んだ状態
 	void State_Stop();//ゴールした状態
 
-	aqua::CAnimationSprite m_Chara;
-	STATE m_State;
-	CHARA_DIR m_DirNext;
-	CHARA_DIR m_DirCurrent;
-	CStage* m_pStage;
-	CCamera* m_pCamera;
-	CUnitManager* m_pUnitManager;
-	float m_AddSpeed;
-	static const float speed;
-	static const float jump;
-	static const float width;
-	static const float height;
-	static const float radius;
-	bool m_LandingFlag;
+	STATE m_State;//キャラの状態
+	CHARA_DIR m_DirNext;//キャラの次の向き
+	CHARA_DIR m_DirCurrent;//キャラの今の向き
+	DEVICE_ID m_Device;//
+	CStage* m_pStage;//ステージのポインタ
+	CCamera* m_pCamera;//カメラのポインタ
+	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
+	CGimmick* m_pGimmick;//
+	float m_AddSpeed;//スピード加算
+	static const float speed;//スピードの値
+	static const float jump;//ジャンプの値
+	static const float width;//幅
+	static const float height;//高さ
+	static const float radius;//半径
+	static const float dash;//ダッシュの値
+	bool m_LandingFlag;//空中にいるときのフラグ
+
 };

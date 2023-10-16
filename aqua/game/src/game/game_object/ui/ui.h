@@ -44,5 +44,5 @@ private:
 	aqua::CSprite		m_2PItemEffect;			//アイテム効果
 
 	static const int	m_2P_item_position_y;					//アイテム数
-	CItemManager*		m_pItemManager;
+	CItemManager* m_pItemManager;
 };

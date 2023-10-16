@@ -43,6 +43,8 @@ void CStage::Initialize(void)
 
 void CStage::Update(void)
 {
+	
+
 	IGameObject::Update();
 }
 

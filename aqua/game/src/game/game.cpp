@@ -1,7 +1,7 @@
 
 /*!
  *  @file       game.cpp
- *  @brief      ƒQ[ƒ€ŠÇ—
+ *  @brief      ï¿½Qï¿½[ï¿½ï¿½ï¿½Ç—ï¿½
  *  @author     Kazuya Maruyama
  *  @date       2021/02/06
  *  @version    1.0
@@ -15,7 +15,7 @@
 const unsigned int  CGame::m_clear_color = 0xff808080;
 
 /*
- *  ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+ *  ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ãƒˆ
  */
 CGame::
 CGame( aqua::IGameObject* parent )
@@ -24,24 +24,20 @@ CGame( aqua::IGameObject* parent )
 }
 
 /*
-*  ‰Šú‰»
+*  åˆæœŸåŒ–
 */
 void
 CGame::
 Initialize(void)
 
 {
-
-    m_pCamera = aqua::CreateGameObject<CCamera>(this);
-    aqua::CreateGameObject<CUi>(this);
-
-
+    aqua::CreateGameObject<CSceneManager>(this);
 
     IGameObject::Initialize();
 }
 
 /*
- *  XV
+ *  æ›´æ–°
  */
 void
 CGame::
@@ -51,20 +47,20 @@ Update(void)
 }
 
 /*
- *  •`‰æ
+ *  æç”»
  */
 void
 CGame::
 Draw(void)
 {
-    // ‰æ–Ê‚ÌƒNƒŠƒA
+    // ï¿½ï¿½Ê‚ÌƒNï¿½ï¿½ï¿½A
     aqua::Clear(m_clear_color);
 
     IGameObject::Draw();
 }
 
 /*
- *  ‰ğ•ú
+ *  è§£æ”¾
  */
 void
 CGame::

@@ -27,10 +27,9 @@ void CItemManager::Update(void)
 		switch (m_item_rand)
 		{
 		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
-		case 1:Create(ITEM_ID::SPEEDDOWN,&pos);	break;
+		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
 		}
 	}
-
 	IGameObject::Update();
 }
 
@@ -47,7 +46,7 @@ void CItemManager::Finalize(void)
 }
 
 //ê∂ê¨
-void CItemManager::Create(ITEM_ID id, aqua::CVector2* position)
+void CItemManager::Create(ITEM_ID id, aqua::CVector2* position) 
 {
 	IItem* item = nullptr;
 
