@@ -32,7 +32,6 @@ Initialize(void)
 
 {
     m_pCamera = aqua::CreateGameObject<CCamera>(this);
-    m_pSampl = aqua::CreateGameObject<CSampleScene>(this);
 
     IGameObject::Initialize();
 }
