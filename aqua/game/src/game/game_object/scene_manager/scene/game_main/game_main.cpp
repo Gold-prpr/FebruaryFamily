@@ -4,6 +4,7 @@
 #include "../../../unit_manager/unit/player/player.h"
 #include "../../../Item_manager/item_manager.h"
 #include "../../../camera/camera.h"
+#include "../../../stage/stage_object/gimmick.h"
 
 CGameMain::CGameMain(aqua::IGameObject* parent)
 	:IScene(parent,"GameMain",SCENE_ID::RESULT,CHANGE_SCENE_ID::FADE)
@@ -21,6 +22,7 @@ void CGameMain::Initialize()
 	m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P1);
 	(CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
 	aqua::CreateGameObject<CItemManager>(this);
+	aqua::CreateGameObject<CGimmick>(this);
 
 	IScene::Initialize();
 
