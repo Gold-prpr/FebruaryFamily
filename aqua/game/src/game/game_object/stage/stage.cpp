@@ -54,8 +54,7 @@ void CStage::Draw(void)
 
 	for (auto it = m_MapData.begin(); it != m_MapData.end(); ++it, ++i)
 	{
-		m_TileSprite[*it].position.x = 
-			(float)(i % map_x) * map_chip_size + m_pCamera->GetScroll().x;
+		m_TileSprite[*it].position.x = (float)(i % map_x) * map_chip_size + m_pCamera->GetScroll().x;
 		m_TileSprite[*it].position.y = (float)(i / map_x) * map_chip_size + m_pCamera->GetScroll().y;
 
 		m_TileSprite[*it].Draw();
