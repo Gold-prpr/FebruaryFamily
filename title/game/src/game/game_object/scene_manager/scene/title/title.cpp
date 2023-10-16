@@ -10,6 +10,7 @@ void CTitle::Initialize()
 	m_BackGround.Create("data\\scene\\title\\game_title_back(goal_flag)2.ass");
 	m_BackGround.Change("wind");
 	m_BackGround.Play();
+
 	m_BackGround.scale = aqua::CVector2::ONE * 2.0f;
 	m_BackGround.position.x = (aqua::GetWindowSize().x/2.0f - m_BackGround.GetFrameWidth()) / 2.0f;
 }
