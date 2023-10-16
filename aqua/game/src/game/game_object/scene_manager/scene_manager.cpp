@@ -19,6 +19,7 @@ void CSceneManager::Initialize()
 {
 	m_SceneSurface.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
 
+	// ƒV[ƒ“‚Ì¶¬
 	CreateScene(m_NextSceneID);
 }
 
