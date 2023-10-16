@@ -14,10 +14,25 @@ CCamera::CCamera(IGameObject* parent)
 
 void CCamera::Initialize()
 {
-	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
-	m_pStage = (CStage*)aqua::FindGameObject("Stage");
-	
+	m_pStage = aqua::CreateGameObject<CStage>(this);
+	m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
+	m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO,DEVICE_ID::P1);
+	(CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO,DEVICE_ID::P2);
+	aqua::CreateGameObject<CItemManager>(this);
+
+	aqua::IGameObject::Initialize();
+
+	m_DivScreen.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
+
+	m_P1Stage.Create(m_DivScreen);
+	m_P2Stage.Create(m_DivScreen);
+	m_P2Stage.position.y = aqua::GetWindowHeight() / 2.0f;
+
+	CharaCameraPos(&m_P1Stage, aqua::CVector2(0.0f, aqua::GetWindowHeight() / 2.0f));
+	CharaCameraPos(&m_P2Stage, aqua::CVector2(0.0f, aqua::GetWindowHeight() / 2.0f));
 }
+
+
 
 void CCamera::Update()
 {
@@ -31,8 +46,37 @@ void CCamera::Update()
 	m_Scroll.y = min(m_Scroll.y, 0.0f);
 	m_Scroll.y = max(m_Scroll.y, (float)aqua::GetWindowHeight() - m_pStage->GetMapHeight());
 
+	aqua::CVector2 pos = m_pPlayer->GetPosition();
+
 	aqua::IGameObject::Update();
 
+}
+
+void CCamera::CharaCameraPos(aqua::CSprite* cp, aqua::CVector2 pos)
+{
+	(*cp).rect.left = pos.x;
+	(*cp).rect.top = pos.y;
+	(*cp).rect.right = cp->rect.left + aqua::GetWindowWidth();
+	(*cp).rect.bottom = cp->rect.top + aqua::GetWindowHeight() / 2.0f;
+}
+
+void CCamera::Draw()
+{
+	//1P用のステージ
+	m_DivScreen.Begin();
+	m_pStage->Draw();
+	m_pPlayer->Draw();
+	m_DivScreen.End();
+
+	m_P1Stage.Draw();
+	m_P2Stage.Draw();
+
+}
+
+void CCamera::Finalize()
+{
+	m_P1Stage.Delete();
+	m_P2Stage.Delete();
 }
 
 const aqua::CVector2& CCamera::GetScroll()

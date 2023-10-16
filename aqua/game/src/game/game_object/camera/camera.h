@@ -20,16 +20,22 @@ public:
 	//更新
 	void Update()override;
 
+	void CharaCameraPos(aqua::CSprite* cp, aqua::CVector2 pos);
+
+	void Draw()override;
+
+	void Finalize()override;
+
 	//OffSetの取得
 	const aqua::CVector2& GetScroll();
 
 private:
-	aqua::CVector2 m_Scroll;//スクーロール
-	aqua::CSurface m_DivScreen;//画面の複製
-	aqua::CSprite m_P1Stage;//1プレイヤーの画面
-	aqua::CSprite m_P2Stage;//２プレイヤーの画面
-	CPlayer* m_pPlayer;//プレイヤーのポインタ
-	CStage* m_pStage;//ステージのポインタ
-	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
+	aqua::CVector2 m_Scroll;
+	aqua::CSurface m_DivScreen;
+	aqua::CSprite m_P1Stage;
+	aqua::CSprite m_P2Stage;
+	CPlayer* m_pPlayer;
+	CStage* m_pStage;
+	CUnitManager* m_pUnitManager;
 
 };
