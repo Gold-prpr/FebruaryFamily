@@ -5,18 +5,17 @@
 #include "../../../stage/stage_object/gimmick.h"
 using namespace aqua::keyboard;
 
-const float CPlayer::speed = 8.0f;//キャラのスピード
-const float CPlayer::jump = -25.0f;//キャラのジャンプ
-const float CPlayer::width = 60.0f;//キャラの幅
-const float CPlayer::height = 60.0f;//キャラの高さ
-const float CPlayer::radius = 30.0f;//キャラの半径
-const float CPlayer::dash = 1.7f;//キャラのダッシュ力
+const float CPlayer::speed = 8.0f;		//キャラのスピード
+const float CPlayer::jump  = -25.0f;	//キャラのジャンプ
+const float CPlayer::width = 60.0f;		//キャラの幅
+const float CPlayer::height = 60.0f;	//キャラの高さ
+const float CPlayer::radius = 30.0f;	//キャラの半径
+const float CPlayer::dash = 1.7f;		//キャラのダッシュ力
 
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
 	:IUnit(parent, "Player")
 	, m_pStage(nullptr)
-	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
 	, m_pGimmick(nullptr)
 	, m_State(STATE::START)
@@ -24,17 +23,19 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 {
 }
 
-void CPlayer::Initialize(const aqua::CVector2& position,DEVICE_ID device)
+void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 {
-	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	
 
+	if (device == DEVICE_ID::P1)
+		m_Chara.Create("data//player1p.ass", "right");
+	else
+		m_Chara.Create("data//player2p.ass", "right");
 
-	m_Chara.Create("data//player1p.ass", "right");
 	m_Chara.anchor.x = m_Chara.GetFrameWidth() / 2.0f;
 	m_Chara.anchor.y = m_Chara.GetFrameHeight() / 2.0f;
+
 	m_Position = position;
 	m_Velocity = aqua::CVector2::ZERO;
 	m_Width = width;
@@ -58,7 +59,7 @@ void CPlayer::Update()
 	}
 
 	CheckHitBlok();//壁の当たり判定
-	m_Chara.position = m_Position + m_pCamera->GetScroll();//カメラのスクロール
+	m_Chara.position = m_Position + m_ScrollVec;//カメラのスクロール
 
 	IGameObject::Update();
 }
@@ -158,6 +159,11 @@ void CPlayer::CheckHitBlok(void)
 	// 位置の決定
 	m_Position.x = (float)nx;
 	m_Position.y = (float)ny;
+}
+
+void CPlayer::SetScroll(aqua::CVector2 set_scroll)
+{
+	m_ScrollVec = set_scroll;
 }
 
 void CPlayer::Draw()

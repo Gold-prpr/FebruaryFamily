@@ -23,13 +23,15 @@ public:
 
 private:
 
-	CPlayer* m_pPlayer;
+	CPlayer* m_pFirstPlayer;
+	CPlayer* m_pSecondPlayer;
 	CUnitManager* m_pUnitManager;
 	CStage* m_pStage;
-	CCamera* m_pCamera;
+	CCamera* m_pP1Camera;
+	CCamera* m_pP2Camera;
 	CGimmick* m_pGimmick;
 	aqua::CSurface m_DivScreen;
-	aqua::CSprite m_P1Stage;
-	aqua::CSprite m_P2Stage;
+	aqua::CSprite m_P1StageSprite;
+	aqua::CSprite m_P2StageSprite;
 
 };

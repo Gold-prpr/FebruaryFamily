@@ -13,7 +13,6 @@ CCamera::CCamera(IGameObject* parent)
 
 void CCamera::Initialize()
 {
-	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 
 	aqua::IGameObject::Initialize();
@@ -21,9 +20,7 @@ void CCamera::Initialize()
 
 void CCamera::Update()
 {
-	aqua::CVector2
-		target = aqua::CVector2((float)aqua::GetWindowWidth(),
-			(float)aqua::GetWindowHeight()) / 2.0f - m_pPlayer->GetPosition();
+	aqua::CVector2	target = aqua::CVector2((float)aqua::GetWindowWidth(),(float)aqua::GetWindowHeight()) / 2.0f - m_PlayerPos;
 
 	m_Scroll += (target - m_Scroll) * 0.1f;
 	m_Scroll.x = min(m_Scroll.x, 0.0f);
@@ -31,10 +28,14 @@ void CCamera::Update()
 	m_Scroll.y = min(m_Scroll.y, 0.0f);
 	m_Scroll.y = max(m_Scroll.y, (float)aqua::GetWindowHeight() - m_pStage->GetMapHeight());
 
-	aqua::CVector2 pos = m_pPlayer->GetPosition();
 
 	aqua::IGameObject::Update();
 
+}
+
+void CCamera::SetPlayerPos(aqua::CVector2 player_pos)
+{
+	m_PlayerPos = player_pos;
 }
 
 const aqua::CVector2& CCamera::GetScroll()

@@ -54,8 +54,8 @@ void CStage::Draw(void)
 
 	for (auto it = m_MapData.begin(); it != m_MapData.end(); ++it, ++i)
 	{
-		m_TileSprite[*it].position.x = (float)(i % map_x) * map_chip_size + m_pCamera->GetScroll().x;
-		m_TileSprite[*it].position.y = (float)(i / map_x) * map_chip_size + m_pCamera->GetScroll().y;
+		m_TileSprite[*it].position.x = (float)(i % map_x) * map_chip_size ;
+		m_TileSprite[*it].position.y = (float)(i / map_x) * map_chip_size ;
 
 		m_TileSprite[*it].Draw();
 	}
@@ -100,6 +100,11 @@ float CStage::GetMapHeight(void)
 	return map_chip_size * map_y;
 }
 
+void CStage::GetScroll(aqua::CVector2 scroll)
+{
+	m_Scroll = scroll;
+}
+
 float CStage::GetGravity(void)
 {
 	return m_gravity;
@@ -107,6 +112,8 @@ float CStage::GetGravity(void)
 
 bool CStage::CheckHit(int x, int y)
 {
+	if (x <= 0.0f || y <= 0.0f)return false;
+
 	int ix = x / map_chip_size;
 	int iy = y / map_chip_size;
 
@@ -123,6 +130,9 @@ int CStage::GetTileSize(void)
 
 bool CStage::CheckGoal(int x, int y)
 {
+
+	if (x <= 0.0f || y <= 0.0f)return false;
+
 	int ix = x / map_chip_size;
 	int iy = y / map_chip_size;
 
@@ -134,6 +144,9 @@ bool CStage::CheckGoal(int x, int y)
 
 bool CStage::CheckItem(int x, int y)
 {
+
+	if (x <= 0.0f || y <= 0.0f)return false;
+
 	int ix = x / map_chip_size;
 	int iy = y / map_chip_size;
 
@@ -145,6 +158,9 @@ bool CStage::CheckItem(int x, int y)
 
 bool CStage::CheckGimmick(int x, int y)
 {
+
+	if (x <= 0.0f || y <= 0.0f)return false;
+
 	int ix = x / map_chip_size;
 	int iy = y / map_chip_size;
 
