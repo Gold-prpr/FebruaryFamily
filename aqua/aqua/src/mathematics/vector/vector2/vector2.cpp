@@ -38,6 +38,15 @@ CVector2( float x, float y )
  *  コンストラクタ
  */
 aqua::CVector2::
+CVector2(int x,int y)
+    : x((float)x), y((float)y)
+{
+}
+
+/*
+ *  コンストラクタ
+ */
+aqua::CVector2::
 CVector2( const aqua::CVector2& v )
     : x( v.x ), y( v.y )
 {
