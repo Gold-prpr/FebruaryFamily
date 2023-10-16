@@ -51,10 +51,10 @@ void CCamera::Update()
 
 void CCamera::CharaCameraPos(aqua::CSprite* cp, aqua::CVector2 pos)
 {
-	(*cp).rect.left = pos.x;
-	(*cp).rect.top = pos.y;
-	(*cp).rect.right = cp->rect.left + aqua::GetWindowWidth();
-	(*cp).rect.bottom = cp->rect.top + aqua::GetWindowHeight() / 2.0f;
+	(*cp).rect.left = (int)pos.x;
+	(*cp).rect.top = (int)pos.y;
+	(*cp).rect.right = cp->rect.left + (int)aqua::GetWindowWidth();
+	(*cp).rect.bottom = cp->rect.top + (int)aqua::GetWindowHeight() / 2.0f;
 }
 
 void CCamera::Draw()

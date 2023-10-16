@@ -96,6 +96,14 @@ namespace aqua
         void    SetLimit( float limit );
 
         /*!
+         *  @brief      現在の経過時間を設定
+         *
+         *  @param[in]  timer   計測時間(秒)
+         */
+        void    SetTimer(float timer);
+
+
+        /*!
          *  @brief      タイムスケールを取得
          *
          *  @return     タイムスケール

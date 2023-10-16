@@ -5,3 +5,4 @@
 #include "camera/camera.h"
 #include "item_manager/item_manager.h"
 #include "stage/stage_object/gimmick.h"
+#include "scene_manager/scene_manager.h"

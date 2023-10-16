@@ -1,26 +1,24 @@
 
 /*!
  *  @file       shader.cpp
- *  @brief      シェーダクラス
- *  @author     Kazuya Maruyama
- *  @date       2021/03/10
- *  @version    7.17
- *
- *  Copyright (c) 2013-2021, Kazuya Maruyama. All rights reserved.
+ *  @brief      2D用のシェーダクラス
+ *  @author     Yuge ryuiti
+ *  @date       2023/09/10
  */
 
 #include "shader.h"
 #include "..\..\debug\debug.h"
 
-/*
- *  コンストラクタ
- */
+ /*
+  *  コンストラクタ
+  */
 aqua::CShader::
-CShader( void )
-    : aqua::core::IResourceObject( aqua::core::RESOURCE_TYPE::LOAD_SHADER )
-    , m_VertexShaderHandle( AQUA_UNUSED_HANDLE )
-    , m_PixelShaderHandle( AQUA_UNUSED_HANDLE )
-    , m_VertxConstBufferHandle( AQUA_UNUSED_HANDLE )
+CShader(void)
+	: aqua::core::IResourceObject(aqua::core::RESOURCE_TYPE::LOAD_SHADER)
+	, m_PixelShaderHandle(AQUA_UNUSED_HANDLE)
+	, m_Vertex(nullptr)
+	, m_PolygonIndex(nullptr)
+	, m_MaxVertex(0)
 {
 }
 
@@ -29,26 +27,16 @@ CShader( void )
  */
 void
 aqua::CShader::
-Create( const std::string& file_name )
+Create(const std::string& file_name)
 {
-    Delete( );
+	Delete();
 
-    std::string vs_name = file_name + ".vso";
+	std::string ps_name = file_name + ".pso";
 
-    // バーテックスシェーダ読み込み
-    m_VertexShaderHandle = LoadVertexShader( vs_name.c_str( ) );
+	// ピクセルシェーダ読み込み
+	m_PixelShaderHandle = LoadPixelShader(ps_name.c_str());
 
-    AQUA_DX_ASSERT( m_VertexShaderHandle, vs_name + "の読み込みに失敗しました。" );
-
-    std::string ps_name = file_name + ".pso";
-
-    // ピクセルシェーダ読み込み
-    m_PixelShaderHandle  = LoadPixelShader( ps_name.c_str( ) );
-
-    AQUA_DX_ASSERT( m_PixelShaderHandle, ps_name + "の読み込みに失敗しました。" );
-
-
-    m_VertxConstBufferHandle = CreateShaderConstantBuffer( sizeof( float ) * 4 );
+	AQUA_DX_ASSERT(m_PixelShaderHandle, ps_name + "の読み込みに失敗しました。");
 }
 
 /*
@@ -56,17 +44,19 @@ Create( const std::string& file_name )
  */
 void
 aqua::CShader::
-Delete( void )
+Delete(void)
 {
-    DeleteShaderConstantBuffer( m_VertxConstBufferHandle );
 
-    m_VertxConstBufferHandle = AQUA_UNUSED_HANDLE;
+	DeleteShader(m_PixelShaderHandle);
 
-    DeleteShader( m_PixelShaderHandle );
-    DeleteShader( m_VertexShaderHandle );
+	m_PixelShaderHandle = AQUA_UNUSED_HANDLE;
 
-    m_VertexShaderHandle = AQUA_UNUSED_HANDLE;
-    m_PixelShaderHandle  = AQUA_UNUSED_HANDLE;
+	if (m_Vertex)
+		AQUA_SAFE_DELETE_ARRAY(m_Vertex);
+
+	if (m_PolygonIndex)
+		AQUA_SAFE_DELETE_ARRAY(m_PolygonIndex);
+
 }
 
 /*
@@ -74,30 +64,16 @@ Delete( void )
  */
 void
 aqua::CShader::
-Begin( void )
+Begin(void)
 {
-    // オリジナルシェーダを使用する
-    MV1SetUseOrigShader( TRUE );
+	// オリジナルシェーダを使用する
+	MV1SetUseOrigShader(TRUE);
 
-    // シェーダ設定
-    SetUseVertexShader( m_VertexShaderHandle );
-    SetUsePixelShader( m_PixelShaderHandle );
+	// シェーダ設定
+	SetUsePixelShader(m_PixelShaderHandle);
 
-    // デフォルトライトを無効化
-    SetLightEnable( FALSE );
-
-    VECTOR camera_pos = GetCameraPosition( );
-
-    FLOAT4* buffer = (FLOAT4*)GetBufferShaderConstantBuffer( m_VertxConstBufferHandle );
-
-    buffer->x = camera_pos.x;
-    buffer->y = camera_pos.y;
-    buffer->z = camera_pos.z;
-    buffer->w = 0.0f;
-
-    UpdateShaderConstantBuffer( m_VertxConstBufferHandle );
-
-    SetShaderConstantBuffer( m_VertxConstBufferHandle, DX_SHADERTYPE_VERTEX, 4 ) ;
+	// デフォルトライトを無効化
+	SetLightEnable(FALSE);
 }
 
 /*
@@ -105,17 +81,21 @@ Begin( void )
  */
 void
 aqua::CShader::
-End( void )
+End(void)
 {
-    // デフォルトライトを有効化
-    SetLightEnable( TRUE );
+	SetTextureAddressMode(DX_TEXADDRESS_CLAMP);
 
-    // シェーダ解除
-    SetUseVertexShader( AQUA_UNUSED_HANDLE );
-    SetUsePixelShader( AQUA_UNUSED_HANDLE );
+	DrawPolygonIndexed2DToShader(m_Vertex, m_MaxVertex, m_PolygonIndex, 2);
 
-    // オリジナルシェーダを使用しない
-    MV1SetUseOrigShader( FALSE );
+	// デフォルトライトを有効化
+	SetLightEnable(TRUE);
+
+	// シェーダ解除
+	SetUseVertexShader(AQUA_UNUSED_HANDLE);
+	SetUsePixelShader(AQUA_UNUSED_HANDLE);
+
+	// オリジナルシェーダを使用しない
+	MV1SetUseOrigShader(FALSE);
 }
 
 /*
@@ -123,7 +103,40 @@ End( void )
  */
 void
 aqua::CShader::
-SetUseTexture( int register_id, int handle )
+SetUseTexture(int register_id, int handle)
 {
-    SetUseTextureToShader( register_id, handle );
+	SetUseTextureToShader(register_id, handle);
+}
+
+/*
+ *  @brief      float 型定数を設定する
+ */
+void aqua::CShader::SetFloat(std::string constant_name, float param)
+{
+	SetPSConstSF(GetConstIndexToShader(constant_name.c_str(), m_PixelShaderHandle), param);
+}
+
+void aqua::CShader::Setting(int vtx_index, float x, float y, float u, float v)
+{
+	if (vtx_index < m_MaxVertex && vtx_index >= 0)
+	{
+		m_Vertex[vtx_index].pos = VGet(x, y, 0.0f);
+		m_Vertex[vtx_index].u = u;
+		m_Vertex[vtx_index].v = v;
+		m_Vertex[vtx_index].su = u;
+		m_Vertex[vtx_index].sv = v;
+		m_Vertex[vtx_index].rhw = 1.0f;
+		m_Vertex[vtx_index].dif = GetColorU8(255, 255, 255, 255);
+		m_Vertex[vtx_index].spc = GetColorU8(0, 0, 0, 0);
+	}
+}
+
+/*
+ * 頂点データ数を設定
+ */
+void aqua::CShader::SetMaxVertex(int max_vertex, unsigned short* intdex)
+{
+	m_Vertex = AQUA_NEW VERTEX2DSHADER[max_vertex];
+	m_PolygonIndex = intdex;
+	m_MaxVertex = max_vertex;
 }
