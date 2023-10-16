@@ -8,11 +8,6 @@ public:
 	~IChangeScene() = default;
 
 	/*
-	 *  @brief スプライトの生成
-	 */
-	virtual void CreateSprite(aqua::CSurface& surface);
-
-	/*
 	 *  @brief 初期化 
 	 */
 	virtual void Initialize()override;
