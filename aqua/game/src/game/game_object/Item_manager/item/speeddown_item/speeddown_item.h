@@ -15,7 +15,7 @@ public:
 	~CSpeedDownItem(void) = default;
 
 	//‰Šú‰»
-	void Initialize(aqua::CVector2 position);
+	void Initialize(aqua::CVector2* position);
 
 	//XV
 	void Update()override;
