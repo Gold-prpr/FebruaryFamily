@@ -2,8 +2,8 @@
 #include "../../stage/stage.h"
 #include "../../unit_manager/unit/player/player.h"
 
-const int CGimmick::alpha_cnt = 3;
-const int CGimmick::alpha_interval = 10;
+const int CGimmick::alpha_cnt = 5;
+const int CGimmick::alpha_interval = 15;
 
 CGimmick::CGimmick(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "StageGimmick")
