@@ -1,8 +1,12 @@
 #pragma once
 #include "aqua.h"
 #include "../item_manager/item_manager.h"
+#include "../item_manager/item/speedup_item/speedup_item.h"
+#include "../item_manager/item/item.h"
 
 class CItemManager;
+
+class IItem;
 
 class CUi
 	:public aqua::IGameObject
@@ -43,6 +47,8 @@ private:
 	aqua::CSprite		m_2PDistanceBar;		//今いる距離
 	aqua::CSprite		m_2PItemEffect;			//アイテム効果
 
-	static const int	m_2P_item_position_y;					//アイテム数
+	static const aqua::CVector2		m_1p_item_frame_position;		//1Pのアイテムフレーム位置
+	static const aqua::CVector2		m_2p_item_frame_position;		//2Pのアイテムフレーム位置
 	CItemManager* m_pItemManager;
+	IItem* m_pItem;
 };
