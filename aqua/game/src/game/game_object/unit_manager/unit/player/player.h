@@ -64,6 +64,8 @@ public:
 
 	void SetScroll(aqua::CVector2 set_scroll);
 
+
+
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 private:
 
@@ -81,7 +83,10 @@ private:
 	CGimmick* m_pGimmick;//
 	aqua::CVector2 m_ScrollVec;
 	float m_AddSpeed;//スピード加算
-	static const float speed;//スピードの値
+	static const float max_speed;//スピードの値
+	float m_Speed;//今のスピード
+	float m_Accelerator;//加速度
+	int curr_inputx;
 	static const float jump;//ジャンプの値
 	static const float width;//幅
 	static const float height;//高さ

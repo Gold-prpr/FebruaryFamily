@@ -5,8 +5,8 @@
 #include "../../../stage/stage_object/gimmick.h"
 using namespace aqua::keyboard;
 
-const float CPlayer::speed = 8.0f;		//キャラのスピード
-const float CPlayer::jump  = -25.0f;	//キャラのジャンプ
+const float CPlayer::max_speed = 8.0f;		//キャラのスピード
+const float CPlayer::jump = -25.0f;	//キャラのジャンプ
 const float CPlayer::width = 60.0f;		//キャラの幅
 const float CPlayer::height = 60.0f;	//キャラの高さ
 const float CPlayer::radius = 30.0f;	//キャラの半径
@@ -43,13 +43,15 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 	m_UnitID = UNIT_ID::PLAYER;
 	m_Device = device;
 	m_LandingFlag = false;
+	m_Speed = 0.0f;
+	m_Accelerator = 0.0f;
+	curr_inputx = 0;
 
 	IGameObject::Initialize();
 }
 
 void CPlayer::Update()
 {
-
 	switch (m_State)
 	{
 	case STATE::START: State_Start(); break;//開始の状態
@@ -91,6 +93,7 @@ void CPlayer::CheckHitBlok(void)
 
 		// ブロックにあたっているので速度を消す
 		m_Velocity.x = 0;
+
 	}
 
 	/*if (m_pStage->CheckGoal(nx, y)
@@ -217,9 +220,25 @@ void CPlayer::State_Move()
 	m_Chara.Update();
 
 	float input_x_value = GetAnalogStickLeft(m_Device).x;
+
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
 
-	m_Velocity.x = speed * inputx;
+	m_Velocity.x = 0;
+
+	if (m_Accelerator < max_speed)
+		m_Accelerator += inputx;
+	else if (m_Accelerator > -max_speed)
+		m_Accelerator += inputx;
+
+	if (inputx == 0)
+	{
+		m_Accelerator = 0;
+	}
+
+	m_Velocity.x = m_Accelerator;
+
+
+
 	if (inputx != 0)
 	{
 		m_DirNext = (CHARA_DIR)inputx;
