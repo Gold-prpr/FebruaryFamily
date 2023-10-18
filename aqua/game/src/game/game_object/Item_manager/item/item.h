@@ -5,7 +5,7 @@ class IItem
 	:public aqua::IGameObject
 {
 public:
-	//コンストラクタ
+	////コンストラクタ
 	IItem(aqua::IGameObject* parent, const std::string& name);
 
 	//デストラクタ
@@ -28,7 +28,6 @@ public:
 	//アイテムの位置
 	const aqua::CVector2& GetPosition();
 
-	aqua::CVector2*				m_Position;		//アイテム位置
 
 	aqua::CSprite				m_ItemSprite;	//アイテム描画
 private:
