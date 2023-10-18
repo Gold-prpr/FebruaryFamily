@@ -177,7 +177,10 @@ void CTileManager::SaveTile()
 	// ƒtƒ@ƒCƒ‹‚ğ¶¬
 	m_TileDataText.open(file, std::ios::out);
 
-	m_TileDataText << m_BackGroundManager->GetSpritePath() << ",DUMMY\n";
+	m_TileDataText << m_BackGroundManager->GetSpritePath() << "," <<
+		std::to_string(m_TileCount.x) << "," << 
+		std::to_string(m_TileCount.y) << 
+		",DUMMY\n";
 
 	for (auto& i : m_TileList)
 	{
@@ -207,6 +210,8 @@ void CTileManager::ReSize()
 			tile = aqua::CreateGameObject<CTile>(this);
 
 			tile->Create(aqua::CVector2(m_TileCount.x, i) * m_object_max_size, aqua::CVector2::ONE * m_object_max_size);
+
+			
 
 			m_TileList.push_back(tile);
 		}
