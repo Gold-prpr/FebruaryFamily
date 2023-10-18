@@ -27,6 +27,8 @@ private:
 
 	int flame;
 
+	bool m_HitFlag;
+
 	CStage* m_pStage;
 	CPlayer* m_pPlayer;
 };
