@@ -9,7 +9,7 @@ const int CStage::num_chip_size_y = 1;
 
 const int CStage::all_num_chip = num_chip_size_x * num_chip_size_y;
 
-const float CStage::m_gravity = 1.0f;
+const float CStage::m_gravity = 0.98f;
 
 CStage::CStage(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "Stage")
@@ -32,14 +32,14 @@ void CStage::Update(void)
 
 void CStage::Draw(void)
 {
-
+	m_BackGround.Draw();
 
 	IGameObject::Draw();
 }
 
 void CStage::Finalize(void)
 {
-
+	m_BackGround.Delete();
 
 	IGameObject::Finalize();
 }
@@ -60,8 +60,13 @@ void CStage::Parse(const std::string& file_name)
 
 	int rows = loader.GetRows();
 
+	m_BackGround.Create(loader.GetString(0, 0));
+
 	map_x = loader.GetInteger(0, 1);
 	map_y = loader.GetInteger(0, 2);
+
+	m_BackGround.scale.x = (float)(map_x * map_chip_size) / (float)aqua::GetWindowSize().x;
+	m_BackGround.scale.y = (float)(map_y * map_chip_size * 2) / (float)aqua::GetWindowSize().y;
 
 	for (int y = 1; y < rows; y++)
 	{

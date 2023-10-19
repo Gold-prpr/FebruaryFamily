@@ -79,6 +79,8 @@ private:
 
 	std::vector<CStageObject*> m_StageObject;
 
+	aqua::CSprite              m_BackGround;
+
 	aqua::CVector2 m_MapPos;
 
 	int map_x;					//マップの横のタイルの数

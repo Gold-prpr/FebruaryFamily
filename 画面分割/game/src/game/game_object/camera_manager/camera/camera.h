@@ -46,5 +46,6 @@ private:
 
 	aqua::CSurface m_Surface;
 	aqua::CSprite  m_SurfaceSprite;
+	aqua::CVector2 m_Position;
 
 };

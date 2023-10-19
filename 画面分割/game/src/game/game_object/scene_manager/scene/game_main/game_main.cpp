@@ -37,7 +37,7 @@ void CGameMain::Update()
 
 void CGameMain::Draw()
 {
-	IScene::Draw();
+	m_pCameraManager->Draw();
 }
 
 void CGameMain::Finalize()

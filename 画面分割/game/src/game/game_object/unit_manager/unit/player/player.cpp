@@ -66,7 +66,7 @@ void CPlayer::Update()
 
 	CheckHitBlok();//壁の当たり判定
 
-	m_Chara.position = m_Position + m_pCamera->GetScroll(m_Device);//カメラのスクロール
+	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
 	IGameObject::Update();
 }
