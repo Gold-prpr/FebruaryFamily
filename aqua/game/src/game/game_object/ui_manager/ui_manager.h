@@ -14,6 +14,13 @@ public:
 	//初期化
 	void Initialize(void) override;
 
+	void Update(void) override;
+
+	void Draw(void) override;
+
+	void Finalize(void) override;
+
+	void Create(void);
 private:
 	static const aqua::CVector2		m_ui_item_frame_position;		//アイテムフレームの位置
 };
