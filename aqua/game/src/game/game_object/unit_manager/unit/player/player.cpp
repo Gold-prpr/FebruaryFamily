@@ -49,6 +49,7 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 	m_Accelerator = 0.0f;
 	curr_inputx = 0;
 	m_Timer = 0;
+	m_HitFlag = false;
 
 	IGameObject::Initialize();
 }
@@ -290,6 +291,12 @@ void CPlayer::State_Move()
 
 void CPlayer::State_Dead()
 {
+	m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
+
+	if (m_pGimmick)
+	{
+		m_pGimmick->DamageAction();
+	}
 }
 
 void CPlayer::State_Stop()

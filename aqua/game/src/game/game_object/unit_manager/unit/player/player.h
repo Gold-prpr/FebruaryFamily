@@ -64,7 +64,7 @@ public:
 
 	void SetScroll(aqua::CVector2 set_scroll);
 
-
+	bool m_HitFlag;
 
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 private:
