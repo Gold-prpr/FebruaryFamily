@@ -2,7 +2,7 @@
 #include "../../stage/stage.h"
 #include "../../unit_manager/unit/player/player.h"
 
-const int CGimmick::alpha_cnt = 8;
+const int CGimmick::alpha_cnt = 5;
 const int CGimmick::alpha_interval = 20;
 
 CGimmick::CGimmick(aqua::IGameObject* parent)

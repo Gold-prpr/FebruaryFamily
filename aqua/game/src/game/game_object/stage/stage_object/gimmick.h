@@ -22,6 +22,7 @@ public:
 private:
 	static const int alpha_cnt;
 	static const int alpha_interval;
+	static const float return_length;
 	int m_AlphaCurrCnt;
 	int m_AlphaTimer;
 
