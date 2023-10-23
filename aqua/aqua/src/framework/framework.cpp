@@ -167,7 +167,7 @@ Update( void )
         FrameSync( );
 
         // EscÉLÅ[Ç≈èIóπ
-        if( CheckHitKey( KEY_INPUT_ESCAPE ) == TRUE )
+        if( CheckHitKey( KEY_INPUT_ESCAPE ))
             break;
     }
 }

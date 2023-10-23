@@ -22,10 +22,13 @@ public:
 private:
 	static const int alpha_cnt;
 	static const int alpha_interval;
+	static const float return_length;
 	int m_AlphaCurrCnt;
 	int m_AlphaTimer;
 
 	int flame;
+
+	bool m_HitFlag;
 
 	CStage* m_pStage;
 	CPlayer* m_pPlayer;

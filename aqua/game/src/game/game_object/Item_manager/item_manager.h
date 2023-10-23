@@ -24,7 +24,7 @@ public:
 	//解放
 	void Finalize(void) override;
 
-	//アイテムID
+	//生成
 	void Create(ITEM_ID id, aqua::CVector2* position);
 
 	int m_item_rand;				//ランダムにアイテムを出す
