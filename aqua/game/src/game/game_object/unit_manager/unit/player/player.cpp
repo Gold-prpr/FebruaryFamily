@@ -7,12 +7,14 @@
 
 using namespace GameInputManager;
 
-const float CPlayer::speed = 8.0f;//キャラのスピード
+const float CPlayer::max_speed = 8.0f;//キャラのスピード
+const float CPlayer::min_speed = 3.0f;	//キャラの最低スピード
 const float CPlayer::jump = -25.0f;//キャラのジャンプ
 const float CPlayer::width = 60.0f;//キャラの幅
 const float CPlayer::height = 60.0f;//キャラの高さ
 const float CPlayer::radius = 30.0f;//キャラの半径
 const float CPlayer::dash = 1.7f;//キャラのダッシュ力
+const int CPlayer::max_interval = 3;
 
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
@@ -49,6 +51,9 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 	m_UnitID = UNIT_ID::PLAYER;
 	m_Device = device;
 	m_LandingFlag = false;
+	m_Accelerator = 0.0f;
+	m_Timer = 0;
+	m_HitFlag = false;
 
 	IGameObject::Initialize();
 }
@@ -227,19 +232,40 @@ void CPlayer::State_Move()
 
 	float input_x_value = GetHorizotal(m_Device);
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
+	m_Velocity.x = 0;
 
-	m_Velocity.x = speed * inputx;
+	m_Timer += 1;
+
+	m_Velocity.x = min_speed * inputx;
+	if (Button(m_Device, BUTTON_ID::X))
+	{
+		if (m_Timer >= max_interval && m_Accelerator < max_speed)
+		{
+			m_Accelerator += inputx;
+			m_Timer = 0;
+		}
+
+		else if (m_Timer >= max_interval && m_Accelerator > -max_speed)
+		{
+			m_Accelerator += inputx;
+			m_Timer = 0;
+		}
+
+		m_Velocity.x = m_Accelerator;
+	}
+
+	if (inputx == 0)
+	{
+		m_Accelerator = 0;
+	}
+
+
 	if (inputx != 0)
 	{
 		m_DirNext = (CHARA_DIR)inputx;
 	}
 
-	if (GameButton(GameKey::X,m_Device))
-	{
-		m_Velocity.x = m_Velocity.x * dash;
-	}
-
-	if (GameTrigger(GameKey::A, m_Device))
+	if (GameTrigger(GameKey::A,m_Device))
 	{
 		if (m_LandingFlag == true)
 		{

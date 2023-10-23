@@ -64,6 +64,8 @@ public:
 
 	DEVICE_ID GetDeviceID();
 
+	bool m_HitFlag;
+
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 private:
 
@@ -81,12 +83,16 @@ private:
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
 	CGimmick* m_pGimmick;//
 	float m_AddSpeed;//スピード加算
-	static const float speed;//スピードの値
+	float m_Accelerator;//加速度
+	int m_Timer;
+	static const float max_speed;//最高スピードの値
+	static const float min_speed;//最低スピードの値
 	static const float jump;//ジャンプの値
 	static const float width;//幅
 	static const float height;//高さ
 	static const float radius;//半径
 	static const float dash;//ダッシュの値
+	static const int max_interval;
 	bool m_LandingFlag;//空中にいるときのフラグ
 
 };
