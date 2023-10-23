@@ -223,12 +223,8 @@ void CPlayer::State_Move()
 {
 	m_Chara.Update();
 
-<<<<<<< HEAD
-	/*float input_x_value = GetAnalogStickLeft(m_Device).x;
-=======
 	float input_x_value = GetAnalogStickLeft(m_Device).x;
 
->>>>>>> 33228_ian
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
 
 	m_Velocity.x = 0;
@@ -266,20 +262,6 @@ void CPlayer::State_Move()
 	}
 
 	if (Trigger(m_Device, BUTTON_ID::A))
-	{
-		if (m_LandingFlag == true)
-		{
-			m_Velocity.y = jump;
-			m_LandingFlag = false;
-		}
-	}*/
-
-	m_Velocity.x = 0.0f;
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::A))
-		m_Velocity.x -= speed;
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::D))
-		m_Velocity.x += speed;
-	if (aqua::keyboard::Button(aqua::keyboard::KEY_ID::SPACE))
 	{
 		if (m_LandingFlag == true)
 		{

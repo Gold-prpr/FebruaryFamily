@@ -33,7 +33,7 @@ public:
 	~CPlayer()override = default;
 
 	//‰Šú‰»
-	void Initialize(const aqua::CVector2 & position,DEVICE_ID device);
+	void Initialize(const aqua::CVector2& position, DEVICE_ID device);
 
 	//XV
 	void Update() override;
