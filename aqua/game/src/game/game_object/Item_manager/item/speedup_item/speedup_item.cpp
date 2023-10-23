@@ -13,6 +13,7 @@ void CSpeedUpItem::Initialize(aqua::CVector2* position)
 
 	//5秒間
 	m_EffectTimer.Setup(5.0f);
+
 	//アイテム使っていない状態
 	m_itemflag = false;
 	IItem::Initialize(position, "data\\speedup.png");
@@ -59,5 +60,4 @@ void CSpeedUpItem::SpeedUp()
 	//アイテム効果時間が終わったら
 	if (m_EffectTimer.Finished())
 		m_itemflag = false;
-
 }

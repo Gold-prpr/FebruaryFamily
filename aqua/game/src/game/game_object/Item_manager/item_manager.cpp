@@ -4,6 +4,7 @@
 
 const int CItemManager::m_item = 2;		//アイテム数
 using namespace aqua::keyboard;
+using namespace aqua::controller;
 
 //コンストラクタ
 CItemManager::CItemManager(aqua::IGameObject* parent)
@@ -20,7 +21,8 @@ void CItemManager::Initialize(void)
 //更新
 void CItemManager::Update(void)
 {
-	if (Trigger(KEY_ID::NUMPADENTER))
+	//if (Trigger(KEY_ID::NUMPADENTER))
+	if (Trigger(DEVICE_ID::P1, BUTTON_ID::X))
 	{
 		m_item_rand = rand() % m_item;
 
@@ -30,6 +32,7 @@ void CItemManager::Update(void)
 		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
 		}
 	}
+
 	IGameObject::Update();
 }
 
@@ -57,5 +60,6 @@ void CItemManager::Create(ITEM_ID id, aqua::CVector2* position)
 	}
 
 	if (!item) return;
+
 	item->Initialize(position);
 }
