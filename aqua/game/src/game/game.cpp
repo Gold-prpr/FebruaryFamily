@@ -29,7 +29,6 @@ CGame( aqua::IGameObject* parent )
 void
 CGame::
 Initialize(void)
-
 {
     aqua::CreateGameObject<CSceneManager>(this);
 
@@ -43,6 +42,8 @@ void
 CGame::
 Update(void)
 {
+    GameInputManager::Updata();
+
     IGameObject::Update();
 }
 

@@ -17,6 +17,9 @@ void CTitle::Initialize()
 
 void CTitle::Update()
 {
+	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
+		m_ChangeSceneFlag = true;
+
 	m_BackGround.Update();
 	aqua::IGameObject::Update();
 }

@@ -1,5 +1,6 @@
 #include "stage.h"
-#include "../camera/camera.h"
+#include "../camera_manager/camera_manager.h"
+#include "stage_object/stage_object.h"
 
 const int CStage::map_chip_size = 60;
 
@@ -8,10 +9,7 @@ const int CStage::num_chip_size_y = 1;
 
 const int CStage::all_num_chip = num_chip_size_x * num_chip_size_y;
 
-const int CStage::map_x = 60;
-const int CStage::map_y = 18;
-
-const float CStage::m_gravity = 1.0f;
+const float CStage::m_gravity = 0.98f;
 
 CStage::CStage(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "Stage")
@@ -20,21 +18,7 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	m_pCamera = (CCamera*)aqua::FindGameObject("Camera");
-
-	std::string file_name = "data//stage.csv";
-
-	m_TileSprite = AQUA_NEW aqua::CSprite[all_num_chip];
-
-	for (int i = 0; i < (int)TILE_ID::MAX; i++)
-	{
-		m_TileSprite[i].Create("data\\tile.png");
-
-		int cw = i % 5 * map_chip_size;
-		int ch = i / 5 * map_chip_size;
-
-		m_TileSprite[i].rect = aqua::CRect(cw, ch, cw + map_chip_size, ch + map_chip_size);
-	}
+	std::string file_name = "data\\scene\\game\\map_data8.csv";
 
 	Parse(file_name);
 
@@ -43,34 +27,29 @@ void CStage::Initialize(void)
 
 void CStage::Update(void)
 {
-	
-
 	IGameObject::Update();
 }
 
 void CStage::Draw(void)
 {
-	int i = 0;
-
-	for (auto it = m_MapData.begin(); it != m_MapData.end(); ++it, ++i)
-	{
-		m_TileSprite[*it].position.x = (float)(i % map_x) * map_chip_size ;
-		m_TileSprite[*it].position.y = (float)(i / map_x) * map_chip_size ;
-
-		m_TileSprite[*it].Draw();
-	}
+	m_BackGround.Draw();
 
 	IGameObject::Draw();
 }
 
 void CStage::Finalize(void)
 {
-	for (int i = 0; i < (int)TILE_ID::MAX; i++)
-		m_TileSprite[i].Delete();
-
-	AQUA_SAFE_DELETE_ARRAY(m_TileSprite);
+	m_BackGround.Delete();
 
 	IGameObject::Finalize();
+}
+
+void CStage::SetScroll(aqua::CVector2 scroll)
+{
+	for (auto& stage_id : m_StageObject)
+	{
+		stage_id->SetAddPosition(scroll);
+	}
 }
 
 void CStage::Parse(const std::string& file_name)
@@ -79,12 +58,28 @@ void CStage::Parse(const std::string& file_name)
 
 	loader.Load(file_name);
 
-	for (int y = 0; y < loader.GetRows(); y++)
+	int rows = loader.GetRows();
+
+	m_BackGround.Create(loader.GetString(0, 0));
+
+	map_x = loader.GetInteger(0, 1);
+	map_y = loader.GetInteger(0, 2);
+
+	m_BackGround.scale.x = (float)(map_x * map_chip_size) / (float)aqua::GetWindowSize().x;
+	m_BackGround.scale.y = (float)(map_y * map_chip_size * 2) / (float)aqua::GetWindowSize().y;
+
+	for (int y = 1; y < rows; y++)
 	{
-		for (int x = 0; x < loader.GetCols(); x++)
-		{
-			m_MapData.push_back(loader.GetInteger(y, x));
-		}
+		CStageObject* stage_object = nullptr;
+
+		stage_object = aqua::CreateGameObject<CStageObject>(this);
+
+		stage_object->Create(aqua::CVector2(loader.GetFloat(y,1), loader.GetFloat(y,2)), aqua::CVector2::ONE * map_chip_size);
+
+		stage_object->stage_object_id = (StageObjectID)loader.GetInteger(y,0);
+
+		m_StageObject.push_back(stage_object);
+
 	}
 
 	loader.Unload();
@@ -92,17 +87,12 @@ void CStage::Parse(const std::string& file_name)
 
 float CStage::GetMapWidth(void)
 {
-	return map_chip_size * map_x;
+	return (float)(map_chip_size * map_x);
 }
 
 float CStage::GetMapHeight(void)
 {
-	return map_chip_size * map_y;
-}
-
-void CStage::GetScroll(aqua::CVector2 scroll)
-{
-	m_Scroll = scroll;
+	return (float)(map_chip_size * map_y);
 }
 
 float CStage::GetGravity(void)
@@ -112,13 +102,16 @@ float CStage::GetGravity(void)
 
 bool CStage::CheckHit(int x, int y)
 {
-	if (x <= 0.0f || y <= 0.0f)return false;
+	for (auto& stage_it : m_StageObject)
+	{
+		aqua::CVector2 pos = stage_it->GetPosition();
 
-	int ix = x / map_chip_size;
-	int iy = y / map_chip_size;
-
-	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::GROUND_TILE)
-		return true;
+		if (pos.x < x && pos.x + map_chip_size > x &&
+			pos.y < y && pos.y + map_chip_size > y &&
+			stage_it->stage_object_id != StageObjectID::AIR &&
+			(int)stage_it->stage_object_id < (int)StageObjectID::BOX)
+			return true;
+	}
 
 	return false;
 }
@@ -130,42 +123,45 @@ int CStage::GetTileSize(void)
 
 bool CStage::CheckGoal(int x, int y)
 {
+	for (auto& stage_it : m_StageObject)
+	{
+		aqua::CVector2 pos = stage_it->GetPosition();
 
-	if (x <= 0.0f || y <= 0.0f)return false;
-
-	int ix = x / map_chip_size;
-	int iy = y / map_chip_size;
-
-	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::GOAL_TILE)
-		return true;
+		if (pos.x < x && pos.x + map_chip_size > x &&
+			pos.y < y && pos.y + map_chip_size > y && 
+			stage_it->stage_object_id == StageObjectID::GOAL_FLAG)
+			return true;
+	}
 
 	return false;
 }
 
 bool CStage::CheckItem(int x, int y)
 {
+	for (auto& stage_it : m_StageObject)
+	{
+		aqua::CVector2 pos = stage_it->GetPosition();
 
-	if (x <= 0.0f || y <= 0.0f)return false;
-
-	int ix = x / map_chip_size;
-	int iy = y / map_chip_size;
-
-	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::ITEM_TILE)
-		return true;
+		if (pos.x < x && pos.x + map_chip_size > x &&
+			pos.y < y && pos.y + map_chip_size > y &&
+			stage_it->stage_object_id == StageObjectID::BOX)
+			return true;
+	}
 
 	return false;
 }
 
 bool CStage::CheckGimmick(int x, int y)
 {
+	for (auto& stage_it : m_StageObject)
+	{
+		aqua::CVector2 pos = stage_it->GetPosition();
 
-	if (x <= 0.0f || y <= 0.0f)return false;
-
-	int ix = x / map_chip_size;
-	int iy = y / map_chip_size;
-
-	if (m_MapData[map_x * iy + ix] == (int)TILE_ID::GIMMICK_TILE)
-		return true;
+		if (pos.x < x && pos.x + map_chip_size > x &&
+			pos.y < y && pos.y + map_chip_size > y &&
+			stage_it->stage_object_id == StageObjectID::SPIKE_BALL)
+			return true;
+	}
 
 	return false;
 }

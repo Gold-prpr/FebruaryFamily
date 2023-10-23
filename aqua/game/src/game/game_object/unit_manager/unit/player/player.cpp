@@ -1,23 +1,24 @@
 #include "player.h"
 #include "../../../stage/stage.h"
-#include "../../../camera/camera.h"
+#include "../../../camera_manager/camera_manager.h"
 #include "../../unit_manager.h"
-#include "../../../stage/stage_object/gimmick.h"
-using namespace aqua::keyboard;
+#include "../../../stage/gimmick/gimmick.h"
+#include "../../../input_manager/input_manager.h"
 
-const float CPlayer::max_speed = 8.0f;	//キャラの最高スピード
-const float CPlayer::min_speed = 3.0f;	//キャラの最低スピード
-const float CPlayer::jump = -25.0f;	    //キャラのジャンプ
-const float CPlayer::width = 60.0f;		//キャラの幅
-const float CPlayer::height = 60.0f;	//キャラの高さ
-const float CPlayer::radius = 30.0f;	//キャラの半径
-const float CPlayer::dash = 1.7f;		//キャラのダッシュ力
-const int CPlayer::max_interval = 3;
+using namespace GameInputManager;
+
+const float CPlayer::speed = 8.0f;//キャラのスピード
+const float CPlayer::jump = -25.0f;//キャラのジャンプ
+const float CPlayer::width = 60.0f;//キャラの幅
+const float CPlayer::height = 60.0f;//キャラの高さ
+const float CPlayer::radius = 30.0f;//キャラの半径
+const float CPlayer::dash = 1.7f;//キャラのダッシュ力
 
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
 	:IUnit(parent, "Player")
 	, m_pStage(nullptr)
+	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
 	, m_pGimmick(nullptr)
 	, m_State(STATE::START)
@@ -27,17 +28,20 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 
 void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 {
+
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
-	if (device == DEVICE_ID::P1)
-		m_Chara.Create("data//player1p.ass", "right");
-	else
-		m_Chara.Create("data//player2p.ass", "right");
+	std::string name;
 
+	if (device == DEVICE_ID::P1)
+		name = "data//player1p.ass";
+	else
+		name = "data//player2p.ass";
+
+	m_Chara.Create(name, "right");
 	m_Chara.anchor.x = m_Chara.GetFrameWidth() / 2.0f;
 	m_Chara.anchor.y = m_Chara.GetFrameHeight() / 2.0f;
-
 	m_Position = position;
 	m_Velocity = aqua::CVector2::ZERO;
 	m_Width = width;
@@ -45,17 +49,15 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 	m_UnitID = UNIT_ID::PLAYER;
 	m_Device = device;
 	m_LandingFlag = false;
-	m_Speed = 0.0f;
-	m_Accelerator = 0.0f;
-	curr_inputx = 0;
-	m_Timer = 0;
-	m_HitFlag = false;
 
 	IGameObject::Initialize();
 }
 
 void CPlayer::Update()
 {
+	if (!m_pCamera)
+		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
+
 	switch (m_State)
 	{
 	case STATE::START: State_Start(); break;//開始の状態
@@ -65,7 +67,8 @@ void CPlayer::Update()
 	}
 
 	CheckHitBlok();//壁の当たり判定
-	m_Chara.position = m_Position + m_ScrollVec;//カメラのスクロール
+
+	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
 	IGameObject::Update();
 }
@@ -97,7 +100,6 @@ void CPlayer::CheckHitBlok(void)
 
 		// ブロックにあたっているので速度を消す
 		m_Velocity.x = 0;
-
 	}
 
 	/*if (m_pStage->CheckGoal(nx, y)
@@ -168,9 +170,9 @@ void CPlayer::CheckHitBlok(void)
 	m_Position.y = (float)ny;
 }
 
-void CPlayer::SetScroll(aqua::CVector2 set_scroll)
+DEVICE_ID CPlayer::GetDeviceID()
 {
-	m_ScrollVec = set_scroll;
+	return m_Device;
 }
 
 void CPlayer::Draw()
@@ -223,45 +225,21 @@ void CPlayer::State_Move()
 {
 	m_Chara.Update();
 
-	float input_x_value = GetAnalogStickLeft(m_Device).x;
-
+	float input_x_value = GetHorizotal(m_Device);
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
 
-	m_Velocity.x = 0;
-
-	m_Timer += 1;
-
-	m_Velocity.x = min_speed * inputx;
-
-	if (Button(m_Device, BUTTON_ID::X))
-	{
-		if (m_Timer >= max_interval && m_Accelerator < max_speed)
-		{
-			m_Accelerator += inputx;
-			m_Timer = 0;
-		}
-
-		else if (m_Timer >= max_interval && m_Accelerator > -max_speed)
-		{
-			m_Accelerator += inputx;
-			m_Timer = 0;
-		}
-
-		m_Velocity.x = m_Accelerator;
-	}
-
-	if (inputx == 0)
-	{
-		m_Accelerator = 0;
-	}
-
-
+	m_Velocity.x = speed * inputx;
 	if (inputx != 0)
 	{
 		m_DirNext = (CHARA_DIR)inputx;
 	}
 
-	if (Trigger(m_Device, BUTTON_ID::A))
+	if (GameButton(GameKey::X,m_Device))
+	{
+		m_Velocity.x = m_Velocity.x * dash;
+	}
+
+	if (GameTrigger(GameKey::A, m_Device))
 	{
 		if (m_LandingFlag == true)
 		{
@@ -291,12 +269,6 @@ void CPlayer::State_Move()
 
 void CPlayer::State_Dead()
 {
-	m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
-
-	if (m_pGimmick)
-	{
-		m_pGimmick->DamageAction();
-	}
 }
 
 void CPlayer::State_Stop()

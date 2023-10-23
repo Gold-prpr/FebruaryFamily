@@ -2,6 +2,7 @@
 
 IScene::IScene(aqua::IGameObject* parent, std::string name,SCENE_ID next_scene,CHANGE_SCENE_ID next_change_scene)
 	:aqua::IGameObject(parent,name,"Scene")
+	, m_ChangeSceneFlag(false)
 	, m_NextSceneID(next_scene)
 	, m_NextChangeSceneID(next_change_scene)
 {
@@ -35,4 +36,9 @@ SCENE_ID IScene::GetNextSceneID()
 CHANGE_SCENE_ID IScene::GetNextChangeSceneID()
 {
 	return m_NextChangeSceneID;
+}
+
+bool IScene::GetChangeSceneFlag()
+{
+	return m_ChangeSceneFlag;
 }

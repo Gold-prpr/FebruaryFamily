@@ -2,7 +2,7 @@
 #include "aqua.h"
 #include "unit/unit.h"
 
-
+class CPlayer;
 class CStage;
 
 class CUnitManager :public aqua::IGameObject
@@ -25,6 +25,8 @@ public:
 
 	//‰ğ•ú
 	void Finalize()override;
+
+	CPlayer* GetPlayer(aqua::controller::DEVICE_ID player_device);
 
 	//Unit‚Ì¶¬‚Æİ’u
 	IUnit* CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID device);

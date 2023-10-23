@@ -1,5 +1,5 @@
 #pragma once
-#include "../stage_object/gimmick_id.h"
+#include "../gimmick/gimmick_id.h"
 
 class CStage;
 class CPlayer;
@@ -22,13 +22,10 @@ public:
 private:
 	static const int alpha_cnt;
 	static const int alpha_interval;
-	static const float return_length;
 	int m_AlphaCurrCnt;
 	int m_AlphaTimer;
 
 	int flame;
-
-	bool m_HitFlag;
 
 	CStage* m_pStage;
 	CPlayer* m_pPlayer;

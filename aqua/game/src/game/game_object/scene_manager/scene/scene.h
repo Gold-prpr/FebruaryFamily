@@ -17,6 +17,12 @@ public:
 	SCENE_ID	 GetNextSceneID();
 	CHANGE_SCENE_ID	 GetNextChangeSceneID();
 
+	bool GetChangeSceneFlag();
+
+protected:
+
+	bool m_ChangeSceneFlag;
+
 private:
 
 	SCENE_ID m_NextSceneID;

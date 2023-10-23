@@ -12,6 +12,8 @@ void CResult::Initialize()
 
 void CResult::Update()
 {
+	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
+		m_ChangeSceneFlag = true;
 }
 
 void CResult::Draw()

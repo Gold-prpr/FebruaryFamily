@@ -33,6 +33,31 @@ void CUnitManager::Finalize()
 	IGameObject::Finalize();
 }
 
+CPlayer* CUnitManager::GetPlayer(aqua::controller::DEVICE_ID player_device)
+{
+	CPlayer* player = nullptr;
+
+	auto child_it = m_ChildObjectList.begin();
+
+	while (child_it != m_ChildObjectList.end())
+	{
+		if ((*child_it)->GetGameObjectName() == "Player")
+		{
+			DEVICE_ID id = ((CPlayer*)(*child_it))->GetDeviceID();
+
+			if (id == player_device)
+			{
+				player = (CPlayer*)(*child_it);
+				break;
+			}
+		}
+
+		child_it++;
+	}
+
+	return player;
+}
+
 IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID device)
 {
 	IUnit* unit = nullptr;

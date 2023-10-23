@@ -50,7 +50,7 @@ void CSceneManager::Update()
 		// XVó‘Ô
 	case SCENE_STATE::UPDATE:
 
-		if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
+		if (m_SceneClass->GetChangeSceneFlag())
 		{
 			// Ÿ‚Ìó‘Ô‚Éİ’è
 			m_SceneState = SCENE_STATE::SCENE_OUT;

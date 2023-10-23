@@ -1,35 +1,35 @@
 #include "input_manager.h"
 
-bool GameInput::In(GameKey key, aqua::controller::DEVICE_ID player_id)
+bool GameInputManager::GameTrigger(GameKey key, aqua::controller::DEVICE_ID player_id)
 {
 	int num = (int)key + (int)player_id * (int)GameKey::MAX;
 
 	return m_GameKey[num] == !m_GameKeyPrev[num];
 }
 
-bool GameInput::Out(GameKey key, aqua::controller::DEVICE_ID player_id)
+bool GameInputManager::GameReleased(GameKey key, aqua::controller::DEVICE_ID player_id)
 {
 	int num = (int)key + (int)player_id * (int)GameKey::MAX;
 
 	return !m_GameKey[num] == m_GameKeyPrev[num];
 }
 
-bool GameInput::Button(GameKey key, aqua::controller::DEVICE_ID player_id)
+bool GameInputManager::GameButton(GameKey key, aqua::controller::DEVICE_ID player_id)
 {
 	return m_GameKey[(int)key + (int)player_id * (int)GameKey::MAX];
 }
 
-float GameInput::GetHorizotal(aqua::controller::DEVICE_ID player_id)
+float GameInputManager::GetHorizotal(aqua::controller::DEVICE_ID player_id)
 {
 	return m_GameHorizotal[(int)player_id];
 }
 
-float GameInput::GetVertical(aqua::controller::DEVICE_ID player_id)
+float GameInputManager::GetVertical(aqua::controller::DEVICE_ID player_id)
 {
 	return m_GameVertical[(int)player_id];
 }
 
-void GameInput::Updata()
+void GameInputManager::Updata()
 {
 
 	for (int i = 0; i < m_key_max; i++)
@@ -38,7 +38,7 @@ void GameInput::Updata()
 	}
 
 
-	for (int j = 0; j < (int)aqua::controller::DEVICE_ID::P2; j++)
+	for (int j = 0; j < (int)aqua::controller::DEVICE_ID::P3; j++)
 	{
 		aqua::controller::DEVICE_ID id = (aqua::controller::DEVICE_ID)j;
 
@@ -92,11 +92,11 @@ void GameInput::Updata()
 		}
 
 		m_GameHorizotal[j] = 
-			aqua::controller::GetAnalogStickLeft(id).x ||
+			aqua::controller::GetAnalogStickLeft(id).x +
 			key_stick.x;
 
 		m_GameVertical[j] =
-			aqua::controller::GetAnalogStickLeft(id).y ||
+			aqua::controller::GetAnalogStickLeft(id).y +
 			key_stick.y;
 	}
 }
