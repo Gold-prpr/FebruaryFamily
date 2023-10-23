@@ -30,6 +30,8 @@ public:
 
 	float GetMapHeight(void);
 
+	void  GetScroll(aqua::CVector2 scroll);
+
 	//重力
 	float GetGravity(void);
 
@@ -46,21 +48,6 @@ public:
 	//ギミック判定
 	bool CheckGimmick(int x, int y);
 
-	/*//落ちる判定
-	bool CheckFallBlock(int x, int y);
-
-	////ギミック判定(針)
-	bool CheckSpine(int x, int y);
-
-	//Tileサイズを呼ぶ
-	int GetSize(void);
-
-	//空のタイルに変更
-	void ChangeAir(int x, int y);
-
-	////ゴール演出
-	void GoalMove(void);*/
-
 	aqua::CSprite* m_TileSprite;			//Tile描画
 
 	aqua::CVector2 m_Scroll;
@@ -76,13 +63,15 @@ private:
 	static const int map_x;					//マップの横のタイルの数
 	static const int map_y;					//マップの縦のタイルの数
 
+	static const aqua::CVector2 m_Scale;
+
 	static const float m_gravity;			//重力
 
 	std::vector<int> m_MapData;
 
 	aqua::CVector2 m_MapPos;
 
-	//aqua::CSprite m_background;				//背景
+	//aqua::CSprite m_background;			//背景
 	//aqua::CSprite m_goal;					//ゴール
 
 	int m_MapTileX;

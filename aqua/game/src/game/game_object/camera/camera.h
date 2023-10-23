@@ -19,11 +19,14 @@ public:
 	//XV
 	void Update()override;
 
+	void SetPlayerPos(aqua::CVector2 player_pos);
+
 	//OffSet‚Ìæ“¾
 	const aqua::CVector2& GetScroll();
 
 private:
 	aqua::CVector2 m_Scroll;
+	aqua::CVector2 m_PlayerPos;
 	
 	CPlayer* m_pPlayer;
 	CStage* m_pStage;

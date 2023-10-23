@@ -62,6 +62,10 @@ public:
 	//壁の当たり判定
 	void CheckHitBlok(void);
 
+	void SetScroll(aqua::CVector2 set_scroll);
+
+	bool m_HitFlag;
+
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 private:
 
@@ -75,16 +79,22 @@ private:
 	CHARA_DIR m_DirCurrent;//キャラの今の向き
 	DEVICE_ID m_Device;//
 	CStage* m_pStage;//ステージのポインタ
-	CCamera* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
 	CGimmick* m_pGimmick;//
+	aqua::CVector2 m_ScrollVec;
 	float m_AddSpeed;//スピード加算
-	static const float speed;//スピードの値
+	static const float max_speed;//最高スピードの値
+	static const float min_speed;//最低スピードの値
+	float m_Speed;//今のスピード
+	float m_Accelerator;//加速度
+	int m_Timer;
+	int curr_inputx;
 	static const float jump;//ジャンプの値
 	static const float width;//幅
 	static const float height;//高さ
 	static const float radius;//半径
 	static const float dash;//ダッシュの値
+	static const int max_interval;
 	bool m_LandingFlag;//空中にいるときのフラグ
 
 };
