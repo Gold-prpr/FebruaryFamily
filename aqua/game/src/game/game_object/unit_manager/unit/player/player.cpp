@@ -75,6 +75,10 @@ void CPlayer::Update()
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
+	m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
+	if(m_pGimmick)
+	m_pGimmick->DamageAction();
+
 	IGameObject::Update();
 }
 
@@ -124,8 +128,7 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGimmick(nx, y + h - 1)
 		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
 	{
-		m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
-		m_pGimmick->DamageAction();
+		m_HitFlag = true;
 	}
 
 	if (m_LandingFlag == true)
