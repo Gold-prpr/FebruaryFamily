@@ -25,5 +25,6 @@ public:
 	void Finalize(void)override;
 
 private:
-	aqua::CSprite		m_ItemFrameSprite;	//アイテム枠
+	aqua::CSprite		m_1PItemFrameSprite;	//1Pアイテム枠
+	aqua::CSprite		m_2PItemFrameSprite;	//2Pアイテム枠
 };
