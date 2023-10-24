@@ -9,7 +9,7 @@ using namespace GameInputManager;
 
 const float CPlayer::max_speed = 8.0f;//キャラのスピード
 const float CPlayer::min_speed = 3.0f;	//キャラの最低スピード
-const float CPlayer::jump = -25.0f;//キャラのジャンプ
+const float CPlayer::jump = -27.5f;//キャラのジャンプ
 const float CPlayer::width = 60.0f;//キャラの幅
 const float CPlayer::height = 60.0f;//キャラの高さ
 const float CPlayer::radius = 30.0f;//キャラの半径
@@ -75,6 +75,10 @@ void CPlayer::Update()
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
+	m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
+	if(m_pGimmick)
+	m_pGimmick->DamageAction();
+
 	IGameObject::Update();
 }
 
@@ -124,8 +128,7 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGimmick(nx, y + h - 1)
 		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
 	{
-		m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
-		m_pGimmick->DamageAction();
+		m_HitFlag = true;
 	}
 
 	if (m_LandingFlag == true)
@@ -237,7 +240,7 @@ void CPlayer::State_Move()
 	m_Timer += 1;
 
 	m_Velocity.x = min_speed * inputx;
-	if (Button(m_Device, BUTTON_ID::X))
+	if (GameButton(GameKey::X,m_Device))
 	{
 		if (m_Timer >= max_interval && m_Accelerator < max_speed)
 		{
@@ -267,7 +270,7 @@ void CPlayer::State_Move()
 
 	if (GameTrigger(GameKey::A,m_Device))
 	{
-		if (m_LandingFlag == true)
+		if (m_LandingFlag)
 		{
 			m_Velocity.y = jump;
 			m_LandingFlag = false;

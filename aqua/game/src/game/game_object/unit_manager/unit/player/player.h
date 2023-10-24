@@ -67,6 +67,8 @@ public:
 	bool m_HitFlag;
 
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
+
+	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
 private:
 
 	void State_Start();//開始の状態
@@ -77,7 +79,6 @@ private:
 	STATE m_State;//キャラの状態
 	CHARA_DIR m_DirNext;//キャラの次の向き
 	CHARA_DIR m_DirCurrent;//キャラの今の向き
-	DEVICE_ID m_Device;//
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
