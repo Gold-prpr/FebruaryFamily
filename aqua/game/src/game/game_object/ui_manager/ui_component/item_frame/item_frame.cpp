@@ -12,14 +12,14 @@ void CItemFrame::Initialize(const aqua::CVector2& position)
     IUiComponent::Initialize(position);
     m_1PItemFrameSprite.Create("data\\frame.png");
     m_2PItemFrameSprite.Create("data\\frame.png");
+    m_1PItemFrameSprite.position = m_Position;
+    m_2PItemFrameSprite.position = m_Position + aqua::CVector2{ 0.0f, 540.0f };
     IGameObject::Initialize();
 }
 
 //çXêV
 void CItemFrame::Update(void)
 {
-    m_1PItemFrameSprite.position = m_Position;
-    m_2PItemFrameSprite.position = m_Position + aqua::CVector2{ 0.0f, 540.0f };
     IGameObject::Update();
 }
 

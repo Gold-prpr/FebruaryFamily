@@ -16,7 +16,7 @@ void CSpeedUpItem::Initialize(aqua::CVector2* position)
 
 	//アイテム使っていない状態
 	m_itemflag = false;
-	IItem::Initialize(position, "data\\speedup.png");
+	//IItem::Initialize(position, "data\\speedup.png");
 }
 
 //更新
