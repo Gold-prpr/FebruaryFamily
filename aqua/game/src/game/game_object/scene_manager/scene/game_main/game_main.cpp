@@ -5,6 +5,7 @@
 #include "../../../Item_manager/item_manager.h"
 #include "../../../camera_manager/camera_manager.h"
 #include "../../../stage/gimmick/gimmick.h"
+#include "../../../ui_manager/ui_manager.h"
 
 CGameMain::CGameMain(aqua::IGameObject* parent)
 	:IScene(parent,"GameMain",SCENE_ID::RESULT,CHANGE_SCENE_ID::FADE)
@@ -27,6 +28,9 @@ void CGameMain::Initialize()
 
 	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);
 
+	aqua::CreateGameObject<CUiManager>(this);
+
+
 	IScene::Initialize();	
 }
 
@@ -41,6 +45,7 @@ void CGameMain::Update()
 void CGameMain::Draw()
 {
 	m_pCameraManager->Draw();
+	IScene::Draw();
 }
 
 void CGameMain::Finalize()
