@@ -1,5 +1,8 @@
 #include "speedup_item.h"
 
+using namespace aqua::keyboard;
+using namespace aqua::controller;
+
 //コンストラクタ
 CSpeedUpItem::CSpeedUpItem(aqua::IGameObject* parent)
 	:IItem(parent,"SpeedUpItem")
@@ -40,7 +43,6 @@ void CSpeedUpItem::Finalize()
 //加速
 void CSpeedUpItem::SpeedUp()
 {
-	using namespace aqua::keyboard;
 
 	//使ってない時は通常スピード
 	if (m_itemflag == false)

@@ -18,20 +18,18 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
     //アイテムマネージャーの中身を読み込む
     m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 
-    //IUiComponent::Initialize(position);
-    //m_1PItemIconSprite.Create("data\\frame.png");
-    //m_2PItemIconSprite.Create("data\\frame.png");
-    //m_1PItemIconSprite.position = m_Position;
-    //m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 0.0f, 540.0f };
-    //IGameObject::Initialize();
+    IUiComponent::Initialize(position);
+
+    m_1PItemIconSprite.position = m_Position;
+    m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 0.0f, 540.0f };
+    IGameObject::Initialize();
 }
 
 //初期化
 void CItemIcon::Update(void)
 {
-    if (Button(m_pPlayer->m_Device, BUTTON_ID::LEFT_SHOULDER))
+    if (Button(m_pPlayer->GetDeviceID(), BUTTON_ID::LEFT_SHOULDER))
     {
-
         if (m_pItemManager->m_item_rand == 0)
         {
             SpeedUpIcon();
@@ -40,27 +38,37 @@ void CItemIcon::Update(void)
         {
             SpeedDownIcon();
         }
-
-
     }
 }
 
 //描画
 void CItemIcon::Draw(void)
 {
+    m_1PItemIconSprite.Draw();
+    m_2PItemIconSprite.Draw();
 }
 
 //解放
 void CItemIcon::Finalize(void)
 {
+    m_1PItemIconSprite.Delete();
+    m_2PItemIconSprite.Delete();
 }
 
 //スピードアップアイテム
 void CItemIcon::SpeedUpIcon(void)
 {
+    if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
+        m_1PItemIconSprite.Create("data\\speedup.png");
+    else 
+        m_2PItemIconSprite.Create("data\\speedup.png");
 }
 
 //スピードダウンアイテム
 void CItemIcon::SpeedDownIcon(void)
 {
+    if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
+        m_1PItemIconSprite.Create("data\\speeddown.png");
+    else 
+        m_2PItemIconSprite.Create("data\\speeddown.png");
 }
