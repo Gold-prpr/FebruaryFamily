@@ -111,7 +111,7 @@ void CPlayer::CheckHitBlok(void)
 		m_Velocity.x = 0;
 	}
 
-	if (m_pStage->CheckGoal(nx, y)
+	/*if (m_pStage->CheckGoal(nx, y)
 		|| m_pStage->CheckGoal(nx + w - 1, y)
 		|| m_pStage->CheckGoal(nx, y + h / 2)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
@@ -119,7 +119,7 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
 		m_HitFlag = true;
-	}
+	}*/
 
 	if (m_pStage->CheckGimmick(nx, y)
 		|| m_pStage->CheckGimmick(nx + w - 1, y)
