@@ -111,7 +111,7 @@ void CPlayer::CheckHitBlok(void)
 		m_Velocity.x = 0;
 	}
 
-	if (m_pStage->CheckGoal(nx, y)
+	/*if (m_pStage->CheckGoal(nx, y)
 		|| m_pStage->CheckGoal(nx + w - 1, y)
 		|| m_pStage->CheckGoal(nx, y + h / 2)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
@@ -119,7 +119,7 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
 		m_HitFlag = true;
-	}
+	}*/
 
 	if (m_pStage->CheckGimmick(nx, y)
 		|| m_pStage->CheckGimmick(nx + w - 1, y)
@@ -235,20 +235,16 @@ void CPlayer::State_Move()
 
 	float input_x_value = GetHorizotal(m_Device);
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
-	m_Velocity.x = 0;
+	//m_Velocity.x = 0;
+	
 
 	m_Timer += 1;
 
 	m_Velocity.x = min_speed * inputx;
+
 	if (GameButton(GameKey::X,m_Device))
 	{
-		if (m_Timer >= max_interval && m_Accelerator < max_speed)
-		{
-			m_Accelerator += inputx;
-			m_Timer = 0;
-		}
-
-		else if (m_Timer >= max_interval && m_Accelerator > -max_speed)
+		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
 		{
 			m_Accelerator += inputx;
 			m_Timer = 0;
