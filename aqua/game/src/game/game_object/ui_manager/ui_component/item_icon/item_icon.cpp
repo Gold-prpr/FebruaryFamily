@@ -28,15 +28,38 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 //‰Šú‰»
 void CItemIcon::Update(void)
 {
-    if (Button(m_pPlayer->GetDeviceID(), BUTTON_ID::LEFT_SHOULDER))
+    //if (Button(m_pPlayer->GetDeviceID(), BUTTON_ID::LEFT_SHOULDER))
+
+    if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER))
     {
         if (m_pItemManager->m_item_rand == 0)
         {
-            SpeedUpIcon();
+            m_1PItemIconSprite.Create("data\\speedup.png");
+
+            //SpeedUpIcon();
         }
         if (m_pItemManager->m_item_rand == 1)
         {
-            SpeedDownIcon();
+            m_1PItemIconSprite.Create("data\\speeddown.png");
+
+            //SpeedDownIcon();
+        }
+    }
+    if (Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
+    {
+        if (m_pItemManager->m_item_rand == 0)
+        {
+
+            m_2PItemIconSprite.Create("data\\speedup.png");
+
+            //SpeedUpIcon();
+        }
+        if (m_pItemManager->m_item_rand == 1)
+        {
+
+            m_2PItemIconSprite.Create("data\\speeddown.png");
+
+            //SpeedDownIcon();
         }
     }
 }
