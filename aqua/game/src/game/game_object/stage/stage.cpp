@@ -18,7 +18,7 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data5.csv";
+	std::string file_name = "data\\scene\\game\\map_data7.csv";
 
 	Parse(file_name);
 
@@ -108,7 +108,8 @@ bool CStage::CheckHit(int x, int y)
 
 		if (pos.x < x && pos.x + map_chip_size > x &&
 			pos.y < y && pos.y + map_chip_size > y &&
-			(int)stage_it->stage_object_id == (int)StageObjectID::RED_WALL)
+			(int)stage_it->stage_object_id != (int)StageObjectID::AIR &&
+			(int)stage_it->stage_object_id == (int)StageObjectID::GRASS1_TILE)
 			return true;
 	}
 
