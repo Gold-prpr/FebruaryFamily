@@ -16,7 +16,7 @@ private:
 		START,
 		MOVE,
 		DEAD,
-		STOP,
+		GOAL,
 	};
 
 	//キャラクターの向き
@@ -48,7 +48,7 @@ public:
 	bool IsDead();
 
 	//ゴールした時の状態
-	bool IsStop();
+	bool IsGoal();
 
 	//半径に当たった時の取得
 	float GetHitRadius(void);
@@ -74,7 +74,7 @@ private:
 	void State_Start();//開始の状態
 	void State_Move();//動ける状態
 	void State_Dead();//死んだ状態
-	void State_Stop();//ゴールした状態
+	void State_Goal();//ゴールした状態
 
 	STATE m_State;//キャラの状態
 	CHARA_DIR m_DirNext;//キャラの次の向き

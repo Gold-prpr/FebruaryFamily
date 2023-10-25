@@ -68,7 +68,7 @@ void CPlayer::Update()
 	case STATE::START: State_Start(); break;//開始の状態
 	case STATE::MOVE: State_Move(); break;//キャラが動ける状態
 	case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
-	case STATE::STOP: State_Stop(); break;//キャラがゴールした時の状態
+	case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
 	}
 
 	CheckHitBlok();//壁の当たり判定
@@ -111,15 +111,15 @@ void CPlayer::CheckHitBlok(void)
 		m_Velocity.x = 0;
 	}
 
-	/*if (m_pStage->CheckGoal(nx, y)
+	if (m_pStage->CheckGoal(nx, y)
 		|| m_pStage->CheckGoal(nx + w - 1, y)
 		|| m_pStage->CheckGoal(nx, y + h / 2)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
 		|| m_pStage->CheckGoal(nx, y + h - 1)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
-		m_Velocity.x = 0;
-	}*/
+		m_HitFlag = true;
+	}
 
 	if (m_pStage->CheckGimmick(nx, y)
 		|| m_pStage->CheckGimmick(nx + w - 1, y)
@@ -200,9 +200,9 @@ bool CPlayer::IsDead()
 	return m_State == STATE::DEAD;
 }
 
-bool CPlayer::IsStop()
+bool CPlayer::IsGoal()
 {
-	return m_State == STATE::STOP;
+	return m_State == STATE::GOAL;
 }
 
 float CPlayer::GetHitRadius(void)
@@ -300,6 +300,7 @@ void CPlayer::State_Dead()
 {
 }
 
-void CPlayer::State_Stop()
+void CPlayer::State_Goal()
 {
+
 }
