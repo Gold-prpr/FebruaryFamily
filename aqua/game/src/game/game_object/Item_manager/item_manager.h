@@ -1,6 +1,9 @@
 #pragma once
 #include "aqua.h"
 #include "item/item_id.h"
+#include "../unit_manager/unit/player/player.h"
+
+class CPlayer;
 
 class CItemManager
 	:public aqua::IGameObject
@@ -32,4 +35,6 @@ private:
 	static const int m_item;		//ƒAƒCƒeƒ€”
 
 	aqua::CVector2 pos;
+
+	CPlayer*				m_pPlayer;
 };
