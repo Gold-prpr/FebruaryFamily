@@ -2,6 +2,9 @@
 #include "aqua.h"
 #include "item/item_id.h"
 
+class CUnitManager;
+class CPlayer;
+
 class CItemManager
 	:public aqua::IGameObject
 {
@@ -27,9 +30,13 @@ public:
 	//生成
 	void Create(ITEM_ID id, aqua::CVector2* position);
 
-	int m_item_rand;				//ランダムにアイテムを出す
+	int m_1p_item_rand;				//1Pのアイテムをランダムに出す
+	int m_2p_item_rand;				//2Pのアイテムをランダムに出す
 private:
 	static const int m_item;		//アイテム数
 
 	aqua::CVector2 pos;
+
+	CUnitManager* m_pUnitManager;
+	CPlayer* m_pPlayer;
 };

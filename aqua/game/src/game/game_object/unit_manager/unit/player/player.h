@@ -67,6 +67,10 @@ public:
 
 	bool m_HitFlag;
 
+	bool m_HitItemFlag;
+
+	//bool 
+
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て

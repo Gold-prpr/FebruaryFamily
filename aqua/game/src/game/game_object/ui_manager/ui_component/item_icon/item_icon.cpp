@@ -47,13 +47,13 @@ void CItemIcon::Update(void)
 
     if (Button(DEVICE_ID::P1, BUTTON_ID::RIGHT_SHOULDER))
     {
-        if (m_pItemManager->m_item_rand == 0)
+        if (m_pItemManager->m_1p_item_rand == 0)
         {
             m_1PItemIconSprite.Create("data\\speedup.png");
 
             //SpeedUpIcon();
         }
-        if (m_pItemManager->m_item_rand == 1)
+        if (m_pItemManager->m_1p_item_rand == 1)
         {
             m_1PItemIconSprite.Create("data\\speeddown.png");
 
@@ -62,14 +62,14 @@ void CItemIcon::Update(void)
     }
     if (Button(DEVICE_ID::P2, BUTTON_ID::RIGHT_SHOULDER))
     {
-        if (m_pItemManager->m_item_rand == 0)
+        if (m_pItemManager->m_2p_item_rand == 0)
         {
 
             m_2PItemIconSprite.Create("data\\speedup.png");
 
             //SpeedUpIcon();
         }
-        if (m_pItemManager->m_item_rand == 1)
+        if (m_pItemManager->m_2p_item_rand == 1)
         {
 
             m_2PItemIconSprite.Create("data\\speeddown.png");
