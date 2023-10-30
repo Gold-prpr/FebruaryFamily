@@ -36,33 +36,13 @@ public:
 	//重力
 	float GetGravity(void);
 
-	bool CheckHit(int x, int y);
-
 	int GetTileSize(void);
 
-	//ゴール判定
-	bool CheckGoal(int x, int y);
+	//地面判定
+	bool CheckHitGrond(int x, int y);
 
 	//アイテム判定
-	bool CheckItem(int x, int y);
-
-	//ギミック判定
-	bool CheckGimmick(int x, int y);
-
-	/*//落ちる判定
-	bool CheckFallBlock(int x, int y);
-
-	////ギミック判定(針)
-	bool CheckSpine(int x, int y);
-
-	//Tileサイズを呼ぶ
-	int GetSize(void);
-
-	//空のタイルに変更
-	void ChangeAir(int x, int y);
-
-	////ゴール演出
-	void GoalMove(void);*/
+	bool Check(int x, int y, StageObjectID id);
 
 	aqua::CVector2 m_Scroll;
 
