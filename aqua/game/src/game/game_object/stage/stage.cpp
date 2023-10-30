@@ -100,22 +100,16 @@ float CStage::GetGravity(void)
 	return m_gravity;
 }
 
-bool CStage::CheckHitGrond(int x, int y)
+bool CStage::CheckHit(int x, int y)
 {
 	for (auto& stage_it : m_StageObject)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
 
 		if (pos.x < x && pos.x + map_chip_size > x &&
-<<<<<<< HEAD
 			pos.y < y && pos.y + map_chip_size > y &&
 			(int)stage_it->stage_object_id != (int)StageObjectID::AIR &&
 			(int)stage_it->stage_object_id == (int)StageObjectID::GRASS1_TILE)
-=======
-			pos.y <= y && pos.y + map_chip_size > y &&
-			(int)stage_it->stage_object_id != (int)StageObjectID::AIR &&
-			(int)stage_it->stage_object_id < (int)StageObjectID::BOX)
->>>>>>> main
 			return true;
 	}
 
@@ -127,15 +121,45 @@ int CStage::GetTileSize(void)
 	return map_chip_size;
 }
 
-bool CStage::Check(int x, int y, StageObjectID id)
+bool CStage::CheckGoal(int x, int y)
 {
 	for (auto& stage_it : m_StageObject)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
 
 		if (pos.x < x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
+			pos.y < y && pos.y + map_chip_size > y && 
+			stage_it->stage_object_id == StageObjectID::GOAL_FLAG)
+			return true;
+	}
+
+	return false;
+}
+
+bool CStage::CheckItem(int x, int y)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		aqua::CVector2 pos = stage_it->GetPosition();
+
+		if (pos.x < x && pos.x + map_chip_size > x &&
+			pos.y < y && pos.y + map_chip_size > y &&
 			stage_it->stage_object_id == StageObjectID::BOX)
+			return true;
+	}
+
+	return false;
+}
+
+bool CStage::CheckGimmick(int x, int y)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		aqua::CVector2 pos = stage_it->GetPosition();
+
+		if (pos.x < x && pos.x + map_chip_size > x &&
+			pos.y < y && pos.y + map_chip_size > y &&
+			stage_it->stage_object_id == StageObjectID::SPIKE_BALL)
 			return true;
 	}
 

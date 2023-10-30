@@ -23,5 +23,4 @@ public:
 	void Create(void);
 private:
 	static const aqua::CVector2		m_ui_item_frame_position;		//アイテムフレームの位置
-	static const aqua::CVector2		m_ui_item_icon_position;		//アイテムアイコンの位置
 };
