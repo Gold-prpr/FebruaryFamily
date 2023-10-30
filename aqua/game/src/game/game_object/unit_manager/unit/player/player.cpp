@@ -59,6 +59,8 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 	m_HitFlag = false;
 	m_AddSpeed = 0.0;
 
+	m_HitItemFlag = false;
+
 	IGameObject::Initialize();
 }
 
@@ -133,6 +135,20 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
 	{
 		m_HitFlag = true;
+	}
+
+	if (m_pStage->CheckItem(nx, y)
+		|| m_pStage->CheckItem(nx + w - 1, y)
+		|| m_pStage->CheckItem(nx, y + h / 2)
+		|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckItem(nx, y + h - 1)
+		|| m_pStage->CheckItem(nx + w - 1, y + h - 1))
+	{
+		m_HitItemFlag = true;
+	}
+	else
+	{
+		m_HitItemFlag = false;
 	}
 
 	if (m_LandingFlag == true)
