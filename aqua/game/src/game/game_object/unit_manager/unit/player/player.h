@@ -69,7 +69,7 @@ public:
 
 	bool m_HitItemFlag;
 
-	//bool 
+	bool m_GoalFlag;
 
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 

@@ -3,6 +3,7 @@
 
 class CUnitManager;
 class CCameraManager;
+class CPlayer;
 
 class CGameMain :
 	public IScene
@@ -21,5 +22,5 @@ private:
 
 	CUnitManager*		m_pUnitManager;
 	CCameraManager*		m_pCameraManager;
-
+	CPlayer* m_pPlayer;
 };
