@@ -5,6 +5,7 @@
 #include "../../../stage/gimmick/gimmick.h"
 #include "../../../input_manager/input_manager.h"
 
+
 using namespace GameInputManager;
 
 const float CPlayer::max_speed = 8.0f;//キャラのスピード
@@ -23,6 +24,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
 	, m_pGimmick(nullptr)
+	
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -33,6 +35,7 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	
 
 	std::string name;
 
@@ -54,6 +57,7 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 	m_Accelerator = 0.0f;
 	m_Timer = 0;
 	m_HitFlag = false;
+	m_AddSpeed = 0.0;
 
 	IGameObject::Initialize();
 }
@@ -233,6 +237,8 @@ void CPlayer::State_Move()
 {
 	m_Chara.Update();
 
+	m_AddSpeed = 1.0f;
+
 	float input_x_value = GetHorizotal(m_Device);
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
 	//m_Velocity.x = 0;
@@ -258,11 +264,11 @@ void CPlayer::State_Move()
 		m_Accelerator = 0;
 	}
 
-
 	if (inputx != 0)
 	{
 		m_DirNext = (CHARA_DIR)inputx;
 	}
+
 
 	if (GameTrigger(GameKey::A,m_Device))
 	{
@@ -290,6 +296,9 @@ void CPlayer::State_Move()
 			break;
 		}
 	}
+
+	m_Velocity.x = m_Velocity.x * m_AddSpeed;
+
 }
 
 void CPlayer::State_Dead()
