@@ -24,7 +24,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
 	, m_pGimmick(nullptr)
-	
+
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -35,7 +35,7 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	
+
 
 	std::string name;
 
@@ -80,8 +80,8 @@ void CPlayer::Update()
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
 	m_pGimmick = (CGimmick*)aqua::FindGameObject("Gimmick");
-	if(m_pGimmick)
-	m_pGimmick->DamageAction();
+	if (m_pGimmick)
+		m_pGimmick->DamageAction();
 
 	IGameObject::Update();
 }
@@ -246,21 +246,15 @@ void CPlayer::State_Move()
 	m_Timer += 1;
 
 	m_Velocity.x = min_speed * inputx;
-	if (GameButton(GameKey::X,m_Device))
+	if (GameButton(GameKey::X, m_Device))
 	{
-		if (m_Timer >= max_interval && m_Accelerator < max_speed)
+		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
 		{
 			m_Accelerator += inputx;
 			m_Timer = 0;
 		}
 
-		else if (m_Timer >= max_interval && m_Accelerator > -max_speed)
-		{
-			m_Accelerator += inputx;
-			m_Timer = 0;
-		}
-
-		m_Velocity.x = m_Accelerator;
+		m_Velocity.x += m_Accelerator;
 	}
 
 	if (inputx == 0)
@@ -274,7 +268,7 @@ void CPlayer::State_Move()
 	}
 
 
-	if (GameTrigger(GameKey::A,m_Device))
+	if (GameTrigger(GameKey::A, m_Device))
 	{
 		if (m_LandingFlag)
 		{
