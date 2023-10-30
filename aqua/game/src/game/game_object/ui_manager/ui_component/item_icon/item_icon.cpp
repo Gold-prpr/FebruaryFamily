@@ -45,7 +45,7 @@ void CItemIcon::Update(void)
     //}
 
 
-    if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER))
+    if (Button(DEVICE_ID::P1, BUTTON_ID::RIGHT_SHOULDER))
     {
         if (m_pItemManager->m_item_rand == 0)
         {
@@ -60,7 +60,7 @@ void CItemIcon::Update(void)
             //SpeedDownIcon();
         }
     }
-    if (Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
+    if (Button(DEVICE_ID::P2, BUTTON_ID::RIGHT_SHOULDER))
     {
         if (m_pItemManager->m_item_rand == 0)
         {
