@@ -106,8 +106,8 @@ bool CStage::CheckHit(int x, int y)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
 
-		if (pos.x < x && pos.x + map_chip_size > x &&
-			pos.y < y && pos.y + map_chip_size > y &&
+		if (pos.x <= x && pos.x + map_chip_size > x &&
+			pos.y <= y && pos.y + map_chip_size > y &&
 			(int)stage_it->stage_object_id != (int)StageObjectID::AIR &&
 			(int)stage_it->stage_object_id == (int)StageObjectID::GRASS1_TILE)
 			return true;
@@ -127,8 +127,8 @@ bool CStage::CheckGoal(int x, int y)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
 
-		if (pos.x < x && pos.x + map_chip_size > x &&
-			pos.y < y && pos.y + map_chip_size > y && 
+		if (pos.x <= x && pos.x + map_chip_size > x &&
+			pos.y <= y && pos.y + map_chip_size > y &&
 			stage_it->stage_object_id == StageObjectID::GOAL_FLAG)
 			return true;
 	}
@@ -142,8 +142,8 @@ bool CStage::CheckItem(int x, int y)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
 
-		if (pos.x < x && pos.x + map_chip_size > x &&
-			pos.y < y && pos.y + map_chip_size > y &&
+		if (pos.x <= x && pos.x + map_chip_size > x &&
+			pos.y <= y && pos.y + map_chip_size > y &&
 			stage_it->stage_object_id == StageObjectID::BOX)
 			return true;
 	}
@@ -157,8 +157,8 @@ bool CStage::CheckGimmick(int x, int y)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
 
-		if (pos.x < x && pos.x + map_chip_size > x &&
-			pos.y < y && pos.y + map_chip_size > y &&
+		if (pos.x <= x && pos.x + map_chip_size > x &&
+			pos.y <= y && pos.y + map_chip_size > y &&
 			stage_it->stage_object_id == StageObjectID::SPIKE_BALL)
 			return true;
 	}
