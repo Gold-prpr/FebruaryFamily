@@ -2,7 +2,7 @@
 #include "../gimmick/gimmick_id.h"
 
 class CStage;
-class CPlayer;
+class CUnitManager;
 
 class CGimmick :
 	public aqua::IGameObject
@@ -25,8 +25,6 @@ private:
 	int m_AlphaCurrCnt;
 	int m_AlphaTimer;
 
-	int flame;
-
 	CStage* m_pStage;
-	CPlayer* m_pPlayer;
+	CUnitManager* m_pUnitManager;
 };

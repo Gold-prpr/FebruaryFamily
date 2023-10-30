@@ -79,7 +79,7 @@ void CPlayer::Update()
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
-	m_pGimmick = (CGimmick*)aqua::FindGameObject("StageGimmick");
+	m_pGimmick = (CGimmick*)aqua::FindGameObject("Gimmick");
 	if(m_pGimmick)
 	m_pGimmick->DamageAction();
 
@@ -96,12 +96,12 @@ void CPlayer::CheckHitBlok(void)
 	int h = (int)m_Height;
 	int size = 60;
 
-	if (m_pStage->CheckHitGrond(nx, y)
-		|| m_pStage->CheckHitGrond(nx + w - 1, y)
-		|| m_pStage->CheckHitGrond(nx, y + h / 2)
-		|| m_pStage->CheckHitGrond(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckHitGrond(nx, y + h - 1)
-		|| m_pStage->CheckHitGrond(nx + w - 1, y + h - 1))
+	if (m_pStage->CheckHit(nx, y)
+		|| m_pStage->CheckHit(nx + w - 1, y)
+		|| m_pStage->CheckHit(nx, y + h / 2)
+		|| m_pStage->CheckHit(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckHit(nx, y + h - 1)
+		|| m_pStage->CheckHit(nx + w - 1, y + h - 1))
 	{
 		// 左に移動している
 		if (m_Velocity.x < 0)
@@ -115,30 +115,30 @@ void CPlayer::CheckHitBlok(void)
 		m_Velocity.x = 0;
 	}
 
-	if (m_pStage->Check(nx, y,StageObjectID::GOAL_FLAG)
-		|| m_pStage->Check(nx + w - 1, y, StageObjectID::GOAL_FLAG)
-		|| m_pStage->Check(nx, y + h / 2, StageObjectID::GOAL_FLAG)
-		|| m_pStage->Check(nx + w - 1, y + h / 2, StageObjectID::GOAL_FLAG)
-		|| m_pStage->Check(nx, y + h - 1, StageObjectID::GOAL_FLAG)
-		|| m_pStage->Check(nx + w - 1, y + h - 1, StageObjectID::GOAL_FLAG))
+	/*if (m_pStage->CheckGoal(nx, y)
+		|| m_pStage->CheckGoal(nx + w - 1, y)
+		|| m_pStage->CheckGoal(nx, y + h / 2)
+		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckGoal(nx, y + h - 1)
+		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
-	int a = 0;
-	}
+		m_HitFlag = true;
+	}*/
 
-	if (m_pStage->Check(nx, y, StageObjectID::SPIKE_BALL)
-		|| m_pStage->Check(nx + w - 1, y, StageObjectID::SPIKE_BALL)
-		|| m_pStage->Check(nx, y + h / 2, StageObjectID::SPIKE_BALL)
-		|| m_pStage->Check(nx + w - 1, y + h / 2, StageObjectID::SPIKE_BALL)
-		|| m_pStage->Check(nx, y + h - 1, StageObjectID::SPIKE_BALL)
-		|| m_pStage->Check(nx + w - 1, y + h - 1, StageObjectID::SPIKE_BALL))
+	if (m_pStage->CheckGimmick(nx, y)
+		|| m_pStage->CheckGimmick(nx + w - 1, y)
+		|| m_pStage->CheckGimmick(nx, y + h / 2)
+		|| m_pStage->CheckGimmick(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckGimmick(nx, y + h - 1)
+		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
 	{
 		m_HitFlag = true;
 	}
 
-	if (m_LandingFlag)
+	if (m_LandingFlag == true)
 	{
 		// 足元を調べてブロックがなければ落下
-		if (!m_pStage->CheckHitGrond(x, y + h) && !m_pStage->CheckHitGrond(x + w, y + h))
+		if (!m_pStage->CheckHit(x, y + h) && !m_pStage->CheckHit(x + w, y + h))
 		{
 			// 足元にブロックがないので着地していない
 			m_LandingFlag = false;
@@ -148,16 +148,16 @@ void CPlayer::CheckHitBlok(void)
 		}
 	}
 	// 空中にいる
-	else
+	else if (m_LandingFlag == false)
 	{
 		// 重力で落下させる
 		m_Velocity.y += m_pStage->GetGravity();
 
 		// 上下のチェック
-		if (m_pStage->CheckHitGrond(x, ny)
-			|| m_pStage->CheckHitGrond(x + w - 1, ny)
-			|| m_pStage->CheckHitGrond(x, ny + h - 1)
-			|| m_pStage->CheckHitGrond(x + w - 1, ny + h - 1))
+		if (m_pStage->CheckHit(x, ny)
+			|| m_pStage->CheckHit(x + w - 1, ny)
+			|| m_pStage->CheckHit(x, ny + h - 1)
+			|| m_pStage->CheckHit(x + w - 1, ny + h - 1))
 		{
 			// 上に動いている
 			if (m_Velocity.y < 0)
@@ -241,16 +241,20 @@ void CPlayer::State_Move()
 
 	float input_x_value = GetHorizotal(m_Device);
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
-	//m_Velocity.x = 0;
-	
+	m_Velocity.x = 0;
 
 	m_Timer += 1;
 
 	m_Velocity.x = min_speed * inputx;
-
 	if (GameButton(GameKey::X,m_Device))
 	{
-		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
+		if (m_Timer >= max_interval && m_Accelerator < max_speed)
+		{
+			m_Accelerator += inputx;
+			m_Timer = 0;
+		}
+
+		else if (m_Timer >= max_interval && m_Accelerator > -max_speed)
 		{
 			m_Accelerator += inputx;
 			m_Timer = 0;
