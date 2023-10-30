@@ -15,6 +15,8 @@ CItemManager::CItemManager(aqua::IGameObject* parent)
 //‰Šú‰»
 void CItemManager::Initialize(void)
 {
+	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+
 	IGameObject::Initialize();
 }
 
@@ -22,7 +24,7 @@ void CItemManager::Initialize(void)
 void CItemManager::Update(void)
 {
 	//if (Trigger(KEY_ID::NUMPADENTER))
-	if (Trigger(DEVICE_ID::P1, BUTTON_ID::X))
+	if (Trigger(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER))
 	{
 		m_item_rand = rand() % m_item;
 
@@ -32,6 +34,28 @@ void CItemManager::Update(void)
 		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
 		}
 	}
+
+	if (Trigger(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
+	{
+		m_item_rand = rand() % m_item;
+
+		switch (m_item_rand)
+		{
+		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
+		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
+		}
+	}
+	
+	//if (Trigger(m_pPlayer->m_Device, BUTTON_ID::LEFT_SHOULDER))
+	//{
+	//	m_item_rand = rand() % m_item;
+
+	//	switch (m_item_rand)
+	//	{
+	//	case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
+	//	case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
+	//	}
+	//}
 
 	IGameObject::Update();
 }

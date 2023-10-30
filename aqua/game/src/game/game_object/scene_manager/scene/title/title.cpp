@@ -1,5 +1,8 @@
 #include "title.h"
 
+using namespace aqua::controller;
+using namespace aqua::keyboard;
+
 CTitle::CTitle(aqua::IGameObject* parent)
 	:IScene(parent,"Title", SCENE_ID::GAME,CHANGE_SCENE_ID::BLOCK_MOSAIC)
 {
@@ -17,7 +20,10 @@ void CTitle::Initialize()
 
 void CTitle::Update()
 {
-	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
+	if(Trigger(KEY_ID::RETURN))
+		m_ChangeSceneFlag = true;
+
+	if (Trigger(DEVICE_ID::P1, BUTTON_ID::A) || Trigger(DEVICE_ID::P2, BUTTON_ID::A))
 		m_ChangeSceneFlag = true;
 
 	m_BackGround.Update();
