@@ -23,7 +23,9 @@ void CGimmick::Initialize()
 
 void CGimmick::DamageAction(void)
 {
-	/*if (m_pPlayer->m_HitFlag == true)
+	/*m_pUnitManager->GetPlayer(DEVICE_ID::P1);
+
+	if (m_pPlayer->m_HitFlag == true)
 	{
 		m_AlphaTimer += 1;
 
