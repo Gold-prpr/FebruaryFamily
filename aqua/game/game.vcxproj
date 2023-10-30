@@ -101,6 +101,7 @@
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\game_object\camera_manager\camera\camera.cpp" />
     <ClCompile Include="src\game\game_object\camera_manager\camera_manager.cpp" />
+    <ClCompile Include="src\game\game_object\common_data\common_data.cpp" />
     <ClCompile Include="src\game\game_object\input_manager\input_manager.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="src\game\game_object\scene_manager\scene\result\result.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\scene.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\select\select.cpp" />
+    <ClCompile Include="src\game\game_object\scene_manager\scene\select\select_stage_box\select_stage_box.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\title\title.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene_manager.cpp" />
     <ClCompile Include="src\game\game_object\stage\gimmick\gimmick.cpp" />
@@ -132,6 +134,7 @@
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\game_object\camera_manager\camera\camera.h" />
     <ClInclude Include="src\game\game_object\camera_manager\camera_manager.h" />
+    <ClInclude Include="src\game\game_object\common_data\common_data.h" />
     <ClInclude Include="src\game\game_object\game_object.h" />
     <ClInclude Include="src\game\game_object\input_manager\input_manager.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="src\game\game_object\scene_manager\scene\scene_channel.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene\scene_id.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene\select\select.h" />
+    <ClInclude Include="src\game\game_object\scene_manager\scene\select\select_stage_box\select_stage_box.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene\title\title.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene_manager.h" />
     <ClInclude Include="src\game\game_object\stage\gimmick\gimmick.h" />

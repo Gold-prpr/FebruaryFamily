@@ -1,7 +1,7 @@
 #include "title.h"
 
 CTitle::CTitle(aqua::IGameObject* parent)
-	:IScene(parent,"Title", SCENE_ID::GAME,CHANGE_SCENE_ID::BLOCK_MOSAIC)
+	:IScene(parent,"Title", SCENE_ID::SELECT,CHANGE_SCENE_ID::BLOCK_MOSAIC)
 {
 }
 

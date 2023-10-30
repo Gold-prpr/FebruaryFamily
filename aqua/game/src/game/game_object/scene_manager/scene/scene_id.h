@@ -2,7 +2,7 @@
 enum class SCENE_ID
 {
 	TITLE,
-	select,
+	SELECT,
 	GAME,
 	RESULT,
 
