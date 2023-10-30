@@ -28,7 +28,22 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 //初期化
 void CItemIcon::Update(void)
 {
-    //if (Button(m_pPlayer->GetDeviceID(), BUTTON_ID::LEFT_SHOULDER))
+    //if (Button(m_pPlayer->m_Device, BUTTON_ID::LEFT_SHOULDER))
+    //{
+    //    if (m_pItemManager->m_item_rand == 0)
+    //    {
+    //        m_1PItemIconSprite.Create("data\\speedup.png");
+
+    //        //SpeedUpIcon();
+    //    }
+    //    if (m_pItemManager->m_item_rand == 1)
+    //    {    
+    //        m_1PItemIconSprite.Create("data\\speeddown.png");
+
+    //       //SpeedDownIcon();
+    //    }
+    //}
+
 
     if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER))
     {
@@ -81,7 +96,7 @@ void CItemIcon::Finalize(void)
 //スピードアップアイテム
 void CItemIcon::SpeedUpIcon(void)
 {
-    if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
+    if (m_pPlayer->m_Device == DEVICE_ID::P1)
         m_1PItemIconSprite.Create("data\\speedup.png");
     else 
         m_2PItemIconSprite.Create("data\\speedup.png");
@@ -90,7 +105,7 @@ void CItemIcon::SpeedUpIcon(void)
 //スピードダウンアイテム
 void CItemIcon::SpeedDownIcon(void)
 {
-    if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
+    if (m_pPlayer->m_Device == DEVICE_ID::P1)
         m_1PItemIconSprite.Create("data\\speeddown.png");
     else 
         m_2PItemIconSprite.Create("data\\speeddown.png");
