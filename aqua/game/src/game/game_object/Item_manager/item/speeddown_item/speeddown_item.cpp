@@ -1,5 +1,8 @@
 #include "speeddown_item.h"
 
+using namespace aqua::keyboard;
+using namespace aqua::controller;
+
 //コンストラクタ
 CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 	:IItem(parent, "SpeedDownItem")
@@ -48,14 +51,14 @@ void CSpeedDownItem::SpeedDown()
 	//	m_pPlayer->AddSpeed(0.8);
 	//}
 
-	using namespace aqua::keyboard;
 
 	//使ってない時は通常スピード
 	if (m_itemflag == false)
 		m_pPlayer->AddSpeed(1.0f);
 
 	//押したらアイテム使用
-	if (Trigger(KEY_ID::S))
+	//if (Trigger(KEY_ID::S))
+	if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER)||Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
 		m_itemflag = true;
 
 	//アイテムを使っていたら

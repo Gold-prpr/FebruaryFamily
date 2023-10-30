@@ -15,6 +15,8 @@ CItemManager::CItemManager(aqua::IGameObject* parent)
 //èâä˙âª
 void CItemManager::Initialize(void)
 {
+	//m_item_rand = 0;
+
 	IGameObject::Initialize();
 }
 
@@ -22,7 +24,17 @@ void CItemManager::Initialize(void)
 void CItemManager::Update(void)
 {
 	//if (Trigger(KEY_ID::NUMPADENTER))
-	if (Trigger(DEVICE_ID::P1, BUTTON_ID::X))
+	if (Trigger(DEVICE_ID::P1, BUTTON_ID::RIGHT_SHOULDER))
+	{
+		m_item_rand = rand() % m_item;
+
+		switch (m_item_rand)
+		{
+		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
+		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
+		}
+	}
+	if (Trigger(DEVICE_ID::P2, BUTTON_ID::RIGHT_SHOULDER))
 	{
 		m_item_rand = rand() % m_item;
 
