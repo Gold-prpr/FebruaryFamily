@@ -2,6 +2,7 @@
 #include "../gimmick/gimmick_id.h"
 
 class CStage;
+class CPlayer;
 class CUnitManager;
 
 class CGimmick :
@@ -26,5 +27,6 @@ private:
 	int m_AlphaTimer;
 
 	CStage* m_pStage;
+	CPlayer* m_pPlayer;
 	CUnitManager* m_pUnitManager;
 };

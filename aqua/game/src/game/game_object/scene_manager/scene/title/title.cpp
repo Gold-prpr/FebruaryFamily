@@ -19,7 +19,9 @@ void CTitle::Initialize()
 
 void CTitle::Update()
 {
-	//if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
+	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
+		m_ChangeSceneFlag = true;
+
 	if (Trigger(DEVICE_ID::P1, BUTTON_ID::A) || Trigger(DEVICE_ID::P2, BUTTON_ID::A))
 		m_ChangeSceneFlag = true;
 
