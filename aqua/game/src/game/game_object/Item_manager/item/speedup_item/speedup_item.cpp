@@ -43,7 +43,6 @@ void CSpeedUpItem::Finalize()
 //加速
 void CSpeedUpItem::SpeedUp()
 {
-
 	//使ってない時は通常スピード
 	if (m_itemflag == false)
 		m_pPlayer->AddSpeed(1.0f);

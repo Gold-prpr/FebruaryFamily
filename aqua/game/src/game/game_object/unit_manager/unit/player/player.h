@@ -6,6 +6,7 @@ class CCameraManager;
 class CUnitManager;
 class CGimmick;
 
+
 class CPlayer :public IUnit
 {
 private:
@@ -83,6 +84,7 @@ private:
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
 	CGimmick* m_pGimmick;//
+	
 	float m_AddSpeed;//スピード加算
 	float m_Accelerator;//加速度
 	int m_Timer;
