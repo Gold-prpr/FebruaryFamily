@@ -15,8 +15,8 @@ public:
 	void Finalize()override;
 
 private:
-	const float m_max_scale;
-	const float m_min_scale;
+	static const float m_max_scale;
+	static const float m_min_scale;
 
 
 	aqua::CSprite m_BackGround;

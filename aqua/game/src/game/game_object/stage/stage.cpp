@@ -18,7 +18,7 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data9.csv";
+	std::string file_name = "data\\scene\\game\\map_data10.csv";
 
 	Parse(file_name);
 
@@ -60,7 +60,8 @@ void CStage::Parse(const std::string& file_name)
 
 	int rows = loader.GetRows();
 
-	m_BackGround.Create(loader.GetString(0, 0));
+	if (loader.GetString(0, 0) != "")
+		m_BackGround.Create(loader.GetString(0, 0));
 
 	map_x = loader.GetInteger(0, 1);
 	map_y = loader.GetInteger(0, 2);
@@ -74,9 +75,9 @@ void CStage::Parse(const std::string& file_name)
 
 		stage_object = aqua::CreateGameObject<CStageObject>(this);
 
-		stage_object->Create(aqua::CVector2(loader.GetFloat(y,1), loader.GetFloat(y,2)), aqua::CVector2::ONE * map_chip_size);
+		stage_object->Create(aqua::CVector2(loader.GetFloat(y, 1), loader.GetFloat(y, 2)), aqua::CVector2::ONE * map_chip_size);
 
-		stage_object->stage_object_id = (StageObjectID)loader.GetInteger(y,0);
+		stage_object->stage_object_id = (StageObjectID)loader.GetInteger(y, 0);
 
 		m_StageObject.push_back(stage_object);
 

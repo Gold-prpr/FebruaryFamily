@@ -114,10 +114,8 @@
     <ClCompile Include="src\game\game_object\scene_manager\scene\game_main\game_main.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\result\result.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\scene.cpp" />
-
     <ClCompile Include="src\game\game_object\scene_manager\scene\select\select.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\select\select_stage_box\select_stage_box.cpp" />
-
     <ClCompile Include="src\game\game_object\scene_manager\scene\title\title.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene_manager.cpp" />
     <ClCompile Include="src\game\game_object\stage\gimmick\gimmick.cpp" />
