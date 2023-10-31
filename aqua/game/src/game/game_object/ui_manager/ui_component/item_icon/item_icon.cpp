@@ -20,8 +20,8 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 
     IUiComponent::Initialize(position);
 
-    m_1PItemIconSprite.position = m_Position;
-    m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 0.0f, 540.0f };
+    m_1PItemIconSprite.position = m_Position + aqua::CVector2{70.0f,70.0f};
+    m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 540.0f };
     IGameObject::Initialize();
 }
 
