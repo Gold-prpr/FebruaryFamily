@@ -24,12 +24,18 @@ public:
 	bool SaveSprite();
 
 	/*
+	*	@brief 画像の保存
+	* 
+	*	@param[in] back_grond ファイル名
+	*/
+	void SetGraph(std::string back_grond);
+
+	/*
 	 *  @brief 画像のパス
 	 * 
 	 *  @return 画像のパス
 	 */
 	std::string GetSpritePath();
-
 private:
 
 	/*

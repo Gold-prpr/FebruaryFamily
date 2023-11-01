@@ -13,6 +13,7 @@ CTileManager::CTileManager(aqua::IGameObject* parent)
 	:IGameObject(parent, "TileManager")
 	, m_NowSelectTile(TileID::AIR)
 	, m_ReSetSizeFlag(false)
+	, m_BackGroundManager(nullptr)
 	, m_SelectTile(nullptr)
 {
 }
@@ -38,6 +39,62 @@ void CTileManager::Initialize(aqua::CVector2 stage_size)
 			m_TileList.push_back(tile);
 		}
 	}
+
+	m_SelectTile = aqua::CreateGameObject<CTile>(this);
+	m_SelectTile->Create(mouse::GetCursorPos(), aqua::CVector2::ONE * m_object_max_size);
+	m_SelectTile->not_elase_flag = true;
+
+	m_SizeLabel.Create(80);
+	m_SizeLabel.text =
+		"-↑キー　縦：" + std::to_string(m_TileCount.y) + "　↓キー+" +
+		"\n-←キー　横：" + std::to_string(m_TileCount.x) + "　→キー+　";
+}
+
+void CTileManager::Initialize(std::string file_name)
+{
+	aqua::CCSVLoader loader;
+
+	loader.Load(file_name);
+
+	int rows = loader.GetRows();
+
+	if (!m_BackGroundManager)
+		m_BackGroundManager = (CBackGroundManager*)aqua::FindGameObject("BackGroundManager");
+
+	if (loader.GetString(0, 0) != "")
+		m_BackGroundManager->SetGraph(loader.GetString(0, 0));
+
+	m_TileSize = aqua::CVector2::ONE * m_object_max_size;
+
+	m_TileCount.x = loader.GetInteger(0, 1);
+	m_TileCount.y = loader.GetInteger(0, 2);
+
+	for (int i = 0; i < m_TileCount.y; i++)
+	{
+		for (int j = 0; j < m_TileCount.x; j++)
+		{
+			CTile* tile = nullptr;
+
+			tile = aqua::CreateGameObject<CTile>(this);
+
+			tile->Create(aqua::CVector2(j, i) * m_object_max_size, aqua::CVector2::ONE * m_object_max_size);
+
+			m_TileList.push_back(tile);
+		}
+	}
+
+	for (int y = 1; y < rows; y++)
+	{
+
+		for (auto& it : m_TileList)
+		{
+			if (it->GetPosition().x == loader.GetFloat(y, 1) && it->GetPosition().y == loader.GetFloat(y, 2))
+				it->tile_id = (TileID)loader.GetFloat(y, 0);
+		}
+
+	}
+
+	loader.Unload();
 
 	m_SelectTile = aqua::CreateGameObject<CTile>(this);
 	m_SelectTile->Create(mouse::GetCursorPos(), aqua::CVector2::ONE * m_object_max_size);
@@ -119,7 +176,7 @@ void CTileManager::Update()
 	// マウスの右を押しながらホイール
 	if (mouse::Button(mouse::BUTTON_ID::RIGHT))
 	{
-		m_NowSelectTile = aqua::Mod<TileID, int>((int)m_NowSelectTile + (int)(mouse::GetWheel()), (int)TileID::AIR, (int)TileID::MAX);
+		m_NowSelectTile = aqua::Mod<TileID, int>((int)m_NowSelectTile + (int)(mouse::GetWheel()), (int)TileID::AIR, (int)TileID::MAX - 1);
 	}
 
 	if (keyboard::Button(keyboard::KEY_ID::LSHIFT))
@@ -162,7 +219,8 @@ void CTileManager::Finalize()
 
 void CTileManager::SaveTile()
 {
-	m_BackGroundManager = (CBackGroundManager*)aqua::FindGameObject("BackGroundManager");
+	if (!m_BackGroundManager)
+		m_BackGroundManager = (CBackGroundManager*)aqua::FindGameObject("BackGroundManager");
 
 	// 存在しないファイル名を検索
 	std::string file;
@@ -178,8 +236,8 @@ void CTileManager::SaveTile()
 	m_TileDataText.open(file, std::ios::out);
 
 	m_TileDataText << m_BackGroundManager->GetSpritePath() << "," <<
-		std::to_string(m_TileCount.x) << "," << 
-		std::to_string(m_TileCount.y) << 
+		std::to_string(m_TileCount.x) << "," <<
+		std::to_string(m_TileCount.y) <<
 		",DUMMY\n";
 
 	for (auto& i : m_TileList)
@@ -211,7 +269,7 @@ void CTileManager::ReSize()
 
 			tile->Create(aqua::CVector2(m_TileCount.x, i) * m_object_max_size, aqua::CVector2::ONE * m_object_max_size);
 
-			
+
 
 			m_TileList.push_back(tile);
 		}
@@ -237,7 +295,7 @@ void CTileManager::ReSize()
 			}
 
 		}
-		
+
 		auto child_it = m_ChildObjectList.end();
 
 		// 子オブジェクトリストから解放

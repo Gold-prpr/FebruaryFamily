@@ -13,6 +13,7 @@ public:
 	~CTileManager() = default;
 
 	void Initialize(aqua::CVector2 stage_size);
+	void Initialize(std::string file_name);
 	void Update()override;
 	void Draw()override;
 	void Finalize()override;
@@ -40,7 +41,7 @@ private:
 	bool           m_ReSetSizeFlag;
 	aqua::CLabel   m_SizeLabel;
 
-	std::ofstream             m_TileDataText;            //!
-	CBackGroundManager*			m_BackGroundManager;
+	std::ofstream			m_TileDataText;            //!
+	CBackGroundManager*		m_BackGroundManager;
 };
 

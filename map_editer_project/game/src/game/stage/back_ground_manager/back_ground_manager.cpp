@@ -13,6 +13,9 @@ CBackGroundManager::CBackGroundManager(aqua::IGameObject* parent)
 
 void CBackGroundManager::Initialize()
 {
+	if (m_BackGroundSprite.GetResourceHandle() == AQUA_UNUSED_HANDLE)
+		m_BackGroundSprite.Create("data\\button\\ドラック＆ドロップ.png");
+
 	// ディレクトリを生成
 	file_sys::create_directory(m_DirectyoryName);
 
@@ -24,7 +27,7 @@ void CBackGroundManager::Initialize()
 
 void CBackGroundManager::Update()
 {
-	DropSprite();
+		DropSprite();
 }
 
 void CBackGroundManager::Draw()
@@ -66,9 +69,9 @@ void CBackGroundManager::DropSprite()
 		// ドラックアンドドロップしたファイルの絶対パス
 		GetDragFilePath(buffer);
 
-		if (m_DropSpiteNum >= 1)
+		if (m_DropSpiteNum)
 		{
-			if (m_BackGroundSprite.GetResourceHandle() != -1)
+			if (m_BackGroundSprite.GetResourceHandle() != AQUA_UNUSED_HANDLE)
 				m_BackGroundSprite.Delete();
 
 			m_BackGroundFile.text = buffer;
@@ -77,7 +80,6 @@ void CBackGroundManager::DropSprite()
 
 			m_BackGroundSprite.Create(buffer);
 		}
-
 	}
 }
 /*
@@ -117,6 +119,14 @@ bool CBackGroundManager::SaveSprite()
 		file_sys::copy_file(buffer, m_FilePath);
 
 	return true;
+}
+
+void CBackGroundManager::SetGraph(std::string back_grond)
+{
+	if (m_BackGroundSprite.GetResourceHandle() != AQUA_UNUSED_HANDLE)
+		m_BackGroundSprite.Delete();
+
+	m_BackGroundSprite.Create(back_grond);
 }
 
 std::string CBackGroundManager::GetSpritePath()
