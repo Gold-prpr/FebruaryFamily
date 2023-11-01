@@ -67,6 +67,8 @@ IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID dev
 	}
 
 	if (!unit)return nullptr;
-	unit->Initialize(pos,device);
+	if (unitid == UNIT_ID::PLAYER)
+		unit->SetDeviceID(device);
+	unit->Initialize(pos);
 	return unit;
 }
