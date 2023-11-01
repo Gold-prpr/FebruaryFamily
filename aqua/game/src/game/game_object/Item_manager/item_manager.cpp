@@ -27,10 +27,10 @@ void CItemManager::Initialize(void)
 //XV
 void CItemManager::Update(void)
 {
-	m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P1);
+	//m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P1);
 
-	if(m_pPlayer->m_HitItemFlag == true)
-	if (Trigger(DEVICE_ID::P1, BUTTON_ID::RIGHT_SHOULDER))
+	//if(m_pPlayer->m_HitItemFlag == true)
+	if (Trigger(m_pPlayer->GetDeviceID(), BUTTON_ID::RIGHT_SHOULDER))
 	{
 		m_1p_item_rand = rand() % m_item;
 
@@ -41,19 +41,19 @@ void CItemManager::Update(void)
 		}
 	}
 
-	m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P2);
+	//m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P2);
 
-	if (m_pPlayer->m_HitItemFlag == true)
-	if (Trigger(DEVICE_ID::P2, BUTTON_ID::RIGHT_SHOULDER))
-	{
-		m_2p_item_rand = rand() % m_item;
+	//if (m_pPlayer->m_HitItemFlag == true)
+	//if (Trigger(DEVICE_ID::P2, BUTTON_ID::RIGHT_SHOULDER))
+	//{
+	//	m_2p_item_rand = rand() % m_item;
 
-		switch (m_2p_item_rand)
-		{
-		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
-		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
-		}
-	}
+	//	switch (m_2p_item_rand)
+	//	{
+	//	case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
+	//	case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
+	//	}
+	//}
 
 	IGameObject::Update();
 }
