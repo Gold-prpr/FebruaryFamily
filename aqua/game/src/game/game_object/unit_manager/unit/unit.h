@@ -6,6 +6,7 @@ using namespace aqua::controller;
 enum class UNIT_ID
 {
 	PLAYER,
+	ENEMY,
 	MAX
 };
 
