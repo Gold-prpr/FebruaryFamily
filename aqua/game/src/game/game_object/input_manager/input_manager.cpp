@@ -76,13 +76,30 @@ void GameInputManager::Updata()
 		}
 		else
 		{
-			key_stick.x =
+			key_stick.x =(float)(
 				aqua::keyboard::Button(aqua::keyboard::KEY_ID::RIGHT) -
-				aqua::keyboard::Button(aqua::keyboard::KEY_ID::LEFT);
+				aqua::keyboard::Button(aqua::keyboard::KEY_ID::LEFT));
 
-			key_stick.y =
+			key_stick.y = (float)(
 				aqua::keyboard::Button(aqua::keyboard::KEY_ID::DOWN) -
-				aqua::keyboard::Button(aqua::keyboard::KEY_ID::UP);
+				aqua::keyboard::Button(aqua::keyboard::KEY_ID::UP));
+			
+
+			m_GameKey[(int)GameKey::A + key] |= aqua::mouse::Button(aqua::mouse::BUTTON_ID::RIGHT);
+			m_GameKey[(int)GameKey::B + key] |= aqua::mouse::Button(aqua::mouse::BUTTON_ID::LEFT);
+			m_GameKey[(int)GameKey::X + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::RETURN);
+			m_GameKey[(int)GameKey::Y + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::RCONTROL);
+
+		}
+		else // �v���C���[1
+		{
+			key_stick.x = (float)(
+				aqua::keyboard::Button(aqua::keyboard::KEY_ID::D) -
+				aqua::keyboard::Button(aqua::keyboard::KEY_ID::A));
+
+			key_stick.y = (float)(
+				aqua::keyboard::Button(aqua::keyboard::KEY_ID::S) -
+				aqua::keyboard::Button(aqua::keyboard::KEY_ID::W));
 
 			m_GameKey[(int)GameKey::A + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::SPACE);
 			m_GameKey[(int)GameKey::B + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::Q);
