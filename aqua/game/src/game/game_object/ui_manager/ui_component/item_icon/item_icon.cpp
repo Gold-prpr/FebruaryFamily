@@ -20,8 +20,8 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 
     IUiComponent::Initialize(position);
 
-    m_1PItemIconSprite.position = m_Position + aqua::CVector2{70.0f,70.0f};
-    m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 540.0f };
+    m_1PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 70.0f};
+    m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 600.0f };
     IGameObject::Initialize();
 }
 
@@ -47,12 +47,14 @@ void CItemIcon::Update(void)
 
     if (Button(DEVICE_ID::P1, BUTTON_ID::RIGHT_SHOULDER))
     {
+        //スピードアップアイテムの場合
         if (m_pItemManager->m_1p_item_rand == 0)
         {
             m_1PItemIconSprite.Create("data\\speedup.png");
 
             //SpeedUpIcon();
         }
+        //スピードダウンアイテムの場合
         if (m_pItemManager->m_1p_item_rand == 1)
         {
             m_1PItemIconSprite.Create("data\\speeddown.png");
@@ -60,18 +62,18 @@ void CItemIcon::Update(void)
             //SpeedDownIcon();
         }
     }
+
     if (Button(DEVICE_ID::P2, BUTTON_ID::RIGHT_SHOULDER))
     {
+
         if (m_pItemManager->m_2p_item_rand == 0)
         {
-
             m_2PItemIconSprite.Create("data\\speedup.png");
 
             //SpeedUpIcon();
         }
         if (m_pItemManager->m_2p_item_rand == 1)
         {
-
             m_2PItemIconSprite.Create("data\\speeddown.png");
 
             //SpeedDownIcon();
@@ -93,20 +95,20 @@ void CItemIcon::Finalize(void)
     m_2PItemIconSprite.Delete();
 }
 
-//スピードアップアイテム
-void CItemIcon::SpeedUpIcon(void)
-{
-    if (m_pPlayer->m_Device == DEVICE_ID::P1)
-        m_1PItemIconSprite.Create("data\\speedup.png");
-    else 
-        m_2PItemIconSprite.Create("data\\speedup.png");
-}
-
-//スピードダウンアイテム
-void CItemIcon::SpeedDownIcon(void)
-{
-    if (m_pPlayer->m_Device == DEVICE_ID::P1)
-        m_1PItemIconSprite.Create("data\\speeddown.png");
-    else 
-        m_2PItemIconSprite.Create("data\\speeddown.png");
-}
+////スピードアップアイテム
+//void CItemIcon::SpeedUpIcon(void)
+//{
+//    if (/*m_pPlayer->m_Device == DEVICE_ID::P1&&*/m_pItemManager->m_1p_item_rand == 0)
+//        m_1PItemIconSprite.Create("data\\speedup.png");
+//    if(/*m_pPlayer->m_Device == DEVICE_ID::P2&&*/ m_pItemManager->m_2p_item_rand == 0)
+//        m_2PItemIconSprite.Create("data\\speedup.png");
+//}
+//
+////スピードダウンアイテム
+//void CItemIcon::SpeedDownIcon(void)
+//{
+//    if (/*m_pPlayer->m_Device == DEVICE_ID::P1 &&*/ m_pItemManager->m_1p_item_rand == 1)
+//        m_1PItemIconSprite.Create("data\\speeddown.png");
+//    if (/*m_pPlayer->m_Device == DEVICE_ID::P2 &&*/ m_pItemManager->m_2p_item_rand == 1)
+//        m_2PItemIconSprite.Create("data\\speeddown.png");
+//}
