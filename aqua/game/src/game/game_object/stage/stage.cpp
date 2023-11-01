@@ -18,7 +18,8 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data10.csv";
+	std::string file_name = "data\\scene\\game\\map_data0.csv";
+
 
 	Parse(file_name);
 
