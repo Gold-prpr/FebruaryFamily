@@ -17,7 +17,7 @@ public:
 
 	virtual ~IUnit(void) = default;
 
-	virtual void Initialize(const aqua::CVector2& position,DEVICE_ID device ) = 0;
+	virtual void Initialize(const aqua::CVector2& position) = 0;
 
 	virtual void Update() = 0;
 
@@ -34,6 +34,8 @@ public:
 	float GetHeight() { return m_Height; }
 
 	UNIT_ID GetUnitID() { return m_UnitID; }
+
+	virtual void SetDeviceID(DEVICE_ID device_id) { }
 
 	virtual void Damage(void) = 0;
 

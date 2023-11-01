@@ -30,7 +30,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 {
 }
 
-void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
+void CPlayer::Initialize(const aqua::CVector2& position)
 {
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
@@ -39,7 +39,7 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 
 	std::string name;
 
-	if (device == DEVICE_ID::P1)
+	if (m_Device == DEVICE_ID::P1)
 		name = "data//player1p.ass";
 	else
 		name = "data//player2p.ass";
@@ -52,7 +52,6 @@ void CPlayer::Initialize(const aqua::CVector2& position, DEVICE_ID device)
 	m_Width = width;
 	m_Height = height;
 	m_UnitID = UNIT_ID::PLAYER;
-	m_Device = device;
 	m_LandingFlag = false;
 	m_Accelerator = 0.0f;
 	m_Timer = 0;

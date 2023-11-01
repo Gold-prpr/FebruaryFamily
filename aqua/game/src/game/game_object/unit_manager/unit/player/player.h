@@ -34,7 +34,7 @@ public:
 	~CPlayer()override = default;
 
 	//‰Šú‰»
-	void Initialize(const aqua::CVector2& position, DEVICE_ID device);
+	void Initialize(const aqua::CVector2& position);
 
 	//XV
 	void Update() override;
@@ -62,6 +62,8 @@ public:
 
 	//•Ç‚Ì“–‚½‚è”»’è
 	void CheckHitBlok(void);
+
+	void SetDeviceID(DEVICE_ID device_id)override {m_Device = device_id;}
 
 	DEVICE_ID GetDeviceID();
 
