@@ -55,15 +55,15 @@ public:
 	float GetHitRadius(void);
 
 	//ダメージをくらった時の処理
-	void Damage(void)override;
+	void Damage(void);
 
 	//アイテムを取った時のスピードの加算
 	void AddSpeed(float add_speed);
 
 	//壁の当たり判定
-	void CheckHitBlok(void);
+	void CheckHitBlock(void);
 
-	void SetDeviceID(DEVICE_ID device_id)override {m_Device = device_id;}
+	void SetDeviceID(DEVICE_ID device_id) {m_Device = device_id;}
 
 	DEVICE_ID GetDeviceID();
 

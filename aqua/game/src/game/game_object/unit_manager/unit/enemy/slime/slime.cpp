@@ -5,7 +5,7 @@ const float CSlime::m_width = 60.0f;
 const float CSlime::m_height = 60.0f;
 
 CSlime::CSlime(aqua::IGameObject* parent)
-	:IUnit(parent,"Slime")
+	:IUnit(parent, "Slime")
 	, m_ReflectionFlag(true)
 {
 }
@@ -13,7 +13,7 @@ CSlime::CSlime(aqua::IGameObject* parent)
 void CSlime::Initialize(const aqua::CVector2& position)
 {
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
-	m_SlimeAnimaSprite.Create("date/slime.ass","left");
+	m_SlimeAnimaSprite.Create("data/slime.ass", "left");
 	m_UnitID = UNIT_ID::SLIME;
 	m_Width = m_width;
 	m_Height = m_height;
@@ -21,14 +21,17 @@ void CSlime::Initialize(const aqua::CVector2& position)
 
 void CSlime::Update()
 {
+	CheckHitBlok();
 }
 
 void CSlime::Draw()
 {
+	m_SlimeAnimaSprite.Draw();
 }
 
 void CSlime::Finalize()
 {
+	m_SlimeAnimaSprite.Delete();
 }
 
 void CSlime::CheckHitBlok(void)
@@ -58,7 +61,27 @@ void CSlime::CheckHitBlok(void)
 
 		// ブロックにあたっているので速度を消す
 		m_Velocity.x = 0;
+
+		if (m_ReflectionFlag && m_Velocity.x < 0.0f && m_pStage->CheckHit(nx, y + h / 2))
+		{
+			m_ReflectionFlag = false;
+		}
+
+		if (!m_ReflectionFlag && m_Velocity.x > 0.0f && m_pStage->CheckHit(nx + w - 1, y + h / 2))
+		{
+			m_ReflectionFlag = true;
+		}
+
+		if (m_ReflectionFlag)
+		{
+			m_SlimeAnimaSprite.Change("left");
+		}
+		if (m_ReflectionFlag)
+		{
+			m_SlimeAnimaSprite.Change("right");
+		}
 	}
+
 
 	if (m_LandingFlag == true)
 	{

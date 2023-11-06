@@ -1,6 +1,7 @@
 #include "unit_manager.h"
 #include "unit/unit.h"
 #include "unit/player/player.h"
+#include "unit/enemy/slime/slime.h"
 #include "../stage/stage.h"
 
 CUnitManager::CUnitManager(aqua::IGameObject* parent)
@@ -69,6 +70,18 @@ IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID dev
 	if (!unit)return nullptr;
 	if (unitid == UNIT_ID::PLAYER)
 		unit->SetDeviceID(device);
+	unit->Initialize(pos);
+	return unit;
+}
+
+IUnit* CUnitManager::CreateEnemy(UNIT_ID unitid, aqua::CVector2 pos)
+{
+	IUnit* unit = nullptr;
+	switch (unitid)
+	{
+	case UNIT_ID::SLIME: unit = aqua::CreateGameObject<CSlime>(this); break;
+	}
+	if (!unit)return nullptr;
 	unit->Initialize(pos);
 	return unit;
 }
