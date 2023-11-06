@@ -2,6 +2,7 @@
 #include "item/speedup_item/speedup_item.h"
 #include "item/speeddown_item/speeddown_item.h"
 #include "../unit_manager/unit_manager.h"
+#include "../ui_manager/ui_component/item_icon/item_icon.h"
 
 const int CItemManager::m_item = 2;		//アイテム数
 using namespace aqua::keyboard;
@@ -18,6 +19,7 @@ void CItemManager::Initialize(void)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	
 
 	//m_item_rand = 0;
 
@@ -27,34 +29,6 @@ void CItemManager::Initialize(void)
 //更新
 void CItemManager::Update(void)
 {
-	//m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P1);
-
-	//if (Trigger(m_pPlayer->GetDeviceID(), BUTTON_ID::RIGHT_SHOULDER))
-	if(m_pPlayer->m_HitItemFlag == true)
-	{
-		m_1p_item_rand = rand() % m_item;
-
-		switch (m_1p_item_rand)
-		{
-		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
-		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
-		}
-	}
-
-	//m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P2);
-
-	//if (m_pPlayer->m_HitItemFlag == true)
-	//if (Trigger(DEVICE_ID::P2, BUTTON_ID::RIGHT_SHOULDER))
-	//{
-	//	m_2p_item_rand = rand() % m_item;
-
-	//	switch (m_2p_item_rand)
-	//	{
-	//	case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
-	//	case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
-	//	}
-	//}
-
 	IGameObject::Update();
 }
 
@@ -84,4 +58,23 @@ void CItemManager::Create(ITEM_ID id, aqua::CVector2* position)
 	if (!item) return;
 
 	item->Initialize(position);
+}
+
+void CItemManager::RandPick(CPlayer* player)
+{
+	if (player->m_HitItemFlag == true)
+	{
+		m_1p_item_rand = rand() % m_item;
+
+		switch (m_1p_item_rand)
+		{
+		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
+		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
+		}
+
+		
+	}
+	m_pIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+	if(m_pIcon)
+		m_pIcon->Check(player);
 }

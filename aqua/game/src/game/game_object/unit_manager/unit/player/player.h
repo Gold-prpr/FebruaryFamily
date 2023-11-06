@@ -5,7 +5,7 @@ class CStage;
 class CCameraManager;
 class CUnitManager;
 class CGimmick;
-
+class CItemManager;
 
 class CPlayer :public IUnit
 {
@@ -90,6 +90,7 @@ private:
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
 	CGimmick* m_pGimmick;//
+	CItemManager* m_pItemManager;
 	
 	float m_AddSpeed;//スピード加算
 	float m_Accelerator;//加速度

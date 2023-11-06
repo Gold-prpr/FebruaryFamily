@@ -17,6 +17,7 @@ void IItem::Initialize(aqua::CVector2* position, std::string item_file)
 //çXêV
 void IItem::Update()
 {
+	m_ItemSprite.position = aqua::CVector2(0, 0);
 	IGameObject::Update();
 }
 

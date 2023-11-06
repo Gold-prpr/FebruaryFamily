@@ -4,6 +4,7 @@
 #include "../../unit_manager.h"
 #include "../../../stage/gimmick/gimmick.h"
 #include "../../../input_manager/input_manager.h"
+#include "../../../Item_manager/item_manager.h"
 
 
 using namespace GameInputManager;
@@ -24,7 +25,6 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
 	, m_pGimmick(nullptr)
-
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -89,6 +89,10 @@ void CPlayer::Update()
 	m_pGimmick = (CGimmick*)aqua::FindGameObject("Gimmick");
 	if (m_pGimmick)
 		m_pGimmick->DamageAction(this);
+
+	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
+	if (m_pItemManager)
+		m_pItemManager->RandPick(this);
 
 	IGameObject::Update();
 }
