@@ -15,9 +15,9 @@ CSelect::CSelect(aqua::IGameObject* parent)
 void CSelect::Initialize()
 {
 
-	m_BackGround.Create("data\\���U���g.png");
+	m_BackGround.Create("data\\リザルト.png");
 
-	// ���݂��Ȃ��t�@�C����������
+	// ファイルの取得
 	std::string file;
 
 	int j = 0;
@@ -34,6 +34,9 @@ void CSelect::Initialize()
 		select->SetSize(aqua::CVector2::ONE * m_min_scale);
 
 		aqua::CVector2 size = select->GetObjectSize() / 2.0f;
+
+		if (m_SelectBoxSize == aqua::CVector2::ZERO)
+			m_SelectBoxSize = select->GetObjectSize();
 
 		aqua::CVector2 pos(aqua::GetWindowSize() / 2);
 
@@ -59,7 +62,7 @@ void CSelect::Update()
 }
 
 void CSelect::Draw()
-{	
+{
 	m_BackGround.Draw();
 
 	IScene::Draw();

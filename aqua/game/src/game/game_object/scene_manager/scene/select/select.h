@@ -27,4 +27,6 @@ private:
 
 	int m_MaxStage;
 
+	aqua::CVector2 m_SelectBoxSize;
+
 };
