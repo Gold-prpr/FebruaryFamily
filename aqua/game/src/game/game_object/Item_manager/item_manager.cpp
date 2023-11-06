@@ -29,8 +29,8 @@ void CItemManager::Update(void)
 {
 	//m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P1);
 
-	//if(m_pPlayer->m_HitItemFlag == true)
-	if (Trigger(m_pPlayer->GetDeviceID(), BUTTON_ID::RIGHT_SHOULDER))
+	//if (Trigger(m_pPlayer->GetDeviceID(), BUTTON_ID::RIGHT_SHOULDER))
+	if(m_pPlayer->m_HitItemFlag == true)
 	{
 		m_1p_item_rand = rand() % m_item;
 

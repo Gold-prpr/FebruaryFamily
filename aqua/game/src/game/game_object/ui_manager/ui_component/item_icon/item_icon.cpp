@@ -28,8 +28,10 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 //‰Šú‰»
 void CItemIcon::Update(void)
 {
-	if (Button(m_pPlayer->m_Device, BUTTON_ID::RIGHT_SHOULDER))
+	//if (Button(m_pPlayer->GetDeviceID(), BUTTON_ID::RIGHT_SHOULDER))
+	if (m_pPlayer->m_HitItemFlag == true)
 	{
+
 		if (m_pItemManager->m_1p_item_rand == 0)
 		{
 			SpeedUpIcon();
