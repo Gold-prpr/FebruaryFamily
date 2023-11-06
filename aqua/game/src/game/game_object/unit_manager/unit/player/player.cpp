@@ -84,7 +84,7 @@ void CPlayer::Update()
 
 	m_pGimmick = (CGimmick*)aqua::FindGameObject("Gimmick");
 	if (m_pGimmick)
-		m_pGimmick->DamageAction();
+		m_pGimmick->DamageAction(this);
 
 	IGameObject::Update();
 }
@@ -136,6 +136,10 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
 	{
 		m_HitFlag = true;
+	}
+	else
+	{
+		m_HitItemFlag = false;
 	}
 
 	if (m_pStage->CheckItem(nx, y)

@@ -18,7 +18,7 @@ public:
 	//‰Šú‰»
 	void Initialize()override;
 
-	void DamageAction(void);
+	void DamageAction(CPlayer* player);
 	
 private:
 	static const int alpha_cnt;
