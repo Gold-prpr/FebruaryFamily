@@ -70,7 +70,8 @@ void CPlayer::Update()
 	if (!m_pCamera)
 		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
 
-	
+	if (m_HitFlag != true)
+	{
 		switch (m_State)
 		{
 		case STATE::START: State_Start(); break;//開始の状態
@@ -78,9 +79,10 @@ void CPlayer::Update()
 		case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
 		case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
 		}
-	
-	
-	CheckHitBlok();//壁の当たり判定
+
+
+		CheckHitBlok();//壁の当たり判定
+	}
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
@@ -258,8 +260,7 @@ void CPlayer::State_Start()
 //動ける状態
 void CPlayer::State_Move()
 {
-	if (m_HitFlag != true)
-	{
+	
 
 		m_Chara.Update();
 
@@ -322,7 +323,7 @@ void CPlayer::State_Move()
 		}
 
 		m_Velocity.x = m_Velocity.x * m_AddSpeed;
-	}
+	
 }
 
 void CPlayer::State_Dead()
