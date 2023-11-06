@@ -25,7 +25,7 @@ void CGimmick::Initialize()
 
 void CGimmick::DamageAction(void)
 {
-	m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P1);
+	m_pPlayer = m_pUnitManager->GetPlayer(m_pPlayer->GetDeviceID());
 
 	if (m_pPlayer->m_HitFlag == true)
 	{
@@ -50,7 +50,7 @@ void CGimmick::DamageAction(void)
 		}
 	}
 
-	m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
+	/*m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
 
 	if (m_pPlayer->m_HitFlag == true)
 	{
@@ -73,5 +73,5 @@ void CGimmick::DamageAction(void)
 		{
 			m_pPlayer->m_Chara.color.alpha = 255;
 		}
-	}
+	}*/
 }
