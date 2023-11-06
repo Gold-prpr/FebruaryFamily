@@ -29,11 +29,11 @@ public:
 	//解放
 	void Finalize(void)override;
 
-	////スピードアップアイコン
-	//void SpeedUpIcon(void);
+	//スピードアップアイコン
+	void SpeedUpIcon(void);
 
-	////スピードダウンアイコン
-	//void SpeedDownIcon(void);
+	//スピードダウンアイコン
+	void SpeedDownIcon(void);
 
 private:
 	aqua::CSprite		m_1PItemIconSprite;	//1Pアイテムアイコン
