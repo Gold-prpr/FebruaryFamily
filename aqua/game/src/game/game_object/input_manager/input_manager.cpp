@@ -91,22 +91,6 @@ void GameInputManager::Updata()
 			m_GameKey[(int)GameKey::Y + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::RCONTROL);
 
 		}
-		else // �v���C���[1
-		{
-			key_stick.x = (float)(
-				aqua::keyboard::Button(aqua::keyboard::KEY_ID::D) -
-				aqua::keyboard::Button(aqua::keyboard::KEY_ID::A));
-
-			key_stick.y = (float)(
-				aqua::keyboard::Button(aqua::keyboard::KEY_ID::S) -
-				aqua::keyboard::Button(aqua::keyboard::KEY_ID::W));
-
-			m_GameKey[(int)GameKey::A + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::SPACE);
-			m_GameKey[(int)GameKey::B + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::Q);
-			m_GameKey[(int)GameKey::X + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::E);
-			m_GameKey[(int)GameKey::Y + key] |= aqua::keyboard::Button(aqua::keyboard::KEY_ID::LSHIFT);
-
-		}
 
 		m_GameHorizotal[j] = 
 			aqua::controller::GetAnalogStickLeft(id).x +
