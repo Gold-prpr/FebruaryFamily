@@ -70,14 +70,16 @@ void CPlayer::Update()
 	if (!m_pCamera)
 		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
 
-	switch (m_State)
-	{
-	case STATE::START: State_Start(); break;//開始の状態
-	case STATE::MOVE: State_Move(); break;//キャラが動ける状態
-	case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
-	case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
-	}
-
+	
+		switch (m_State)
+		{
+		case STATE::START: State_Start(); break;//開始の状態
+		case STATE::MOVE: State_Move(); break;//キャラが動ける状態
+		case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
+		case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
+		}
+	
+	
 	CheckHitBlok();//壁の当たり判定
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
@@ -256,68 +258,71 @@ void CPlayer::State_Start()
 //動ける状態
 void CPlayer::State_Move()
 {
-	m_Chara.Update();
-
-	m_AddSpeed = 1.0f;
-
-	float input_x_value = GetHorizotal(m_Device);
-	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
-	m_Velocity.x = 0;
-
-	m_Timer += 1;
-
-	m_Velocity.x = min_speed * inputx;
-	if (GameButton(GameKey::X, m_Device))
+	if (m_HitFlag != true)
 	{
-		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
+
+		m_Chara.Update();
+
+		m_AddSpeed = 1.0f;
+
+		float input_x_value = GetHorizotal(m_Device);
+		int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
+		m_Velocity.x = 0;
+
+		m_Timer += 1;
+
+		m_Velocity.x = min_speed * inputx;
+		if (GameButton(GameKey::X, m_Device))
 		{
-			m_Accelerator += inputx;
-			m_Timer = 0;
+			if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
+			{
+				m_Accelerator += inputx;
+				m_Timer = 0;
+			}
+
+			m_Velocity.x += m_Accelerator;
 		}
 
-		m_Velocity.x += m_Accelerator;
-	}
-
-	if (inputx == 0)
-	{
-		m_Accelerator = 0;
-	}
-
-	if (inputx != 0)
-	{
-		m_DirNext = (CHARA_DIR)inputx;
-	}
-
-
-	if (GameTrigger(GameKey::A, m_Device))
-	{
-		if (m_LandingFlag)
+		if (inputx == 0)
 		{
-			m_Velocity.y = jump;
-			m_LandingFlag = false;
+			m_Accelerator = 0;
 		}
-	}
 
-	if (m_DirCurrent != m_DirNext)
-	{
-		m_DirCurrent = m_DirNext;
-
-		switch (m_DirNext)
+		if (inputx != 0)
 		{
-		case CHARA_DIR::LEFT:
-			m_Chara.Change("left");
-			break;
-
-		case CHARA_DIR::RIGHT:
-			m_Chara.Change("right");
-			break;
-		default:
-			break;
+			m_DirNext = (CHARA_DIR)inputx;
 		}
+
+
+		if (GameTrigger(GameKey::A, m_Device))
+		{
+			if (m_LandingFlag)
+			{
+				m_Velocity.y = jump;
+				m_LandingFlag = false;
+			}
+		}
+
+		if (m_DirCurrent != m_DirNext)
+		{
+			m_DirCurrent = m_DirNext;
+
+			switch (m_DirNext)
+			{
+			case CHARA_DIR::LEFT:
+				m_Chara.Change("left");
+				break;
+
+			case CHARA_DIR::RIGHT:
+				m_Chara.Change("right");
+				break;
+			default:
+				break;
+			}
+		}
+
+		m_Velocity.x = m_Velocity.x * m_AddSpeed;
 	}
-
-	m_Velocity.x = m_Velocity.x * m_AddSpeed;
-
 }
 
 void CPlayer::State_Dead()
