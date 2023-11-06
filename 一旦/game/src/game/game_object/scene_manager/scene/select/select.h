@@ -1,7 +1,9 @@
 #pragma once
 #include "../scene.h"
-#include <fstream>
+
+
 class CSelectStageBox;
+class CCommonData;
 
 class CSelect :
 	public IScene
@@ -19,12 +21,21 @@ public:
 private:
 	static const float m_max_scale;
 	static const float m_min_scale;
-
+	static const float m_distance;
+	static const float m_max_time;
+	static const int   m_max_low_select;
 
 	aqua::CSprite m_BackGround;
+	aqua::CTimer  m_SelectSpeed;
 
-	std::list< CSelectStageBox**> m_SelectStageBoxList;
+	std::vector< CSelectStageBox*>	m_SelectStageBoxList;
+
+	CCommonData*					m_CommonDataClass;
 
 	int m_MaxStage;
 
+	int m_SelectNowStageNam;
+	int m_SelectPrivStageNam;
+
+	int m_CountLowSpeed;
 };

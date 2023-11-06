@@ -69,6 +69,4 @@ private:
 	IChangeScene*	m_ChangeSceneClass;
 	IScene*			m_SceneClass;
 
-	aqua::CSurface  m_SceneSurface;
-
 };

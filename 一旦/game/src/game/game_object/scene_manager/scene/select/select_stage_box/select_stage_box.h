@@ -36,6 +36,8 @@ public:
 	// ”wŒiƒtƒ@ƒCƒ‹–¼‚ÌŽæ“¾
 	std::string GetStageBackGrond();
 
+	std::string GetStageName();
+
 	// ‘å‚«‚³‚ðŽæ“¾
 	aqua::CVector2 GetObjectSize();
 
@@ -48,6 +50,7 @@ private:
 	aqua::CSprite m_SelectBox;
 
 	std::string m_StageBackGroundName;
+	std::string m_LabelText;
 	std::string m_StageName;
 
 };
