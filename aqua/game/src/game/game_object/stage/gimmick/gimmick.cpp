@@ -23,7 +23,7 @@ void CGimmickAct::Initialize()
 	IGameObject::Initialize();
 }
 
-void CGimmickAct::DamageAction(CPlayer* player)
+void CGimmickAct::DamageAct(CPlayer* player)
 {
 	if (player->m_HitFlag == true)
 	{
