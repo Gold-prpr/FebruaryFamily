@@ -5,6 +5,7 @@
 #include "../../../stage/gimmick/gimmick.h"
 #include "../../../input_manager/input_manager.h"
 #include "../../../Item_manager/item_manager.h"
+#include "../../unit/enemy/slime/slime.h"
 
 
 using namespace GameInputManager;
@@ -35,6 +36,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 
 
 	std::string name;
@@ -264,8 +266,6 @@ void CPlayer::State_Start()
 //“®‚¯‚éó‘Ô
 void CPlayer::State_Move()
 {
-	
-
 		m_Chara.Update();
 
 		m_AddSpeed = 1.0f;
@@ -328,6 +328,10 @@ void CPlayer::State_Move()
 
 		m_Velocity.x = m_Velocity.x * m_AddSpeed;
 	
+		if (m_Velocity.x >= 6.0f)
+		{
+			m_pSlime->Damage();
+		}
 }
 
 void CPlayer::State_Dead()

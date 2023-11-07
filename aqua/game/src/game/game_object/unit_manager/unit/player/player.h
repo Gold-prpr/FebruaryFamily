@@ -5,6 +5,7 @@ class CStage;
 class CCameraManager;
 class CUnitManager;
 class CGimmickAct;
+class CSlime;
 class CItemManager;
 
 class CPlayer :public IUnit
@@ -60,6 +61,8 @@ public:
 	//アイテムを取った時のスピードの加算
 	void AddSpeed(float add_speed);
 
+	aqua::CVector2 GetSpeed(void) { return m_Velocity; }
+
 	//壁の当たり判定
 	void CheckHitBlock(void);
 
@@ -91,6 +94,7 @@ private:
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
 	CGimmickAct* m_pGimmick;//
 	CItemManager* m_pItemManager;
+	CSlime* m_pSlime;
 	
 	float m_AddSpeed;//スピード加算
 	float m_Accelerator;//加速度

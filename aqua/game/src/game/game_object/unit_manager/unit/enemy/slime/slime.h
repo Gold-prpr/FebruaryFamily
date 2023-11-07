@@ -21,6 +21,8 @@ public:
 
 	void SetDeviceID(DEVICE_ID device_id)override { }
 
+	void Damage();
+
 private:
 	aqua::CAnimationSprite m_SlimeAnimaSprite;
 	aqua::CVector2 m_Velocty;

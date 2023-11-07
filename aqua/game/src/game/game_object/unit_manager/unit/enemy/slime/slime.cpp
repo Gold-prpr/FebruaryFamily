@@ -1,5 +1,6 @@
 #include "slime.h"
 #include "../../../../stage/stage.h"
+#include "../../player/player.h"
 
 const float CSlime::m_width = 60.0f;
 const float CSlime::m_height = 60.0f;
@@ -128,4 +129,9 @@ void CSlime::CheckHitBlok(void)
 	// ˆÊ’u‚ÌŒˆ’è
 	m_Position.x = (float)nx;
 	m_Position.y = (float)ny;
+}
+
+void CSlime::Damage()
+{
+		DeleteObject();
 }
