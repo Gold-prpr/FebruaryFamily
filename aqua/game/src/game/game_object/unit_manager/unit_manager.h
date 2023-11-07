@@ -3,7 +3,6 @@
 #include "unit/unit.h"
 
 class CPlayer;
-class CSlime;
 class CStage;
 
 class CUnitManager :public aqua::IGameObject
@@ -31,8 +30,6 @@ public:
 
 	//ÇÃê∂ê¨Ç∆ê›íu
 	IUnit* CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID device);
-
-	IUnit* CreateEnemy(UNIT_ID unitid, aqua::CVector2 pos);
 
 private:
 

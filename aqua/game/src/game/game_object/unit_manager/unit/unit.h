@@ -35,9 +35,8 @@ public:
 
 	UNIT_ID GetUnitID() { return m_UnitID; }
 
-	void SetDeviceID(DEVICE_ID device_id) { }
+	virtual void SetDeviceID(DEVICE_ID device_id) = 0 { }
 
-	void Damage(void);
 
 	aqua::CVector2 m_Position;
 protected:

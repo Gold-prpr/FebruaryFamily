@@ -22,7 +22,7 @@ void CGameMain::Initialize()
 
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P1);
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
-	m_pUnitManager->CreateEnemy(UNIT_ID::SLIME, aqua::CVector2::ZERO);
+	m_pUnitManager->CreateUnit(UNIT_ID::SLIME, aqua::CVector2::ZERO,DEVICE_ID::MAX);
 
 	aqua::CreateGameObject<CItemManager>(this);
 	aqua::CreateGameObject<CGimmick>(this);
@@ -42,12 +42,12 @@ void CGameMain::Update()
 	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::L))
 		m_ChangeSceneFlag = true;
 
-	/*m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P1);
+	m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P1);
 	if (m_pPlayer->m_GoalFlag == true)
 		m_ChangeSceneFlag = true;
 	m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P2);
 	if (m_pPlayer->m_GoalFlag == true)
-		m_ChangeSceneFlag = true;*/
+		m_ChangeSceneFlag = true;
 
 
 	IScene::Update();

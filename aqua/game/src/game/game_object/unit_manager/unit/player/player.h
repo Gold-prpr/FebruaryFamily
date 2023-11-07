@@ -63,7 +63,7 @@ public:
 	//•Ç‚Ì“–‚½‚è”»’è
 	void CheckHitBlock(void);
 
-	void SetDeviceID(DEVICE_ID device_id) {m_Device = device_id;}
+	void SetDeviceID(DEVICE_ID device_id)override {m_Device = device_id;}
 
 	DEVICE_ID GetDeviceID();
 
