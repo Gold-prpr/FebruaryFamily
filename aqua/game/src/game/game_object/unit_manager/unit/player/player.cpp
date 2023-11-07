@@ -81,7 +81,7 @@ void CPlayer::Update()
 		}
 
 
-		CheckHitBlok();//壁の当たり判定
+		CheckHitBlock();//壁の当たり判定
 	}
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
@@ -97,7 +97,7 @@ void CPlayer::Update()
 	IGameObject::Update();
 }
 
-void CPlayer::CheckHitBlok(void)
+void CPlayer::CheckHitBlock(void)
 {
 	int x = (int)(m_Position.x);
 	int y = (int)(m_Position.y);

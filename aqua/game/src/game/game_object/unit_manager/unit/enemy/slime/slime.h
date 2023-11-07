@@ -19,6 +19,8 @@ public:
 	//•Ç‚Ì“–‚½‚è”»’è
 	void CheckHitBlok(void);
 
+	void SetDeviceID(DEVICE_ID device_id)override { }
+
 private:
 	aqua::CAnimationSprite m_SlimeAnimaSprite;
 	aqua::CVector2 m_Velocty;
