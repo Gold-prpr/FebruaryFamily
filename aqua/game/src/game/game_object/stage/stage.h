@@ -88,4 +88,5 @@ private:
 
 	int m_MapTileX;
 	int m_MapTileY;
+
 };
