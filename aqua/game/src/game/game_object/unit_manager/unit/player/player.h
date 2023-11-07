@@ -4,7 +4,7 @@
 class CStage;
 class CCameraManager;
 class CUnitManager;
-class CGimmick;
+class CGimmickAct;
 class CItemManager;
 
 class CPlayer :public IUnit
@@ -89,7 +89,7 @@ private:
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
-	CGimmick* m_pGimmick;//
+	CGimmickAct* m_pGimmick;//
 	CItemManager* m_pItemManager;
 	
 	float m_AddSpeed;//スピード加算

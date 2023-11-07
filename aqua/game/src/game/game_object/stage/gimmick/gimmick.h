@@ -5,15 +5,15 @@ class CStage;
 class CPlayer;
 class CUnitManager;
 
-class CGimmick :
+class CGimmickAct :
 	public aqua::IGameObject
 {
 public:
 	//コンストラクタ
-	CGimmick(aqua::IGameObject* parent);
+	CGimmickAct(aqua::IGameObject* parent);
 
 	//デストラクタ
-	~CGimmick()override = default;
+	~CGimmickAct()override = default;
 
 	//初期化
 	void Initialize()override;

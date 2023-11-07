@@ -23,7 +23,7 @@ void CGameMain::Initialize()
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
 
 	aqua::CreateGameObject<CItemManager>(this);
-	aqua::CreateGameObject<CGimmick>(this);
+	aqua::CreateGameObject<CGimmickAct>(this);
 
 	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);
 

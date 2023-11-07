@@ -86,7 +86,7 @@ void CPlayer::Update()
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
-	m_pGimmick = (CGimmick*)aqua::FindGameObject("Gimmick");
+	m_pGimmick = (CGimmickAct*)aqua::FindGameObject("Gimmick");
 	if (m_pGimmick)
 		m_pGimmick->DamageAction(this);
 

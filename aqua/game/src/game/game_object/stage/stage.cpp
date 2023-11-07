@@ -20,7 +20,6 @@ void CStage::Initialize(void)
 {
 	std::string file_name = "data\\scene\\game\\map_data7.csv";
 
-
 	Parse(file_name);
 
 	IGameObject::Initialize();

@@ -19,7 +19,7 @@ void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id)
 {
 	m_UnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 	m_ItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
-	m_Gimmick = (CGimmick*)aqua::FindGameObject("Gimmick");
+	m_Gimmick = (CGimmickAct*)aqua::FindGameObject("Gimmick");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 
 	m_Position = position;
