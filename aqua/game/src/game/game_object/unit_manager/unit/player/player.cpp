@@ -266,72 +266,73 @@ void CPlayer::State_Start()
 //“®‚¯‚éó‘Ô
 void CPlayer::State_Move()
 {
-		m_Chara.Update();
+	m_Chara.Update();
 
-		m_AddSpeed = 1.0f;
+	m_AddSpeed = 1.0f;
 
-		float input_x_value = GetHorizotal(m_Device);
-		int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
-		m_Velocity.x = 0;
+	float input_x_value = GetHorizotal(m_Device);
+	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
+	m_Velocity.x = 0;
 
-		m_Timer += 1;
+	m_Timer += 1;
 
-		m_Velocity.x = min_speed * inputx;
-		if (GameButton(GameKey::X, m_Device))
+	m_Velocity.x = min_speed * inputx;
+	if (GameButton(GameKey::X, m_Device))
+	{
+		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
 		{
-			if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
-			{
-				m_Accelerator += inputx;
-				m_Timer = 0;
-			}
-
-			m_Velocity.x += m_Accelerator;
+			m_Accelerator += inputx;
+			m_Timer = 0;
 		}
 
-		if (inputx == 0)
+		m_Velocity.x += m_Accelerator;
+	}
+
+	if (inputx == 0)
+	{
+		m_Accelerator = 0;
+	}
+
+	if (inputx != 0)
+	{
+		m_DirNext = (CHARA_DIR)inputx;
+	}
+
+
+	if (GameTrigger(GameKey::A, m_Device))
+	{
+		if (m_LandingFlag)
 		{
-			m_Accelerator = 0;
+			m_Velocity.y = jump;
+			m_LandingFlag = false;
 		}
+	}
 
-		if (inputx != 0)
+	if (m_DirCurrent != m_DirNext)
+	{
+		m_DirCurrent = m_DirNext;
+
+		switch (m_DirNext)
 		{
-			m_DirNext = (CHARA_DIR)inputx;
+		case CHARA_DIR::LEFT:
+			m_Chara.Change("left");
+			break;
+
+		case CHARA_DIR::RIGHT:
+			m_Chara.Change("right");
+			break;
+		default:
+			break;
 		}
+	}
 
+	m_Velocity.x = m_Velocity.x * m_AddSpeed;
 
-		if (GameTrigger(GameKey::A, m_Device))
-		{
-			if (m_LandingFlag)
-			{
-				m_Velocity.y = jump;
-				m_LandingFlag = false;
-			}
-		}
-
-		if (m_DirCurrent != m_DirNext)
-		{
-			m_DirCurrent = m_DirNext;
-
-			switch (m_DirNext)
-			{
-			case CHARA_DIR::LEFT:
-				m_Chara.Change("left");
-				break;
-
-			case CHARA_DIR::RIGHT:
-				m_Chara.Change("right");
-				break;
-			default:
-				break;
-			}
-		}
-
-		m_Velocity.x = m_Velocity.x * m_AddSpeed;
-	
-		if (m_Velocity.x >= 6.0f)
-		{
+	if (m_Velocity.x >= 6.0f)
+	{
+		if (m_pSlime)
 			m_pSlime->Damage();
-		}
+	}
 }
 
 void CPlayer::State_Dead()
