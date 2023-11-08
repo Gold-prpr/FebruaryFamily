@@ -49,6 +49,8 @@ public:
 	//ƒMƒ~ƒbƒN”»’è
 	bool CheckGimmick(int x, int y);
 
+	bool ChangeAir(int x, int y);
+
 	/*//—Ž‚¿‚é”»’è
 	bool CheckFallBlock(int x, int y);
 
@@ -89,4 +91,5 @@ private:
 	int m_MapTileX;
 	int m_MapTileY;
 
+	bool CheckObject(int x, int y, StageObjectID id);
 };

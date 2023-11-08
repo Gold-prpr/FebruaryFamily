@@ -9,7 +9,7 @@ public:
 	CStageObject(aqua::IGameObject* parent);
 	~CStageObject() = default;
 
-	void Create(aqua::CVector2 position, aqua::CVector2 size);
+	void Create(StageObjectID id, aqua::CVector2 position);
 	void Update() override;
 	void Draw()override;
 	void Finalize()override;
@@ -20,7 +20,7 @@ public:
 	aqua::CVector2	GetPosition() { return m_StageObjectSprite.position; };
 
 	/*
-	* 
+	*
 	*	â¡éZï™ÇÃç¿ïWéÊìæ
 	*/
 	aqua::CVector2	GetAddPosition() { return m_AddPosition; };
@@ -28,16 +28,20 @@ public:
 	void			SetPosition(aqua::CVector2 position);
 	void			SetAddPosition(aqua::CVector2 add_position);
 
-	StageObjectID	stage_object_id;
+	static int GetObjectSize(void) { return m_object_size; }
+
+	bool CheckObject(int x, int y, StageObjectID id);
+
+	StageObjectID	m_StageObjectID;
 
 	bool			not_elase_flag;
 
 private:
 
+	static const int				m_object_size;
 	static const float				m_thickness_size;
 
 	aqua::CSprite					m_StageObjectSprite;
-	aqua::CVector2					m_StageObjectSize;
 
 	StageObjectID	m_PrevStageObjectID;
 
