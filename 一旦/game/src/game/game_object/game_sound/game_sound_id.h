@@ -1,14 +1,14 @@
 #pragma once
-enum class BGM_ID
+enum class SOUND_ID
 {
 	TITLE,
 	SELECT,
 	GAME,
 	RESULT,
+
+	BUTTON,
+	JUMP,
+	SELECT_BOX,
+
 	MAX
-};
-
-enum class SE_ID
-{
-
 };
