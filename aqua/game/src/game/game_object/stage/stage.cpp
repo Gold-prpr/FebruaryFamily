@@ -2,7 +2,7 @@
 #include "../camera_manager/camera_manager.h"
 #include "stage_object/stage_object.h"
 
-const int CStage::map_chip_size = 60;
+const int CStage::map_chip_size = CStageObject::GetObjectSize();
 
 const int CStage::num_chip_size_x = 5;
 const int CStage::num_chip_size_y = 1;
@@ -21,8 +21,6 @@ void CStage::Initialize(void)
 	std::string file_name = "data\\scene\\game\\map_data9.csv";
 
 	Parse(file_name);
-
-	m_CoolTime.Setup(3.0f);
 
 	IGameObject::Initialize();
 }
@@ -77,9 +75,10 @@ void CStage::Parse(const std::string& file_name)
 
 		stage_object = aqua::CreateGameObject<CStageObject>(this);
 
-		stage_object->Create(aqua::CVector2(loader.GetFloat(y, 1), loader.GetFloat(y, 2)), aqua::CVector2::ONE * map_chip_size);
+		StageObjectID id = (StageObjectID)loader.GetInteger(y, 0);
+		aqua::CVector2 pos = aqua::CVector2(loader.GetFloat(y, 1), loader.GetFloat(y, 2));
 
-		stage_object->stage_object_id = (StageObjectID)loader.GetInteger(y, 0);
+		stage_object->Create(id, pos);
 
 		m_StageObject.push_back(stage_object);
 
@@ -105,6 +104,7 @@ float CStage::GetGravity(void)
 
 bool CStage::CheckHit(int x, int y)
 {
+#if 0
 	for (auto& stage_it : m_StageObject)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
@@ -117,6 +117,8 @@ bool CStage::CheckHit(int x, int y)
 	}
 
 	return false;
+#endif
+	return CheckObject(x, y, StageObjectID::GRASS1_TILE);
 }
 
 int CStage::GetTileSize(void)
@@ -126,50 +128,30 @@ int CStage::GetTileSize(void)
 
 bool CStage::CheckGoal(int x, int y)
 {
-	for (auto& stage_it : m_StageObject)
-	{
-		aqua::CVector2 pos = stage_it->GetPosition();
-
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			stage_it->stage_object_id == StageObjectID::GOAL_FLAG)
-			return true;
-	}
-
-	return false;
+	return CheckObject(x, y, StageObjectID::GOAL_FLAG);
 }
 
 bool CStage::CheckItem(int x, int y)
 {
-	for (auto& stage_it : m_StageObject)
-	{
-		aqua::CVector2 pos = stage_it->GetPosition();
-
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			stage_it->stage_object_id == StageObjectID::BOX)
-		{
-			stage_it->stage_object_id = StageObjectID::AIR;
-
-			return true;
-		}
-
-	}
-
-	return false;
+	return CheckObject(x, y, StageObjectID::BOX);
 }
 
 bool CStage::CheckGimmick(int x, int y)
 {
+	return CheckObject(x, y, StageObjectID::SPIKE_BALL);
+}
+
+bool CStage::ChangeAir(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::AIR);
+}
+
+bool CStage::CheckObject(int x, int y, StageObjectID id)
+{
 	for (auto& stage_it : m_StageObject)
 	{
-		aqua::CVector2 pos = stage_it->GetPosition();
-
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			stage_it->stage_object_id == StageObjectID::SPIKE_BALL)
+		if (stage_it->CheckObject(x, y, id))
 			return true;
 	}
-
 	return false;
 }
