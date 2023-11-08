@@ -2,6 +2,7 @@
 #include "../../../stage/stage.h"
 #include "../../../unit_manager/unit_manager.h"
 #include "../../../unit_manager/unit/player/player.h"
+#include "../../../unit_manager/unit/enemy/slime/slime.h"
 #include "../../../Item_manager/item_manager.h"
 #include "../../../camera_manager/camera_manager.h"
 #include "../../../stage/gimmick/gimmick.h"
@@ -21,9 +22,10 @@ void CGameMain::Initialize()
 
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P1);
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
+	m_pUnitManager->CreateUnit(UNIT_ID::SLIME, aqua::CVector2::ZERO,DEVICE_ID::MAX);
 
 	aqua::CreateGameObject<CItemManager>(this);
-	aqua::CreateGameObject<CGimmick>(this);
+	aqua::CreateGameObject<CGimmickAct>(this);
 
 	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);
 

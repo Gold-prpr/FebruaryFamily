@@ -4,6 +4,7 @@
 
 class CUnitManager;
 class CPlayer;
+class CItemIcon;
 
 class CItemManager
 	:public aqua::IGameObject
@@ -30,6 +31,8 @@ public:
 	//生成
 	void Create(ITEM_ID id, aqua::CVector2* position);
 
+	void RandPick(CPlayer* player);
+
 	int m_1p_item_rand;				//1Pのアイテムをランダムに出す
 	int m_2p_item_rand;				//2Pのアイテムをランダムに出す
 private:
@@ -39,4 +42,5 @@ private:
 
 	CUnitManager* m_pUnitManager;
 	CPlayer* m_pPlayer;
+	CItemIcon* m_pIcon;
 };

@@ -4,6 +4,8 @@
 #include "../../unit_manager.h"
 #include "../../../stage/gimmick/gimmick.h"
 #include "../../../input_manager/input_manager.h"
+#include "../../../Item_manager/item_manager.h"
+#include "../../unit/enemy/slime/slime.h"
 
 
 using namespace GameInputManager;
@@ -24,7 +26,6 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
 	, m_pGimmick(nullptr)
-
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -35,6 +36,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 
 
 	std::string name;
@@ -70,26 +72,34 @@ void CPlayer::Update()
 	if (!m_pCamera)
 		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
 
-	switch (m_State)
+	if (m_HitFlag != true)
 	{
-	case STATE::START: State_Start(); break;//開始の状態
-	case STATE::MOVE: State_Move(); break;//キャラが動ける状態
-	case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
-	case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
-	}
+		switch (m_State)
+		{
+		case STATE::START: State_Start(); break;//開始の状態
+		case STATE::MOVE: State_Move(); break;//キャラが動ける状態
+		case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
+		case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
+		}
 
-	CheckHitBlok();//壁の当たり判定
+
+		CheckHitBlock();//壁の当たり判定
+	}
 
 	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//カメラのスクロール
 
-	m_pGimmick = (CGimmick*)aqua::FindGameObject("Gimmick");
+	m_pGimmick = (CGimmickAct*)aqua::FindGameObject("GimmickAct");
 	if (m_pGimmick)
-		m_pGimmick->DamageAction();
+		m_pGimmick->DamageAct(this);
+
+	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
+	if (m_pItemManager)
+		m_pItemManager->RandPick(this);
 
 	IGameObject::Update();
 }
 
-void CPlayer::CheckHitBlok(void)
+void CPlayer::CheckHitBlock(void)
 {
 	int x = (int)(m_Position.x);
 	int y = (int)(m_Position.y);
@@ -136,6 +146,10 @@ void CPlayer::CheckHitBlok(void)
 		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
 	{
 		m_HitFlag = true;
+	}
+	else
+	{
+		m_HitItemFlag = false;
 	}
 
 	if (m_pStage->CheckItem(nx, y)
@@ -252,68 +266,72 @@ void CPlayer::State_Start()
 //動ける状態
 void CPlayer::State_Move()
 {
-	m_Chara.Update();
+		m_Chara.Update();
 
-	m_AddSpeed = 1.0f;
+		m_AddSpeed = 1.0f;
 
-	float input_x_value = GetHorizotal(m_Device);
-	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
-	m_Velocity.x = 0;
+		float input_x_value = GetHorizotal(m_Device);
+		int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
+		m_Velocity.x = 0;
 
-	m_Timer += 1;
+		m_Timer += 1;
 
-	m_Velocity.x = min_speed * inputx;
-	if (GameButton(GameKey::X, m_Device))
-	{
-		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
+		m_Velocity.x = min_speed * inputx;
+		if (GameButton(GameKey::X, m_Device))
 		{
-			m_Accelerator += inputx;
-			m_Timer = 0;
+			if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
+			{
+				m_Accelerator += inputx;
+				m_Timer = 0;
+			}
+
+			m_Velocity.x += m_Accelerator;
 		}
 
-		m_Velocity.x += m_Accelerator;
-	}
-
-	if (inputx == 0)
-	{
-		m_Accelerator = 0;
-	}
-
-	if (inputx != 0)
-	{
-		m_DirNext = (CHARA_DIR)inputx;
-	}
-
-
-	if (GameTrigger(GameKey::A, m_Device))
-	{
-		if (m_LandingFlag)
+		if (inputx == 0)
 		{
-			m_Velocity.y = jump;
-			m_LandingFlag = false;
+			m_Accelerator = 0;
 		}
-	}
 
-	if (m_DirCurrent != m_DirNext)
-	{
-		m_DirCurrent = m_DirNext;
-
-		switch (m_DirNext)
+		if (inputx != 0)
 		{
-		case CHARA_DIR::LEFT:
-			m_Chara.Change("left");
-			break;
-
-		case CHARA_DIR::RIGHT:
-			m_Chara.Change("right");
-			break;
-		default:
-			break;
+			m_DirNext = (CHARA_DIR)inputx;
 		}
-	}
 
-	m_Velocity.x = m_Velocity.x * m_AddSpeed;
 
+		if (GameTrigger(GameKey::A, m_Device))
+		{
+			if (m_LandingFlag)
+			{
+				m_Velocity.y = jump;
+				m_LandingFlag = false;
+			}
+		}
+
+		if (m_DirCurrent != m_DirNext)
+		{
+			m_DirCurrent = m_DirNext;
+
+			switch (m_DirNext)
+			{
+			case CHARA_DIR::LEFT:
+				m_Chara.Change("left");
+				break;
+
+			case CHARA_DIR::RIGHT:
+				m_Chara.Change("right");
+				break;
+			default:
+				break;
+			}
+		}
+
+		m_Velocity.x = m_Velocity.x * m_AddSpeed;
+	
+		if (m_Velocity.x >= 6.0f)
+		{
+			m_pSlime->Damage();
+		}
 }
 
 void CPlayer::State_Dead()

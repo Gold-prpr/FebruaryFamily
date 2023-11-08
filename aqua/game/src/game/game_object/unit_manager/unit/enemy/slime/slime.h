@@ -1,6 +1,7 @@
 #pragma once
 #include "../../unit.h"
 
+class CStage;
 class CSlime :public IUnit
 {
 public:
@@ -15,11 +16,20 @@ public:
 
 	void Finalize()override;
 
+	//•Ç‚Ì“–‚½‚è”»’è
+	void CheckHitBlok(void);
+
+	void SetDeviceID(DEVICE_ID device_id)override { }
+
+	void Damage();
+
 private:
-	aqua::CAnimationSprite m_SlimeSprite;
+	aqua::CAnimationSprite m_SlimeAnimaSprite;
 	aqua::CVector2 m_Velocty;
+	CStage* m_pStage;
 	static const float m_width;
 	static const float m_height;
-
+	bool			   m_ReflectionFlag;
+	bool			   m_LandingFlag;
 
 };

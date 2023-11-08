@@ -1,6 +1,7 @@
 #include "unit_manager.h"
 #include "unit/unit.h"
 #include "unit/player/player.h"
+#include "unit/enemy/slime/slime.h"
 #include "../stage/stage.h"
 
 CUnitManager::CUnitManager(aqua::IGameObject* parent)
@@ -64,6 +65,7 @@ IUnit* CUnitManager::CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID dev
 	switch (unitid)
 	{
 	case UNIT_ID::PLAYER: unit = aqua::CreateGameObject<CPlayer>(this); break;
+	case UNIT_ID::SLIME: unit = aqua::CreateGameObject<CSlime>(this); break;
 	}
 
 	if (!unit)return nullptr;

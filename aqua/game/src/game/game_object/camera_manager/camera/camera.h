@@ -5,7 +5,7 @@ namespace controller = aqua::controller;
 
 class CUnitManager;
 class CItemManager;
-class CGimmick;
+class CGimmickAct;
 class CPlayer;
 class CStage;
 
@@ -38,7 +38,7 @@ private:
 	
 	CUnitManager*	m_UnitManager;
 	CItemManager*	m_ItemManager;
-	CGimmick*		m_Gimmick;
+	CGimmickAct*		m_Gimmick;
 	CPlayer*		m_pPlayer;
 	CStage*			m_pStage;
 

@@ -15,20 +15,20 @@ public:
 	~CUnitManager()override = default;
 
 	//初期化
-	void Initialize()override;
+	virtual void Initialize()override;
 
 	//更新
-	void Update() override;
+	virtual void Update() override;
 
 	//描画
-	void Draw()override;
+	virtual void Draw()override;
 
 	//解放
-	void Finalize()override;
+	virtual void Finalize()override;
 
 	CPlayer* GetPlayer(aqua::controller::DEVICE_ID player_device);
 
-	//Unitの生成と設置
+	//の生成と設置
 	IUnit* CreateUnit(UNIT_ID unitid, aqua::CVector2 pos,DEVICE_ID device);
 
 private:

@@ -4,8 +4,9 @@
 class CStage;
 class CCameraManager;
 class CUnitManager;
-class CGimmick;
-
+class CGimmickAct;
+class CSlime;
+class CItemManager;
 
 class CPlayer :public IUnit
 {
@@ -55,13 +56,15 @@ public:
 	float GetHitRadius(void);
 
 	//ダメージをくらった時の処理
-	void Damage(void)override;
+	void Damage(void);
 
 	//アイテムを取った時のスピードの加算
 	void AddSpeed(float add_speed);
 
+	aqua::CVector2 GetSpeed(void) { return m_Velocity; }
+
 	//壁の当たり判定
-	void CheckHitBlok(void);
+	void CheckHitBlock(void);
 
 	void SetDeviceID(DEVICE_ID device_id)override {m_Device = device_id;}
 
@@ -89,7 +92,9 @@ private:
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
-	CGimmick* m_pGimmick;//
+	CGimmickAct* m_pGimmick;//
+	CItemManager* m_pItemManager;
+	CSlime* m_pSlime;
 	
 	float m_AddSpeed;//スピード加算
 	float m_Accelerator;//加速度
