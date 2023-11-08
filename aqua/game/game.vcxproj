@@ -164,7 +164,6 @@
     <ClInclude Include="src\game\game_object\stage\stage.h" />
     <ClInclude Include="src\game\game_object\stage\stage_object\stage_object.h" />
     <ClInclude Include="src\game\game_object\stage\stage_object\stage_object_id.h" />
-    <ClInclude Include="src\game\game_object\stage\tile_id.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_frame\item_frame.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\ui_component.h" />

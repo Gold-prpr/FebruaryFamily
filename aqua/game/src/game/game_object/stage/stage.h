@@ -1,8 +1,9 @@
 #pragma once
 #include "aqua.h"
-#include "stage_object/stage_object_id.h"
+#include "stage_object/stage_object.h"
 
 class CStageObject;
+class IUnit;
 
 class CStage
 	: public aqua::IGameObject
@@ -36,20 +37,20 @@ public:
 	//重力
 	float GetGravity(void);
 
-	bool CheckHit(int x, int y);
-
 	int GetTileSize(void);
+	
+	bool CheckHit(IUnit* unit);
 
 	//ゴール判定
-	bool CheckGoal(int x, int y);
+	bool CheckGoal(IUnit* unit);
 
 	//アイテム判定
-	bool CheckItem(int x, int y);
+	bool CheckItem(IUnit* unit);
 
-	//ギミック判定
-	bool CheckGimmick(int x, int y);
+	bool CheckSpike(IUnit* unit);
 
-	bool ChangeAir(int x, int y);
+	//有刺鉄線判定
+	bool CheckWire(IUnit* unit);
 
 	/*//落ちる判定
 	bool CheckFallBlock(int x, int y);
@@ -91,5 +92,7 @@ private:
 	int m_MapTileX;
 	int m_MapTileY;
 
-	bool CheckObject(int x, int y, StageObjectID id);
+	//bool CheckObject_kari(int x, int y, StageObjectID id);
+
+	bool CheckObject(IUnit* unit, StageObjectID id);
 };

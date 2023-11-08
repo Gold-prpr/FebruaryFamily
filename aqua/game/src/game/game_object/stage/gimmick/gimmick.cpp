@@ -48,3 +48,7 @@ void CGimmickAct::DamageAct(CPlayer* player)
 		}
 	}
 }
+
+void CGimmickAct::SlowAct(CPlayer* player)
+{
+}

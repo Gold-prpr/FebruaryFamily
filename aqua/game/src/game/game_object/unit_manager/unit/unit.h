@@ -37,11 +37,20 @@ public:
 
 	virtual void SetDeviceID(DEVICE_ID device_id) = 0 { }
 
-
 	aqua::CVector2 m_Position;
+
+	int x;
+	int y;
+	int nx;
+	int ny;
+	int w;
+	int h;
+	int size;
+
 protected:
 	aqua::CVector2 m_Velocity;
 	float m_Width;
 	float m_Height;
 	UNIT_ID m_UnitID;
+
 };

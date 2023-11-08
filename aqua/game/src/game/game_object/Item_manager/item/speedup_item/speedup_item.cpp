@@ -17,8 +17,6 @@ void CSpeedUpItem::Initialize(aqua::CVector2* position)
 	//5秒間
 	m_EffectTimer.Setup(5.0f);
 
-	//アイテム使っていない状態
-	m_itemflag = false;
 	IItem::Initialize(position, "data\\speedup.png");
 }
 
@@ -46,11 +44,6 @@ void CSpeedUpItem::SpeedUp()
 	//使ってない時は通常スピード
 	if (m_itemflag == false)
 		m_pPlayer->AddSpeed(1.0f);
-
-	//押したらアイテム使用
-	//if (Trigger(KEY_ID::S))
-	if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER) || Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
-		m_itemflag = true;
 
 	//アイテムを使っていたら
 	if (m_itemflag == true)

@@ -18,10 +18,19 @@ void CSlime::Initialize(const aqua::CVector2& position)
 	m_UnitID = UNIT_ID::SLIME;
 	m_Width = m_width;
 	m_Height = m_height;
+
+	w = (int)m_Width;
+	h = (int)m_Height;
+	size = 60;
 }
 
 void CSlime::Update()
 {
+	x = (int)(m_Position.x);
+	y = (int)(m_Position.y);
+	nx = (int)(m_Position.x + m_Velocity.x);
+	ny = (int)(m_Position.y + m_Velocity.y);
+
 	CheckHitBlok();
 }
 
@@ -37,20 +46,7 @@ void CSlime::Finalize()
 
 void CSlime::CheckHitBlok(void)
 {
-	int x = (int)(m_Position.x);
-	int y = (int)(m_Position.y);
-	int nx = (int)(m_Position.x + m_Velocity.x);
-	int ny = (int)(m_Position.y + m_Velocity.y);
-	int w = (int)m_Width;
-	int h = (int)m_Height;
-	int size = 60;
-
-	if (m_pStage->CheckHit(nx, y)
-		|| m_pStage->CheckHit(nx + w - 1, y)
-		|| m_pStage->CheckHit(nx, y + h / 2)
-		|| m_pStage->CheckHit(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckHit(nx, y + h - 1)
-		|| m_pStage->CheckHit(nx + w - 1, y + h - 1))
+	if (m_pStage->CheckHit(this))
 	{
 		// 左に移動している
 		if (m_Velocity.x < 0)
@@ -63,12 +59,12 @@ void CSlime::CheckHitBlok(void)
 		// ブロックにあたっているので速度を消す
 		m_Velocity.x = 0;
 
-		if (m_ReflectionFlag && m_Velocity.x < 0.0f && m_pStage->CheckHit(nx, y + h / 2))
+		if (m_ReflectionFlag && m_Velocity.x < 0.0f && m_pStage->CheckHit(this))
 		{
 			m_ReflectionFlag = false;
 		}
 
-		if (!m_ReflectionFlag && m_Velocity.x > 0.0f && m_pStage->CheckHit(nx + w - 1, y + h / 2))
+		if (!m_ReflectionFlag && m_Velocity.x > 0.0f && m_pStage->CheckHit(this))
 		{
 			m_ReflectionFlag = true;
 		}
@@ -87,7 +83,7 @@ void CSlime::CheckHitBlok(void)
 	if (m_LandingFlag == true)
 	{
 		// 足元を調べてブロックがなければ落下
-		if (!m_pStage->CheckHit(x, y + h) && !m_pStage->CheckHit(x + w, y + h))
+		if (!m_pStage->CheckHit(this))
 		{
 			// 足元にブロックがないので着地していない
 			m_LandingFlag = false;
@@ -103,10 +99,7 @@ void CSlime::CheckHitBlok(void)
 		m_Velocity.y += m_pStage->GetGravity();
 
 		// 上下のチェック
-		if (m_pStage->CheckHit(x, ny)
-			|| m_pStage->CheckHit(x + w - 1, ny)
-			|| m_pStage->CheckHit(x, ny + h - 1)
-			|| m_pStage->CheckHit(x + w - 1, ny + h - 1))
+		if (m_pStage->CheckHit(this))
 		{
 			// 上に動いている
 			if (m_Velocity.y < 0)

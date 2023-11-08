@@ -1,6 +1,6 @@
 #include "stage.h"
-#include "../camera_manager/camera_manager.h"
 #include "stage_object/stage_object.h"
+#include "../unit_manager/unit/unit.h"
 
 const int CStage::map_chip_size = CStageObject::GetObjectSize();
 
@@ -18,7 +18,8 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data9.csv";
+	//std::string file_name = "data\\scene\\game\\map_data7.csv";
+	std::string file_name = "data\\scene\\game\\map_data11.csv";
 
 	Parse(file_name);
 
@@ -102,7 +103,7 @@ float CStage::GetGravity(void)
 	return m_gravity;
 }
 
-bool CStage::CheckHit(int x, int y)
+bool CStage::CheckHit(IUnit* unit)
 {
 #if 0
 	for (auto& stage_it : m_StageObject)
@@ -118,7 +119,10 @@ bool CStage::CheckHit(int x, int y)
 
 	return false;
 #endif
-	return CheckObject(x, y, StageObjectID::GRASS1_TILE);
+
+	if (CheckObject(unit, StageObjectID::GRASS1_TILE) ||
+		CheckObject(unit, StageObjectID::BRICK))
+		return true;
 }
 
 int CStage::GetTileSize(void)
@@ -126,31 +130,54 @@ int CStage::GetTileSize(void)
 	return map_chip_size;
 }
 
-bool CStage::CheckGoal(int x, int y)
+bool CStage::CheckGoal(IUnit* unit)
 {
-	return CheckObject(x, y, StageObjectID::GOAL_FLAG);
+	return CheckObject(unit, StageObjectID::GOAL_FLAG);
 }
 
-bool CStage::CheckItem(int x, int y)
+bool CStage::CheckWire(IUnit* unit)
 {
-	return CheckObject(x, y, StageObjectID::BOX);
+	return CheckObject(unit, StageObjectID::BARBED_WIRE);
 }
 
-bool CStage::CheckGimmick(int x, int y)
+bool CStage::CheckItem(IUnit* unit)
 {
-	return CheckObject(x, y, StageObjectID::SPIKE_BALL);
+	return CheckObject(unit, StageObjectID::BOX);
 }
 
-bool CStage::ChangeAir(int x, int y)
+bool CStage::CheckSpike(IUnit* unit)
 {
-	return CheckObject(x, y, StageObjectID::AIR);
+	return CheckObject(unit, StageObjectID::SPIKE_BALL);
 }
 
-bool CStage::CheckObject(int x, int y, StageObjectID id)
+/*bool CStage::CheckObject_kari(int x, int y, StageObjectID id)
 {
+	if (m_pStage->CheckHit(nx, y)
+		|| m_pStage->CheckHit(nx + w - 1, y)
+		|| m_pStage->CheckHit(nx, y + h / 2)
+
+		|| m_pStage->CheckHit(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckHit(nx, y + h - 1)
+		|| m_pStage->CheckHit(nx + w - 1, y + h - 1))
+
 	for (auto& stage_it : m_StageObject)
 	{
 		if (stage_it->CheckObject(x, y, id))
+			return true;
+	}
+	return false;
+}*/
+
+bool CStage::CheckObject(IUnit* unit, StageObjectID id)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		if (stage_it->CheckObject(unit->nx, unit->y, id) ||
+			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y, id) ||
+			stage_it->CheckObject(unit->nx, unit->y + unit->h / 2, id) ||
+			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y + unit->h / 2, id) ||
+			stage_it->CheckObject(unit->nx, unit->y + unit->h - 1, id) ||
+			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y + unit->h - 1, id))
 			return true;
 	}
 	return false;

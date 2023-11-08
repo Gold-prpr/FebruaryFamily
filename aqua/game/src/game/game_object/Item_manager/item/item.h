@@ -30,5 +30,9 @@ public:
 
 
 	aqua::CSprite				m_ItemSprite;	//アイテム描画
+
+protected:
+	bool				m_itemflag;			//アイテム使ったか
+
 private:
 };

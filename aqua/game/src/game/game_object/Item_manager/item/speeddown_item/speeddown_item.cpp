@@ -17,9 +17,6 @@ void CSpeedDownItem::Initialize(aqua::CVector2* position)
 	//5秒間
 	m_EffectTimer.Setup(5.0f);
 
-	//アイテム使っていない状態
-	m_itemflag = false;
-
 	IItem::Initialize(position, "data\\speeddown.png");
 }
 
@@ -44,22 +41,9 @@ void CSpeedDownItem::Finalize()
 //減速
 void CSpeedDownItem::SpeedDown()
 {
-	//using namespace aqua::keyboard;
-
-	//if (Trigger(KEY_ID::S))
-	//{
-	//	m_pPlayer->AddSpeed(0.8);
-	//}
-
-
 	//使ってない時は通常スピード
 	if (m_itemflag == false)
 		m_pPlayer->AddSpeed(1.0f);
-
-	//押したらアイテム使用
-	//if (Trigger(KEY_ID::S))
-	if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER)||Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
-		m_itemflag = true;
 
 	//アイテムを使っていたら
 	if (m_itemflag == true)

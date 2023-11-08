@@ -20,7 +20,7 @@ public:
 	aqua::CVector2	GetPosition() { return m_StageObjectSprite.position; };
 
 	/*
-	*
+	* 
 	*	‰ÁZ•ª‚ÌÀ•Wæ“¾
 	*/
 	aqua::CVector2	GetAddPosition() { return m_AddPosition; };

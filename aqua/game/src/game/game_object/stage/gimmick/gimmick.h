@@ -19,6 +19,8 @@ public:
 	void Initialize()override;
 
 	void DamageAct(CPlayer* player);
+
+	void SlowAct(CPlayer* player);
 	
 private:
 	static const int alpha_cnt;

@@ -18,7 +18,8 @@ void CStageObject::Create(StageObjectID id, aqua::CVector2 position)
 {
 	m_Position = position;
 
-	m_StageObjectSprite.Create("data\\scene\\game\\tile2.png");
+	//m_StageObjectSprite.Create("data\\scene\\game\\tile2.png");
+	m_StageObjectSprite.Create("data\\scene\\game\\tile3.png");
 
 	m_StageObjectID = id;
 

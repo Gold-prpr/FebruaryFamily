@@ -79,6 +79,7 @@ public:
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
+
 private:
 
 	void State_Start();//開始の状態
@@ -109,4 +110,5 @@ private:
 	static const int max_interval;
 	bool m_LandingFlag;//空中にいるときのフラグ
 
+	
 };

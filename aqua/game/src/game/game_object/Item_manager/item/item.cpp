@@ -1,5 +1,8 @@
 #include "item.h"
 
+using namespace aqua::keyboard;
+using namespace aqua::controller;
+
 //コンストラクタ
 IItem::IItem(aqua::IGameObject* parent, const std::string& name)
 	:aqua::IGameObject(parent, name, "Item")
@@ -11,6 +14,9 @@ void IItem::Initialize(aqua::CVector2* position, std::string item_file)
 {
 	m_ItemSprite.Create(item_file);
 
+	//アイテム使っていない状態
+	m_itemflag = false;
+
 	IGameObject::Initialize();
 }
 
@@ -18,6 +24,12 @@ void IItem::Initialize(aqua::CVector2* position, std::string item_file)
 void IItem::Update()
 {
 	m_ItemSprite.position = aqua::CVector2(0, 0);
+
+	//押したらアイテム使用
+	//if (Trigger(KEY_ID::S))
+	if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER) || Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
+		m_itemflag = true;
+
 	IGameObject::Update();
 }
 
