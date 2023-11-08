@@ -6,6 +6,9 @@ CSelectStageBox::CSelectStageBox(aqua::IGameObject* parent)
 {
 }
 
+/*
+*  初期化
+*/
 void CSelectStageBox::Initialize(void)
 {
 	m_SelectBox.Create("data\\scene\\select\\box.png");
@@ -16,11 +19,17 @@ void CSelectStageBox::Initialize(void)
 	m_SelectBox.anchor.y = m_SelectBox.GetTextureHeight() / 2.0f;
 }
 
+/*
+*  更新
+*/
 void CSelectStageBox::Update(void)
 {
 
 }
 
+/*
+*  描画
+*/
 void CSelectStageBox::Draw(void)
 {
 	m_SelectBox.Draw();
@@ -28,6 +37,9 @@ void CSelectStageBox::Draw(void)
 	m_StageNameLabel.Draw();
 }
 
+/*
+*  解放
+*/
 void CSelectStageBox::Finalize(void)
 {
 	m_SelectBox.Delete();
@@ -35,6 +47,9 @@ void CSelectStageBox::Finalize(void)
 	m_StageNameLabel.Delete();
 }
 
+/*
+*  再初期化
+*/
 void CSelectStageBox::SetUp(aqua::CVector2 position, std::string box_name, std::string stage_name)
 {
 	m_SelectBox.position = position;
@@ -57,6 +72,9 @@ void CSelectStageBox::SetUp(aqua::CVector2 position, std::string box_name, std::
 
 }
 
+/*
+*  座標の設定
+*/
 void CSelectStageBox::SetPosition(aqua::CVector2 set)
 {
 	m_SelectBox.position = set;
@@ -66,6 +84,9 @@ void CSelectStageBox::SetPosition(aqua::CVector2 set)
 
 }
 
+/*
+*  大きさの設定
+*/
 void CSelectStageBox::SetSize(aqua::CVector2 scale)
 {
 	m_SelectBox.scale = scale;
@@ -80,16 +101,25 @@ void CSelectStageBox::SetSize(aqua::CVector2 scale)
 
 }
 
-std::string CSelectStageBox::GetStageBackGrond()
+/*
+*  背景の取得
+*/
+std::string CSelectStageBox::GetStageBackGrondPath()
 {
 	return m_StageBackGroundName;
 }
 
+/*
+*  ステージのファイルパスを取得
+*/
 std::string CSelectStageBox::GetStageName()
 {
 	return m_StageName;
 }
 
+/*
+*  オブジェクトの大きさを取得
+*/
 aqua::CVector2 CSelectStageBox::GetObjectSize()
 {
 	aqua::CVector2 s;

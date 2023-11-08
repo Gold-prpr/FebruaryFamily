@@ -12,8 +12,8 @@ namespace g_controller = aqua::controller;
 const float CSelect::m_max_scale = 2.5f;
 const float CSelect::m_min_scale = 2.0f;
 const float CSelect::m_distance = 200.0f;
-const float CSelect::m_max_time = 0.25f;
-const int   CSelect::m_max_low_select = 2;
+const float CSelect::m_max_time = 0.5f;
+const int   CSelect::m_max_low_select = 1;
 
 CSelect::CSelect(aqua::IGameObject* parent)
 	:IScene(parent, "Select", SCENE_ID::GAME, CHANGE_SCENE_ID::SLIDE_CLOSE)
@@ -23,13 +23,14 @@ CSelect::CSelect(aqua::IGameObject* parent)
 {
 }
 
+/*
+*  初期化
+*/
 void CSelect::Initialize()
 {
-	m_BackGround.Create("data\\リザルト.png");
-
 	m_CommonDataClass = (CCommonData*)aqua::FindGameObject("CommonData");
 
-	// 存在しないファイル名を検索
+	// 存在するファイル名を検索
 	std::string file;
 
 	int j = 0;
@@ -61,6 +62,8 @@ void CSelect::Initialize()
 
 	}
 
+	m_BackGround.Create(m_SelectStageBoxList[0]->GetStageBackGrondPath());
+
 	m_MaxStage = (int)m_SelectStageBoxList.size();
 
 	// 時間の設定
@@ -68,8 +71,12 @@ void CSelect::Initialize()
 
 }
 
+/*
+*  更新
+*/
 void CSelect::Update()
 {
+	// ステージの決定
 	if (g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P1) ||
 		g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P2))
 	{
@@ -83,16 +90,19 @@ void CSelect::Update()
 		m_CommonDataClass->SetDate(&data);
 	}
 
-	if (g_input::GetHorizotal(g_controller::DEVICE_ID::P1) ||
-		g_input::GetHorizotal(g_controller::DEVICE_ID::P2))
+	// ステージの選択
+	if (std::abs(g_input::GetHorizotal(g_controller::DEVICE_ID::P1)) >= 0.8f ||
+		std::abs(g_input::GetHorizotal(g_controller::DEVICE_ID::P2)) >= 0.8f)
 	{
 		float botton =
 			g_input::GetHorizotal(g_controller::DEVICE_ID::P1) +
 			g_input::GetHorizotal(g_controller::DEVICE_ID::P2);
 
-		int add = (int)(botton / std::abs(botton));
+		int add = 0;
 
-		if (m_CountLowSpeed <= m_max_low_select)
+		add = (int)(botton / std::abs(botton));
+
+		if (m_CountLowSpeed == m_max_low_select)
 		{
 			if (m_SelectSpeed.GetLimit() != m_max_time)
 				m_SelectSpeed.SetLimit(m_max_time);
@@ -106,7 +116,7 @@ void CSelect::Update()
 		if (m_SelectSpeed.Finished())
 		{
 			m_CountLowSpeed++;
-			m_SelectNowStageNam = aqua::Limit(m_SelectNowStageNam + add, 0, m_MaxStage - 1);
+			m_SelectNowStageNam = aqua::Mod(m_SelectNowStageNam + add, 0, m_MaxStage - 1);
 			m_SelectSpeed.Reset();
 		}
 
@@ -117,14 +127,31 @@ void CSelect::Update()
 		m_SelectSpeed.Reset();
 		m_CountLowSpeed = 0;
 	}
+
 	int j = 0;
 
+	// 選択欄の移動
 	for (auto& it : m_SelectStageBoxList)
 	{
 		int center_priv_dis = j - m_SelectPrivStageNam;
 		int center_dis = j - m_SelectNowStageNam;
+		
+		if (center_dis == 0)
+		{
 
-		aqua::CVector2 size = it->GetObjectSize() / 2.0f;
+			it->SetSize(aqua::CVector2::ONE * m_max_scale);
+
+			m_BackGround.Delete();
+			m_BackGround.Create(it->GetStageBackGrondPath());
+			m_BackGround.ApplyGaussFilter(32, 800);
+
+		}
+		else
+		{
+			it->SetSize(aqua::CVector2::ONE * m_min_scale);
+		}
+
+		aqua::CVector2 size = it->GetObjectSize() / 4.0f;
 
 		aqua::CVector2 start_pos(aqua::GetWindowSize() / 2);
 		aqua::CVector2 gool_pos(aqua::GetWindowSize() / 2);
@@ -147,21 +174,6 @@ void CSelect::Update()
 
 		it->SetPosition(now_pos - size);
 
-		if (center_dis == 0)
-		{
-
-			it->SetSize(aqua::CVector2::ONE * m_max_scale);
-
-			m_BackGround.Delete();
-			m_BackGround.Create(it->GetStageBackGrond());
-			m_BackGround.ApplyGaussFilter(32, 800);
-
-		}
-		else
-		{
-			it->SetSize(aqua::CVector2::ONE * m_min_scale);
-		}
-
 		j++;
 	}
 
@@ -169,6 +181,9 @@ void CSelect::Update()
 
 }
 
+/*
+*  描画
+*/
 void CSelect::Draw()
 {
 	m_BackGround.Draw();
@@ -177,6 +192,9 @@ void CSelect::Draw()
 
 }
 
+/*
+*  解放
+*/
 void CSelect::Finalize()
 {
 	m_BackGround.Delete();

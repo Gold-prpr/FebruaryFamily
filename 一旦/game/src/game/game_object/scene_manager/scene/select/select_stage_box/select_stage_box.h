@@ -34,7 +34,7 @@ public:
 	void SetSize(aqua::CVector2 scale);
 
 	// ”wŒiƒtƒ@ƒCƒ‹–¼‚ÌŽæ“¾
-	std::string GetStageBackGrond();
+	std::string GetStageBackGrondPath();
 
 	std::string GetStageName();
 
