@@ -7,9 +7,10 @@ IItem::IItem(aqua::IGameObject* parent, const std::string& name)
 }
 
 //èâä˙âª
-void IItem::Initialize(aqua::CVector2* position, std::string item_file) {
+void IItem::Initialize(aqua::CVector2 position, std::string item_file)
+{
 	m_ItemSprite.Create(item_file);
-	m_Position = position;
+	m_ItemSprite.position = position;
 
 	IGameObject::Initialize();
 }
@@ -17,8 +18,6 @@ void IItem::Initialize(aqua::CVector2* position, std::string item_file) {
 //çXêV
 void IItem::Update()
 {
-	m_ItemSprite.position = (*m_Position);
-
 	IGameObject::Update();
 }
 

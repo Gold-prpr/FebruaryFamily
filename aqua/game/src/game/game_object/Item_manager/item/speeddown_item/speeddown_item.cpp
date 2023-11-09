@@ -7,7 +7,7 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 }
 
 //èâä˙âª
-void CSpeedDownItem::Initialize(aqua::CVector2* position) 
+void CSpeedDownItem::Initialize(aqua::CVector2 position)
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
