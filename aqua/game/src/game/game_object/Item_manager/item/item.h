@@ -13,7 +13,7 @@ public:
 
 	//初期化
 	void Initialize(aqua::CVector2* position, std::string item_file);
-	
+
 	virtual void Initialize(aqua::CVector2* position) = 0;
 
 	//更新
@@ -32,7 +32,6 @@ public:
 	aqua::CSprite				m_ItemSprite;	//アイテム描画
 
 protected:
-	bool				m_itemflag;			//アイテム使ったか
 
-private:
+	bool				m_itemflag;			//アイテム使ったか
 };

@@ -10,7 +10,7 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 }
 
 //初期化
-void CSpeedDownItem::Initialize(aqua::CVector2* position) 
+void CSpeedDownItem::Initialize(aqua::CVector2* position)
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
@@ -41,19 +41,14 @@ void CSpeedDownItem::Finalize()
 //減速
 void CSpeedDownItem::SpeedDown()
 {
-	//使ってない時は通常スピード
-	if (m_itemflag == false)
-		m_pPlayer->AddSpeed(1.0f);
 
 	//アイテムを使っていたら
-	if (m_itemflag == true)
-	{
-		m_EffectTimer.Update();
-		m_pPlayer->AddSpeed(0.8f);
-	}
+
+	m_EffectTimer.Update();
+	m_pPlayer->AddSpeed(0.8f);
 
 	//アイテム効果時間が終わったら
 	if (m_EffectTimer.Finished())
-		m_itemflag = false;
+		m_pPlayer->AddSpeed(1.0f);
 
 }

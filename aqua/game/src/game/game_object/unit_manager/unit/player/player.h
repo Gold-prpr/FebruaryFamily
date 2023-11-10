@@ -7,6 +7,7 @@ class CUnitManager;
 class CGimmickAct;
 class CSlime;
 class CItemManager;
+class CSpeedDownItem;
 
 class CPlayer :public IUnit
 {
@@ -96,6 +97,7 @@ private:
 	CGimmickAct* m_pGimmick;//
 	CItemManager* m_pItemManager;
 	CSlime* m_pSlime;
+	CSpeedDownItem* m_pSpeedDownItem;
 	
 	float m_AddSpeed;//スピード加算
 	float m_Accelerator;//加速度
@@ -109,6 +111,4 @@ private:
 	static const float dash;//ダッシュの値
 	static const int max_interval;
 	bool m_LandingFlag;//空中にいるときのフラグ
-
-	
 };
