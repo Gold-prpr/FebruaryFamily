@@ -46,7 +46,7 @@ void CSlime::Finalize()
 
 void CSlime::CheckHitBlok(void)
 {
-	if (m_pStage->CheckHit(this))
+	if (m_pStage->CheckHitObject(this))
 	{
 		// 左に移動している
 		if (m_Velocity.x < 0)
@@ -59,12 +59,12 @@ void CSlime::CheckHitBlok(void)
 		// ブロックにあたっているので速度を消す
 		m_Velocity.x = 0;
 
-		if (m_ReflectionFlag && m_Velocity.x < 0.0f && m_pStage->CheckHit(this))
+		if (m_ReflectionFlag && m_Velocity.x < 0.0f && m_pStage->CheckHitObject(this))
 		{
 			m_ReflectionFlag = false;
 		}
 
-		if (!m_ReflectionFlag && m_Velocity.x > 0.0f && m_pStage->CheckHit(this))
+		if (!m_ReflectionFlag && m_Velocity.x > 0.0f && m_pStage->CheckHitObject(this))
 		{
 			m_ReflectionFlag = true;
 		}
@@ -83,7 +83,7 @@ void CSlime::CheckHitBlok(void)
 	if (m_LandingFlag == true)
 	{
 		// 足元を調べてブロックがなければ落下
-		if (!m_pStage->CheckHit(this))
+		if (!m_pStage->CheckHitObject(this))
 		{
 			// 足元にブロックがないので着地していない
 			m_LandingFlag = false;
@@ -99,7 +99,7 @@ void CSlime::CheckHitBlok(void)
 		m_Velocity.y += m_pStage->GetGravity();
 
 		// 上下のチェック
-		if (m_pStage->CheckHit(this))
+		if (m_pStage->CheckHitFloor(this))
 		{
 			// 上に動いている
 			if (m_Velocity.y < 0)

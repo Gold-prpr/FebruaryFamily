@@ -103,7 +103,7 @@ float CStage::GetGravity(void)
 	return m_gravity;
 }
 
-bool CStage::CheckHit(IUnit* unit)
+bool CStage::CheckHitObject(IUnit* unit)
 {
 #if 0
 	for (auto& stage_it : m_StageObject)
@@ -122,6 +122,13 @@ bool CStage::CheckHit(IUnit* unit)
 
 	if (CheckObject(unit, StageObjectID::GRASS1_TILE) ||
 		CheckObject(unit, StageObjectID::BRICK))
+		return true;
+}
+
+bool CStage::CheckHitFloor(IUnit* unit)
+{
+	if (CheckFloor(unit, StageObjectID::GRASS1_TILE) ||
+		CheckFloor(unit, StageObjectID::BRICK))
 		return true;
 }
 
@@ -178,6 +185,19 @@ bool CStage::CheckObject(IUnit* unit, StageObjectID id)
 			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y + unit->h / 2, id) ||
 			stage_it->CheckObject(unit->nx, unit->y + unit->h - 1, id) ||
 			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y + unit->h - 1, id))
+			return true;
+	}
+	return false;
+}
+
+bool CStage::CheckFloor(IUnit* unit, StageObjectID id)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		if (stage_it->CheckObject(unit->x, unit->ny, id) ||
+			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny, id) ||
+			stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) ||
+			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id))
 			return true;
 	}
 	return false;
