@@ -5,6 +5,7 @@
 #include "../../../stage/gimmick/gimmick.h"
 #include "../../../input_manager/input_manager.h"
 #include "../../../Item_manager/item_manager.h"
+#include "../../../Item_manager/item/speeddown_item/speeddown_item.h"
 #include "../../unit/enemy/slime/slime.h"
 
 
@@ -25,7 +26,9 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pStage(nullptr)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
+	, m_pItemManager(nullptr)
 	, m_pGimmick(nullptr)
+	, m_pSpeedDownItem(nullptr)
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -36,6 +39,9 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
+	m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
+	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
 	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 
 
@@ -58,11 +64,17 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_Accelerator = 0.0f;
 	m_Timer = 0;
 	m_HitFlag = false;
-	m_AddSpeed = 0.0;
+	m_AddSpeed = 1.0;
 
 	m_HitItemFlag = false;
 
 	m_GoalFlag = false;
+
+	m_GetItemFlag = false;
+
+	w = (int)m_Width;
+	h = (int)m_Height;
+	size = 60;
 
 	IGameObject::Initialize();
 }
@@ -82,7 +94,6 @@ void CPlayer::Update()
 		case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
 		}
 
-
 		CheckHitBlock();//壁の当たり判定
 	}
 
@@ -101,20 +112,12 @@ void CPlayer::Update()
 
 void CPlayer::CheckHitBlock(void)
 {
-	int x = (int)(m_Position.x);
-	int y = (int)(m_Position.y);
-	int nx = (int)(m_Position.x + m_Velocity.x);
-	int ny = (int)(m_Position.y + m_Velocity.y);
-	int w = (int)m_Width;
-	int h = (int)m_Height;
-	int size = 60;
+	x = (int)(m_Position.x);
+	y = (int)(m_Position.y);
+	nx = (int)(m_Position.x + m_Velocity.x);
+	ny = (int)(m_Position.y + m_Velocity.y);
 
-	if (m_pStage->CheckHit(nx, y)
-		|| m_pStage->CheckHit(nx + w - 1, y)
-		|| m_pStage->CheckHit(nx, y + h / 2)
-		|| m_pStage->CheckHit(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckHit(nx, y + h - 1)
-		|| m_pStage->CheckHit(nx + w - 1, y + h - 1))
+	if (m_pStage->CheckHitObject(this))
 	{
 		// 左に移動している
 		if (m_Velocity.x < 0)
@@ -128,22 +131,16 @@ void CPlayer::CheckHitBlock(void)
 		m_Velocity.x = 0;
 	}
 
-	if (m_pStage->CheckGoal(nx, y)
-		|| m_pStage->CheckGoal(nx + w - 1, y)
-		|| m_pStage->CheckGoal(nx, y + h / 2)
-		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckGoal(nx, y + h - 1)
-		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
+	if (m_pStage->CheckGoal(this))
 	{
 		m_GoalFlag = true;
 	}
+	else
+	{
+		m_GoalFlag = false;
+	}
 
-	if (m_pStage->CheckGimmick(nx, y)
-		|| m_pStage->CheckGimmick(nx + w - 1, y)
-		|| m_pStage->CheckGimmick(nx, y + h / 2)
-		|| m_pStage->CheckGimmick(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckGimmick(nx, y + h - 1)
-		|| m_pStage->CheckGimmick(nx + w - 1, y + h - 1))
+	if (m_pStage->CheckSpike(this))
 	{
 		m_HitFlag = true;
 	}
@@ -152,14 +149,10 @@ void CPlayer::CheckHitBlock(void)
 		m_HitItemFlag = false;
 	}
 
-	if (m_pStage->CheckItem(nx, y)
-		|| m_pStage->CheckItem(nx + w - 1, y)
-		|| m_pStage->CheckItem(nx, y + h / 2)
-		|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckItem(nx, y + h - 1)
-		|| m_pStage->CheckItem(nx + w - 1, y + h - 1))
+	if (m_pStage->CheckItem(this) && m_GetItemFlag == false)
 	{
 		m_HitItemFlag = true;
+		m_GetItemFlag = true;
 	}
 	else
 	{
@@ -169,7 +162,7 @@ void CPlayer::CheckHitBlock(void)
 	if (m_LandingFlag == true)
 	{
 		// 足元を調べてブロックがなければ落下
-		if (!m_pStage->CheckHit(x, y + h) && !m_pStage->CheckHit(x + w, y + h))
+		if (m_pStage->CheckHitFloor(this))
 		{
 			// 足元にブロックがないので着地していない
 			m_LandingFlag = false;
@@ -185,17 +178,15 @@ void CPlayer::CheckHitBlock(void)
 		m_Velocity.y += m_pStage->GetGravity();
 
 		// 上下のチェック
-		if (m_pStage->CheckHit(x, ny)
-			|| m_pStage->CheckHit(x + w - 1, ny)
-			|| m_pStage->CheckHit(x, ny + h - 1)
-			|| m_pStage->CheckHit(x + w - 1, ny + h - 1))
+		if (m_pStage->CheckHitFloor(this))
 		{
+
 			// 上に動いている
 			if (m_Velocity.y < 0)
 				ny = (ny / size + 1) * size;
 
 			// 下に動いている
-			if (m_Velocity.y > 0)
+ 			if (m_Velocity.y > 0)
 			{
 				ny = ((ny + h) / size) * size - h;
 
@@ -266,72 +257,86 @@ void CPlayer::State_Start()
 //動ける状態
 void CPlayer::State_Move()
 {
-		m_Chara.Update();
+	m_Chara.Update();
 
-		m_AddSpeed = 1.0f;
+	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER)|| Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
+	{
+		m_pSpeedDownItem->SpeedDown();
+		m_GetItemFlag = false;
+	}
 
-		float input_x_value = GetHorizotal(m_Device);
-		int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
-		m_Velocity.x = 0;
+	float input_x_value = GetHorizotal(m_Device);
+	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
+	m_Velocity.x = 0;
 
-		m_Timer += 1;
+	m_Timer += 1;
 
-		m_Velocity.x = min_speed * inputx;
-		if (GameButton(GameKey::X, m_Device))
+	m_Velocity.x = min_speed * inputx;
+	if (GameButton(GameKey::X, m_Device))
+	{
+		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
 		{
-			if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
-			{
-				m_Accelerator += inputx;
-				m_Timer = 0;
-			}
-
-			m_Velocity.x += m_Accelerator;
+			m_Accelerator += inputx;
+			m_Timer = 0;
 		}
 
-		if (inputx == 0)
+		m_Velocity.x += m_Accelerator;
+	}
+
+	if (inputx == 0)
+	{
+		m_Accelerator = 0;
+	}
+
+	if (inputx != 0)
+	{
+		m_DirNext = (CHARA_DIR)inputx;
+	}
+
+
+	if (GameTrigger(GameKey::A, m_Device))
+	{
+		if (m_LandingFlag == true)
 		{
-			m_Accelerator = 0;
+			m_Velocity.y = jump;
+			m_LandingFlag = false;
 		}
+	}
 
-		if (inputx != 0)
+	/*if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))
+	{
+		if (m_LandingFlag == true)
 		{
-			m_DirNext = (CHARA_DIR)inputx;
+			m_Velocity.y = jump;
+			m_LandingFlag = false;
 		}
+	}*/
 
+	if (m_DirCurrent != m_DirNext)
+	{
+		m_DirCurrent = m_DirNext;
 
-		if (GameTrigger(GameKey::A, m_Device))
+		switch (m_DirNext)
 		{
-			if (m_LandingFlag)
-			{
-				m_Velocity.y = jump;
-				m_LandingFlag = false;
-			}
+		case CHARA_DIR::LEFT:
+			m_Chara.Change("left");
+			break;
+
+		case CHARA_DIR::RIGHT:
+			m_Chara.Change("right");
+			break;
+		default:
+			break;
 		}
+	}
 
-		if (m_DirCurrent != m_DirNext)
-		{
-			m_DirCurrent = m_DirNext;
+	m_Velocity.x = m_Velocity.x * m_AddSpeed;
 
-			switch (m_DirNext)
-			{
-			case CHARA_DIR::LEFT:
-				m_Chara.Change("left");
-				break;
-
-			case CHARA_DIR::RIGHT:
-				m_Chara.Change("right");
-				break;
-			default:
-				break;
-			}
-		}
-
-		m_Velocity.x = m_Velocity.x * m_AddSpeed;
-	
-		if (m_Velocity.x >= 6.0f)
-		{
+	if (m_Velocity.x >= 6.0f)
+	{
+		if (m_pSlime)
 			m_pSlime->Damage();
-		}
+	}
 }
 
 void CPlayer::State_Dead()

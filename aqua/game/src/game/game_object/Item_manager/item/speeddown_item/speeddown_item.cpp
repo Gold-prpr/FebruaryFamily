@@ -10,66 +10,32 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 }
 
 //初期化
-void CSpeedDownItem::Initialize(aqua::CVector2* position) 
+void CSpeedDownItem::Initialize()
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
-	//5秒間
-	m_EffectTimer.Setup(5.0f);
+	//IItem::Initialize(position, "data\\speeddown.png");
 
-	//アイテム使っていない状態
-	m_itemflag = false;
-
-	IItem::Initialize(position, "data\\speeddown.png");
+	IGameObject::Initialize();
 }
 
 //更新
 void CSpeedDownItem::Update()
 {
-	SpeedDown();
-}
-
-//描画
-void CSpeedDownItem::Draw()
-{
-	//IItem::Draw();
-}
-
-//解放
-void CSpeedDownItem::Finalize()
-{
-	//IItem::Finalize();
+	/*SpeedDown();*/
+	IGameObject::Update();
 }
 
 //減速
 void CSpeedDownItem::SpeedDown()
 {
-	//using namespace aqua::keyboard;
-
-	//if (Trigger(KEY_ID::S))
-	//{
-	//	m_pPlayer->AddSpeed(0.8);
-	//}
-
-
-	//使ってない時は通常スピード
-	if (m_itemflag == false)
-		m_pPlayer->AddSpeed(1.0f);
-
-	//押したらアイテム使用
-	//if (Trigger(KEY_ID::S))
-	if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER)||Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))
-		m_itemflag = true;
-
 	//アイテムを使っていたら
-	if (m_itemflag == true)
-	{
-		m_EffectTimer.Update();
-		m_pPlayer->AddSpeed(0.8f);
-	}
+	m_EffectTimer.Setup(5.0f);
+	m_EffectTimer.Update();
+	m_pPlayer->AddSpeed(0.2f);
 
 	//アイテム効果時間が終わったら
 	if (m_EffectTimer.Finished())
-		m_itemflag = false;
+		m_pPlayer->AddSpeed(1.0f);
 
 }
