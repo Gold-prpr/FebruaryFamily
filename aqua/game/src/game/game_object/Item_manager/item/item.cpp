@@ -10,7 +10,7 @@ IItem::IItem(aqua::IGameObject* parent, const std::string& name)
 }
 
 //初期化
-void IItem::Initialize(aqua::CVector2* position, std::string item_file) 
+void IItem::Initialize(std::string item_file) 
 {
 	m_ItemSprite.Create(item_file);
 
@@ -23,7 +23,6 @@ void IItem::Initialize(aqua::CVector2* position, std::string item_file)
 //更新
 void IItem::Update()
 {
-	m_ItemSprite.position = aqua::CVector2(0, 0);
 
 	//押したらアイテム使用
 	//if (Trigger(KEY_ID::S))
@@ -47,8 +46,3 @@ void IItem::Finalize()
 	IGameObject::Finalize();
 }
 
-//アイテムの位置
-const aqua::CVector2& IItem::GetPosition()
-{
-	return m_ItemSprite.position;
-}

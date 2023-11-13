@@ -10,42 +10,29 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 }
 
 //初期化
-void CSpeedDownItem::Initialize(aqua::CVector2* position)
+void CSpeedDownItem::Initialize()
 {
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
-	//5秒間
-	m_EffectTimer.Setup(5.0f);
+	//IItem::Initialize(position, "data\\speeddown.png");
 
-	IItem::Initialize(position, "data\\speeddown.png");
+	IGameObject::Initialize();
 }
 
 //更新
 void CSpeedDownItem::Update()
 {
-	SpeedDown();
-}
-
-//描画
-void CSpeedDownItem::Draw()
-{
-	//IItem::Draw();
-}
-
-//解放
-void CSpeedDownItem::Finalize()
-{
-	//IItem::Finalize();
+	/*SpeedDown();*/
+	IGameObject::Update();
 }
 
 //減速
 void CSpeedDownItem::SpeedDown()
 {
-
 	//アイテムを使っていたら
-
+	m_EffectTimer.Setup(5.0f);
 	m_EffectTimer.Update();
-	m_pPlayer->AddSpeed(0.8f);
+	m_pPlayer->AddSpeed(0.2f);
 
 	//アイテム効果時間が終わったら
 	if (m_EffectTimer.Finished())

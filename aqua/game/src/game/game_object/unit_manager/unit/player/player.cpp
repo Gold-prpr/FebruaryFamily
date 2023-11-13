@@ -40,6 +40,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
+	m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
 	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
 	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 
@@ -68,6 +69,8 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_HitItemFlag = false;
 
 	m_GoalFlag = false;
+
+	m_GetItemFlag = false;
 
 	w = (int)m_Width;
 	h = (int)m_Height;
@@ -147,9 +150,10 @@ void CPlayer::CheckHitBlock(void)
 		m_HitItemFlag = false;
 	}
 
-	if (m_pStage->CheckItem(this))
+	if (m_pStage->CheckItem(this) && m_GetItemFlag == false)
 	{
 		m_HitItemFlag = true;
+		m_GetItemFlag = true;
 	}
 	else
 	{
@@ -256,9 +260,10 @@ void CPlayer::State_Move()
 {
 	m_Chara.Update();
 
-	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER)&& m_HitItemFlag == true)
+	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER)|| Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
 	{
 		m_pSpeedDownItem->SpeedDown();
+		m_GetItemFlag = false;
 	}
 
 	float input_x_value = GetHorizotal(m_Device);

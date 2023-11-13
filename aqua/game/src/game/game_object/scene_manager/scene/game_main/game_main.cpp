@@ -18,13 +18,13 @@ void CGameMain::Initialize()
 {
 	aqua::CreateGameObject<CStage>(this);
 
+	aqua::CreateGameObject<CItemManager>(this);
 	m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
 
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P1);
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
 	m_pUnitManager->CreateUnit(UNIT_ID::SLIME, aqua::CVector2::ZERO,DEVICE_ID::MAX);
 
-	aqua::CreateGameObject<CItemManager>(this);
 	aqua::CreateGameObject<CGimmickAct>(this);
 
 	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);

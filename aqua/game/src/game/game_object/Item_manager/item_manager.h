@@ -29,7 +29,7 @@ public:
 	void Finalize(void) override;
 
 	//ê∂ê¨
-	void Create(ITEM_ID id, aqua::CVector2* position);
+	void Create(ITEM_ID id);
 
 	void RandPick(CPlayer* player);
 

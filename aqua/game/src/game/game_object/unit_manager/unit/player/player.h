@@ -75,6 +75,8 @@ public:
 
 	bool m_HitItemFlag;
 
+	bool m_GetItemFlag;
+
 	bool m_GoalFlag;
 
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
