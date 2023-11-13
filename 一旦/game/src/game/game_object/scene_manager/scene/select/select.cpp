@@ -78,7 +78,8 @@ void CSelect::Update()
 {
 	// ステージの決定
 	if (g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P1) ||
-		g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P2))
+		g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P2) || 
+		aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
 	{
 		// シーンの移動
 		m_ChangeSceneFlag = true;

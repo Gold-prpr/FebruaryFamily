@@ -3,6 +3,7 @@
 #include "stage_object/stage_object_id.h"
 
 class CStageObject;
+class CCommonData;
 
 class CStage
 	: public aqua::IGameObject
@@ -77,7 +78,8 @@ private:
 
 	static const float m_gravity;			//èdóÕ
 
-	std::vector<CStageObject*> m_StageObject;
+	std::vector<CStageObject*>	m_StageObject;
+	CCommonData*				m_CommonData;
 
 	aqua::CSprite              m_BackGround;
 
