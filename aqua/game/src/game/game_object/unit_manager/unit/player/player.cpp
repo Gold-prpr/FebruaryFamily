@@ -5,6 +5,7 @@
 #include "../../../stage/gimmick/gimmick.h"
 #include "../../../input_manager/input_manager.h"
 #include "../../../Item_manager/item_manager.h"
+#include "../../../Item_manager/item/speeddown_item/speeddown_item.h"
 #include "../../unit/enemy/slime/slime.h"
 
 
@@ -25,7 +26,9 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pStage(nullptr)
 	, m_pCamera(nullptr)
 	, m_pUnitManager(nullptr)
+	, m_pItemManager(nullptr)
 	, m_pGimmick(nullptr)
+	, m_pSpeedDownItem(nullptr)
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -36,6 +39,9 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
+	m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
+	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
 	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 
 
@@ -58,11 +64,13 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_Accelerator = 0.0f;
 	m_Timer = 0;
 	m_HitFlag = false;
-	m_AddSpeed = 0.0;
+	m_AddSpeed = 1.0;
 
 	m_HitItemFlag = false;
 
 	m_GoalFlag = false;
+
+	m_GetItemFlag = false;
 
 	w = (int)m_Width;
 	h = (int)m_Height;
@@ -141,9 +149,10 @@ void CPlayer::CheckHitBlock(void)
 		m_HitItemFlag = false;
 	}
 
-	if (m_pStage->CheckItem(this))
+	if (m_pStage->CheckItem(this) && m_GetItemFlag == false)
 	{
 		m_HitItemFlag = true;
+		m_GetItemFlag = true;
 	}
 	else
 	{
@@ -171,6 +180,7 @@ void CPlayer::CheckHitBlock(void)
 		// 上下のチェック
 		if (m_pStage->CheckHitFloor(this))
 		{
+
 			// 上に動いている
 			if (m_Velocity.y < 0)
 				ny = (ny / size + 1) * size;
@@ -249,7 +259,11 @@ void CPlayer::State_Move()
 {
 	m_Chara.Update();
 
-	m_AddSpeed = 1.0f;
+	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER)|| Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
+	{
+		m_pSpeedDownItem->SpeedDown();
+		m_GetItemFlag = false;
+	}
 
 	float input_x_value = GetHorizotal(m_Device);
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));

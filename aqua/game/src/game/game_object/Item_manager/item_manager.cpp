@@ -45,7 +45,7 @@ void CItemManager::Finalize(void)
 }
 
 //¶¬
-void CItemManager::Create(ITEM_ID id, aqua::CVector2* position) 
+void CItemManager::Create(ITEM_ID id) 
 {
 	IItem* item = nullptr;
 
@@ -56,20 +56,19 @@ void CItemManager::Create(ITEM_ID id, aqua::CVector2* position)
 	}
 
 	if (!item) return;
-
-	item->Initialize(position);
 }
 
 void CItemManager::RandPick(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true)
 	{
-		m_1p_item_rand = rand() % m_item;
+		//m_1p_item_rand = rand() % m_item;
+		m_1p_item_rand = 1;
 
 		switch (m_1p_item_rand)
 		{
-		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
-		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
+		case 0:Create(ITEM_ID::SPEEDUP);	break;
+		case 1:Create(ITEM_ID::SPEEDDOWN);	break;
 		}
 
 		

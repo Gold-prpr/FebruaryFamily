@@ -15,16 +15,10 @@ public:
 	~CSpeedUpItem(void) = default;
 
 	//‰Šú‰»
-	void Initialize(aqua::CVector2* position);
+	void Initialize();
 
 	//XV
 	void Update()override;
-
-	//•`‰æ
-	void Draw()override;
-
-	//‰ğ•ú
-	void Finalize()override;
 
 	//‰Á‘¬ŒvZ
 	void SpeedUp();
