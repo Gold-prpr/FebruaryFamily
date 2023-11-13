@@ -84,5 +84,7 @@ bool CStageObject::CheckObject(int x, int y, StageObjectID id)
 	int obj_x = (int)m_StageObjectSprite.position.x;
 	int obj_y = (int)m_StageObjectSprite.position.y;
 
-	return (obj_x <= x && obj_x + m_object_size > x && obj_y <= y && obj_y + m_object_size > y && m_StageObjectID == id);
+	return ((obj_x <= x && obj_x + m_object_size > x) &&
+		    (obj_y <= y && obj_y + m_object_size > y) && 
+		     m_StageObjectID == id);
 }

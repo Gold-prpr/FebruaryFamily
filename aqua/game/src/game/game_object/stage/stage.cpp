@@ -9,7 +9,7 @@ const int CStage::num_chip_size_y = 1;
 
 const int CStage::all_num_chip = num_chip_size_x * num_chip_size_y;
 
-const float CStage::m_gravity = 0.98f;
+const float CStage::m_gravity = 1.0f;
 
 CStage::CStage(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "Stage")
@@ -123,6 +123,8 @@ bool CStage::CheckHitObject(IUnit* unit)
 	if (CheckObject(unit, StageObjectID::GRASS1_TILE) ||
 		CheckObject(unit, StageObjectID::BRICK))
 		return true;
+	else
+		return false;
 }
 
 bool CStage::CheckHitFloor(IUnit* unit)
@@ -130,6 +132,17 @@ bool CStage::CheckHitFloor(IUnit* unit)
 	if (CheckFloor(unit, StageObjectID::GRASS1_TILE) ||
 		CheckFloor(unit, StageObjectID::BRICK))
 		return true;
+	else
+		return false;
+}
+
+bool CStage::CheckHitFloor2(IUnit* unit)
+{
+	if (CheckFloor2(unit, StageObjectID::GRASS1_TILE) == true ||
+		CheckFloor2(unit, StageObjectID::BRICK) == true)
+		return true;
+	else
+		return false;
 }
 
 int CStage::GetTileSize(void)
@@ -157,24 +170,6 @@ bool CStage::CheckSpike(IUnit* unit)
 	return CheckObject(unit, StageObjectID::SPIKE_BALL);
 }
 
-/*bool CStage::CheckObject_kari(int x, int y, StageObjectID id)
-{
-	if (m_pStage->CheckHit(nx, y)
-		|| m_pStage->CheckHit(nx + w - 1, y)
-		|| m_pStage->CheckHit(nx, y + h / 2)
-
-		|| m_pStage->CheckHit(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckHit(nx, y + h - 1)
-		|| m_pStage->CheckHit(nx + w - 1, y + h - 1))
-
-	for (auto& stage_it : m_StageObject)
-	{
-		if (stage_it->CheckObject(x, y, id))
-			return true;
-	}
-	return false;
-}*/
-
 bool CStage::CheckObject(IUnit* unit, StageObjectID id)
 {
 	for (auto& stage_it : m_StageObject)
@@ -197,6 +192,17 @@ bool CStage::CheckFloor(IUnit* unit, StageObjectID id)
 		if (stage_it->CheckObject(unit->x, unit->ny, id) ||
 			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny, id) ||
 			stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) ||
+			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id))
+			return true;
+	}
+	return false;
+}
+
+bool CStage::CheckFloor2(IUnit* unit, StageObjectID id)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		if (stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) &&
 			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id))
 			return true;
 	}

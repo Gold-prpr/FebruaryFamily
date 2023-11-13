@@ -73,11 +73,6 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 void CPlayer::Update()
 {
-	x = (int)(m_Position.x);
-	y = (int)(m_Position.y);
-	nx = (int)(m_Position.x + m_Velocity.x);
-	ny = (int)(m_Position.y + m_Velocity.y);
-
 	if (!m_pCamera)
 		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
 
@@ -90,7 +85,6 @@ void CPlayer::Update()
 		case STATE::DEAD: State_Dead(); break;//キャラが死んだ状態
 		case STATE::GOAL: State_Goal(); break;//キャラがゴールした時の状態
 		}
-
 
 		CheckHitBlock();//壁の当たり判定
 	}
@@ -110,6 +104,11 @@ void CPlayer::Update()
 
 void CPlayer::CheckHitBlock(void)
 {
+	x = (int)(m_Position.x);
+	y = (int)(m_Position.y);
+	nx = (int)(m_Position.x + m_Velocity.x);
+	ny = (int)(m_Position.y + m_Velocity.y);
+
 	if (m_pStage->CheckHitObject(this))
 	{
 		// 左に移動している
@@ -154,7 +153,7 @@ void CPlayer::CheckHitBlock(void)
 	if (m_LandingFlag == true)
 	{
 		// 足元を調べてブロックがなければ落下
-		if (!m_pStage->CheckHitObject(this))
+		if (m_pStage->CheckHitFloor(this))
 		{
 			// 足元にブロックがないので着地していない
 			m_LandingFlag = false;
@@ -177,7 +176,7 @@ void CPlayer::CheckHitBlock(void)
 				ny = (ny / size + 1) * size;
 
 			// 下に動いている
-			if (m_Velocity.y > 0)
+ 			if (m_Velocity.y > 0)
 			{
 				ny = ((ny + h) / size) * size - h;
 
@@ -283,12 +282,21 @@ void CPlayer::State_Move()
 
 	if (GameTrigger(GameKey::A, m_Device))
 	{
-		if (m_LandingFlag)
+		if (m_LandingFlag == true)
 		{
 			m_Velocity.y = jump;
 			m_LandingFlag = false;
 		}
 	}
+
+	/*if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))
+	{
+		if (m_LandingFlag == true)
+		{
+			m_Velocity.y = jump;
+			m_LandingFlag = false;
+		}
+	}*/
 
 	if (m_DirCurrent != m_DirNext)
 	{

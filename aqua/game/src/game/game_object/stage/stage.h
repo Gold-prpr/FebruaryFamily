@@ -42,6 +42,8 @@ public:
 	bool CheckHitObject(IUnit* unit);
 
 	bool CheckHitFloor(IUnit* unit);
+	
+	bool CheckHitFloor2(IUnit* unit);
 
 	//ÉSÅ[ÉãîªíË
 	bool CheckGoal(IUnit* unit);
@@ -94,9 +96,9 @@ private:
 	int m_MapTileX;
 	int m_MapTileY;
 
-	//bool CheckObject_kari(int x, int y, StageObjectID id);
-
 	bool CheckObject(IUnit* unit, StageObjectID id);
 
 	bool CheckFloor(IUnit* unit, StageObjectID id);
+
+	bool CheckFloor2(IUnit* unit, StageObjectID id);
 };
