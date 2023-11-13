@@ -39,7 +39,9 @@ public:
 
 	int GetTileSize(void);
 	
-	bool CheckHit(IUnit* unit);
+	bool CheckHitObject(IUnit* unit);
+
+	bool CheckHitFloor(IUnit* unit);
 
 	//ÉSÅ[ÉãîªíË
 	bool CheckGoal(IUnit* unit);
@@ -95,4 +97,6 @@ private:
 	//bool CheckObject_kari(int x, int y, StageObjectID id);
 
 	bool CheckObject(IUnit* unit, StageObjectID id);
+
+	bool CheckFloor(IUnit* unit, StageObjectID id);
 };
