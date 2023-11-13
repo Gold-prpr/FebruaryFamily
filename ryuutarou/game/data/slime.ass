@@ -1,0 +1,24 @@
+{
+  "file": "data\\slime.png",
+
+  "frame": {
+    "width": 48,
+    "height": 48,
+    "cols": 3,
+    "rows": 2
+  },
+
+  "animations": {
+    "right": {
+      "frames": [ 4, 5, 4, 3 ],
+      "interval": 0.15,
+      "loop": true
+    },
+
+    "left": {
+      "frames": [ 1, 2, 1, 0 ],
+      "interval": 0.15,
+      "loop": true
+    }
+  }
+}
