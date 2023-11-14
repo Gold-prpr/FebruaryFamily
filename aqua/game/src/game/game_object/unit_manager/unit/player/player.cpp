@@ -7,6 +7,7 @@
 #include "../../../Item_manager/item_manager.h"
 #include "../../../Item_manager/item/speeddown_item/speeddown_item.h"
 #include "../../unit/enemy/slime/slime.h"
+#include "../../../ui_manager/ui_component/item_icon/item_icon.h"
 
 
 using namespace GameInputManager;
@@ -29,6 +30,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pItemManager(nullptr)
 	, m_pGimmick(nullptr)
 	, m_pSpeedDownItem(nullptr)
+	, m_pItemIcon(nullptr)
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -39,10 +41,11 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
+	m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 	m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
 	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
-	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 
 
 	std::string name;
@@ -328,17 +331,25 @@ void CPlayer::State_Move()
 
 	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
 	{
+
 		if (m_Device == DEVICE_ID::P1)
 		{
 			m_Device == DEVICE_ID::P2;
 			m_pSpeedDownItem->SpeedDown();
 			m_GetItemFlag = false;
+			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+			if (m_pItemIcon)
+				m_pItemIcon->DeleteItem(this);
+
 		}
 		else if (m_Device == DEVICE_ID::P2)
 		{
 			m_Device == DEVICE_ID::P1;
 			m_pSpeedDownItem->SpeedDown();
 			m_GetItemFlag = false;
+			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+			if (m_pItemIcon)
+				m_pItemIcon->DeleteItem(this);
 		}
 	}
 

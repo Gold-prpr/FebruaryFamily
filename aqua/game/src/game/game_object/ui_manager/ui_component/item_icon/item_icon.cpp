@@ -18,17 +18,17 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 	//アイテムマネージャーの中身を読み込む
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 
-	IUiComponent::Initialize(position);
 
 	m_1PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 70.0f };
 	m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 600.0f };
+
+	IUiComponent::Initialize(position);
 	IGameObject::Initialize();
 }
 
 //初期化
 void CItemIcon::Update(void)
 {
-	
 	IGameObject::Update();
 }
 
@@ -44,9 +44,6 @@ void CItemIcon::Draw(void)
 //解放
 void CItemIcon::Finalize(void)
 {
-	m_1PItemIconSprite.Delete();
-	m_2PItemIconSprite.Delete();
-
 	IGameObject::Finalize();
 }
 

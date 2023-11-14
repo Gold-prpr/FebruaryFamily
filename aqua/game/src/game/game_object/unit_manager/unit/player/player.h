@@ -8,6 +8,7 @@ class CGimmickAct;
 class CSlime;
 class CItemManager;
 class CSpeedDownItem;
+class CItemIcon;
 
 class CPlayer :public IUnit
 {
@@ -100,6 +101,7 @@ private:
 	CItemManager* m_pItemManager;
 	CSlime* m_pSlime;
 	CSpeedDownItem* m_pSpeedDownItem;
+	CItemIcon* m_pItemIcon;
 	
 	float m_AddSpeed;//スピード加算
 	float m_Accelerator;//加速度

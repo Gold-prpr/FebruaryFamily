@@ -74,6 +74,9 @@ void CItemManager::RandPick(CPlayer* player)
 		
 	}
 	m_pIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
-	if(m_pIcon)
+	if (m_pIcon)
+	{
 		m_pIcon->Check(player);
+	}
+	
 }
