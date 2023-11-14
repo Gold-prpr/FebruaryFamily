@@ -24,4 +24,5 @@ public:
 private:
 	static const aqua::CVector2		m_ui_item_frame_position;		//アイテムフレームの位置
 	static const aqua::CVector2		m_ui_item_icon_position;		//アイテムアイコンの位置
+	static const aqua::CVector2		m_ui_rank_icon_position;		//順位アイコンの位置
 };
