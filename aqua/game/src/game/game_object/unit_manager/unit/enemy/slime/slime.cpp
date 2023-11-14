@@ -18,6 +18,7 @@ void CSlime::Initialize(const aqua::CVector2& position)
 	m_UnitID = UNIT_ID::SLIME;
 	m_Width = m_width;
 	m_Height = m_height;
+	m_Position = position;
 
 	w = (int)m_Width;
 	h = (int)m_Height;

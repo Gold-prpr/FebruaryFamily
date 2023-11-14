@@ -186,7 +186,7 @@ void CPlayer::CheckHitBlock(void)
 				ny = (ny / size + 1) * size;
 
 			// ‰º‚É“®‚¢‚Ä‚¢‚é
- 			if (m_Velocity.y > 0)
+			if (m_Velocity.y > 0)
 			{
 				ny = ((ny + h) / size) * size - h;
 
@@ -259,11 +259,6 @@ void CPlayer::State_Move()
 {
 	m_Chara.Update();
 
-	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER)|| Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
-	{
-		m_pSpeedDownItem->SpeedDown();
-		m_GetItemFlag = false;
-	}
 
 	float input_x_value = GetHorizotal(m_Device);
 	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
@@ -330,9 +325,26 @@ void CPlayer::State_Move()
 		}
 	}
 
+
+	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
+	{
+		if (m_Device == DEVICE_ID::P1)
+		{
+			m_Device == DEVICE_ID::P2;
+			m_pSpeedDownItem->SpeedDown();
+			m_GetItemFlag = false;
+		}
+		else if (m_Device == DEVICE_ID::P2)
+		{
+			m_Device == DEVICE_ID::P1;
+			m_pSpeedDownItem->SpeedDown();
+			m_GetItemFlag = false;
+		}
+	}
+
 	m_Velocity.x = m_Velocity.x * m_AddSpeed;
 
-	if (m_Velocity.x >= 6.0f)
+	if (m_Velocity.x >= 6.0f && -6.0f >= m_Velocity.x)
 	{
 		if (m_pSlime)
 			m_pSlime->Damage();
