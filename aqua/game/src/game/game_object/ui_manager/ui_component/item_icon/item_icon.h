@@ -29,7 +29,11 @@ public:
 	//解放
 	void Finalize(void)override;
 
+	//プレイヤーがアイテムボックスに触れたら
 	void Check(CPlayer* player);
+
+	//プレイヤーがアイテムを使ったら
+	void DeleteItem(CPlayer* player);
 
 private:
 	aqua::CSprite		m_1PItemIconSprite;	//1Pアイテムアイコン

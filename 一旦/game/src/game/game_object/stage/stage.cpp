@@ -1,5 +1,6 @@
 #include "stage.h"
 #include "../camera_manager/camera_manager.h"
+#include "../common_data/common_data.h"
 #include "stage_object/stage_object.h"
 
 const int CStage::map_chip_size = 60;
@@ -18,9 +19,9 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data0.csv";
+	m_CommonData = (CCommonData*)aqua::FindGameObject("CommonData");
 
-	Parse(file_name);
+	Parse(m_CommonData->GetCommonDate().stage_name);
 
 	IGameObject::Initialize();
 }

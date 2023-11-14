@@ -11,6 +11,8 @@ void CTitle::Initialize()
 	m_BackGround.Change("wind");
 	m_BackGround.Play();
 
+	m_RogoSprite.Create("data\\タイトル(イメージ).png");
+
 	m_BackGround.scale = aqua::CVector2::ONE * 2.0f;
 	m_BackGround.position.x = (aqua::GetWindowSize().x/2.0f - m_BackGround.GetFrameWidth()) / 2.0f;
 }
@@ -27,9 +29,11 @@ void CTitle::Update()
 void CTitle::Draw()
 {
 	m_BackGround.Draw();
+	m_RogoSprite.Draw();
 }
 
 void CTitle::Finalize()
 {
 	m_BackGround.Delete();
+	m_RogoSprite.Delete();
 }

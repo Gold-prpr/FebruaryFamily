@@ -1,6 +1,7 @@
 #include "scene_manager.h"
 #include "scene/scene_channel.h"
 #include "change_scene/change_scecne_channel.h"
+#include "../common_data/common_data.h"
 
 CSceneManager::CSceneManager(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "SceneManager")
@@ -17,7 +18,7 @@ CSceneManager::CSceneManager(aqua::IGameObject* parent)
 */
 void CSceneManager::Initialize()
 {
-	m_SceneSurface.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
+	aqua::CreateGameObject<CCommonData>(this);
 
 	// ÉVÅ[ÉìÇÃê∂ê¨
 	CreateScene(m_NextSceneID);
@@ -108,8 +109,6 @@ void CSceneManager::Finalize()
 	DeleteChildObject(&m_SceneClass, "Scene");
 
 	DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
-
-	m_SceneSurface.Delete();
 
 	aqua::IGameObject::Finalize();
 }

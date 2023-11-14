@@ -50,6 +50,7 @@ void CItemIcon::Finalize(void)
 	IGameObject::Finalize();
 }
 
+//プレイヤーがアイテムボックスに触れたら
 void CItemIcon::Check(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true)
@@ -70,4 +71,13 @@ void CItemIcon::Check(CPlayer* player)
 		}
 	}
 	
+}
+
+//プレイヤーがアイテム使ったら
+void CItemIcon::DeleteItem(CPlayer* player)
+{
+	if (player->GetDeviceID() == DEVICE_ID::P1)
+		m_1PItemIconSprite.Delete();
+	else
+		m_2PItemIconSprite.Delete();
 }
