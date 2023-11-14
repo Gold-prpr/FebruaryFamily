@@ -334,7 +334,7 @@ void CPlayer::State_Move()
 
 		if (m_Device == DEVICE_ID::P1)
 		{
-			m_Device == DEVICE_ID::P2;
+			
 			m_pSpeedDownItem->SpeedDown();
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
@@ -344,7 +344,7 @@ void CPlayer::State_Move()
 		}
 		else if (m_Device == DEVICE_ID::P2)
 		{
-			m_Device == DEVICE_ID::P1;
+			
 			m_pSpeedDownItem->SpeedDown();
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");

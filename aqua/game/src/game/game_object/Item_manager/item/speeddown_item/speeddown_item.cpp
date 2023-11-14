@@ -1,4 +1,6 @@
 #include "speeddown_item.h"
+#include "../../../unit_manager/unit_manager.h"
+#include "../../../unit_manager/unit/player/player.h"
 
 using namespace aqua::keyboard;
 using namespace aqua::controller;
@@ -6,13 +8,14 @@ using namespace aqua::controller;
 //コンストラクタ
 CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 	:IItem(parent, "SpeedDownItem")
+	,m_pUnitManager(nullptr)
 {
 }
 
 //初期化
-void CSpeedDownItem::Initialize()
+void CSpeedDownItem::Initialize(aqua::controller::DEVICE_ID other_id)
 {
-	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	m_pUnitManager->GetPlayer(other_id);
 
 	//IItem::Initialize(position, "data\\speeddown.png");
 	m_EffectTimer.Setup(5.0f);

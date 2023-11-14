@@ -1,7 +1,7 @@
 #pragma once
 #include "../item.h"
-#include "../../../unit_manager/unit/player/player.h"
 
+class CUnitManager;
 class CPlayer;
 
 class CSpeedDownItem
@@ -15,7 +15,7 @@ public:
 	~CSpeedDownItem(void) = default;
 
 	//初期化
-	void Initialize();
+	void Initialize(aqua::controller::DEVICE_ID other_id);
 
 	//更新
 	void Update()override;
@@ -26,5 +26,6 @@ public:
 private:
 	bool				m_itemflag;			//アイテム使ったか
 	aqua::CTimer		m_EffectTimer;		//効果時間
+	CUnitManager*		m_pUnitManager;
 	CPlayer* m_pPlayer;
 };
