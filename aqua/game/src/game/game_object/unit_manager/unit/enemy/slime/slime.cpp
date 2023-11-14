@@ -19,6 +19,7 @@ void CSlime::Initialize(const aqua::CVector2& position)
 	m_Width = m_width;
 	m_Height = m_height;
 	m_Position = position;
+	m_Velocity = aqua::CVector2::ZERO;
 
 	w = (int)m_Width;
 	h = (int)m_Height;
@@ -31,6 +32,12 @@ void CSlime::Update()
 	y = (int)(m_Position.y);
 	nx = (int)(m_Position.x + m_Velocity.x);
 	ny = (int)(m_Position.y + m_Velocity.y);
+
+	m_Position = aqua::CVector2(500.0f, 100.0f);
+
+	m_Velocity.x = 8.0f;
+
+	m_Position.x = m_Position.x + m_Velocity.x;
 
 	CheckHitBlok();
 }
