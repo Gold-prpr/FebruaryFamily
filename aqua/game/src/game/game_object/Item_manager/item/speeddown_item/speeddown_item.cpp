@@ -15,6 +15,7 @@ void CSpeedDownItem::Initialize()
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
 	//IItem::Initialize(position, "data\\speeddown.png");
+	m_EffectTimer.Setup(5.0f);
 
 	IGameObject::Initialize();
 }
@@ -30,9 +31,8 @@ void CSpeedDownItem::Update()
 void CSpeedDownItem::SpeedDown()
 {
 	//アイテムを使っていたら
-	m_EffectTimer.Setup(5.0f);
 	m_EffectTimer.Update();
-	m_pPlayer->AddSpeed(0.2f);
+	m_pPlayer->AddSpeed(0.6f);
 
 	//アイテム効果時間が終わったら
 	if (m_EffectTimer.Finished())
