@@ -8,7 +8,8 @@ using namespace aqua::controller;
 //コンストラクタ
 CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 	:IItem(parent, "SpeedDownItem")
-	,m_pUnitManager(nullptr)
+	, m_pUnitManager(nullptr)
+	, m_pPlayer(nullptr)
 {
 }
 
@@ -16,6 +17,7 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 void CSpeedDownItem::Initialize(aqua::controller::DEVICE_ID other_id)
 {
 	m_pUnitManager->GetPlayer(other_id);
+
 
 	//IItem::Initialize(position, "data\\speeddown.png");
 	m_EffectTimer.Setup(5.0f);
@@ -35,10 +37,14 @@ void CSpeedDownItem::SpeedDown()
 {
 	//アイテムを使っていたら
 	m_EffectTimer.Update();
-	m_pPlayer->AddSpeed(0.6f);
+	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	if (m_pPlayer)
+		m_pPlayer->AddSpeed(0.6f);
 
 	//アイテム効果時間が終わったら
 	if (m_EffectTimer.Finished())
+		m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	if (m_pPlayer)
 		m_pPlayer->AddSpeed(1.0f);
 
 }
