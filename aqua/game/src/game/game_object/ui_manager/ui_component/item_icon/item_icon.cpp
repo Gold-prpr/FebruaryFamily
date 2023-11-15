@@ -18,7 +18,6 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 	//アイテムマネージャーの中身を読み込む
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 
-
 	m_1PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 70.0f };
 	m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 600.0f };
 
