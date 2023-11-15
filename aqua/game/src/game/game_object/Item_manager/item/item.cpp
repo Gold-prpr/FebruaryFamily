@@ -23,7 +23,6 @@ void IItem::Initialize(std::string item_file)
 //更新
 void IItem::Update()
 {
-
 	//押したらアイテム使用
 	//if (Trigger(KEY_ID::S))
 	/*if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER) || Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))*/
