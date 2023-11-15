@@ -3,6 +3,7 @@
 
 class CSpeedDownEffect : public IEffect
 {
+public:
 	//コンストラクタ
 	CSpeedDownEffect(aqua::IGameObject* parent);
 
@@ -22,6 +23,6 @@ class CSpeedDownEffect : public IEffect
 	void Finalize(void) override;
 
 private:
-	aqua::CSprite		m_Sprite;	//くらっているキャラの位置
-	aqua::CTimer        m_Timer;	//くらっている時間
+	aqua::CSprite		m_SpeedDownEffectSprite;	//くらっているキャラの位置
+	aqua::CTimer        m_SpeedDownEffectTimer;		//くらっている時間
 };
