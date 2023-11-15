@@ -18,7 +18,6 @@ CItemManager::CItemManager(aqua::IGameObject* parent)
 void CItemManager::Initialize(void)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 	
 
 	//m_item_rand = 0;
