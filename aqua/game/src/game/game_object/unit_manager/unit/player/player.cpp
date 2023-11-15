@@ -44,8 +44,6 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 	m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
-	m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
-	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
 
 
 	std::string name;
@@ -97,6 +95,8 @@ void CPlayer::Update()
 		case STATE::GOAL: State_Goal(); break;//ƒLƒƒƒ‰‚ªƒS[ƒ‹‚µ‚½Žž‚Ìó‘Ô
 		}
 
+		m_PrevPosition = m_Position;
+
 		CheckHitBlock();//•Ç‚Ì“–‚½‚è”»’è
 	}
 
@@ -109,6 +109,8 @@ void CPlayer::Update()
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 	if (m_pItemManager)
 		m_pItemManager->RandPick(this);
+
+	
 
 	IGameObject::Update();
 }
@@ -263,34 +265,41 @@ void CPlayer::State_Move()
 	m_Chara.Update();
 
 
-	float input_x_value = GetHorizotal(m_Device);
-	int inputx = ((input_x_value >= 0.7f) - (input_x_value <= -0.7f));
+	float input_x_value = 0.0f;
+	float input_move = GetHorizotal(m_Device);
+
+	if (std::abs(input_move) >= 0.7f)
+		input_x_value = (int)(input_move / std::abs(input_move));
+
 	m_Velocity.x = 0;
 
 	m_Timer += 1;
 
-	m_Velocity.x = min_speed * inputx;
+	m_Velocity.x = min_speed * input_x_value;
 	if (GameButton(GameKey::X, m_Device))
 	{
 		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
 		{
-			m_Accelerator += inputx;
+			m_Accelerator += input_x_value;
 			m_Timer = 0;
 		}
 
 		m_Velocity.x += m_Accelerator;
+
 	}
 
-	if (inputx == 0)
+	if ((int)input_x_value == 0)
 	{
 		m_Accelerator = 0;
 	}
+	int v = m_Position.x - m_PrevPosition.x;
 
-	if (inputx != 0)
+	if (v)
 	{
-		m_DirNext = (CHARA_DIR)inputx;
-	}
+		v = v / std::abs(v);
 
+		m_DirNext = (CHARA_DIR)((int)v);
+	}
 
 	if (GameTrigger(GameKey::A, m_Device))
 	{
@@ -334,20 +343,28 @@ void CPlayer::State_Move()
 
 		if (m_Device == DEVICE_ID::P1)
 		{
-			
+			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
+			m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
+			m_pSpeedDownItem->Initialize(DEVICE_ID::P2);
+
 			m_pSpeedDownItem->SpeedDown();
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+
 			if (m_pItemIcon)
 				m_pItemIcon->DeleteItem(this);
 
 		}
 		else if (m_Device == DEVICE_ID::P2)
 		{
-			
+			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
+			m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
+			m_pSpeedDownItem->Initialize(DEVICE_ID::P1);
+
 			m_pSpeedDownItem->SpeedDown();
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+
 			if (m_pItemIcon)
 				m_pItemIcon->DeleteItem(this);
 		}

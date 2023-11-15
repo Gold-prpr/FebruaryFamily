@@ -31,8 +31,8 @@ void CGameMain::Initialize()
 
 	aqua::CreateGameObject<CUiManager>(this);
 
-	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
+	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
 
 	IScene::Initialize();
 }

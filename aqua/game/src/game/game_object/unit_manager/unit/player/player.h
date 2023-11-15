@@ -103,6 +103,8 @@ private:
 	CSpeedDownItem* m_pSpeedDownItem;
 	CItemIcon* m_pItemIcon;
 	
+	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
+
 	float m_AddSpeed;//スピード加算
 	float m_Accelerator;//加速度
 	int m_Timer;

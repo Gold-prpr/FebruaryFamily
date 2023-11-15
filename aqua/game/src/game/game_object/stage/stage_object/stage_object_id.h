@@ -2,7 +2,7 @@
 
 enum class StageObjectID
 {
-#if 0
+#if false
 	AIR,
 	GRASS1_TILE,
 	GRASS2_TILE,
@@ -25,9 +25,7 @@ enum class StageObjectID
 	START_FLAG,
 	SPIKE_BALL,
 	BARBED_WIRE,
-#endif
-
-#if 1
+#else
 	AIR,
 	GRASS1_TILE,
 	SAND1_TILE,
