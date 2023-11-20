@@ -64,7 +64,8 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_LandingFlag = false;
 	m_Accelerator = 0.0f;
 	m_Timer = 0;
-	m_HitFlag = false;
+	m_HitSpikeFlag = false;
+	m_HitWireFlag = false;
 	m_AddSpeed = 1.0;
 
 	m_HitItemFlag = false;
@@ -81,7 +82,7 @@ void CPlayer::Update()
 	if (!m_pCamera)
 		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
 
-	if (m_HitFlag != true)
+	if (m_HitSpikeFlag != true)
 	{
 		switch (m_State)
 		{
@@ -100,13 +101,14 @@ void CPlayer::Update()
 
 	m_pGimmick = (CGimmickAct*)aqua::FindGameObject("GimmickAct");
 	if (m_pGimmick)
+	{
 		m_pGimmick->DamageAct(this);
+		m_pGimmick->SlowAct(this);
+	}
 
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 	if (m_pItemManager)
 		m_pItemManager->RandPick(this);
-
-	
 
 	IGameObject::Update();
 }
@@ -161,11 +163,25 @@ void CPlayer::CheckHitBlock(void)
 		|| m_pStage->CheckSpike(nx, y + h - 1)
 		|| m_pStage->CheckSpike(nx + w - 1, y + h - 1))
 	{
-		m_HitFlag = true;
+		m_HitSpikeFlag = true;
 	}
 	else
 	{
-		m_HitItemFlag = false;
+		m_HitSpikeFlag = false;
+	}
+	
+	if (m_pStage->CheckWire(nx, y)
+		|| m_pStage->CheckWire(nx + w - 1, y)
+		|| m_pStage->CheckWire(nx, y + h / 2)
+		|| m_pStage->CheckWire(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckWire(nx, y + h - 1)
+		|| m_pStage->CheckWire(nx + w - 1, y + h - 1))
+	{
+		m_HitWireFlag = true;
+	}
+	else
+	{
+		m_HitWireFlag = false;
 	}
 
 	if (m_pStage->CheckItem(nx, y)

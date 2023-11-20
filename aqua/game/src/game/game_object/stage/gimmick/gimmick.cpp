@@ -25,7 +25,7 @@ void CGimmickAct::Initialize()
 
 void CGimmickAct::DamageAct(CPlayer* player)
 {
-	if (player->m_HitFlag == true)
+	if (player->m_HitSpikeFlag == true)
 	{
 		m_AlphaTimer += 1;
 
@@ -38,7 +38,7 @@ void CGimmickAct::DamageAct(CPlayer* player)
 		else if (m_AlphaTimer >= alpha_interval && m_AlphaCurrCnt >= alpha_cnt)
 		{
 			player->m_Position.x -= 200.0f;
-			player->m_HitFlag = false;
+			player->m_HitSpikeFlag = false;
 			m_AlphaCurrCnt = 0;
 			m_AlphaTimer = 0;
 		}
@@ -51,4 +51,10 @@ void CGimmickAct::DamageAct(CPlayer* player)
 
 void CGimmickAct::SlowAct(CPlayer* player)
 {
+	if (player->m_HitWireFlag == true)
+	{
+		player->AddSpeed(0.6f);
+	}
+	else
+		player->AddSpeed(1.0f);
 }

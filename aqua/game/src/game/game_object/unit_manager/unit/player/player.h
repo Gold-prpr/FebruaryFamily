@@ -72,7 +72,9 @@ public:
 
 	DEVICE_ID GetDeviceID();
 
-	bool m_HitFlag;
+	bool m_HitSpikeFlag;
+
+	bool m_HitWireFlag;
 
 	bool m_HitItemFlag;
 
