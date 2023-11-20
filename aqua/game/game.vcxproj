@@ -108,6 +108,7 @@
     <ClCompile Include="src\game\game_object\effect_manager\effect_manager.cpp" />
     <ClCompile Include="src\game\game_object\input_manager\input_manager.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\item.cpp" />
+    <ClCompile Include="src\game\game_object\item_manager\item\playerstun_item\playerstun_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item_manager.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\change_scene\block_mosaic\block_mosaic.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\effect_icon\effect_icon.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\item_frame\item_frame.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.cpp" />
+    <ClCompile Include="src\game\game_object\ui_manager\ui_component\key_icon\key_icon.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\rank_icon\rank_icon.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\ui_component.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_manager.cpp" />
@@ -149,6 +151,7 @@
     <ClInclude Include="src\game\game_object\input_manager\input_manager.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item_id.h" />
+    <ClInclude Include="src\game\game_object\item_manager\item\playerstun_item\playerstun_item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item_manager.h" />
     <ClInclude Include="src\game\game_object\scene_manager\change_scene\block_mosaic\block_mosaic.h" />
@@ -174,6 +177,7 @@
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\effect_icon\effect_icon.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_frame\item_frame.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.h" />
+    <ClInclude Include="src\game\game_object\ui_manager\ui_component\key_icon\key_icon.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\rank_icon\rank_icon.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\ui_component.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_manager.h" />

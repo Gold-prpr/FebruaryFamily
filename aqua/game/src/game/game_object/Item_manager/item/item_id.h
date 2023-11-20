@@ -2,8 +2,8 @@
 
 enum class ITEM_ID
 {
-	SPEEDUP,		//自分をスピードアップ
 	SPEEDDOWN,		//相手をスピードダウン
+	PLAYERSTUN,		//相手をスタンさせ動けなくする
 
 	MAX
 };

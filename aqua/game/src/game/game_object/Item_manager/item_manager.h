@@ -33,8 +33,7 @@ public:
 
 	void RandPick(CPlayer* player);
 
-	int m_1p_item_rand;				//1Pのアイテムをランダムに出す
-	int m_2p_item_rand;				//2Pのアイテムをランダムに出す
+	int m_item_rand;				//1Pのアイテムをランダムに出す
 private:
 	static const int m_item;		//アイテム数
 
