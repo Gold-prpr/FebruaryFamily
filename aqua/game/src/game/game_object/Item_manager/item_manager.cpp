@@ -1,9 +1,10 @@
 #include "item_manager.h"
 #include "item/speeddown_item/speeddown_item.h"
+#include "item/playerstun_item/playerstun_item.h"
 #include "../unit_manager/unit_manager.h"
 #include "../ui_manager/ui_component/item_icon/item_icon.h"
 
-const int CItemManager::m_item = 1;		//アイテム数
+const int CItemManager::m_item = 2;		//アイテム数
 using namespace aqua::keyboard;
 using namespace aqua::controller;
 
@@ -17,9 +18,8 @@ CItemManager::CItemManager(aqua::IGameObject* parent)
 void CItemManager::Initialize(void)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	
 
-	//m_item_rand = 0;
+	m_item_rand = 0;
 
 	IGameObject::Initialize();
 }
@@ -50,6 +50,7 @@ void CItemManager::Create(ITEM_ID id)
 	switch (id)
 	{
 	case ITEM_ID::SPEEDDOWN:	item = aqua::CreateGameObject<CSpeedDownItem>(this);	break;
+	case ITEM_ID::PLAYERSTUN:	item = aqua::CreateGameObject<CCharaStunItem>(this);	break;
 	}
 
 	if (!item) return;
@@ -59,20 +60,18 @@ void CItemManager::RandPick(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true)
 	{
-		//m_1p_item_rand = rand() % m_item;
-		m_1p_item_rand = 1;
+		m_item_rand = rand() % m_item;
 
-		switch (m_1p_item_rand)
+		switch (m_item_rand)
 		{
-		case 1:Create(ITEM_ID::SPEEDDOWN);	break;
+		case 1:Create(ITEM_ID::SPEEDDOWN);	 break;
+		case 2:Create(ITEM_ID::PLAYERSTUN);  break;
 		}
-
-		
 	}
+
 	m_pIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 	if (m_pIcon)
 	{
 		m_pIcon->Check(player);
 	}
-	
 }
