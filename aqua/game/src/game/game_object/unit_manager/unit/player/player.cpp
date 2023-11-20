@@ -73,10 +73,6 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_GetItemFlag = false;
 
-	w = (int)m_Width;
-	h = (int)m_Height;
-	size = 60;
-
 	IGameObject::Initialize();
 }
 
@@ -117,12 +113,20 @@ void CPlayer::Update()
 
 void CPlayer::CheckHitBlock(void)
 {
-	x = (int)(m_Position.x);
-	y = (int)(m_Position.y);
-	nx = (int)(m_Position.x + m_Velocity.x);
-	ny = (int)(m_Position.y + m_Velocity.y);
+	int x = (int)(m_Position.x);
+	int y = (int)(m_Position.y);
+	int nx = (int)(m_Position.x + m_Velocity.x);;
+	int ny = (int)(m_Position.y + m_Velocity.y);;
+	int  w = (int)m_Width;
+	int h = (int)m_Height;
+	int size = 60;
 
-	if (m_pStage->CheckHitObject(this))
+	if (m_pStage->CheckObject(nx, y)
+		|| m_pStage->CheckObject(nx + w - 1, y)
+		|| m_pStage->CheckObject(nx, y + h / 2)
+		|| m_pStage->CheckObject(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckObject(nx, y + h - 1)
+		|| m_pStage->CheckObject(nx + w - 1, y + h - 1))
 	{
 		// 左に移動している
 		if (m_Velocity.x < 0)
@@ -136,7 +140,12 @@ void CPlayer::CheckHitBlock(void)
 		m_Velocity.x = 0;
 	}
 
-	if (m_pStage->CheckGoal(this))
+	if (m_pStage->CheckGoal(nx, y)
+		|| m_pStage->CheckGoal(nx + w - 1, y)
+		|| m_pStage->CheckGoal(nx, y + h / 2)
+		|| m_pStage->CheckGoal(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckGoal(nx, y + h - 1)
+		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
 		m_GoalFlag = true;
 	}
@@ -145,7 +154,12 @@ void CPlayer::CheckHitBlock(void)
 		m_GoalFlag = false;
 	}
 
-	if (m_pStage->CheckSpike(this))
+	if (m_pStage->CheckSpike(nx, y)
+		|| m_pStage->CheckSpike(nx + w - 1, y)
+		|| m_pStage->CheckSpike(nx, y + h / 2)
+		|| m_pStage->CheckSpike(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckSpike(nx, y + h - 1)
+		|| m_pStage->CheckSpike(nx + w - 1, y + h - 1))
 	{
 		m_HitFlag = true;
 	}
@@ -154,7 +168,13 @@ void CPlayer::CheckHitBlock(void)
 		m_HitItemFlag = false;
 	}
 
-	if (m_pStage->CheckItem(this) && m_GetItemFlag == false)
+	if (m_pStage->CheckItem(nx, y)
+		|| m_pStage->CheckItem(nx + w - 1, y)
+		|| m_pStage->CheckItem(nx, y + h / 2)
+		|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckItem(nx, y + h - 1)
+		|| m_pStage->CheckItem(nx + w - 1, y + h - 1)
+		&& m_GetItemFlag == false)
 	{
 		m_HitItemFlag = true;
 		m_GetItemFlag = true;
@@ -167,7 +187,7 @@ void CPlayer::CheckHitBlock(void)
 	if (m_LandingFlag == true)
 	{
 		// 足元を調べてブロックがなければ落下
-		if (m_pStage->CheckHitFloor(this))
+		if (!m_pStage->CheckObject(x, y + h) && !m_pStage->CheckObject(x + w, y + h))
 		{
 			// 足元にブロックがないので着地していない
 			m_LandingFlag = false;
@@ -183,7 +203,10 @@ void CPlayer::CheckHitBlock(void)
 		m_Velocity.y += m_pStage->GetGravity();
 
 		// 上下のチェック
-		if (m_pStage->CheckHitFloor(this))
+		if (m_pStage->CheckObject(x, ny)
+			|| m_pStage->CheckObject(x + w - 1, ny)
+			|| m_pStage->CheckObject(x, ny + h - 1)
+			|| m_pStage->CheckObject(x + w - 1, ny + h - 1))
 		{
 
 			// 上に動いている
