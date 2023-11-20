@@ -55,6 +55,4 @@ void CGimmickAct::SlowAct(CPlayer* player)
 	{
 		player->AddSpeed(0.6f);
 	}
-	else
-		player->AddSpeed(1.0f);
 }

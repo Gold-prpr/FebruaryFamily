@@ -24,7 +24,6 @@ public:
 	void SpeedDown();
 
 private:
-	bool				m_itemflag;			//アイテム使ったか
 	CUnitManager*		m_pUnitManager;
 	CPlayer* m_pPlayer;
 };

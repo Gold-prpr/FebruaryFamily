@@ -24,9 +24,12 @@ void CPlayerStunItem::Initialize(aqua::controller::DEVICE_ID other_id)
 //更新
 void CPlayerStunItem::Update()
 {
-	if (m_EffectTimer.Finished())
+	if (m_EffectTimer.Finished()&& m_ItemFlag ==true)
 		if (m_pPlayer != nullptr)
+		{
 			m_pPlayer->AddSpeed(1.0f);
+			m_ItemFlag = false;
+		}
 
 	m_EffectTimer.Update();
 
@@ -36,6 +39,10 @@ void CPlayerStunItem::Update()
 //キャラスタン
 void CPlayerStunItem::PlayerStun()
 {
+	m_EffectTimer.Reset();
+
+	m_ItemFlag = true;
+
 	//アイテムを使っていたら
 	if (m_pPlayer != nullptr)
 		m_pPlayer->AddSpeed(0.0f);

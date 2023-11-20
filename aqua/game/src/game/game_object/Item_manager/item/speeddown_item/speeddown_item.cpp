@@ -31,9 +31,12 @@ void CSpeedDownItem::Update()
 	/*SpeedDown();*/
 	//アイテム効果時間が終わったら
 
-	if (m_EffectTimer.Finished())
+	if (m_EffectTimer.Finished()&& m_ItemFlag ==true)
 		if (m_pPlayer != nullptr)
+		{
 			m_pPlayer->AddSpeed(1.0f);
+			m_ItemFlag = false;
+		}
 
 	m_EffectTimer.Update();
 	
@@ -43,6 +46,10 @@ void CSpeedDownItem::Update()
 //減速
 void CSpeedDownItem::SpeedDown()
 {
+	m_EffectTimer.Reset();
+
+	m_ItemFlag = true;
+
 	//アイテムを使っていたら
 	if (m_pPlayer != nullptr)
 		m_pPlayer->AddSpeed(0.6f);

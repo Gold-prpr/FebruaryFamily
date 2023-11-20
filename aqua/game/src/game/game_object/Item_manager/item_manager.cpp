@@ -58,10 +58,10 @@ void CItemManager::RandPick(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true)
 	{
-		//m_item_rand = rand() % m_item;
-		m_item_rand = 0;
+		m_ItemRand = rand() % m_item;
+		//m_item_rand = 0;
 
-		switch (m_item_rand)
+		switch (m_ItemRand)
 		{
 		case 0:Create(ITEM_ID::SPEEDDOWN);	 break;
 		case 1:Create(ITEM_ID::PLAYERSTUN);  break;

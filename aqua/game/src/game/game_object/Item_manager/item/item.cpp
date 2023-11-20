@@ -14,8 +14,7 @@ void IItem::Initialize(std::string item_file)
 {
 	m_ItemSprite.Create(item_file);
 
-	//アイテム使っていない状態
-	m_itemflag = false;
+	m_ItemFlag = false;
 
 	m_EffectTimer.Setup(0.0f);
 
@@ -28,7 +27,6 @@ void IItem::Update()
 	//押したらアイテム使用
 	//if (Trigger(KEY_ID::S))
 	/*if (Button(DEVICE_ID::P1, BUTTON_ID::LEFT_SHOULDER) || Button(DEVICE_ID::P2, BUTTON_ID::LEFT_SHOULDER))*/
-		m_itemflag = true;
 
 	IGameObject::Update();
 }
