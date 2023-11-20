@@ -36,6 +36,9 @@ enum class StageObjectID
 	START_FLAG,
 	SPIKE_BALL,
 	BARBED_WIRE,
+	JAMP_RAMP,
+	DUSH_BROCK,
+	KEY,
 
 	MAX
 #endif

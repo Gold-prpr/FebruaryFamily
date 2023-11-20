@@ -3,11 +3,13 @@
 #include "ui_component/item_icon/item_icon.h"
 #include "ui_component/rank_icon/rank_icon.h"
 #include "ui_component/effect_icon/effect_icon.h"
+#include "ui_component/stage_pos_bar/stage_pos_bar.h"
 
 const aqua::CVector2	CUiManager::m_ui_item_frame_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_item_icon_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_rank_icon_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_effect_icon_position = aqua::CVector2(0.0f, 0.0f);
+const aqua::CVector2	CUiManager::m_ui_stage_bar_position = aqua::CVector2(0.0f, 0.0f);
 
 CUiManager::CUiManager(aqua::IGameObject* parent)
 {
@@ -52,4 +54,8 @@ void CUiManager::Create(void)
 	CEffectIcon* effecticon = aqua::CreateGameObject<CEffectIcon>(this);
 
 	effecticon->Initialize(m_ui_effect_icon_position);
+
+	CStagePosBar* barpos = aqua::CreateGameObject<CStagePosBar>(this);
+
+	barpos->Initialize(m_ui_stage_bar_position);
 }
