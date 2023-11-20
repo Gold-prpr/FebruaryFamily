@@ -37,6 +37,7 @@ public:
 private:
 	static const int m_item;		//ƒAƒCƒeƒ€”
 
+
 	aqua::CVector2 pos;
 
 	CUnitManager* m_pUnitManager;

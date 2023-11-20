@@ -3,15 +3,15 @@
 #include "../../../unit_manager/unit/player/player.h"
 
 //コンストラクタ
-CCharaStunItem::CCharaStunItem(aqua::IGameObject* parent)
-	: IItem(parent, "CharaStunItem")
+CPlayerStunItem::CPlayerStunItem(aqua::IGameObject* parent)
+	: IItem(parent, "StunItem")
 	, m_pUnitManager(nullptr)
 	, m_pPlayer(nullptr)
 {
 }
 
 //初期化
-void CCharaStunItem::Initialize(aqua::controller::DEVICE_ID other_id)
+void CPlayerStunItem::Initialize(aqua::controller::DEVICE_ID other_id)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 	m_pPlayer = m_pUnitManager->GetPlayer(other_id);
@@ -22,7 +22,7 @@ void CCharaStunItem::Initialize(aqua::controller::DEVICE_ID other_id)
 }
 
 //更新
-void CCharaStunItem::Update()
+void CPlayerStunItem::Update()
 {
 	if (m_EffectTimer.Finished())
 		if (m_pPlayer != nullptr)
@@ -34,7 +34,7 @@ void CCharaStunItem::Update()
 }
 
 //キャラスタン
-void CCharaStunItem::CharaStun()
+void CPlayerStunItem::PlayerStun()
 {
 	//アイテムを使っていたら
 	if (m_pPlayer != nullptr)

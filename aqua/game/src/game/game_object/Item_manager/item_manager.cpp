@@ -19,8 +19,6 @@ void CItemManager::Initialize(void)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
-	m_item_rand = 0;
-
 	IGameObject::Initialize();
 }
 
@@ -50,7 +48,7 @@ void CItemManager::Create(ITEM_ID id)
 	switch (id)
 	{
 	case ITEM_ID::SPEEDDOWN:	item = aqua::CreateGameObject<CSpeedDownItem>(this);	break;
-	case ITEM_ID::PLAYERSTUN:	item = aqua::CreateGameObject<CCharaStunItem>(this);	break;
+	case ITEM_ID::PLAYERSTUN:	item = aqua::CreateGameObject<CPlayerStunItem>(this);	break;
 	}
 
 	if (!item) return;
@@ -60,12 +58,13 @@ void CItemManager::RandPick(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true)
 	{
-		m_item_rand = rand() % m_item;
+		//m_item_rand = rand() % m_item;
+		m_item_rand = 0;
 
 		switch (m_item_rand)
 		{
-		case 1:Create(ITEM_ID::SPEEDDOWN);	 break;
-		case 2:Create(ITEM_ID::PLAYERSTUN);  break;
+		case 0:Create(ITEM_ID::SPEEDDOWN);	 break;
+		case 1:Create(ITEM_ID::PLAYERSTUN);  break;
 		}
 	}
 

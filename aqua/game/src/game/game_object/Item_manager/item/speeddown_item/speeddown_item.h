@@ -25,7 +25,6 @@ public:
 
 private:
 	bool				m_itemflag;			//アイテム使ったか
-	aqua::CTimer		m_EffectTimer;		//効果時間
 	CUnitManager*		m_pUnitManager;
 	CPlayer* m_pPlayer;
 };

@@ -30,4 +30,6 @@ public:
 protected:
 
 	bool				m_itemflag;			//アイテム使ったか
+
+	aqua::CTimer		m_EffectTimer;
 };

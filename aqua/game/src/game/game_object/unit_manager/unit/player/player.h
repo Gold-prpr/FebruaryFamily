@@ -8,6 +8,7 @@ class CGimmickAct;
 class CSlime;
 class CItemManager;
 class CSpeedDownItem;
+class CPlayerStunItem;
 class CItemIcon;
 
 class CPlayer :public IUnit
@@ -105,6 +106,7 @@ private:
 	CItemManager* m_pItemManager;
 	CSlime* m_pSlime;
 	CSpeedDownItem* m_pSpeedDownItem;
+	CPlayerStunItem* m_pStunItem;
 	CItemIcon* m_pItemIcon;
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置

@@ -17,6 +17,8 @@ void IItem::Initialize(std::string item_file)
 	//アイテム使っていない状態
 	m_itemflag = false;
 
+	m_EffectTimer.Setup(0.0f);
+
 	IGameObject::Initialize();
 }
 

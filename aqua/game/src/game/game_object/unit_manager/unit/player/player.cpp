@@ -6,6 +6,7 @@
 #include "../../../input_manager/input_manager.h"
 #include "../../../Item_manager/item_manager.h"
 #include "../../../Item_manager/item/speeddown_item/speeddown_item.h"
+#include "../../../Item_manager/item/playerstun_item/playerstun_item.h"
 #include "../../unit/enemy/slime/slime.h"
 #include "../../../ui_manager/ui_component/item_icon/item_icon.h"
 
@@ -30,6 +31,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pItemManager(nullptr)
 	, m_pGimmick(nullptr)
 	, m_pSpeedDownItem(nullptr)
+	, m_pStunItem(nullptr)
 	, m_pItemIcon(nullptr)
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
@@ -394,6 +396,15 @@ void CPlayer::State_Move()
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 
+
+			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
+			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
+			m_pStunItem->Initialize(DEVICE_ID::P2);
+
+			m_pStunItem->PlayerStun();
+			m_GetItemFlag = false;
+			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+
 			if (m_pItemIcon)
 				m_pItemIcon->DeleteItem(this);
 
@@ -405,6 +416,14 @@ void CPlayer::State_Move()
 			m_pSpeedDownItem->Initialize(DEVICE_ID::P1);
 
 			m_pSpeedDownItem->SpeedDown();
+			m_GetItemFlag = false;
+			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+
+			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
+			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
+			m_pStunItem->Initialize(DEVICE_ID::P1);
+
+			m_pStunItem->PlayerStun();
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 
