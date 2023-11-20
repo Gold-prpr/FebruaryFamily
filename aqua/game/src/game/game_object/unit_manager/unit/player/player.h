@@ -72,6 +72,8 @@ public:
 
 	DEVICE_ID GetDeviceID();
 
+	void CreateItme(void);
+
 	bool m_HitSpikeFlag;
 
 	bool m_HitWireFlag;

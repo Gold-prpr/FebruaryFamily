@@ -253,6 +253,10 @@ DEVICE_ID CPlayer::GetDeviceID()
 	return m_Device;
 }
 
+void CPlayer::CreateItme(void)
+{
+}
+
 void CPlayer::Draw()
 {
 	m_Chara.Draw();//ƒLƒƒƒ‰‚Ì•`‰æ
