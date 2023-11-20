@@ -103,108 +103,41 @@ float CStage::GetGravity(void)
 	return m_gravity;
 }
 
-bool CStage::CheckHitObject(IUnit* unit)
+bool CStage::CheckObject(int x, int y, StageObjectID id)
 {
-#if 0
 	for (auto& stage_it : m_StageObject)
 	{
-		aqua::CVector2 pos = stage_it->GetPosition();
-
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			(int)stage_it->stage_object_id != (int)StageObjectID::AIR &&
-			(int)stage_it->stage_object_id == (int)StageObjectID::GRASS1_TILE)
+		if (stage_it->CheckObject(x, y, id))
 			return true;
 	}
-
 	return false;
-#endif
+}
 
-	if (CheckObject(unit, StageObjectID::GRASS1_TILE) ||
-		CheckObject(unit, StageObjectID::BRICK))
+bool CStage::CheckObject(int x, int y)
+{
+	if (CheckObject(x, y, StageObjectID::GRASS1_TILE) ||
+		CheckObject(x, y, StageObjectID::BRICK))
 		return true;
 	else
 		return false;
 }
 
-bool CStage::CheckHitFloor(IUnit* unit)
+bool CStage::CheckGoal(int x, int y)
 {
-	if (CheckFloor(unit, StageObjectID::GRASS1_TILE) ||
-		CheckFloor(unit, StageObjectID::BRICK))
-		return true;
-	else
-		return false;
+	return CheckObject(x, y, StageObjectID::GOAL_FLAG);
 }
 
-bool CStage::CheckHitFloor2(IUnit* unit)
+bool CStage::CheckItem(int x, int y)
 {
-	if (CheckFloor2(unit, StageObjectID::GRASS1_TILE) == true ||
-		CheckFloor2(unit, StageObjectID::BRICK) == true)
-		return true;
-	else
-		return false;
+	return CheckObject(x, y, StageObjectID::BOX);
 }
 
-int CStage::GetTileSize(void)
+bool CStage::CheckSpike(int x, int y)
 {
-	return map_chip_size;
+	return CheckObject(x, y, StageObjectID::SPIKE_BALL);
 }
 
-bool CStage::CheckGoal(IUnit* unit)
+bool CStage::CheckWire(int x, int y)
 {
-	return CheckObject(unit, StageObjectID::GOAL_FLAG);
-}
-
-bool CStage::CheckWire(IUnit* unit)
-{
-	return CheckObject(unit, StageObjectID::BARBED_WIRE);
-}
-
-bool CStage::CheckItem(IUnit* unit)
-{
-	return CheckObject(unit, StageObjectID::BOX);
-}
-
-bool CStage::CheckSpike(IUnit* unit)
-{
-	return CheckObject(unit, StageObjectID::SPIKE_BALL);
-}
-
-bool CStage::CheckObject(IUnit* unit, StageObjectID id)
-{
-	for (auto& stage_it : m_StageObject)
-	{
-		if (stage_it->CheckObject(unit->nx, unit->y, id) ||
-			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y, id) ||
-			stage_it->CheckObject(unit->nx, unit->y + unit->h / 2, id) ||
-			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y + unit->h / 2, id) ||
-			stage_it->CheckObject(unit->nx, unit->y + unit->h - 1, id) ||
-			stage_it->CheckObject(unit->nx + unit->w - 1, unit->y + unit->h - 1, id))
-			return true;
-	}
-	return false;
-}
-
-bool CStage::CheckFloor(IUnit* unit, StageObjectID id)
-{
-	for (auto& stage_it : m_StageObject)
-	{
-		if (stage_it->CheckObject(unit->x, unit->ny, id) ||
-			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny, id) ||
-			stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) ||
-			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id))
-			return true;
-	}
-	return false;
-}
-
-bool CStage::CheckFloor2(IUnit* unit, StageObjectID id)
-{
-	for (auto& stage_it : m_StageObject)
-	{
-		if (stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) &&
-			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id))
-			return true;
-	}
-	return false;
+	return CheckObject(x, y, StageObjectID::BARBED_WIRE);
 }

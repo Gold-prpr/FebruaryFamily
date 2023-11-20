@@ -39,14 +39,6 @@ public:
 
 	aqua::CVector2 m_Position;
 
-	int x;
-	int y;
-	int nx;
-	int ny;
-	int w;
-	int h;
-	int size;
-
 protected:
 	aqua::CVector2 m_Velocity;
 	float m_Width;

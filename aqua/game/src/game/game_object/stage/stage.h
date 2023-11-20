@@ -37,39 +37,20 @@ public:
 	//重力
 	float GetGravity(void);
 
-	int GetTileSize(void);
-	
-	bool CheckHitObject(IUnit* unit);
+	bool CheckObject(int x, int y, StageObjectID id);
 
-	bool CheckHitFloor(IUnit* unit);
-	
-	bool CheckHitFloor2(IUnit* unit);
+	bool CheckObject(int x, int y);
 
 	//ゴール判定
-	bool CheckGoal(IUnit* unit);
+	bool CheckGoal(int x, int y);
 
 	//アイテム判定
-	bool CheckItem(IUnit* unit);
+	bool CheckItem(int x, int y);
 
-	bool CheckSpike(IUnit* unit);
+	bool CheckSpike(int x, int y);
 
 	//有刺鉄線判定
-	bool CheckWire(IUnit* unit);
-
-	/*//落ちる判定
-	bool CheckFallBlock(int x, int y);
-
-	////ギミック判定(針)
-	bool CheckSpine(int x, int y);
-
-	//Tileサイズを呼ぶ
-	int GetSize(void);
-
-	//空のタイルに変更
-	void ChangeAir(int x, int y);
-
-	////ゴール演出
-	void GoalMove(void);*/
+	bool CheckWire(int x, int y);
 
 	aqua::CVector2 m_Scroll;
 
@@ -96,9 +77,9 @@ private:
 	int m_MapTileX;
 	int m_MapTileY;
 
-	bool CheckObject(IUnit* unit, StageObjectID id);
+	/*bool CheckObject(IUnit* unit, StageObjectID id);
 
 	bool CheckFloor(IUnit* unit, StageObjectID id);
 
-	bool CheckFloor2(IUnit* unit, StageObjectID id);
+	bool CheckFloor2(IUnit* unit, StageObjectID id);*/
 };
