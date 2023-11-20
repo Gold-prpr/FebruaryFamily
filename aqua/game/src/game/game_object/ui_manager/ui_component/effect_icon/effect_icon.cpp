@@ -46,7 +46,7 @@ void CEffectIcon::Finalize(void)
 //プレイヤーがアイテム使ったら
 void CEffectIcon::EffectCheck(CPlayer* player)
 {
-	if (m_pItemManager->m_1p_item_rand == 1)
+	if (m_pItemManager->m_item_rand == 1)
 	{
 		if (player->GetDeviceID() == DEVICE_ID::P1)
 			m_1PEffectIconSprite.Create("data\\speeddown.png");
