@@ -10,6 +10,10 @@ CCommonData::CCommonData(aqua::IGameObject* parent)
 */
 void CCommonData::Initialize(void)
 {
+	m_CommonData.stage_name = "";
+
+	m_CommonData.p_one_time = 0.0f;
+	m_CommonData.p_two_time = 0.0f;
 }
 
 /*

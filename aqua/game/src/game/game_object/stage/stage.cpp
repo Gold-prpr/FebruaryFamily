@@ -18,7 +18,6 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	//std::string file_name = "data\\scene\\game\\map_data7.csv";
 	std::string file_name = "data\\scene\\game\\map_data8.csv";
 
 	m_GoalPos = aqua::CVector2::ZERO;
@@ -189,3 +188,20 @@ aqua::CVector2 CStage::GetGoalPos(void)
 {
 	return m_GoalPos;
 }
+
+bool CStage::CheckFloor2(IUnit* unit, StageObjectID id)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		if (!stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) )
+			return true;
+	}
+	return false;
+}
+
+// �������ɏ���
+//&& !stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id
+
+/*
+* 
+*/
