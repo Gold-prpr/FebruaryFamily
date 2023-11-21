@@ -188,20 +188,3 @@ aqua::CVector2 CStage::GetGoalPos(void)
 {
 	return m_GoalPos;
 }
-
-bool CStage::CheckFloor2(IUnit* unit, StageObjectID id)
-{
-	for (auto& stage_it : m_StageObject)
-	{
-		if (!stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) )
-			return true;
-	}
-	return false;
-}
-
-// �������ɏ���
-//&& !stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id
-
-/*
-* 
-*/
