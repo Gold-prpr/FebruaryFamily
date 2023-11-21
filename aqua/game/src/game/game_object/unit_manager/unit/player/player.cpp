@@ -9,6 +9,7 @@
 #include "../../../Item_manager/item/playerstun_item/playerstun_item.h"
 #include "../../unit/enemy/slime/slime.h"
 #include "../../../ui_manager/ui_component/item_icon/item_icon.h"
+#include "../../../ui_manager/ui_component/stage_pos_bar/stage_pos_bar.h"
 
 
 using namespace GameInputManager;
@@ -111,6 +112,9 @@ void CPlayer::Update()
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 	if (m_pItemManager)
 		m_pItemManager->RandPick(this);
+	m_pStageBar = (CStagePosBar*)aqua::FindGameObject("StagePosBar");
+	if (m_pStageBar)
+		m_pStageBar->Move(this);
 
 	IGameObject::Update();
 }
@@ -130,7 +134,9 @@ void CPlayer::CheckHitBlock(void)
 		|| m_pStage->CheckObject(nx, y + h / 2)
 		|| m_pStage->CheckObject(nx + w - 1, y + h / 2)
 		|| m_pStage->CheckObject(nx, y + h - 1)
-		|| m_pStage->CheckObject(nx + w - 1, y + h - 1))
+		|| m_pStage->CheckObject(nx + w - 1, y + h - 1)
+		|| m_pStage->CheckObject_Jamp(nx, y + h - 1)
+		|| m_pStage->CheckObject_Jamp(nx + w - 1, y + h - 1))
 	{
 		// 左に移動している
 		if (m_Velocity.x < 0)
@@ -171,7 +177,7 @@ void CPlayer::CheckHitBlock(void)
 	{
 		m_HitSpikeFlag = false;
 	}
-	
+
 	if (m_pStage->CheckWire(nx, y)
 		|| m_pStage->CheckWire(nx + w - 1, y)
 		|| m_pStage->CheckWire(nx, y + h / 2)
@@ -243,6 +249,16 @@ void CPlayer::CheckHitBlock(void)
 			// ブロックにあたっているので速度を消す
 			m_Velocity.y = 0;
 		}
+
+		if (m_pStage->CheckJampRamp(x, ny + h - 1)
+			|| m_pStage->CheckJampRamp(x + w - 1, ny + h - 1))
+		{
+			m_JampRampFlag = true;
+		}
+		else
+		{
+			m_JampRampFlag = false;
+		}
 	}
 
 	// 位置の決定
@@ -297,6 +313,15 @@ void CPlayer::AddSpeed(float add_speed)
 	m_AddSpeed = add_speed;
 }
 
+void CPlayer::Jump(void)
+{
+	if (m_LandingFlag == true)
+	{
+		m_Velocity.y = jump;
+		m_LandingFlag = false;
+	}
+}
+
 //開始の状態
 void CPlayer::State_Start()
 {
@@ -348,11 +373,7 @@ void CPlayer::State_Move()
 
 	if (GameTrigger(GameKey::A, m_Device))
 	{
-		if (m_LandingFlag == true)
-		{
-			m_Velocity.y = jump;
-			m_LandingFlag = false;
-		}
+		Jump();
 	}
 
 	/*if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))

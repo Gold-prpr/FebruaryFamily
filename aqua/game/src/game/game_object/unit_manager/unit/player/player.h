@@ -10,6 +10,7 @@ class CItemManager;
 class CSpeedDownItem;
 class CPlayerStunItem;
 class CItemIcon;
+class CStagePosBar;
 
 class CPlayer :public IUnit
 {
@@ -64,6 +65,8 @@ public:
 	//アイテムを取った時のスピードの加算
 	void AddSpeed(float add_speed);
 
+	void Jump(void);
+
 	aqua::CVector2 GetSpeed(void) { return m_Velocity; }
 
 	//壁の当たり判定
@@ -84,6 +87,8 @@ public:
 	bool m_GetItemFlag;
 
 	bool m_GoalFlag;
+
+	bool m_JampRampFlag;
 
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 
@@ -108,6 +113,7 @@ private:
 	CSpeedDownItem* m_pSpeedDownItem;
 	CPlayerStunItem* m_pStunItem;
 	CItemIcon* m_pItemIcon;
+	CStagePosBar* m_pStageBar;
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 
