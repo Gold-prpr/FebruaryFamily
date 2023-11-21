@@ -314,6 +314,11 @@ void CPlayer::AddSpeed(float add_speed)
 	m_AddSpeed = add_speed;
 }
 
+void CPlayer::AddKeySpeed(float add_key_speed)
+{
+	m_AddKeySpeed = add_key_speed;
+}
+
 void CPlayer::Jump(void)
 {
 	if (m_LandingFlag == true)
@@ -460,6 +465,8 @@ void CPlayer::State_Move()
 	}
 
 	m_Velocity.x = m_Velocity.x * m_AddSpeed;
+
+	m_Velocity.x = m_Velocity.x + m_AddKeySpeed;
 
 	if (m_Velocity.x >= 6.0f && -6.0f >= m_Velocity.x)
 	{
