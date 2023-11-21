@@ -68,18 +68,19 @@ public:
 
 private:
 	static const int map_chip_size;			//Tileサイズ
-
 	static const int num_chip_size_x;		//Tile画像の横の数
 	static const int num_chip_size_y;		//Tile画像の縦の数
-
 	static const int all_num_chip;			//Tileの合計
-
-
 	static const float m_gravity;			//重力
 
 	std::vector<CStageObject*> m_StageObject;
 
 	aqua::CSprite              m_BackGround;
+	aqua::CSprite              m_CloudNear1	;
+	aqua::CSprite              m_CloudNear2	;
+	aqua::CSprite              m_CloudFar1	;
+	aqua::CSprite              m_CloudFar2	;
+
 
 	aqua::CVector2 m_GoalPos;
 

@@ -21,6 +21,11 @@ void CStage::Initialize(void)
 	//std::string file_name = "data\\scene\\game\\map_data7.csv";
 	std::string file_name = "data\\scene\\game\\map_data8.csv";
 
+	m_CloudNear1.Create("data\\scene\\game\\map_data8.csv");
+	m_CloudNear2.Create("data\\scene\\game\\map_data8.csv");
+	m_CloudFar1.Create("data\\scene\\game\\map_data8.csv");
+	m_CloudFar2.Create("data\\scene\\game\\map_data8.csv");
+
 	m_GoalPos = aqua::CVector2::ZERO;
 
 	Parse(file_name);
