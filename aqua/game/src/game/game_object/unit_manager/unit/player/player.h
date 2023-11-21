@@ -11,6 +11,7 @@ class CSpeedDownItem;
 class CPlayerStunItem;
 class CItemIcon;
 class CStagePosBar;
+class CKeyIcon;
 
 class CPlayer :public IUnit
 {
@@ -92,6 +93,10 @@ public:
 
 	bool m_JampRampFlag;
 
+	int m_KeyCount;
+
+	bool m_KeyFlag;
+
 	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
@@ -116,6 +121,7 @@ private:
 	CPlayerStunItem* m_pStunItem;
 	CItemIcon* m_pItemIcon;
 	CStagePosBar* m_pStageBar;
+	CKeyIcon* m_pKeyIcon;
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 
