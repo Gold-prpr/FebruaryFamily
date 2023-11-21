@@ -65,6 +65,8 @@ public:
 	//アイテムを取った時のスピードの加算
 	void AddSpeed(float add_speed);
 
+	void AddKeySpeed(float add_key_speed);
+
 	void Jump(void);
 
 	aqua::CVector2 GetSpeed(void) { return m_Velocity; }
@@ -118,6 +120,7 @@ private:
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 
 	float m_AddSpeed;//スピード加算
+	float m_AddKeySpeed;//鍵を持ってる時のスピード
 	float m_Accelerator;//加速度
 	int m_Timer;
 	static const float max_speed;//最高スピードの値
