@@ -10,6 +10,7 @@
 #include "../../unit/enemy/slime/slime.h"
 #include "../../../ui_manager/ui_component/item_icon/item_icon.h"
 #include "../../../ui_manager/ui_component/stage_pos_bar/stage_pos_bar.h"
+#include "../../../ui_manager/ui_component/key_icon/key_icon.h"
 
 using namespace GameInputManager;
 
@@ -47,7 +48,6 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 
-
 	std::string name;
 
 	if (m_Device == DEVICE_ID::P1)
@@ -69,12 +69,17 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_HitSpikeFlag = false;
 	m_HitWireFlag = false;
 	m_AddSpeed = 1.0f;
+	m_AddKeySpeed = 0.0f;
 
 	m_HitItemFlag = false;
+
+	m_KeyFlag = false;
 
 	m_GoalFlag = false;
 
 	m_GetItemFlag = false;
+
+	m_KeyCount = 0;
 
 	IGameObject::Initialize();
 }
@@ -116,6 +121,14 @@ void CPlayer::Update()
 	m_pStageBar = (CStagePosBar*)aqua::FindGameObject("StagePosBar");
 	if (m_pStageBar)
 		m_pStageBar->Move(this);
+
+	m_pKeyIcon = (CKeyIcon*)aqua::FindGameObject("KeyIcon");
+	if (m_pKeyIcon)
+	{
+		m_pKeyIcon->KeyCount(this);
+		m_pKeyIcon->AddKeyCount(this);
+	}
+
 
 	IGameObject::Update();
 }
@@ -199,7 +212,8 @@ void CPlayer::CheckHitBlock(void)
 		|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
 		|| m_pStage->CheckItem(nx, y + h - 1)
 		|| m_pStage->CheckItem(nx + w - 1, y + h - 1)
-		&& m_GetItemFlag == false)
+		&& m_GetItemFlag == false
+		/*&& m_KeyCount >= 1*/)
 	{
 		m_HitItemFlag = true;
 		m_GetItemFlag = true;
@@ -209,6 +223,20 @@ void CPlayer::CheckHitBlock(void)
 		m_HitItemFlag = false;
 	}
 
+	if (m_pStage->CheckKey(nx, y)
+		|| m_pStage->CheckKey(nx + w - 1, y)
+		|| m_pStage->CheckKey(nx, y + h / 2)
+		|| m_pStage->CheckKey(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckKey(nx, y + h - 1)
+		|| m_pStage->CheckKey(nx + w - 1, y + h - 1))
+	{
+		m_KeyFlag = true;
+	}
+	else
+	{
+		m_KeyFlag = false;
+	}
+	
 	if (m_LandingFlag == true)
 	{
 		// ‘«Œ³‚ğ’²‚×‚ÄƒuƒƒbƒN‚ª‚È‚¯‚ê‚Î—‰º

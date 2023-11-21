@@ -43,6 +43,8 @@ public:
 
 	bool CheckObject(int x, int y);
 
+	void ChangeAir(int x, int y, StageObjectID id);
+
 	bool CheckObject_Jamp(int x, int y);
 
 	//ƒS[ƒ‹”»’è

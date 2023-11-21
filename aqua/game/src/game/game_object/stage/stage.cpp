@@ -142,6 +142,14 @@ bool CStage::CheckObject(int x, int y)
 		return false;
 }
 
+void CStage::ChangeAir(int x, int y, StageObjectID id)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		stage_it->ChangeAir(x, y, id);
+	}
+}
+
 bool CStage::CheckObject_Jamp(int x, int y)
 {
 	if (CheckObject_Jamp(x, y, StageObjectID::JAMP_RAMP))
@@ -157,7 +165,12 @@ bool CStage::CheckGoal(int x, int y)
 
 bool CStage::CheckItem(int x, int y)
 {
-	return CheckObject(x, y, StageObjectID::BOX);
+	if (CheckObject(x, y, StageObjectID::BOX))
+	{
+		ChangeAir(x, y, StageObjectID::BOX);
+		return true;
+	}
+
 }
 
 bool CStage::CheckSpike(int x, int y)
@@ -177,7 +190,11 @@ bool CStage::CheckDushBrock(int x, int y)
 
 bool CStage::CheckKey(int x, int y)
 {
-	return CheckObject(x, y, StageObjectID::KEY);
+	if (CheckObject(x, y, StageObjectID::KEY))
+	{
+		ChangeAir(x, y, StageObjectID::KEY);
+		return true;
+	}
 }
 
 bool CStage::CheckWire(int x, int y)
