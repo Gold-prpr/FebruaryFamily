@@ -1,6 +1,7 @@
 #include "stage.h"
 #include "stage_object/stage_object.h"
 #include "../unit_manager/unit/unit.h"
+#include "../unit_manager/unit/player/player.h"
 
 const int CStage::map_chip_size = CStageObject::GetObjectSize();
 
@@ -164,12 +165,15 @@ bool CStage::CheckGoal(int x, int y)
 
 bool CStage::CheckItem(int x, int y)
 {
-	if (CheckObject(x, y, StageObjectID::BOX))
-	{
-		ChangeAir(x, y, StageObjectID::BOX);
-		return true;
-	}
-
+	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	//if (m_pPlayer->m_KeyCount >= 1)
+	//{
+		if (CheckObject(x, y, StageObjectID::BOX))
+		{
+			ChangeAir(x, y, StageObjectID::BOX);
+			return true;
+		}
+	/*}*/
 }
 
 bool CStage::CheckSpike(int x, int y)

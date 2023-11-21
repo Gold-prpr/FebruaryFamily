@@ -23,7 +23,11 @@ public:
 	//解放
 	void Finalize(void)override;
 
+	////順位変動
+	//void ChangeRank(void);
+
 private:
+
 	aqua::CSprite		m_1PRankIconSprite;	//1Pアイテムアイコン
 	aqua::CSprite		m_2PRankIconSprite;	//2Pアイテムアイコン
 };

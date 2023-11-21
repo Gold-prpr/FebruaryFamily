@@ -43,3 +43,8 @@ void CRankIcon::Finalize(void)
 
 	IGameObject::Finalize();
 }
+
+//void CRankIcon::ChangeRank(void)
+//{
+//	if(m_pStagePos->m_Pos1p.position.x< )
+//}

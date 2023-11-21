@@ -206,17 +206,23 @@ void CPlayer::CheckHitBlock(void)
 		m_HitWireFlag = false;
 	}
 
-	if (m_pStage->CheckItem(nx, y)
-		|| m_pStage->CheckItem(nx + w - 1, y)
-		|| m_pStage->CheckItem(nx, y + h / 2)
-		|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckItem(nx, y + h - 1)
-		|| m_pStage->CheckItem(nx + w - 1, y + h - 1)
-		&& m_GetItemFlag == false
-		/*&& m_KeyCount >= 1*/)
+	if (m_KeyCount >= 1)
 	{
-		m_HitItemFlag = true;
-		m_GetItemFlag = true;
+		if (m_pStage->CheckItem(nx, y)
+			|| m_pStage->CheckItem(nx + w - 1, y)
+			|| m_pStage->CheckItem(nx, y + h / 2)
+			|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
+			|| m_pStage->CheckItem(nx, y + h - 1)
+			|| m_pStage->CheckItem(nx + w - 1, y + h - 1)
+			&& m_GetItemFlag == false)
+		{
+			m_HitItemFlag = true;
+			m_GetItemFlag = true;
+			m_KeyCount -= 1;
+
+		//if( m_KeyCount >= 1)
+		//	m_KeyCount -= 1;
+		}
 	}
 	else
 	{
@@ -496,7 +502,7 @@ void CPlayer::State_Move()
 
 	m_Velocity.x = m_Velocity.x * m_AddSpeed;
 
-	m_Velocity.x = m_Velocity.x + m_AddKeySpeed;
+	//m_Velocity.x = m_Velocity.x + m_AddKeySpeed;
 
 	if (m_Velocity.x >= 6.0f && -6.0f >= m_Velocity.x)
 	{

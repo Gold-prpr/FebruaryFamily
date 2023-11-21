@@ -2,6 +2,7 @@
 #include "aqua.h"
 #include "stage_object/stage_object.h"
 
+class CPlayer;
 class CStageObject;
 class IUnit;
 
@@ -92,6 +93,8 @@ private:
 
 	int m_MapTileX;
 	int m_MapTileY;
+
+	CPlayer* m_pPlayer;
 
 	/*bool CheckObject(IUnit* unit, StageObjectID id);
 
