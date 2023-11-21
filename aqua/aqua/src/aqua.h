@@ -140,19 +140,6 @@ namespace aqua
 	void                Clear(unsigned int color);
 
 	/*
-	 *  @brief      リストから指定の要素を削除する
-	 */
-	template <class T1,class T2> T2  ListErase(std::list<T1>* list,T2 erase_point)
-	{
-		//AQUA_SAFE_DELETE(erase_point);
-
-		if (!list->empty())
-			return 	(*list).erase(std::find((*list).begin(), (*list).end(), *erase_point));
-
-		return erase_point;
-	};
-
-	/*
 	 *  @brief      リストから指定の要素を描画する
 	 * 
 	 *  @param[in]  連続使用は重くなるので注意

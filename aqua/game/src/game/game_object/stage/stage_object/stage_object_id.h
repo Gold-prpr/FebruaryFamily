@@ -2,7 +2,8 @@
 
 enum class StageObjectID
 {
-#if 0
+#if true
+
 	AIR,
 	GRASS1_TILE,
 	GRASS2_TILE,
@@ -13,21 +14,21 @@ enum class StageObjectID
 	ICE2_TILE,
 	IRON_TILE,
 	GOLD_TILE,
-	WALL,
-	WHITE_WALL,
-	ICE1_WALL,
-	ICE2_WALL,
-	IRON_WALL,
-	RED_WALL,
-	GOLD_WALL,
+	BRICK,
+	WHITE_BRICK,
+	ICE1_BRICK,
+	ICE2_BRICK,
+	IRON_BRICK,
+	RED_BRICK,
+	GOLD_BRICK,
 	BOX,
 	GOAL_FLAG,
 	START_FLAG,
 	SPIKE_BALL,
 	BARBED_WIRE,
-#endif
 
-#if 1
+#else
+
 	AIR,
 	GRASS1_TILE,
 	SAND1_TILE,

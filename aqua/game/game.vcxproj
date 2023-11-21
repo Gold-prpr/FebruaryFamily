@@ -103,6 +103,7 @@
     <ClCompile Include="src\game\game_object\camera_manager\camera\camera.cpp" />
     <ClCompile Include="src\game\game_object\camera_manager\camera_manager.cpp" />
     <ClCompile Include="src\game\game_object\common_data\common_data.cpp" />
+    <ClCompile Include="src\game\game_object\game_sound\game_sound.cpp" />
     <ClCompile Include="src\game\game_object\input_manager\input_manager.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.cpp" />
@@ -138,6 +139,8 @@
     <ClInclude Include="src\game\game_object\camera_manager\camera_manager.h" />
     <ClInclude Include="src\game\game_object\common_data\common_data.h" />
     <ClInclude Include="src\game\game_object\game_object.h" />
+    <ClInclude Include="src\game\game_object\game_sound\game_sound.h" />
+    <ClInclude Include="src\game\game_object\game_sound\game_sound_id.h" />
     <ClInclude Include="src\game\game_object\input_manager\input_manager.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item_id.h" />

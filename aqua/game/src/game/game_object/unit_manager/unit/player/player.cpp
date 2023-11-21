@@ -162,7 +162,7 @@ void CPlayer::CheckHitBlock(void)
 	if (m_LandingFlag == true)
 	{
 		// 足元を調べてブロックがなければ落下
-		if (m_pStage->CheckHitFloor(this))
+		if (m_pStage->CheckHitFloor2(this))
 		{
 			// 足元にブロックがないので着地していない
 			m_LandingFlag = false;
@@ -272,6 +272,7 @@ void CPlayer::State_Move()
 	m_Timer += 1;
 
 	m_Velocity.x = min_speed * inputx;
+
 	if (GameButton(GameKey::X, m_Device))
 	{
 		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
@@ -302,15 +303,6 @@ void CPlayer::State_Move()
 			m_LandingFlag = false;
 		}
 	}
-
-	/*if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))
-	{
-		if (m_LandingFlag == true)
-		{
-			m_Velocity.y = jump;
-			m_LandingFlag = false;
-		}
-	}*/
 
 	if (m_DirCurrent != m_DirNext)
 	{

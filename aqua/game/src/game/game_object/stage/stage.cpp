@@ -19,7 +19,7 @@ CStage::CStage(aqua::IGameObject* parent)
 void CStage::Initialize(void)
 {
 	//std::string file_name = "data\\scene\\game\\map_data7.csv";
-	std::string file_name = "data\\scene\\game\\map_data11.csv";
+	std::string file_name = "data\\scene\\game\\map_data1.csv";
 
 	Parse(file_name);
 
@@ -105,7 +105,7 @@ float CStage::GetGravity(void)
 
 bool CStage::CheckHitObject(IUnit* unit)
 {
-#if 0
+#if false
 	for (auto& stage_it : m_StageObject)
 	{
 		aqua::CVector2 pos = stage_it->GetPosition();
@@ -202,9 +202,15 @@ bool CStage::CheckFloor2(IUnit* unit, StageObjectID id)
 {
 	for (auto& stage_it : m_StageObject)
 	{
-		if (stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) &&
-			stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id))
+		if (!stage_it->CheckObject(unit->x, unit->ny + unit->h - 1, id) )
 			return true;
 	}
 	return false;
 }
+
+// Š®¬‚ÉÁ‚·
+//&& !stage_it->CheckObject(unit->x + unit->w - 1, unit->ny + unit->h - 1, id
+
+/*
+* 
+*/
