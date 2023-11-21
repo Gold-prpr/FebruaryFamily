@@ -69,7 +69,7 @@ void CStagePosBar::Finalize(void)
 
 void CStagePosBar::Move(CPlayer* player)
 {
-	if (m_pStage->GetGoalPos().x != 0.0f)
+	/*if (m_pStage->GetGoalPos().x != 0.0f)
 	{
 		m_PlayerRatio = (player->m_Position.x / m_pStage->GetGoalPos().x);
 
@@ -77,5 +77,15 @@ void CStagePosBar::Move(CPlayer* player)
 			m_Pos1p.position.x = m_StageBar.position.x + ((m_StageBar.GetTextureWidth()) * m_PlayerRatio) + 30.0f;
 		else
 			m_Pos2p.position.x = m_StageBar.position.x + ((m_StageBar.GetTextureWidth()) * m_PlayerRatio) + 30.0f;
+	}*/
+
+	if (m_pStage->GetGoalPos().x != 0.0f)
+	{
+		m_PlayerRatio = (player->m_Position.x / 5820.0f);
+
+		if (player->GetDeviceID() == DEVICE_ID::P1)
+			m_Pos1p.position.x = m_StageBar.position.x + ((m_StageBar.GetTextureWidth()) * m_PlayerRatio);
+		else
+			m_Pos2p.position.x = m_StageBar.position.x + ((m_StageBar.GetTextureWidth()) * m_PlayerRatio);
 	}
 }
