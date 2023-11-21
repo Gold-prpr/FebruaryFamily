@@ -11,7 +11,6 @@
 #include "../../../ui_manager/ui_component/item_icon/item_icon.h"
 #include "../../../ui_manager/ui_component/stage_pos_bar/stage_pos_bar.h"
 
-
 using namespace GameInputManager;
 
 const float CPlayer::max_speed = 8.0f;//キャラのスピード
@@ -107,11 +106,13 @@ void CPlayer::Update()
 	{
 		m_pGimmick->DamageAct(this);
 		m_pGimmick->SlowAct(this);
+		m_pGimmick->JumpAct(this);
 	}
 
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 	if (m_pItemManager)
 		m_pItemManager->RandPick(this);
+
 	m_pStageBar = (CStagePosBar*)aqua::FindGameObject("StagePosBar");
 	if (m_pStageBar)
 		m_pStageBar->Move(this);
@@ -325,7 +326,7 @@ void CPlayer::Jump(void)
 //開始の状態
 void CPlayer::State_Start()
 {
-	m_Position = aqua::CVector2(100.0f, 100.0f);
+	m_Position = aqua::CVector2(0.0f, 0.0f);
 	m_State = STATE::MOVE;
 }
 
@@ -375,15 +376,6 @@ void CPlayer::State_Move()
 	{
 		Jump();
 	}
-
-	/*if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::SPACE))
-	{
-		if (m_LandingFlag == true)
-		{
-			m_Velocity.y = jump;
-			m_LandingFlag = false;
-		}
-	}*/
 
 	if (m_DirCurrent != m_DirNext)
 	{
