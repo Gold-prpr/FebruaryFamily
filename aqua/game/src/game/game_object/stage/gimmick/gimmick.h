@@ -21,6 +21,8 @@ public:
 	void DamageAct(CPlayer* player);
 
 	void SlowAct(CPlayer* player);
+
+	void JumpAct(CPlayer* player);
 	
 private:
 	static const int alpha_cnt;

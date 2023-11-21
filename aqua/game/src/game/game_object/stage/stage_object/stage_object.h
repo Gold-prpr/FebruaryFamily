@@ -28,9 +28,14 @@ public:
 	void			SetPosition(aqua::CVector2 position);
 	void			SetAddPosition(aqua::CVector2 add_position);
 
+
 	static int GetObjectSize(void) { return m_object_size; }
 
 	bool CheckObject(int x, int y, StageObjectID id);
+	
+	void ChangeAir(int x, int y, StageObjectID id);
+
+	aqua::CVector2 GoalPos(void);
 
 	StageObjectID	m_StageObjectID;
 

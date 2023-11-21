@@ -88,3 +88,22 @@ bool CStageObject::CheckObject(int x, int y, StageObjectID id)
 		    (obj_y <= y && obj_y + m_object_size > y) && 
 		     m_StageObjectID == id);
 }
+
+void CStageObject::ChangeAir(int x, int y, StageObjectID id)
+{
+	int obj_x = (int)m_StageObjectSprite.position.x;
+	int obj_y = (int)m_StageObjectSprite.position.y;
+
+	if ((obj_x <= x && obj_x + m_object_size > x) &&
+		(obj_y <= y && obj_y + m_object_size > y) &&
+		m_StageObjectID == id)
+	{
+		m_StageObjectID = StageObjectID::AIR;
+	}
+}
+
+aqua::CVector2 CStageObject::GoalPos(void)
+{
+	if(m_StageObjectID == StageObjectID::GOAL_FLAG)
+		return m_StageObjectSprite.position;
+}

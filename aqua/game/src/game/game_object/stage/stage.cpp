@@ -19,7 +19,9 @@ CStage::CStage(aqua::IGameObject* parent)
 void CStage::Initialize(void)
 {
 	//std::string file_name = "data\\scene\\game\\map_data7.csv";
-	std::string file_name = "data\\scene\\game\\map_data11.csv";
+	std::string file_name = "data\\scene\\game\\map_data9.csv";
+
+	m_GoalPos = aqua::CVector2::ZERO;
 
 	Parse(file_name);
 
@@ -28,6 +30,11 @@ void CStage::Initialize(void)
 
 void CStage::Update(void)
 {
+	CStageObject* stage_object = nullptr;
+	stage_object = (CStageObject*)aqua::FindGameObject("StageObject");
+
+	m_GoalPos = stage_object->GoalPos();
+
 	IGameObject::Update();
 }
 
@@ -113,10 +120,28 @@ bool CStage::CheckObject(int x, int y, StageObjectID id)
 	return false;
 }
 
+bool CStage::CheckObject_Jamp(int x, int y, StageObjectID id)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		if (stage_it->CheckObject(x, y, id))
+			return true;
+	}
+	return false;
+}
+
 bool CStage::CheckObject(int x, int y)
 {
 	if (CheckObject(x, y, StageObjectID::GRASS1_TILE) ||
 		CheckObject(x, y, StageObjectID::BRICK))
+		return true;
+	else
+		return false;
+}
+
+bool CStage::CheckObject_Jamp(int x, int y)
+{
+	if (CheckObject_Jamp(x, y, StageObjectID::JAMP_RAMP))
 		return true;
 	else
 		return false;
@@ -137,7 +162,27 @@ bool CStage::CheckSpike(int x, int y)
 	return CheckObject(x, y, StageObjectID::SPIKE_BALL);
 }
 
+bool CStage::CheckJampRamp(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::JAMP_RAMP);
+}
+
+bool CStage::CheckDushBrock(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::DUSH_BROCK);
+}
+
+bool CStage::CheckKey(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::KEY);
+}
+
 bool CStage::CheckWire(int x, int y)
 {
 	return CheckObject(x, y, StageObjectID::BARBED_WIRE);
+}
+
+aqua::CVector2 CStage::GetGoalPos(void)
+{
+	return m_GoalPos;
 }

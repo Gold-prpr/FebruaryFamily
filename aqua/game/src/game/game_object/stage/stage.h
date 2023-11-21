@@ -39,7 +39,11 @@ public:
 
 	bool CheckObject(int x, int y, StageObjectID id);
 
+	bool CheckObject_Jamp(int x, int y, StageObjectID id);
+
 	bool CheckObject(int x, int y);
+
+	bool CheckObject_Jamp(int x, int y);
 
 	//ÉSÅ[ÉãîªíË
 	bool CheckGoal(int x, int y);
@@ -49,8 +53,16 @@ public:
 
 	bool CheckSpike(int x, int y);
 
+	bool CheckJampRamp(int x, int y);
+
+	bool CheckDushBrock(int x, int y);
+
+	bool CheckKey(int x, int y);
+
 	//óLéhìSê¸îªíË
 	bool CheckWire(int x, int y);
+
+	aqua::CVector2 GetGoalPos(void);
 
 	aqua::CVector2 m_Scroll;
 
@@ -68,6 +80,8 @@ private:
 	std::vector<CStageObject*> m_StageObject;
 
 	aqua::CSprite              m_BackGround;
+
+	aqua::CVector2 m_GoalPos;
 
 	aqua::CVector2 m_MapPos;
 
