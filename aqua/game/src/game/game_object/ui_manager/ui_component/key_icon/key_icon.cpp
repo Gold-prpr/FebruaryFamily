@@ -76,4 +76,21 @@ void CKeyIcon::AddKeyCount(CPlayer* player)
 	{
 		player->m_KeyCount += 1;
 	}
+
+	if (player->m_KeyCount == 1) 
+	{
+		player->AddKeySpeed(1.0f);
+	}
+	else if (player->m_KeyCount == 2) 
+	{
+		player->AddKeySpeed(2.0f);
+	}
+	else if (player->m_KeyCount == 3)
+	{
+		player->AddKeySpeed(3.0f);
+	}
+	else
+	{
+		player->AddKeySpeed(0.0f);
+	}
 }
