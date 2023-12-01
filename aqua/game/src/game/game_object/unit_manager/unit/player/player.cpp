@@ -398,7 +398,7 @@ void CPlayer::State_Move()
 	float input_move = GetHorizotal(m_Device);
 
 	if (std::abs(input_move) >= 0.7f)
-		input_x_value = (int)(input_move / std::abs(input_move));
+		input_x_value = input_move / std::abs(input_move);
 
 	m_Velocity.x = 0;
 
