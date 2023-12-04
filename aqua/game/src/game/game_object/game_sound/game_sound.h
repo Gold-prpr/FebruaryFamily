@@ -38,6 +38,6 @@ public:
 private:
 	static const std::pair<std::string, bool> m_SoundData[(int)SOUND_ID::MAX];
 
-	std::list<std::pair<aqua::CSoundPlayer, int>> m_GameSoundList; //! ‰¹Šy
+	std::list<std::pair<aqua::CSoundPlayer*, int>> m_GameSoundList; //! ‰¹Šy
 
 };
