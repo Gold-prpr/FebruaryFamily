@@ -58,11 +58,13 @@ public:
 	void Damage(void);
 
 	//アイテムを取った時のスピードの加算
-	void AddSpeed(float add_speed);
+	void AddItemSpeed(float add_item_speed);
+
+	void AddGimmickSpeed(float add_gimmick_speed);
 
 	void AddKeySpeed(float add_key_speed);
 
-	void AddItemSpeed(float add_item_speed);
+	void AddMaxSpeed(float add_max_speed);
 
 	void Jump(void);
 
@@ -121,9 +123,10 @@ private:
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 
-	float m_AddSpeed;//スピード加算
+	float m_AddMaxSpeed;
 	float m_AddKeySpeed;//鍵を持ってる時のスピード
 	float m_AddItemSpeed;
+	float m_AddGimmickSpeed;
 	float m_Accelerator;//加速度]
 	float m_Speed;
 	int m_Timer;
