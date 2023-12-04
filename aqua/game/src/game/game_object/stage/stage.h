@@ -79,10 +79,10 @@ private:
 	std::vector<CStageObject*> m_StageObject;
 
 	aqua::CSprite              m_BackGround;
-	aqua::CSprite              m_CloudNear1	;
+	/*aqua::CSprite              m_CloudNear1	;
 	aqua::CSprite              m_CloudNear2	;
 	aqua::CSprite              m_CloudFar1	;
-	aqua::CSprite              m_CloudFar2	;
+	aqua::CSprite              m_CloudFar2	;*/
 
 
 	aqua::CVector2 m_GoalPos;
