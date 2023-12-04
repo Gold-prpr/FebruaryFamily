@@ -2,6 +2,7 @@
 #include "scene/scene_channel.h"
 #include "change_scene/change_scecne_channel.h"
 #include "../common_data/common_data.h"
+#include "../game_sound/game_sound.h"
 
 CSceneManager::CSceneManager(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "SceneManager")
@@ -19,6 +20,7 @@ CSceneManager::CSceneManager(aqua::IGameObject* parent)
 void CSceneManager::Initialize()
 {
 	aqua::CreateGameObject<CCommonData>(this);
+	aqua::CreateGameObject<CGameSound>(this);
 
 	// ƒV[ƒ“‚Ì¶¬
 	CreateScene(m_NextSceneID);
@@ -150,6 +152,8 @@ void CSceneManager::CreateScene(SCENE_ID scene_id)
 	}
 
 	m_SceneClass->Initialize();
+
+	m_SceneClass->Update();
 }
 
 /*
