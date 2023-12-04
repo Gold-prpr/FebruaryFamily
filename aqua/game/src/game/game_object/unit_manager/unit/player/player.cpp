@@ -16,7 +16,7 @@
 using namespace GameInputManager;
 
 const float CPlayer::max_speed = 8.0f;//�L�����̃X�s�[�h
-const float CPlayer::min_speed = 3.0f;	//�L�����̍Œ�X�s�[�h
+const float CPlayer::min_speed = 3.0f;//�L�����̍Œ�X�s�[�h
 const float CPlayer::jump = -27.5f;//�L�����̃W�����v
 const float CPlayer::width = 60.0f;//�L�����̕�
 const float CPlayer::height = 60.0f;//�L�����̍���
@@ -71,9 +71,10 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_Timer = 0;
 	m_HitSpikeFlag = false;
 	m_HitWireFlag = false;
-	m_AddSpeed = 1.0f;
+	m_AddMaxSpeed = 0.0f;
 	m_AddKeySpeed = 0.0f;
-	m_AddItemSpeed = 0.0f;
+	m_AddItemSpeed = 1.0f;
+	m_AddGimmickSpeed = 1.0f;
 
 	m_HitItemFlag = false;
 
@@ -358,9 +359,13 @@ void CPlayer::Damage(void)
 }
 
 //�X�s�[�h�̉��Z
-void CPlayer::AddSpeed(float add_speed)
+void CPlayer::AddItemSpeed(float add_itme_speed)
 {
-	m_AddSpeed = add_speed;
+	m_AddItemSpeed = add_itme_speed;
+}
+
+void CPlayer::AddGimmickSpeed(float add_gimmick_speed)
+{
 }
 
 void CPlayer::AddKeySpeed(float add_key_speed)
@@ -368,9 +373,9 @@ void CPlayer::AddKeySpeed(float add_key_speed)
 	m_AddKeySpeed = add_key_speed;
 }
 
-void CPlayer::AddItemSpeed(float add_item_speed)
+void CPlayer::AddMaxSpeed(float add_max_speed)
 {
-	m_AddItemSpeed = add_item_speed;
+	m_AddMaxSpeed = add_max_speed;
 }
 
 void CPlayer::Jump(void)
@@ -406,6 +411,7 @@ void CPlayer::State_Move()
 
 	m_Velocity.x = min_speed * input_x_value;
 
+	m_CharaSprite.anchor;
 	
 	m_Speed = max_speed + (m_AddKeySpeed + m_AddItemSpeed);
 
@@ -500,7 +506,8 @@ void CPlayer::State_Move()
 		}
 	}
 
-	m_Velocity.x = m_Velocity.x * m_AddSpeed;
+	m_Velocity.x = m_Velocity.x * m_AddItemSpeed * m_AddGimmickSpeed;
+
 
 	if (m_Velocity.x >= 6.0f && -6.0f >= m_Velocity.x)
 	{
