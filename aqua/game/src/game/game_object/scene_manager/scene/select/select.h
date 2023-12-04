@@ -38,5 +38,4 @@ private:
 	int m_SelectPrivStageNam;
 
 	int m_CountLowSpeed;
-
 };

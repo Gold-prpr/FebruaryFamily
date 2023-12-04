@@ -1,4 +1,5 @@
 #include "result.h"
+#include "../../../common_data/common_data.h"
 
 using namespace aqua::controller;
 
@@ -9,6 +10,15 @@ CResult::CResult(aqua::IGameObject* parent)
 
 void CResult::Initialize()
 {
+	m_pCommonData = (CCommonData*)aqua::FindGameObject("CommonData");
+
+	int player = (int)(m_pCommonData->GetCommonDate().m_device_id) + 1;
+
+	m_WinPlayerLabel.Create(100);
+	m_WinPlayerLabel.text = "プレイヤー" + std::to_string(player) + "の勝ちです";
+	m_WinPlayerLabel.position.x = (float)(aqua::GetWindowSize().x - m_WinPlayerLabel.GetTextWidth()) / 2.0f;
+	m_WinPlayerLabel.position.y = (float)(aqua::GetWindowSize().x - m_WinPlayerLabel.GetFontHeight()) / 2.0f;
+
 	m_BackGround.Create("data\\リザルト.png");
 }
 
@@ -24,6 +34,8 @@ void CResult::Update()
 void CResult::Draw()
 {
 	m_BackGround.Draw();
+
+	m_WinPlayerLabel.Draw();
 }
 
 void CResult::Finalize()
