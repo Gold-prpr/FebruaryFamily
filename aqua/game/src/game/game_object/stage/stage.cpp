@@ -170,15 +170,13 @@ bool CStage::CheckGoal(int x, int y)
 
 bool CStage::CheckItem(int x, int y)
 {
-	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
-	//if (m_pPlayer->m_KeyCount >= 1)
-	//{
-		if (CheckObject(x, y, StageObjectID::BOX))
-		{
-			ChangeAir(x, y, StageObjectID::BOX);
-			return true;
-		}
-	/*}*/
+	if (CheckObject(x, y, StageObjectID::BOX))
+	{
+		ChangeAir(x, y, StageObjectID::BOX);
+		return true;
+	}
+
+	return false;
 }
 
 bool CStage::CheckSpike(int x, int y)
@@ -203,6 +201,8 @@ bool CStage::CheckKey(int x, int y)
 		ChangeAir(x, y, StageObjectID::KEY);
 		return true;
 	}
+
+	return false;
 }
 
 bool CStage::CheckWire(int x, int y)
