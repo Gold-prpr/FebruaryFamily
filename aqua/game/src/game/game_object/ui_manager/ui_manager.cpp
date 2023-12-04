@@ -4,14 +4,12 @@
 #include "ui_component/rank_icon/rank_icon.h"
 #include "ui_component/effect_icon/effect_icon.h"
 #include "ui_component/stage_pos_bar/stage_pos_bar.h"
-#include "ui_component/key_icon/key_icon.h"
 
 const aqua::CVector2	CUiManager::m_ui_item_frame_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_item_icon_position = aqua::CVector2(0.0f, 0.0f);
+const aqua::CVector2	CUiManager::m_ui_rank_icon_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_effect_icon_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_stage_bar_position = aqua::CVector2(0.0f, 0.0f);
-const aqua::CVector2	CUiManager::m_ui_key_icon_position = aqua::CVector2(0.0f, 0.0f);
-const aqua::CVector2	CUiManager::m_ui_rank_icon_position = aqua::CVector2(0.0f, 0.0f);
 
 CUiManager::CUiManager(aqua::IGameObject* parent)
 {
@@ -49,6 +47,9 @@ void CUiManager::Create(void)
 
 	itemicon->Initialize(m_ui_item_icon_position);
 
+	CRankIcon* rankicon = aqua::CreateGameObject<CRankIcon>(this);
+
+	rankicon->Initialize(m_ui_rank_icon_position);
 
 	CEffectIcon* effecticon = aqua::CreateGameObject<CEffectIcon>(this);
 
@@ -57,12 +58,4 @@ void CUiManager::Create(void)
 	CStagePosBar* barpos = aqua::CreateGameObject<CStagePosBar>(this);
 
 	barpos->Initialize(m_ui_stage_bar_position);
-
-	CKeyIcon* keyicon = aqua::CreateGameObject<CKeyIcon>(this);
-
-	keyicon->Initialize(m_ui_key_icon_position);
-
-	CRankIcon* rankicon = aqua::CreateGameObject<CRankIcon>(this);
-
-	rankicon->Initialize(m_ui_rank_icon_position);
 }

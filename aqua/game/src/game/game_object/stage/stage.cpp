@@ -1,7 +1,6 @@
 #include "stage.h"
 #include "stage_object/stage_object.h"
 #include "../unit_manager/unit/unit.h"
-#include "../unit_manager/unit/player/player.h"
 
 const int CStage::map_chip_size = CStageObject::GetObjectSize();
 
@@ -19,7 +18,13 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
+	//std::string file_name = "data\\scene\\game\\map_data7.csv";
 	std::string file_name = "data\\scene\\game\\map_data8.csv";
+
+	m_CloudNear1.Create("data\\scene\\game\\map_data8.csv");
+	m_CloudNear2.Create("data\\scene\\game\\map_data8.csv");
+	m_CloudFar1.Create("data\\scene\\game\\map_data8.csv");
+	m_CloudFar2.Create("data\\scene\\game\\map_data8.csv");
 
 	m_GoalPos = aqua::CVector2::ZERO;
 
@@ -142,14 +147,6 @@ bool CStage::CheckObject(int x, int y)
 		return false;
 }
 
-void CStage::ChangeAir(int x, int y, StageObjectID id)
-{
-	for (auto& stage_it : m_StageObject)
-	{
-		stage_it->ChangeAir(x, y, id);
-	}
-}
-
 bool CStage::CheckObject_Jamp(int x, int y)
 {
 	if (CheckObject_Jamp(x, y, StageObjectID::JAMP_RAMP))
@@ -165,15 +162,7 @@ bool CStage::CheckGoal(int x, int y)
 
 bool CStage::CheckItem(int x, int y)
 {
-	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
-	//if (m_pPlayer->m_KeyCount >= 1)
-	//{
-		if (CheckObject(x, y, StageObjectID::BOX))
-		{
-			ChangeAir(x, y, StageObjectID::BOX);
-			return true;
-		}
-	/*}*/
+	return CheckObject(x, y, StageObjectID::BOX);
 }
 
 bool CStage::CheckSpike(int x, int y)
@@ -193,11 +182,7 @@ bool CStage::CheckDushBrock(int x, int y)
 
 bool CStage::CheckKey(int x, int y)
 {
-	if (CheckObject(x, y, StageObjectID::KEY))
-	{
-		ChangeAir(x, y, StageObjectID::KEY);
-		return true;
-	}
+	return CheckObject(x, y, StageObjectID::KEY);
 }
 
 bool CStage::CheckWire(int x, int y)

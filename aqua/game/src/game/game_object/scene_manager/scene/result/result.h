@@ -1,8 +1,6 @@
 #pragma once
 #include "../scene.h"
 
-class CCommonData;
-
 class CResult :
 	public IScene
 {
@@ -19,9 +17,5 @@ public:
 private:
 
 	aqua::CSprite m_BackGround;
-
-	CCommonData* m_pCommonData;
-
-	aqua::CLabel m_WinPlayerLabel;
 
 };

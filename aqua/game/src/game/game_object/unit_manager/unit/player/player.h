@@ -11,8 +11,6 @@ class CSpeedDownItem;
 class CPlayerStunItem;
 class CItemIcon;
 class CStagePosBar;
-class CKeyIcon;
-class CCommonData;
 
 class CPlayer :public IUnit
 {
@@ -25,6 +23,13 @@ private:
 		MOVE,
 		DEAD,
 		GOAL,
+	};
+
+	//キャラクターの向き
+	enum class CHARA_DIR : int
+	{
+		LEFT = -1,
+		RIGHT = 1,
 	};
 
 public:
@@ -62,8 +67,6 @@ public:
 
 	void AddKeySpeed(float add_key_speed);
 
-	void AddItemSpeed(float add_item_speed);
-
 	void Jump(void);
 
 	aqua::CVector2 GetSpeed(void) { return m_Velocity; }
@@ -89,12 +92,7 @@ public:
 
 	bool m_JampRampFlag;
 
-	int m_KeyCount;
-
-	bool m_KeyFlag;
-
-	//aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
-	aqua::CSprite m_CharaSprite;
+	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
 
@@ -106,6 +104,8 @@ private:
 	void State_Goal();//ゴールした状態
 
 	STATE m_State;//キャラの状態
+	CHARA_DIR m_DirNext;//キャラの次の向き
+	CHARA_DIR m_DirCurrent;//キャラの今の向き
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
@@ -116,16 +116,12 @@ private:
 	CPlayerStunItem* m_pStunItem;
 	CItemIcon* m_pItemIcon;
 	CStagePosBar* m_pStageBar;
-	CKeyIcon* m_pKeyIcon;
-	CCommonData* m_pCommonData;
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 
 	float m_AddSpeed;//スピード加算
 	float m_AddKeySpeed;//鍵を持ってる時のスピード
-	float m_AddItemSpeed;
-	float m_Accelerator;//加速度]
-	float m_Speed;
+	float m_Accelerator;//加速度
 	int m_Timer;
 	static const float max_speed;//最高スピードの値
 	static const float min_speed;//最低スピードの値

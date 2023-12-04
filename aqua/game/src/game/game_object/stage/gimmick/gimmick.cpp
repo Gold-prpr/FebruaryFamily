@@ -25,7 +25,7 @@ void CGimmickAct::DamageAct(CPlayer* player)
 		m_AlphaTimer += 1;
 		if (m_AlphaTimer >= alpha_interval && m_AlphaCurrCnt <= alpha_cnt)
 		{
-			player->m_CharaSprite.color.alpha = 0;
+			player->m_Chara.color.alpha = 0;
 			m_AlphaCurrCnt += 1;
 			m_AlphaTimer = 0;
 		}
@@ -38,7 +38,7 @@ void CGimmickAct::DamageAct(CPlayer* player)
 		}
 		else
 		{
-			player->m_CharaSprite.color.alpha = 255;
+			player->m_Chara.color.alpha = 255;
 		}
 	}
 }

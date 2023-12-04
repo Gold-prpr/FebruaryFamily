@@ -32,32 +32,32 @@ private:
 
 	/*
 	*	@brief 子オブジェクトから特定のクラスすべてを解放する
-	*
+	* 
 	*	@param[in] bc				基底クラス
 	*	@param[in] category_name	カテゴリー名
 	*/
-	template<class BaseClass> void DeleteChildObject(BaseClass* base, std::string category_name)
+	template<class BaseClass> void DeleteChildObject(BaseClass *bc,std::string category_name)
 	{
-		if (!base)return;
-
 		auto child_it = m_ChildObjectList.begin();
 
 		while (child_it != m_ChildObjectList.end())
 		{
+
 			if ((*child_it)->GetGameObjectCategory() == category_name)
 			{
-				(*child_it)->Finalize();
+				((BaseClass)(*child_it))->Finalize();
 
-				auto delete_it = &child_it;
-
-				child_it = m_ChildObjectList.erase(child_it);
+				child_it = aqua::ListErase(&m_ChildObjectList,child_it);
 			}
 
-			if (child_it != m_ChildObjectList.end())
-				child_it++;
+			if (child_it == m_ChildObjectList.end())
+				break;
+
+			child_it++;
 		}
 
-		AQUA_SAFE_DELETE(*base);
+		AQUA_SAFE_DELETE(*bc);
+
 	};
 
 private:
@@ -66,7 +66,9 @@ private:
 	SCENE_ID			m_NextSceneID;
 	CHANGE_SCENE_ID		m_NextChangeSceneID;
 
-	IChangeScene* m_ChangeSceneClass;
-	IScene* m_SceneClass;
+	IChangeScene*	m_ChangeSceneClass;
+	IScene*			m_SceneClass;
+
+	aqua::CSurface  m_SceneSurface;
 
 };
