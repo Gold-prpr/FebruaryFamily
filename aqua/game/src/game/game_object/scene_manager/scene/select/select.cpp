@@ -44,9 +44,12 @@ void CSelect::Initialize()
 
 		select->Initialize();
 
-		select->SetSize(aqua::CVector2::ONE * m_min_scale);
+		if (j)
+			select->SetSize(aqua::CVector2::ONE * m_min_scale);
+		else
+			select->SetSize(aqua::CVector2::ONE * m_max_scale);
 
-		aqua::CVector2 size = select->GetObjectSize() / 2.0f;
+		aqua::CVector2 size = select->GetObjectSize() / 4.0f;
 
 		aqua::CVector2 pos(aqua::GetWindowSize() / 2);
 
@@ -78,7 +81,7 @@ void CSelect::Update()
 {
 	// ステージの決定
 	if (g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P1) ||
-		g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P2) || 
+		g_input::GameTrigger(g_input::GameKey::A, g_controller::DEVICE_ID::P2) ||
 		aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
 	{
 		// シーンの移動
@@ -147,10 +150,10 @@ void CSelect::Update()
 			aqua::CVector2 size = it->GetObjectSize() / 4.0f;
 
 			aqua::CVector2 start_pos(aqua::GetWindowSize() / 2);
-			aqua::CVector2 gool_pos(aqua::GetWindowSize() / 2);
+			aqua::CVector2 final_pos(aqua::GetWindowSize() / 2);
 
 			start_pos.x += center_priv_dis * it->GetObjectSize().x + center_priv_dis * m_distance;
-			gool_pos.x += center_dis * it->GetObjectSize().x + center_dis * m_distance;
+			final_pos.x += center_dis * it->GetObjectSize().x + center_dis * m_distance;
 
 			aqua::CVector2 now_pos;
 
@@ -160,10 +163,10 @@ void CSelect::Update()
 					m_SelectSpeed.GetTime(),
 					m_SelectSpeed.GetLimit(),
 					start_pos.x,
-					gool_pos.x
+					final_pos.x
 				);
 
-			now_pos.y = gool_pos.y;
+			now_pos.y = final_pos.y;
 
 			it->SetPosition(now_pos - size);
 
