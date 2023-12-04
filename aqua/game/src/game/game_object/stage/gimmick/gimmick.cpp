@@ -47,7 +47,7 @@ void CGimmickAct::SlowAct(CPlayer* player)
 {
 	if (player->m_HitWireFlag == true)
 	{
-		player->AddSpeed(0.6f);
+		player->AddGimmickSpeed(0.6f);
 	}
 }
 
