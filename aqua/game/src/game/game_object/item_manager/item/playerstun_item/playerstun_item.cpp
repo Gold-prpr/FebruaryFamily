@@ -27,7 +27,7 @@ void CPlayerStunItem::Update()
 	if (m_EffectTimer.Finished()&& m_ItemFlag ==true)
 		if (m_pPlayer != nullptr)
 		{
-			m_pPlayer->AddSpeed(1.0f);
+			m_pPlayer->AddItemSpeed(1.0f);
 			m_ItemFlag = false;
 		}
 
@@ -45,5 +45,5 @@ void CPlayerStunItem::PlayerStun()
 
 	//アイテムを使っていたら
 	if (m_pPlayer != nullptr)
-		m_pPlayer->AddSpeed(0.0f);
+		m_pPlayer->AddItemSpeed(0.0f);
 }
