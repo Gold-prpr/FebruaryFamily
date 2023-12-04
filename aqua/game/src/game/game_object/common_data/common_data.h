@@ -10,7 +10,8 @@ public:
 	{
 		std::string stage_name; // 生成するステージ名
 
-		aqua::controller::DEVICE_ID m_device_id;
+		float p_one_time;		// プレイヤー1のクリア時間
+		float p_two_time;		// プレイヤー2のクリア時間
 	};
 
 public:

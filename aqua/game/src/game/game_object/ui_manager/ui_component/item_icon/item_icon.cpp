@@ -65,8 +65,6 @@ void CItemIcon::Check(CPlayer* player)
 			else
 				m_2PItemIconSprite.Create("data\\speedup.png");
 		}
-
-		player->AddItemSpeed(2.0f);
 	}
 	
 }

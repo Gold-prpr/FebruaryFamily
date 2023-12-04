@@ -28,10 +28,10 @@ public:
 
 	void Move(CPlayer* player);
 
-	aqua::CSprite		m_Pos1p;
-	aqua::CSprite		m_Pos2p;
 private:
 	aqua::CSprite		m_StageBar;
+	aqua::CSprite		m_Pos1p;
+	aqua::CSprite		m_Pos2p;
 
 	float m_PlayerRatio;
 

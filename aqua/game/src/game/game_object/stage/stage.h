@@ -2,7 +2,6 @@
 #include "aqua.h"
 #include "stage_object/stage_object.h"
 
-class CPlayer;
 class CStageObject;
 class IUnit;
 
@@ -43,8 +42,6 @@ public:
 	bool CheckObject_Jamp(int x, int y, StageObjectID id);
 
 	bool CheckObject(int x, int y);
-
-	void ChangeAir(int x, int y, StageObjectID id);
 
 	bool CheckObject_Jamp(int x, int y);
 
@@ -94,8 +91,6 @@ private:
 
 	int m_MapTileX;
 	int m_MapTileY;
-
-	CPlayer* m_pPlayer;
 
 	/*bool CheckObject(IUnit* unit, StageObjectID id);
 

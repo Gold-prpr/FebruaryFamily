@@ -97,7 +97,9 @@ void CStageObject::ChangeAir(int x, int y, StageObjectID id)
 	if ((obj_x <= x && obj_x + m_object_size > x) &&
 		(obj_y <= y && obj_y + m_object_size > y) &&
 		m_StageObjectID == id)
+	{
 		m_StageObjectID = StageObjectID::AIR;
+	}
 }
 
 aqua::CVector2 CStageObject::GoalPos(void)
