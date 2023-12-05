@@ -9,13 +9,10 @@ class CGimmickAct :
 	public aqua::IGameObject
 {
 public:
-	//コンストラクタ
 	CGimmickAct(aqua::IGameObject* parent);
 
-	//デストラクタ
 	~CGimmickAct()override = default;
 
-	//初期化
 	void Initialize()override;
 
 	void DamageAct(CPlayer* player);
@@ -27,6 +24,7 @@ public:
 private:
 	static const int alpha_cnt;
 	static const int alpha_interval;
+
 	int m_AlphaCurrCnt;
 	int m_AlphaTimer;
 

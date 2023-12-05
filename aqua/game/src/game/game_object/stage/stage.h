@@ -79,11 +79,6 @@ private:
 	std::vector<CStageObject*> m_StageObject;
 
 	aqua::CSprite              m_BackGround;
-	/*aqua::CSprite              m_CloudNear1	;
-	aqua::CSprite              m_CloudNear2	;
-	aqua::CSprite              m_CloudFar1	;
-	aqua::CSprite              m_CloudFar2	;*/
-
 
 	aqua::CVector2 m_GoalPos;
 
@@ -96,10 +91,4 @@ private:
 	int m_MapTileY;
 
 	CPlayer* m_pPlayer;
-
-	/*bool CheckObject(IUnit* unit, StageObjectID id);
-
-	bool CheckFloor(IUnit* unit, StageObjectID id);
-
-	bool CheckFloor2(IUnit* unit, StageObjectID id);*/
 };
