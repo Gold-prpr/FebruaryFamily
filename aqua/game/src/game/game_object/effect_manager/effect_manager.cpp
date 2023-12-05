@@ -22,5 +22,5 @@ void CEffectManager::Create(EFFECT_ID id, const aqua::CVector2& position)
 
 	if (effect == nullptr) return;
 
-	effect->Initialize(position);
+	//effect->Initialize(position);
 }

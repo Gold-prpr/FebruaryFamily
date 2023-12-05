@@ -9,7 +9,7 @@ CSpeedDownEffect::CSpeedDownEffect(aqua::IGameObject* parent)
 //èâä˙âª
 void CSpeedDownEffect::Initialize(const aqua::CVector2& position)
 {
-	m_SpeedDownEffectSprite.Create("data\\player_1.png");
+	m_SpeedDownEffectSprite.Create("data\\player_1p.png");
 
 	IEffect::Initialize(position);
 

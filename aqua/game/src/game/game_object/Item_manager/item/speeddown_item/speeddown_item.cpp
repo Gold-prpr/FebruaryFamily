@@ -1,6 +1,7 @@
 #include "speeddown_item.h"
 #include "../../../unit_manager/unit_manager.h"
 #include "../../../unit_manager/unit/player/player.h"
+#include "../../../effect_manager/effect_manager.h"
 
 using namespace aqua::keyboard;
 using namespace aqua::controller;
@@ -46,9 +47,13 @@ void CSpeedDownItem::Update()
 //減速
 void CSpeedDownItem::SpeedDown()
 {
+	m_pEffectManager = (CEffectManager*)aqua::FindGameObject("EffectManager");
+
 	m_EffectTimer.Reset();
 
 	m_ItemFlag = true;
+
+	m_pEffectManager->Create(EFFECT_ID::SPEEDDOWN,m_pPlayer->m_Position);
 
 	//アイテムを使っていたら
 	if (m_pPlayer != nullptr)

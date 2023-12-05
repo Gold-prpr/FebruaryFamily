@@ -3,6 +3,7 @@
 
 class CUnitManager;
 class CPlayer;
+class CEffectManager;
 
 class CSpeedDownItem
 	:public IItem
@@ -26,4 +27,5 @@ public:
 private:
 	CUnitManager*		m_pUnitManager;
 	CPlayer* m_pPlayer;
+	CEffectManager* m_pEffectManager;
 };
