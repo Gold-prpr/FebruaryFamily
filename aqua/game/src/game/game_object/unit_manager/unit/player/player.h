@@ -13,6 +13,7 @@ class CItemIcon;
 class CStagePosBar;
 class CKeyIcon;
 class CCommonData;
+class CEffectManager;
 
 class CPlayer :public IUnit
 {
@@ -111,8 +112,8 @@ private:
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
-	CGimmickAct* m_pGimmick;//
-	CItemManager* m_pItemManager;
+	CGimmickAct* m_pGimmick;//ギミックのポインタ
+	CItemManager* m_pItemManager;//アイテムマネージャーのポインタ
 	CSlime* m_pSlime;
 	CSpeedDownItem* m_pSpeedDownItem;
 	CPlayerStunItem* m_pStunItem;

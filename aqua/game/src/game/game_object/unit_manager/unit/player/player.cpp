@@ -144,8 +144,8 @@ void CPlayer::CheckHitBlock(void)
 {
 	int x = (int)(m_Position.x);
 	int y = (int)(m_Position.y);
-	int nx = (int)(m_Position.x + m_Velocity.x);;
-	int ny = (int)(m_Position.y + m_Velocity.y);;
+	int nx = (int)(m_Position.x + m_Velocity.x);
+	int ny = (int)(m_Position.y + m_Velocity.y);
 	int  w = (int)m_Width;
 	int h = (int)m_Height;
 	int size = 60;
