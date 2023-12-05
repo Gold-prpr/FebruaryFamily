@@ -366,6 +366,7 @@ void CPlayer::AddItemSpeed(float add_itme_speed)
 
 void CPlayer::AddGimmickSpeed(float add_gimmick_speed)
 {
+	m_AddGimmickSpeed = add_gimmick_speed;
 }
 
 void CPlayer::AddKeySpeed(float add_key_speed)
