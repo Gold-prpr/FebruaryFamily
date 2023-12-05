@@ -22,7 +22,7 @@ const float CPlayer::width = 60.0f;//�L�����̕�
 const float CPlayer::height = 60.0f;//�L�����̍���
 const float CPlayer::radius = 30.0f;//�L�����̔��a
 const float CPlayer::dash = 1.7f;//�L�����̃_�b�V����
-const int CPlayer::max_interval = 10;
+const int CPlayer::max_interval = 20;
 
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
