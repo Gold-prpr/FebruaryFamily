@@ -37,6 +37,7 @@ void CSpeedDownItem::Update()
 		{
 			m_pPlayer->AddItemSpeed(1.0f);
 			m_ItemFlag = false;
+			m_pEffectManager->DeleteObject();
 		}
 
 	m_EffectTimer.Update();
