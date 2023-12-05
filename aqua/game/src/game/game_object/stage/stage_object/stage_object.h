@@ -20,14 +20,13 @@ public:
 	aqua::CVector2	GetPosition() { return m_StageObjectSprite.position; };
 
 	/*
-	* 
 	*	â¡éZï™ÇÃç¿ïWéÊìæ
 	*/
 	aqua::CVector2	GetAddPosition() { return m_AddPosition; };
 
 	void			SetPosition(aqua::CVector2 position);
-	void			SetAddPosition(aqua::CVector2 add_position);
 
+	void			SetAddPosition(aqua::CVector2 add_position);
 
 	static int GetObjectSize(void) { return m_object_size; }
 

@@ -9,7 +9,7 @@ CSpeedDownEffect::CSpeedDownEffect(aqua::IGameObject* parent)
 //初期化
 void CSpeedDownEffect::Initialize(const aqua::CVector2& position)
 {
-	m_SpeedDownEffectSprite.Create("data\\first.png");
+	m_SpeedDownEffectSprite.Create("data\\player_1.png");
 
 	IEffect::Initialize(position);
 
@@ -20,7 +20,7 @@ void CSpeedDownEffect::Initialize(const aqua::CVector2& position)
 	m_SpeedDownEffectSprite.position = m_Position - m_SpeedDownEffectSprite.anchor;
 
 	//消えるまでの時間
-	m_SpeedDownEffectTimer.Setup(1.0f);
+	m_SpeedDownEffectTimer.Setup(0.5f);
 
 	//色
 	m_SpeedDownEffectSprite.blend_mode = aqua::ALPHABLEND::ADD;
@@ -40,10 +40,11 @@ void CSpeedDownEffect::Update(void)
 	}
 
 	//透明度
-	m_SpeedDownEffectSprite.color.alpha = 255 - (int)(255.0f * m_SpeedDownEffectTimer.GetLimit() / m_SpeedDownEffectTimer.GetLimit());
+	m_SpeedDownEffectSprite.color.alpha = 255 - (int)(255.0f * m_SpeedDownEffectTimer.GetTime() / m_SpeedDownEffectTimer.GetLimit());
 
 	//エフェクト位置
-	m_SpeedDownEffectSprite.position.x += 1.0f * aqua::GetDeltaTime();
+	//m_SpeedDownEffectSprite.position.x += 1.0f * aqua::GetDeltaTime();
+	m_SpeedDownEffectSprite.scale += aqua::CVector2::ONE * aqua::GetDeltaTime();
 }
 
 //描画

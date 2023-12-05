@@ -2,6 +2,7 @@
 #include "aqua.h"
 #include "stage_object/stage_object.h"
 
+class CPlayer;
 class CStageObject;
 class IUnit;
 
@@ -43,6 +44,8 @@ public:
 
 	bool CheckObject(int x, int y);
 
+	void ChangeAir(int x, int y, StageObjectID id);
+
 	bool CheckObject_Jamp(int x, int y);
 
 	//ゴール判定
@@ -68,13 +71,9 @@ public:
 
 private:
 	static const int map_chip_size;			//Tileサイズ
-
 	static const int num_chip_size_x;		//Tile画像の横の数
 	static const int num_chip_size_y;		//Tile画像の縦の数
-
 	static const int all_num_chip;			//Tileの合計
-
-
 	static const float m_gravity;			//重力
 
 	std::vector<CStageObject*> m_StageObject;
@@ -91,9 +90,5 @@ private:
 	int m_MapTileX;
 	int m_MapTileY;
 
-	/*bool CheckObject(IUnit* unit, StageObjectID id);
-
-	bool CheckFloor(IUnit* unit, StageObjectID id);
-
-	bool CheckFloor2(IUnit* unit, StageObjectID id);*/
+	CPlayer* m_pPlayer;
 };

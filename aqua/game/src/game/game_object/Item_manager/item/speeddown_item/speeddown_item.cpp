@@ -34,7 +34,7 @@ void CSpeedDownItem::Update()
 	if (m_EffectTimer.Finished()&& m_ItemFlag ==true)
 		if (m_pPlayer != nullptr)
 		{
-			m_pPlayer->AddSpeed(1.0f);
+			m_pPlayer->AddItemSpeed(1.0f);
 			m_ItemFlag = false;
 		}
 
@@ -52,5 +52,5 @@ void CSpeedDownItem::SpeedDown()
 
 	//アイテムを使っていたら
 	if (m_pPlayer != nullptr)
-		m_pPlayer->AddSpeed(0.6f);
+		m_pPlayer->AddItemSpeed(0.6f);
 }

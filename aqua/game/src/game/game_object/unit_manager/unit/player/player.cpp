@@ -10,17 +10,19 @@
 #include "../../unit/enemy/slime/slime.h"
 #include "../../../ui_manager/ui_component/item_icon/item_icon.h"
 #include "../../../ui_manager/ui_component/stage_pos_bar/stage_pos_bar.h"
+#include "../../../ui_manager/ui_component/key_icon/key_icon.h"
+#include "../../../common_data/common_data.h"
 
 using namespace GameInputManager;
 
 const float CPlayer::max_speed = 8.0f;//�L�����̃X�s�[�h
-const float CPlayer::min_speed = 3.0f;	//�L�����̍Œ�X�s�[�h
+const float CPlayer::min_speed = 3.0f;//�L�����̍Œ�X�s�[�h
 const float CPlayer::jump = -27.5f;//�L�����̃W�����v
 const float CPlayer::width = 60.0f;//�L�����̕�
 const float CPlayer::height = 60.0f;//�L�����̍���
 const float CPlayer::radius = 30.0f;//�L�����̔��a
 const float CPlayer::dash = 1.7f;//�L�����̃_�b�V����
-const int CPlayer::max_interval = 3;
+const int CPlayer::max_interval = 10;
 
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
@@ -33,6 +35,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pSpeedDownItem(nullptr)
 	, m_pStunItem(nullptr)
 	, m_pItemIcon(nullptr)
+	, m_pCommonData(nullptr)
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -46,18 +49,18 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pSlime = (CSlime*)aqua::FindGameObject("Slime");
 	m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
-
+	m_pCommonData = (CCommonData*)aqua::FindGameObject("CommonData");
 
 	std::string name;
 
 	if (m_Device == DEVICE_ID::P1)
-		name = "data//player1p.ass";
+		name = "data//player_1p.png";
 	else
-		name = "data//player2p.ass";
+		name = "data//player_2p.png";
 
-	m_Chara.Create(name, "right");
-	m_Chara.anchor.x = m_Chara.GetFrameWidth() / 2.0f;
-	m_Chara.anchor.y = m_Chara.GetFrameHeight() / 2.0f;
+	m_CharaSprite.Create(name);
+	m_CharaSprite.anchor.x = m_CharaSprite.GetTextureWidth() / 2.0f;
+	m_CharaSprite.anchor.y = m_CharaSprite.GetTextureHeight() / 2.0f;
 	m_Position = position;
 	m_Velocity = aqua::CVector2::ZERO;
 	m_Width = width;
@@ -68,13 +71,22 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_Timer = 0;
 	m_HitSpikeFlag = false;
 	m_HitWireFlag = false;
-	m_AddSpeed = 1.0f;
+	m_AddMaxSpeed = 0.0f;
+	m_AddKeySpeed = 0.0f;
+	m_AddItemSpeed = 1.0f;
+	m_AddGimmickSpeed = 1.0f;
 
 	m_HitItemFlag = false;
+
+	m_KeyFlag = false;
 
 	m_GoalFlag = false;
 
 	m_GetItemFlag = false;
+
+	m_KeyCount = 0;
+
+	m_Speed = 0.0f;
 
 	IGameObject::Initialize();
 }
@@ -99,7 +111,7 @@ void CPlayer::Update()
 		CheckHitBlock();//�ǂ̓����蔻��
 	}
 
-	m_Chara.position = m_Position;// +m_pCamera->GetScroll(m_Device);//�J�����̃X�N���[��
+	m_CharaSprite.position = m_Position;// +m_pCamera->GetScroll(m_Device);//�J�����̃X�N���[��
 
 	m_pGimmick = (CGimmickAct*)aqua::FindGameObject("GimmickAct");
 	if (m_pGimmick)
@@ -116,6 +128,14 @@ void CPlayer::Update()
 	m_pStageBar = (CStagePosBar*)aqua::FindGameObject("StagePosBar");
 	if (m_pStageBar)
 		m_pStageBar->Move(this);
+
+	m_pKeyIcon = (CKeyIcon*)aqua::FindGameObject("KeyIcon");
+	if (m_pKeyIcon)
+	{
+		m_pKeyIcon->KeyCount(this);
+		m_pKeyIcon->AddKeyCount(this);
+	}
+
 
 	IGameObject::Update();
 }
@@ -159,6 +179,13 @@ void CPlayer::CheckHitBlock(void)
 		|| m_pStage->CheckGoal(nx + w - 1, y + h - 1))
 	{
 		m_GoalFlag = true;
+
+		CCommonData::CommonData common_data = m_pCommonData->GetCommonDate();
+
+		common_data.m_device_id = m_Device;
+
+		m_pCommonData->SetDate(&common_data);
+
 	}
 	else
 	{
@@ -193,22 +220,44 @@ void CPlayer::CheckHitBlock(void)
 		m_HitWireFlag = false;
 	}
 
-	if (m_pStage->CheckItem(nx, y)
-		|| m_pStage->CheckItem(nx + w - 1, y)
-		|| m_pStage->CheckItem(nx, y + h / 2)
-		|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
-		|| m_pStage->CheckItem(nx, y + h - 1)
-		|| m_pStage->CheckItem(nx + w - 1, y + h - 1)
-		&& m_GetItemFlag == false)
+	if (m_KeyCount >= 1)
 	{
-		m_HitItemFlag = true;
-		m_GetItemFlag = true;
+		if (m_pStage->CheckItem(nx, y)
+			|| m_pStage->CheckItem(nx + w - 1, y)
+			|| m_pStage->CheckItem(nx, y + h / 2)
+			|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
+			|| m_pStage->CheckItem(nx, y + h - 1)
+			|| m_pStage->CheckItem(nx + w - 1, y + h - 1)
+			&& m_GetItemFlag == false)
+		{
+			m_HitItemFlag = true;
+			m_GetItemFlag = true;
+			m_KeyCount -= 1;
+		}
+		else
+		{
+			m_HitItemFlag = false;
+		}
 	}
 	else
 	{
 		m_HitItemFlag = false;
 	}
 
+	if (m_pStage->CheckKey(nx, y)
+		|| m_pStage->CheckKey(nx + w - 1, y)
+		|| m_pStage->CheckKey(nx, y + h / 2)
+		|| m_pStage->CheckKey(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckKey(nx, y + h - 1)
+		|| m_pStage->CheckKey(nx + w - 1, y + h - 1))
+	{
+		m_KeyFlag = true;
+	}
+	else
+	{
+		m_KeyFlag = false;
+	}
+	
 	if (m_LandingFlag == true)
 	{
 		// �����𒲂ׂău���b�N���Ȃ���Η���
@@ -279,13 +328,14 @@ void CPlayer::CreateItme(void)
 
 void CPlayer::Draw()
 {
-	m_Chara.Draw();//�L�����̕`��
+	m_CharaSprite.Draw();//�L�����̕`��
 	IGameObject::Draw();
+	AQUA_DEBUG_LOG(std::to_string(m_Velocity.x));
 }
 
 void CPlayer::Finalize()
 {
-	m_Chara.Delete();//�L�����̉��
+	m_CharaSprite.Delete();//�L�����̉��
 	IGameObject::Finalize();
 }
 
@@ -310,14 +360,24 @@ void CPlayer::Damage(void)
 }
 
 //�X�s�[�h�̉��Z
-void CPlayer::AddSpeed(float add_speed)
+void CPlayer::AddItemSpeed(float add_itme_speed)
 {
-	m_AddSpeed = add_speed;
+	m_AddItemSpeed = add_itme_speed;
+}
+
+void CPlayer::AddGimmickSpeed(float add_gimmick_speed)
+{
+	m_AddGimmickSpeed = add_gimmick_speed;
 }
 
 void CPlayer::AddKeySpeed(float add_key_speed)
 {
 	m_AddKeySpeed = add_key_speed;
+}
+
+void CPlayer::AddMaxSpeed(float add_max_speed)
+{
+	m_AddMaxSpeed = add_max_speed;
 }
 
 void CPlayer::Jump(void)
@@ -339,14 +399,13 @@ void CPlayer::State_Start()
 //��������
 void CPlayer::State_Move()
 {
-	m_Chara.Update();
 
 
 	float input_x_value = 0.0f;
 	float input_move = GetHorizotal(m_Device);
 
 	if (std::abs(input_move) >= 0.7f)
-		input_x_value = (int)(input_move / std::abs(input_move));
+		input_x_value = input_move / std::abs(input_move);
 
 	m_Velocity.x = 0;
 
@@ -354,9 +413,13 @@ void CPlayer::State_Move()
 
 	m_Velocity.x = min_speed * input_x_value;
 
+	m_CharaSprite.anchor;
+	
+	m_Speed = max_speed + (m_AddKeySpeed + m_AddItemSpeed);
+
 	if (GameButton(GameKey::X, m_Device))
 	{
-		if (m_Timer >= max_interval && (m_Accelerator <= max_speed && m_Accelerator >= -max_speed))
+		if (m_Timer >= max_interval && (m_Accelerator <= m_Speed && m_Accelerator >= -m_Speed))
 		{
 			m_Accelerator += input_x_value;
 			m_Timer = 0;
@@ -372,37 +435,16 @@ void CPlayer::State_Move()
 	}
 	int v = m_Position.x - m_PrevPosition.x;
 
-	if (v)
-	{
-		v = v / std::abs(v);
-
-		m_DirNext = (CHARA_DIR)((int)v);
-	}
-
 	if (GameTrigger(GameKey::A, m_Device))
 	{
 		Jump();
 	}
 
-	if (m_DirCurrent != m_DirNext)
-	{
-		m_DirCurrent = m_DirNext;
 
-		switch (m_DirNext)
-		{
-		case CHARA_DIR::LEFT:
-			m_Chara.Change("left");
-			break;
+	//if (m_GetItemFlag == true)
+	//{
 
-		case CHARA_DIR::RIGHT:
-			m_Chara.Change("right");
-			break;
-		default:
-			break;
-		}
-	}
-
-
+	//}
 	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
 	{
 
@@ -418,7 +460,6 @@ void CPlayer::State_Move()
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 			}
-
 			else
 			{
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
@@ -428,18 +469,15 @@ void CPlayer::State_Move()
 			m_pStunItem->PlayerStun();
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
-
 			}
 
 			if (m_pItemIcon)
 				m_pItemIcon->DeleteItem(this);
-
 		}
 		else if (m_Device == DEVICE_ID::P2)
 		{
 			if (m_pItemManager->m_ItemRand == 0)
 			{
-
 			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
 			m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
 			m_pSpeedDownItem->Initialize(DEVICE_ID::P1);
@@ -448,10 +486,8 @@ void CPlayer::State_Move()
 			m_GetItemFlag = false;
 			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 			}
-
 			else
 			{
-
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
 			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
 			m_pStunItem->Initialize(DEVICE_ID::P1);
@@ -466,9 +502,7 @@ void CPlayer::State_Move()
 		}
 	}
 
-	m_Velocity.x = m_Velocity.x * m_AddSpeed;
-
-	m_Velocity.x = m_Velocity.x + m_AddKeySpeed;
+	m_Velocity.x = m_Velocity.x * m_AddItemSpeed * m_AddGimmickSpeed;
 
 	if (m_Velocity.x >= 6.0f && -6.0f >= m_Velocity.x)
 	{

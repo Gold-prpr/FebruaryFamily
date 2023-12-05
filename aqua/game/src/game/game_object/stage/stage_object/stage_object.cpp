@@ -18,8 +18,7 @@ void CStageObject::Create(StageObjectID id, aqua::CVector2 position)
 {
 	m_Position = position;
 
-	//m_StageObjectSprite.Create("data\\scene\\game\\tile2.png");
-	m_StageObjectSprite.Create("data\\scene\\game\\tile2.png");
+	m_StageObjectSprite.Create("data\\scene\\game\\tile3.png");
 
 	m_StageObjectID = id;
 
@@ -97,9 +96,7 @@ void CStageObject::ChangeAir(int x, int y, StageObjectID id)
 	if ((obj_x <= x && obj_x + m_object_size > x) &&
 		(obj_y <= y && obj_y + m_object_size > y) &&
 		m_StageObjectID == id)
-	{
 		m_StageObjectID = StageObjectID::AIR;
-	}
 }
 
 aqua::CVector2 CStageObject::GoalPos(void)
