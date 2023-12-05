@@ -330,6 +330,7 @@ void CPlayer::Draw()
 {
 	m_CharaSprite.Draw();//�L�����̕`��
 	IGameObject::Draw();
+	AQUA_DEBUG_LOG(std::to_string(m_Velocity.x));
 }
 
 void CPlayer::Finalize()
