@@ -2,6 +2,7 @@
 #include "../../../unit_manager/unit_manager.h"
 #include "../../../unit_manager/unit/player/player.h"
 #include "../../../effect_manager/effect_manager.h"
+#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 
 using namespace aqua::keyboard;
 using namespace aqua::controller;
@@ -20,6 +21,8 @@ void CSpeedDownItem::Initialize(aqua::controller::DEVICE_ID other_id)
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 	m_pPlayer = m_pUnitManager->GetPlayer(other_id);
 
+	m_pSpeedDownEffect = (CSpeedDownEffect*)aqua::FindGameObject("SpeedDownEffect");
+
 	//IItem::Initialize(position, "data\\speeddown.png");
 	m_EffectTimer.Setup(5.0f);
 	
@@ -32,12 +35,12 @@ void CSpeedDownItem::Update()
 	/*SpeedDown();*/
 	//アイテム効果時間が終わったら
 
+
 	if (m_EffectTimer.Finished()&& m_ItemFlag ==true)
 		if (m_pPlayer != nullptr)
 		{
 			m_pPlayer->AddItemSpeed(1.0f);
 			m_ItemFlag = false;
-			m_pEffectManager->DeleteObject();
 		}
 
 	m_EffectTimer.Update();
@@ -48,12 +51,11 @@ void CSpeedDownItem::Update()
 //減速
 void CSpeedDownItem::SpeedDown()
 {
-	m_pEffectManager = (CEffectManager*)aqua::FindGameObject("EffectManager");
-
 	m_EffectTimer.Reset();
 
 	m_ItemFlag = true;
 
+	m_pEffectManager = (CEffectManager*)aqua::FindGameObject("EffectManager");
 	m_pEffectManager->Create(EFFECT_ID::SPEEDDOWN,m_pPlayer->m_Position);
 
 	//アイテムを使っていたら
