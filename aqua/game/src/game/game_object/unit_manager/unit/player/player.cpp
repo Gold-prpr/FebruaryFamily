@@ -445,7 +445,7 @@ void CPlayer::State_Move()
 	//{
 
 	//}
-	if (Button(m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I) && m_GetItemFlag == true)
+	if ((Button(m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I)) && m_GetItemFlag == true)
 	{
 
 		if (m_Device == DEVICE_ID::P1)
