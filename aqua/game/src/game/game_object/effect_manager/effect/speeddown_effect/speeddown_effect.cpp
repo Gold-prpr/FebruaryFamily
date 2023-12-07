@@ -1,4 +1,5 @@
 #include "speeddown_effect.h"
+#include "../../../item_manager/item/speeddown_item/speeddown_item.h"
 
 //コンストラクタ
 CSpeedDownEffect::CSpeedDownEffect(aqua::IGameObject* parent)
@@ -9,7 +10,7 @@ CSpeedDownEffect::CSpeedDownEffect(aqua::IGameObject* parent)
 //初期化
 void CSpeedDownEffect::Initialize(const aqua::CVector2& position)
 {
-	m_SpeedDownEffectSprite.Create("data\\player_1.png");
+	m_SpeedDownEffectSprite.Create("data\\player_1p.png");
 
 	IEffect::Initialize(position);
 
@@ -17,13 +18,15 @@ void CSpeedDownEffect::Initialize(const aqua::CVector2& position)
 	m_SpeedDownEffectSprite.anchor.y = m_SpeedDownEffectSprite.GetTextureHeight() / 2.0f;
 
 	//光る位置
-	m_SpeedDownEffectSprite.position = m_Position - m_SpeedDownEffectSprite.anchor;
+	m_SpeedDownEffectSprite.position = m_Position;
 
 	//消えるまでの時間
 	m_SpeedDownEffectTimer.Setup(0.5f);
 
 	//色
 	m_SpeedDownEffectSprite.blend_mode = aqua::ALPHABLEND::ADD;
+
+	IGameObject::Initialize();
 }
 
 //更新
@@ -33,8 +36,8 @@ void CSpeedDownEffect::Update(void)
 
 	//消える処理
 	if (m_SpeedDownEffectTimer.Finished())
-	{
-		DeleteObject();
+	{/*
+		DeleteObject();*/
 
 		m_SpeedDownEffectTimer.SetTimer(m_SpeedDownEffectTimer.GetLimit());
 	}
@@ -42,19 +45,39 @@ void CSpeedDownEffect::Update(void)
 	//透明度
 	m_SpeedDownEffectSprite.color.alpha = 255 - (int)(255.0f * m_SpeedDownEffectTimer.GetTime() / m_SpeedDownEffectTimer.GetLimit());
 
+	if (m_SpeedDownEffectSprite.color.alpha == 0)
+	{
+		m_SpeedDownEffectTimer.Reset();
+		m_SpeedDownEffectSprite.position = m_Position;
+	}
+
+	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
+
+	if (m_pSpeedDownItem->m_ItemFlag == false)
+	{
+		DeleteObject();
+	}
+
+
 	//エフェクト位置
-	//m_SpeedDownEffectSprite.position.x += 1.0f * aqua::GetDeltaTime();
-	m_SpeedDownEffectSprite.scale += aqua::CVector2::ONE * aqua::GetDeltaTime();
+	m_SpeedDownEffectSprite.position.y += 100.0f * aqua::GetDeltaTime();
+	//m_SpeedDownEffectSprite.scale += aqua::CVector2::ONE * aqua::GetDeltaTime();
+
+	IGameObject::Update();
 }
 
 //描画
 void CSpeedDownEffect::Draw(void)
 {
 	m_SpeedDownEffectSprite.Draw();
+
+	IGameObject::Draw();
 }
 
 //解放
 void CSpeedDownEffect::Finalize(void)
 {
 	m_SpeedDownEffectSprite.Delete();
+
+	IGameObject::Finalize();
 }

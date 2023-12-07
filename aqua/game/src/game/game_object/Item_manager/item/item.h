@@ -27,8 +27,8 @@ public:
 
 	aqua::CSprite				m_ItemSprite;	//アイテム描画
 
-protected:
 	bool				m_ItemFlag;		//アイテム効果中
+protected:
 
 	aqua::CTimer		m_EffectTimer;
 };
