@@ -2,9 +2,6 @@
 #include "aqua.h"
 #include "scene_id.h"
 #include "../change_scene/change_scene_id.h"
-#include "../../game_sound/game_sound.h"
-
-class CGameSound;
 
 class IScene :public aqua::IGameObject
 {
@@ -25,8 +22,6 @@ public:
 protected:
 
 	bool m_ChangeSceneFlag;
-
-	CGameSound* m_GameSoundClass;
 
 private:
 

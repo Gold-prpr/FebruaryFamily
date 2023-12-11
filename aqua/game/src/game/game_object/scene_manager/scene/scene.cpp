@@ -5,13 +5,11 @@ IScene::IScene(aqua::IGameObject* parent, std::string name,SCENE_ID next_scene,C
 	, m_ChangeSceneFlag(false)
 	, m_NextSceneID(next_scene)
 	, m_NextChangeSceneID(next_change_scene)
-	, m_GameSoundClass(nullptr)
 {
 }
 
 void IScene::Initialize()
 {
-	m_GameSoundClass = (CGameSound*)aqua::FindGameObject("GameSound");
 	aqua::IGameObject::Initialize();
 }
 

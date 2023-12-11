@@ -2,11 +2,6 @@
 #include "aqua.h"
 
 class CCamera;
-class CUnitManager;
-class CItemManager;
-class CGimmickAct;
-class CPlayer;
-class CStage;
 
 class CCameraManager
 	:public aqua::IGameObject
@@ -36,11 +31,4 @@ private:
 
 	std::vector<CCamera*> m_CameraClass;
 
-	CUnitManager* m_UnitManager;
-	CItemManager* m_ItemManager;
-	CGimmickAct* m_Gimmick;
-	CPlayer* m_pPlayer;
-	CStage* m_pStage;
-
-	aqua::CSurface m_Surface;
 };

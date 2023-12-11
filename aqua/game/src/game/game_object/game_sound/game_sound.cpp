@@ -34,9 +34,9 @@ void CGameSound::Update()
 
 	while (sound_it != m_GameSoundList.end())
 	{
-		if (sound_it->second >= (int)SOUND_ID::BUTTON && !sound_it->first.IsPlaying())
+		if (sound_it->second >= (int)SOUND_ID::BUTTON && !(*sound_it).first->IsPlaying())
 		{
-			sound_it->first.Delete();
+			(*sound_it).first->Delete();
 			sound_it = m_GameSoundList.erase(sound_it);
 		}
 
@@ -89,9 +89,7 @@ void CGameSound::Play(SOUND_ID id)
 	sp.Create(m_SoundData[num].first, m_SoundData[num].second);
 	sp.Play();
 
-	//m_GameSoundList.assign((int)m_GameSoundList.size() + 1, );
-	m_GameSoundList.insert(m_GameSoundList.end(),{ sp , num });
-
+	m_GameSoundList.push_back({ &sp , num });
 }
 
 /*
@@ -100,15 +98,13 @@ void CGameSound::Play(SOUND_ID id)
 void CGameSound::Stop(SOUND_ID id)
 {
 	int num = (int)id;
-
 	if (m_SoundData[num].second)
 	{
 		auto sound_it = m_GameSoundList.begin();
 		while (sound_it != m_GameSoundList.end())
 		{
-			if (sound_it->second == num)
+			if ((*sound_it).second == num)
 			{
-				sound_it->first.Stop();
 				sound_it = m_GameSoundList.erase(sound_it);
 			}
 

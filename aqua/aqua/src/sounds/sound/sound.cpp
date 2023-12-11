@@ -28,8 +28,8 @@ CSound( void )
 aqua::CSound::
 CSound( const aqua::CSound& sound )
 {
-    // if( m_SoundResource )
-    //     m_SoundResource->RemoveReference( );
+    if( m_SoundResource )
+        m_SoundResource->RemoveReference( );
 
     m_SoundResource = sound.m_SoundResource;
 
