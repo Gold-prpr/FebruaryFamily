@@ -3,9 +3,11 @@
 
 namespace controller = aqua::controller;
 
+class CUnitManager;
+class CItemManager;
+class CGimmickAct;
 class CPlayer;
 class CStage;
-class CUnitManager;
 
 class CCamera
 	:public aqua::IGameObject
@@ -18,7 +20,7 @@ public:
 	~CCamera() = default;
 
 	//èâä˙âª
-	void Initialize(aqua::CVector2 position, controller::DEVICE_ID id, aqua::CSurface& surface);
+	void Initialize(aqua::CVector2 position, controller::DEVICE_ID id);
 
 	//çXêV
 	void Update()override;
@@ -34,12 +36,15 @@ private:
 
 	aqua::CVector2 m_Scroll;
 	
+	CUnitManager*	m_UnitManager;
+	CItemManager*	m_ItemManager;
+	CGimmickAct*		m_Gimmick;
+	CPlayer*		m_pPlayer;
+	CStage*			m_pStage;
+
 	controller::DEVICE_ID m_PlayerID;
 
-	CPlayer* m_pPlayer;
-	CStage* m_pStage;
-	CUnitManager* m_UnitManager;
-
+	aqua::CSurface m_Surface;
 	aqua::CSprite  m_SurfaceSprite;
 	aqua::CVector2 m_Position;
 
