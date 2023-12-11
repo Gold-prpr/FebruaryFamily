@@ -9,10 +9,6 @@ CTitle::CTitle(aqua::IGameObject* parent)
 
 void CTitle::Initialize()
 {
-	IScene::Initialize();
-	m_GameSoundClass->Play(SOUND_ID::TITLE);
-	m_GameSoundClass->Play(SOUND_ID::TITLE);
-
 	m_BackGround.Create("data\\scene\\title\\game_title_back(goal_flag)2.ass");
 	m_BackGround.Change("wind");
 	m_BackGround.Play();
@@ -32,6 +28,7 @@ void CTitle::Update()
 
 
 	m_BackGround.Update();
+	aqua::IGameObject::Update();
 }
 
 void CTitle::Draw()
@@ -44,6 +41,4 @@ void CTitle::Finalize()
 {
 	m_BackGround.Delete();
 	m_RogoSprite.Delete();
-
-	m_GameSoundClass->Stop(SOUND_ID::TITLE);
 }
