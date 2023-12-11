@@ -20,6 +20,8 @@ public:
 	void SlowAct(CPlayer* player);
 
 	void JumpAct(CPlayer* player);
+
+	void MudAct(CPlayer* player);
 	
 private:
 	static const int alpha_cnt;
