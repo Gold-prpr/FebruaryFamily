@@ -3,4 +3,5 @@
 enum class EFFECT_ID
 {
 	SPEEDDOWN,
+	PLAYERSTUN,
 };

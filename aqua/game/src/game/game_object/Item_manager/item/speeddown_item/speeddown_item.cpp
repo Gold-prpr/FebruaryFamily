@@ -12,6 +12,7 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 	:IItem(parent, "SpeedDownItem")
 	, m_pUnitManager(nullptr)
 	, m_pPlayer(nullptr)
+	, m_pSpeedDownEffect(nullptr)
 {
 }
 

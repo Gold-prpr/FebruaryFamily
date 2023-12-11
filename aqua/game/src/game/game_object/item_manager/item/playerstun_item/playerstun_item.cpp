@@ -1,12 +1,15 @@
 #include "playerstun_item.h"
 #include "../../../unit_manager/unit_manager.h"
 #include "../../../unit_manager/unit/player/player.h"
+#include "../../../effect_manager/effect_manager.h"
+#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
 //コンストラクタ
 CPlayerStunItem::CPlayerStunItem(aqua::IGameObject* parent)
 	: IItem(parent, "StunItem")
 	, m_pUnitManager(nullptr)
 	, m_pPlayer(nullptr)
+	, m_pPlayerStunEffect(nullptr)
 {
 }
 
@@ -15,6 +18,8 @@ void CPlayerStunItem::Initialize(aqua::controller::DEVICE_ID other_id)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 	m_pPlayer = m_pUnitManager->GetPlayer(other_id);
+
+	m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
 
 	m_EffectTimer.Setup(2.0f);
 
@@ -42,6 +47,10 @@ void CPlayerStunItem::PlayerStun()
 	m_EffectTimer.Reset();
 
 	m_ItemFlag = true;
+
+	m_pEffectManager = (CEffectManager*)aqua::FindGameObject("EffectManager");
+	m_pEffectManager->Create(EFFECT_ID::PLAYERSTUN, m_pPlayer->m_Position);
+
 
 	//アイテムを使っていたら
 	if (m_pPlayer != nullptr)

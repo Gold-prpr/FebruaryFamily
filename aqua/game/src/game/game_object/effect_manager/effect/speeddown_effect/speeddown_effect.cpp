@@ -24,7 +24,9 @@ void CSpeedDownEffect::Initialize(const aqua::CVector2& position)
 	m_SpeedDownEffectTimer.Setup(0.5f);
 
 	//色
-	m_SpeedDownEffectSprite.blend_mode = aqua::ALPHABLEND::ADD;
+	//m_SpeedDownEffectSprite.blend_mode = aqua::ALPHABLEND::ADD;
+
+	m_SpeedDownEffectSprite.color = aqua::CColor::BLUE;
 
 	IGameObject::Initialize();
 }
@@ -58,9 +60,8 @@ void CSpeedDownEffect::Update(void)
 		DeleteObject();
 	}
 
-
 	//エフェクト位置
-	m_SpeedDownEffectSprite.position.y += 100.0f * aqua::GetDeltaTime();
+	//m_SpeedDownEffectSprite.position.y += 100.0f * aqua::GetDeltaTime();
 	//m_SpeedDownEffectSprite.scale += aqua::CVector2::ONE * aqua::GetDeltaTime();
 
 	IGameObject::Update();
