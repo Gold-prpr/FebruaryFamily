@@ -24,8 +24,9 @@ void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id,aqua:
 	
 	m_SurfaceSprite.Create(surface);
 	m_SurfaceSprite.position = m_Position;
-	m_SurfaceSprite.rect.top = aqua::GetWindowSize().y / 2;
-	m_SurfaceSprite.rect.bottom = m_SurfaceSprite.rect.top + aqua::GetWindowSize().y / 2;
+
+	//m_SurfaceSprite.rect.top = aqua::GetWindowSize().y / 2;
+	//m_SurfaceSprite.rect.bottom = m_SurfaceSprite.rect.top + aqua::GetWindowSize().y / 2;
 
 	aqua::IGameObject::Initialize();
 }
@@ -46,8 +47,9 @@ void CCamera::Update()
 	m_Scroll.y = min(m_Scroll.y, 0.0f);
 	m_Scroll.y = max(m_Scroll.y, (float)aqua::GetWindowHeight() - m_pStage->GetMapHeight());
 
-	/*m_SurfaceSprite.position.x = m_Scroll.x;
-	
+	//m_SurfaceSprite.position.x = m_Scroll.x;
+
+	/*
 	m_SurfaceSprite.rect.top = (int)(aqua::GetWindowSize().y / 2 - m_Scroll.y + m_Position.y - aqua::GetWindowSize().y / 2 * (int)m_PlayerID);
 	m_SurfaceSprite.rect.bottom = m_SurfaceSprite.rect.top + aqua::GetWindowSize().y / 2;*/
 

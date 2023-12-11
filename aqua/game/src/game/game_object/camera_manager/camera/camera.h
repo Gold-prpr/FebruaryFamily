@@ -19,7 +19,7 @@ public:
 
 	//‰Šú‰»
 	void Initialize(aqua::CVector2 position, controller::DEVICE_ID id, aqua::CSurface& surface);
-
+	
 	//XV
 	void Update()override;
 

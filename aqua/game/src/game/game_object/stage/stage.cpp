@@ -1,6 +1,6 @@
 #include "stage.h"
 #include "stage_object/stage_object.h"
-#include "../unit_manager/unit/unit.h"
+#include "../unit_manager/unit_manager.h"
 #include "../unit_manager/unit/player/player.h"
 
 const int CStage::map_chip_size = CStageObject::GetObjectSize();
@@ -14,6 +14,7 @@ const float CStage::m_gravity = 1.0f;
 
 CStage::CStage(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "Stage")
+	, m_UnitManager(nullptr)
 {
 }
 
@@ -26,14 +27,31 @@ void CStage::Initialize(void)
 	Parse(file_name);
 
 	IGameObject::Initialize();
-}
 
-void CStage::Update(void)
-{
 	CStageObject* stage_object = nullptr;
 	stage_object = (CStageObject*)aqua::FindGameObject("StageObject");
 
 	m_GoalPos = stage_object->GoalPos();
+}
+
+void CStage::Update(void)
+{
+	if (!m_UnitManager)
+	{
+		m_UnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	}
+
+	
+
+	for (int i = 0; i <= (int)aqua::controller::DEVICE_ID::P2; i++)
+	{
+		CPlayer* player = m_UnitManager->GetPlayer((aqua::controller::DEVICE_ID)i);
+
+		for (auto& it : m_StageObject)
+		{
+
+		}
+	}
 
 	IGameObject::Update();
 }

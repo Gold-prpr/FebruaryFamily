@@ -22,22 +22,20 @@ void CCameraManager::Initialize(void)
 	m_Gimmick = (CGimmickAct*)aqua::FindGameObject("GimmickAct");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 
-	//m_Surface.Create((int)m_pStage->GetMapWidth(), (int)m_pStage->GetMapHeight());
-	m_Surface.Create((int)aqua::GetWindowWidth(), (int)aqua::GetWindowHeight() / 2.0f);
+	m_Surface.Create(aqua::GetWindowSize().x, aqua::GetWindowSize().y / 2);
 
 	for (int i = 0; i <= (int)aqua::controller::DEVICE_ID::P2; i++)
 	{
 		m_CameraClass.push_back(aqua::CreateGameObject<CCamera>(this));
 		
-		m_CameraClass[i]->Initialize(aqua::CVector2(0, aqua::GetWindowSize().y / 2 * i), (aqua::controller::DEVICE_ID)i, m_Surface);
+		m_CameraClass[i]->Initialize(aqua::CVector2(0, aqua::GetWindowSize().y / 2 * (i)), (aqua::controller::DEVICE_ID)i, m_Surface);
 	}
+
 }
 
 void CCameraManager::Update(void)
 {
-	m_Surface.Create((int)aqua::GetWindowWidth(), (int)aqua::GetWindowHeight() / 2.0f);
 	IGameObject::Update();
-	m_Surface.Delete();
 }
 
 void CCameraManager::Draw(void)
@@ -56,8 +54,6 @@ void CCameraManager::Draw(void)
 	m_Surface.End();
 
 	IGameObject::Draw();
-
-
 }
 
 void CCameraManager::Finalize(void)

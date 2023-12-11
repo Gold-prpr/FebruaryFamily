@@ -3,6 +3,7 @@
 #include "stage_object/stage_object.h"
 
 class CPlayer;
+class CUnitManager;
 class CStageObject;
 class IUnit;
 
@@ -90,5 +91,5 @@ private:
 	int m_MapTileX;
 	int m_MapTileY;
 
-	CPlayer* m_pPlayer;
+	CUnitManager* m_UnitManager;
 };
