@@ -17,9 +17,13 @@ CPlayerStunItem::CPlayerStunItem(aqua::IGameObject* parent)
 void CPlayerStunItem::Initialize(aqua::controller::DEVICE_ID other_id)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	m_pPlayer = m_pUnitManager->GetPlayer(other_id);
 
 	m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
+
+	if (other_id == DEVICE_ID::P1)
+		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
+	else
+		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P1);
 
 	m_EffectTimer.Setup(2.0f);
 
@@ -29,7 +33,7 @@ void CPlayerStunItem::Initialize(aqua::controller::DEVICE_ID other_id)
 //XV
 void CPlayerStunItem::Update()
 {
-	if (m_EffectTimer.Finished()&& m_ItemFlag ==true)
+	if (m_EffectTimer.Finished() && m_ItemFlag == true)
 		if (m_pPlayer != nullptr)
 		{
 			m_pPlayer->AddItemSpeed(1.0f);
