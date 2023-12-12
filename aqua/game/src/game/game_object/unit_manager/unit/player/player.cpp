@@ -119,6 +119,7 @@ void CPlayer::Update()
 		m_pGimmick->DamageAct(this);
 		m_pGimmick->SlowAct(this);
 		m_pGimmick->JumpAct(this);
+		m_pGimmick->MudAct(this);
 	}
 
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
@@ -266,6 +267,8 @@ void CPlayer::CheckHitBlock(void)
 	{
 		m_KeyFlag = false;
 	}
+
+	
 	
 	if (m_LandingFlag == true)
 	{
@@ -318,6 +321,18 @@ void CPlayer::CheckHitBlock(void)
 		else
 		{
 			m_JampRampFlag = false;
+		}
+
+		if (m_pStage->CheckMud(x, ny)
+			|| m_pStage->CheckMud(x + w - 1, ny)
+			|| m_pStage->CheckMud(x, ny + h - 1)
+			|| m_pStage->CheckMud(x + w - 1, ny + h - 1))
+		{
+			m_MudFlag = true;
+		}
+		else
+		{
+			m_MudFlag = false;
 		}
 	}
 

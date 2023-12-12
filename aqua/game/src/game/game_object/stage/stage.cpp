@@ -202,6 +202,11 @@ bool CStage::CheckWire(int x, int y)
 	return CheckObject(x, y, StageObjectID::BARBED_WIRE);
 }
 
+bool CStage::CheckMud(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::MUD_TILE);
+}
+
 aqua::CVector2 CStage::GetGoalPos(void)
 {
 	return m_GoalPos;
