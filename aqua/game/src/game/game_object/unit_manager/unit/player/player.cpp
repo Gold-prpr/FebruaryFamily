@@ -145,9 +145,9 @@ void CPlayer::CheckHitBlock(void)
 	int x = (int)(m_Position.x);
 	int y = (int)(m_Position.y);
 	int nx = 0;
-	if(m_Velocity.x >= 0)
+	if (m_Velocity.x >= 0)
 		nx = (int)(m_Position.x + m_Velocity.x);
-	else if(m_Velocity.x <= 0)
+	else if (m_Velocity.x <= 0)
 	{
 		nx = (int)ceil(m_Position.x + m_Velocity.x);
 	}
@@ -264,7 +264,7 @@ void CPlayer::CheckHitBlock(void)
 	{
 		m_KeyFlag = false;
 	}
-	
+
 	if (m_LandingFlag == true)
 	{
 		// �����𒲂ׂău���b�N���Ȃ���Η���
@@ -331,6 +331,66 @@ DEVICE_ID CPlayer::GetDeviceID()
 
 void CPlayer::CreateItme(void)
 {
+}
+
+void CPlayer::UseItem(CPlayer* player)
+{
+	if ((Button(player->m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I)) && player->m_GetItemFlag == true)
+	{
+
+		if (m_pItemManager->m_ItemRand == 0)
+		{
+			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
+
+			m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
+			m_pSpeedDownItem->Initialize(player->m_Device);
+			m_pSpeedDownItem->SpeedDown();
+
+			player->m_GetItemFlag = false;
+		}
+		else
+		{
+			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
+
+			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
+			m_pStunItem->Initialize(player->m_Device);
+			m_pStunItem->PlayerStun();
+
+			player->m_GetItemFlag = false;
+		}
+
+		m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+		if (m_pItemIcon)
+			m_pItemIcon->DeleteItem(this);
+
+		/*else if (m_Device == DEVICE_ID::P2)
+		{
+			if (m_pItemManager->m_ItemRand == 0)
+			{
+				m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
+
+				m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
+				m_pSpeedDownItem->Initialize(DEVICE_ID::P1);
+				m_pSpeedDownItem->SpeedDown();
+
+				m_GetItemFlag = false;
+			}
+			else
+			{
+				m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
+
+				m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
+				m_pStunItem->Initialize(DEVICE_ID::P1);
+				m_pStunItem->PlayerStun();
+
+				m_GetItemFlag = false;
+			}
+
+			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+			if (m_pItemIcon)
+				m_pItemIcon->DeleteItem(this);
+		}*/
+	}
 }
 
 void CPlayer::Draw()
@@ -421,7 +481,7 @@ void CPlayer::State_Move()
 	m_Velocity.x = min_speed * input_x_value;
 
 	m_CharaSprite.anchor;
-	
+
 	m_Speed = max_speed + (m_AddKeySpeed + m_AddItemSpeed);
 
 	if (GameButton(GameKey::X, m_Device))
@@ -447,67 +507,7 @@ void CPlayer::State_Move()
 		Jump();
 	}
 
-
-	//if (m_GetItemFlag == true)
-	//{
-
-	//}
-	if ((Button(m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I)) && m_GetItemFlag == true)
-	{
-
-		if (m_Device == DEVICE_ID::P1)
-		{
-			if (m_pItemManager->m_ItemRand == 0)
-			{
-			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
-			m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
-			m_pSpeedDownItem->Initialize(DEVICE_ID::P2);
-
-			m_pSpeedDownItem->SpeedDown();
-			m_GetItemFlag = false;
-			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
-			}
-			else
-			{
-			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
-			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
-			m_pStunItem->Initialize(DEVICE_ID::P2);
-
-			m_pStunItem->PlayerStun();
-			m_GetItemFlag = false;
-			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
-			}
-
-			if (m_pItemIcon)
-				m_pItemIcon->DeleteItem(this);
-		}
-		else if (m_Device == DEVICE_ID::P2)
-		{
-			if (m_pItemManager->m_ItemRand == 0)
-			{
-			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
-			m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
-			m_pSpeedDownItem->Initialize(DEVICE_ID::P1);
-
-			m_pSpeedDownItem->SpeedDown();
-			m_GetItemFlag = false;
-			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
-			}
-			else
-			{
-			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
-			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
-			m_pStunItem->Initialize(DEVICE_ID::P1);
-
-			m_pStunItem->PlayerStun();
-			m_GetItemFlag = false;
-			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
-			}
-
-			if (m_pItemIcon)
-				m_pItemIcon->DeleteItem(this);
-		}
-	}
+	UseItem(this);
 
 	m_Velocity.x = m_Velocity.x * m_AddItemSpeed * m_AddGimmickSpeed;
 

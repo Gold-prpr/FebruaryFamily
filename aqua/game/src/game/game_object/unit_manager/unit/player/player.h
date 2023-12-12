@@ -80,6 +80,8 @@ public:
 
 	void CreateItme(void);
 
+	void UseItem(CPlayer* player);
+
 	bool m_HitSpikeFlag;
 
 	bool m_HitWireFlag;
