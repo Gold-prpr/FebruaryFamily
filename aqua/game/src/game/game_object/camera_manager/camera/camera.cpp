@@ -4,6 +4,7 @@
 #include "../../stage/stage.h"
 #include "../../stage/gimmick/gimmick.h"
 #include "../../Item_manager/item_manager.h"
+#include "../../effect_manager/effect_manager.h"
 
 CCamera::CCamera(IGameObject* parent)
 	:IGameObject(parent, "Camera")
@@ -12,6 +13,7 @@ CCamera::CCamera(IGameObject* parent)
 	, m_Gimmick(nullptr)
 	, m_pPlayer(nullptr)
 	, m_pStage(nullptr)
+	, m_pEffectManager(nullptr)
 {
 }
 
@@ -21,6 +23,7 @@ void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id)
 	m_ItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 	m_Gimmick = (CGimmickAct*)aqua::FindGameObject("GimmickAct");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
+	m_pEffectManager = (CEffectManager*)aqua::FindGameObject("EffectManager");
 
 	m_Position = position;
 
@@ -80,7 +83,7 @@ void CCamera::Draw()
 
 	m_SurfaceSprite.Draw();
 
-
+	m_pEffectManager->Draw();
 }
 
 void CCamera::Finalize()

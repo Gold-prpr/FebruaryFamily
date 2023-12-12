@@ -50,7 +50,7 @@ void CPlayerStunEffect::Update(void)
 	if (m_PlayerStunEffectSprite.color.alpha == 0)
 	{
 		m_PlayerStunEffectTimer.Reset();
-		m_PlayerStunEffectSprite.position = m_Position;
+		//m_PlayerStunEffectSprite.position = m_Position;
 	}
 
 	m_pPlayerStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
