@@ -58,17 +58,3 @@ void CGimmickAct::JumpAct(CPlayer* player)
 		player->Jump();
 	}
 }
-
-void CGimmickAct::MudAct(CPlayer* player)
-{
-	if (player->m_MudFlag == true)
-	{
-		player->AddGimmickSpeed(0.8f);
-
-		player->m_Position.y += 1;
-	}
-	else
-	{
-		player->AddGimmickSpeed(1.0f);
-	}
-}
