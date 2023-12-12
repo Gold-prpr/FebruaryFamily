@@ -14,6 +14,7 @@ const aqua::CVector2	CUiManager::m_ui_key_icon_position = aqua::CVector2(0.0f, 0
 const aqua::CVector2	CUiManager::m_ui_rank_icon_position = aqua::CVector2(0.0f, 0.0f);
 
 CUiManager::CUiManager(aqua::IGameObject* parent)
+	: aqua::IGameObject(parent, "UiManager")
 {
 }
 

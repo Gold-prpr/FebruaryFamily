@@ -70,7 +70,7 @@ void CItemIcon::Check(CPlayer* player)
 	}
 	else
 	{
-		//player->AddItemSpeed(0.0f);
+		player->AddItemSpeed(0.0f);
 	}
 	
 }

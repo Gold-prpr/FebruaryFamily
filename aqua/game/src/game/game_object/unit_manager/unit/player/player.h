@@ -13,7 +13,8 @@ class CItemIcon;
 class CStagePosBar;
 class CKeyIcon;
 class CCommonData;
-class CEffectManager;
+class CSpeedDownEffect;
+class CPlayerStunEffect;
 
 class CPlayer :public IUnit
 {
@@ -57,6 +58,8 @@ public:
 
 	//ダメージをくらった時の処理
 	void Damage(void);
+
+	void AddEffectItemSpeed(float add_effect_item_speed);
 
 	//アイテムを取った時のスピードの加算
 	void AddItemSpeed(float add_item_speed);
@@ -125,11 +128,14 @@ private:
 	CStagePosBar* m_pStageBar;
 	CKeyIcon* m_pKeyIcon;
 	CCommonData* m_pCommonData;
+	CSpeedDownEffect* m_pSpeedDownEffect;
+	CPlayerStunEffect* m_pPlayerStunEffect;
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 
 	float m_AddMaxSpeed;
 	float m_AddKeySpeed;//鍵を持ってる時のスピード
+	float m_AddEffectItemSpeed;
 	float m_AddItemSpeed;
 	float m_AddGimmickSpeed;
 	float m_Accelerator;//加速度]

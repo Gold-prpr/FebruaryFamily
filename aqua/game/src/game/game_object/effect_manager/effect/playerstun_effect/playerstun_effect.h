@@ -24,8 +24,8 @@ public:
 	//‰ð•ú
 	void Finalize(void) override;
 
-private:
 	aqua::CSprite		m_PlayerStunEffectSprite;	//‚­‚ç‚Á‚Ä‚¢‚éƒLƒƒƒ‰‚ÌˆÊ’u
+private:
 	aqua::CTimer        m_PlayerStunEffectTimer;	//‚­‚ç‚Á‚Ä‚¢‚éŽžŠÔ
 
 	CPlayerStunItem* m_pPlayerStunItem;

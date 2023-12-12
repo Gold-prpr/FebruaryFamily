@@ -23,8 +23,8 @@ public:
 
 	//‰ð•ú
 	void Finalize(void) override;
-private:
 	aqua::CSprite		m_SpeedDownEffectSprite;	//‚­‚ç‚Á‚Ä‚¢‚éƒLƒƒƒ‰‚ÌˆÊ’u
+private:
 
 	aqua::CTimer        m_SpeedDownEffectTimer;		//‚­‚ç‚Á‚Ä‚¢‚éŽžŠÔ
 

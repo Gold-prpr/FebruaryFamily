@@ -12,6 +12,8 @@
 #include "../../../ui_manager/ui_component/stage_pos_bar/stage_pos_bar.h"
 #include "../../../ui_manager/ui_component/key_icon/key_icon.h"
 #include "../../../common_data/common_data.h"
+#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
+#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
 using namespace GameInputManager;
 
@@ -36,6 +38,8 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pStunItem(nullptr)
 	, m_pItemIcon(nullptr)
 	, m_pCommonData(nullptr)
+	, m_pSpeedDownEffect(nullptr)
+	, m_pPlayerStunEffect(nullptr)
 	, m_State(STATE::START)
 	, m_Device(DEVICE_ID::P1)
 {
@@ -74,6 +78,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_AddMaxSpeed = 0.0f;
 	m_AddKeySpeed = 0.0f;
 	m_AddItemSpeed = 1.0f;
+	m_AddEffectItemSpeed = 1.0f;
 	m_AddGimmickSpeed = 1.0f;
 
 	m_HitItemFlag = false;
@@ -157,6 +162,17 @@ void CPlayer::CheckHitBlock(void)
 	int w = (int)m_Width;
 	int h = (int)m_Height;
 	int size = 60;
+
+	m_pSpeedDownEffect = (CSpeedDownEffect*)aqua::FindGameObject("SpeedDownEffect");
+	if (m_pSpeedDownEffect)
+	{
+		m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = m_Position;
+	}
+	m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
+	if (m_pPlayerStunEffect)
+	{
+		m_pPlayerStunEffect->m_PlayerStunEffectSprite.position = m_Position;
+	}
 
 	if (m_pStage->CheckObject(nx, y)
 		|| m_pStage->CheckObject(nx + w - 1, y)
@@ -439,6 +455,11 @@ void CPlayer::Damage(void)
 	m_State = STATE::DEAD;
 }
 
+void CPlayer::AddEffectItemSpeed(float add_effect_item_speed)
+{
+	m_AddEffectItemSpeed = add_effect_item_speed;
+}
+
 //�X�s�[�h�̉��Z
 void CPlayer::AddItemSpeed(float add_itme_speed)
 {
@@ -522,7 +543,7 @@ void CPlayer::State_Move()
 
 	UseItem(this);
 
-	m_Velocity.x = m_Velocity.x * m_AddItemSpeed * m_AddGimmickSpeed;
+	m_Velocity.x = m_Velocity.x * m_AddEffectItemSpeed * m_AddGimmickSpeed;
 
 	if (m_Velocity.x >= 6.0f && -6.0f >= m_Velocity.x)
 	{
