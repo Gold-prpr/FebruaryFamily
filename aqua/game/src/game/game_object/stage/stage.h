@@ -65,8 +65,6 @@ public:
 	//—Lh“Sü”»’è
 	bool CheckWire(int x, int y);
 
-	bool CheckMud(int x, int y);
-
 	aqua::CVector2 GetGoalPos(void);
 
 	aqua::CVector2 m_Scroll;

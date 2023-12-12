@@ -336,17 +336,6 @@ void CPlayer::CheckHitBlock(void)
 			m_JampRampFlag = false;
 		}
 
-		if (m_pStage->CheckMud(x, ny)
-			|| m_pStage->CheckMud(x + w - 1, ny)
-			|| m_pStage->CheckMud(x, ny + h - 1)
-			|| m_pStage->CheckMud(x + w - 1, ny + h - 1))
-		{
-			m_MudFlag = true;
-		}
-		else
-		{
-			m_MudFlag = false;
-		}
 	}
 
 	// �ʒu�̌���

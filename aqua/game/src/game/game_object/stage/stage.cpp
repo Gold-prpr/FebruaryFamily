@@ -19,7 +19,7 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data15.csv";
+	std::string file_name = "data\\scene\\game\\map_data8.csv";
 
 	m_GoalPos = aqua::CVector2::ZERO;
 
@@ -200,11 +200,6 @@ bool CStage::CheckKey(int x, int y)
 bool CStage::CheckWire(int x, int y)
 {
 	return CheckObject(x, y, StageObjectID::BARBED_WIRE);
-}
-
-bool CStage::CheckMud(int x, int y)
-{
-	return CheckObject(x, y, StageObjectID::MUD_TILE);
 }
 
 aqua::CVector2 CStage::GetGoalPos(void)

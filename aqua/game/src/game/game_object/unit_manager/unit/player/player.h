@@ -101,8 +101,6 @@ public:
 
 	bool m_KeyFlag;
 
-	bool m_MudFlag;
-
 	//aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 	aqua::CSprite m_CharaSprite;
 
