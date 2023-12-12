@@ -124,7 +124,7 @@ void CPlayer::Update()
 		m_pGimmick->DamageAct(this);
 		m_pGimmick->SlowAct(this);
 		m_pGimmick->JumpAct(this);
-		m_pGimmick->MudAct(this);
+		//m_pGimmick->MudAct(this);
 	}
 
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
@@ -541,9 +541,11 @@ void CPlayer::State_Move()
 		Jump();
 	}
 
-	UseItem(this);
+	
 
 	m_Velocity.x = m_Velocity.x * m_AddEffectItemSpeed * m_AddGimmickSpeed;
+
+	UseItem(this);
 
 	if (m_Velocity.x >= 6.0f && -6.0f >= m_Velocity.x)
 	{

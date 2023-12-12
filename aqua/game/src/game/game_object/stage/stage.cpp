@@ -19,7 +19,7 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data8.csv";
+	std::string file_name = "data\\scene\\game\\map_data15.csv";
 
 	m_GoalPos = aqua::CVector2::ZERO;
 
