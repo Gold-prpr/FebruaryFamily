@@ -391,34 +391,6 @@ void CPlayer::UseItem(CPlayer* player)
 		m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
 		if (m_pItemIcon)
 			m_pItemIcon->DeleteItem(this);
-
-		/*else if (m_Device == DEVICE_ID::P2)
-		{
-			if (m_pItemManager->m_ItemRand == 0)
-			{
-				m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
-
-				m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
-				m_pSpeedDownItem->Initialize(DEVICE_ID::P1);
-				m_pSpeedDownItem->SpeedDown();
-
-				m_GetItemFlag = false;
-			}
-			else
-			{
-				m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
-
-				m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
-				m_pStunItem->Initialize(DEVICE_ID::P1);
-				m_pStunItem->PlayerStun();
-
-				m_GetItemFlag = false;
-			}
-
-			m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
-			if (m_pItemIcon)
-				m_pItemIcon->DeleteItem(this);
-		}*/
 	}
 }
 
@@ -554,6 +526,7 @@ void CPlayer::State_Move()
 
 void CPlayer::State_Dead()
 {
+	//hayakuyare
 }
 
 void CPlayer::State_Goal()
