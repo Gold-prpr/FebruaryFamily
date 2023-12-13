@@ -5,6 +5,7 @@
 class CPlayer;
 class CStageObject;
 class IUnit;
+class CCommonData;
 
 class CStage
 	: public aqua::IGameObject
@@ -65,8 +66,6 @@ public:
 	//óLéhìSê¸îªíË
 	bool CheckWire(int x, int y);
 
-	bool CheckMud(int x, int y);
-
 	aqua::CVector2 GetGoalPos(void);
 
 	aqua::CVector2 m_Scroll;
@@ -93,4 +92,6 @@ private:
 	int m_MapTileY;
 
 	CPlayer* m_pPlayer;
+
+	CCommonData* m_CommonData;
 };
