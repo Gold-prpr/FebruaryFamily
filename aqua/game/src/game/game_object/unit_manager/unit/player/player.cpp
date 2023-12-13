@@ -118,6 +118,17 @@ void CPlayer::Update()
 
 	m_CharaSprite.position = m_Position;// +m_pCamera->GetScroll(m_Device);//�J�����̃X�N���[��
 
+	m_pSpeedDownEffect = (CSpeedDownEffect*)aqua::FindGameObject("SpeedDownEffect");
+	if (m_pSpeedDownEffect)
+	{
+		m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = m_Position;
+	}
+	m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
+	if (m_pPlayerStunEffect)
+	{
+		m_pPlayerStunEffect->m_PlayerStunEffectSprite.position = m_Position;
+	}
+
 	m_pGimmick = (CGimmickAct*)aqua::FindGameObject("GimmickAct");
 	if (m_pGimmick)
 	{
@@ -162,17 +173,6 @@ void CPlayer::CheckHitBlock(void)
 	int w = (int)m_Width;
 	int h = (int)m_Height;
 	int size = 60;
-
-	m_pSpeedDownEffect = (CSpeedDownEffect*)aqua::FindGameObject("SpeedDownEffect");
-	if (m_pSpeedDownEffect)
-	{
-		m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = m_Position;
-	}
-	m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
-	if (m_pPlayerStunEffect)
-	{
-		m_pPlayerStunEffect->m_PlayerStunEffectSprite.position = m_Position;
-	}
 
 	if (m_pStage->CheckObject(nx, y)
 		|| m_pStage->CheckObject(nx + w - 1, y)

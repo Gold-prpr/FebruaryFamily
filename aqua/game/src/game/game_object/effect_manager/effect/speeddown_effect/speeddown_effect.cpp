@@ -50,7 +50,7 @@ void CSpeedDownEffect::Update(void)
 	if (m_SpeedDownEffectSprite.color.alpha == 0)
 	{
 		m_SpeedDownEffectTimer.Reset();
-		m_SpeedDownEffectSprite.position = m_Position;
+		//m_SpeedDownEffectSprite.position = m_Position;
 	}
 
 	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
