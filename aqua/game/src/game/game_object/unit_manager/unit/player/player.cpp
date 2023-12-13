@@ -153,7 +153,18 @@ void CPlayer::Update()
 		m_pKeyIcon->AddKeyCount(this);
 	}
 
+	m_pSpeedDownEffect = (CSpeedDownEffect*)aqua::FindGameObject("SpeedDownEffect");
+	if (m_pSpeedDownEffect)
+	{
+		m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = m_Position;
+	}
+	m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
+	if (m_pPlayerStunEffect)
+	{
+		m_pPlayerStunEffect->m_PlayerStunEffectSprite.position = m_Position;
+	}
 
+	
 	IGameObject::Update();
 }
 
@@ -408,6 +419,18 @@ void CPlayer::UseItem(CPlayer* player)
 			if (m_pItemIcon)
 				m_pItemIcon->DeleteItem(this);
 		}*/
+
+		//m_pSpeedDownEffect = (CSpeedDownEffect*)aqua::FindGameObject("SpeedDownEffect");
+		//if (m_pSpeedDownEffect)
+		//{
+		//	m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = player->m_Position - m_pCamera->GetScroll(player->m_Device);
+		//}
+		//m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
+		//if (m_pPlayerStunEffect)
+		//{
+		//	m_pPlayerStunEffect->m_PlayerStunEffectSprite.position = player->m_Position - m_pCamera->GetScroll(player->m_Device);
+		//}
+
 	}
 }
 
@@ -489,8 +512,6 @@ void CPlayer::State_Start()
 //��������
 void CPlayer::State_Move()
 {
-
-
 	float input_x_value = 0.0f;
 	float input_move = GetHorizotal(m_Device);
 

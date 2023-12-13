@@ -8,6 +8,9 @@ class CItemManager;
 class CGimmickAct;
 class CPlayer;
 class CStage;
+class CEffectManager;
+//class CSpeedDownEffect;
+//class CPlayerStunEffect;
 
 class CCamera
 	:public aqua::IGameObject
@@ -41,6 +44,8 @@ private:
 	CGimmickAct*		m_Gimmick;
 	CPlayer*		m_pPlayer;
 	CStage*			m_pStage;
+	CEffectManager* m_pEffectManager;
+
 
 	controller::DEVICE_ID m_PlayerID;
 
