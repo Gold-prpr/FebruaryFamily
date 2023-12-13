@@ -58,8 +58,7 @@ void CItemManager::RandPick(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true)
 	{
-		m_ItemRand = 0;
-		//m_ItemRand = rand() % m_item;
+		m_ItemRand = rand() % m_item;
 
 		switch (m_ItemRand)
 		{

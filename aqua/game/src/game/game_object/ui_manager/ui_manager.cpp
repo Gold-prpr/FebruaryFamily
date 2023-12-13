@@ -50,7 +50,6 @@ void CUiManager::Create(void)
 
 	itemicon->Initialize(m_ui_item_icon_position);
 
-
 	CEffectIcon* effecticon = aqua::CreateGameObject<CEffectIcon>(this);
 
 	effecticon->Initialize(m_ui_effect_icon_position);

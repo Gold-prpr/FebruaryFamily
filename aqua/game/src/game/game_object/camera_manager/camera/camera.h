@@ -44,7 +44,7 @@ private:
 	CGimmickAct*		m_Gimmick;
 	CPlayer*		m_pPlayer;
 	CStage*			m_pStage;
-	CEffectManager* m_pEffectManager;
+	//CEffectManager* m_pEffectManager;
 
 
 	controller::DEVICE_ID m_PlayerID;

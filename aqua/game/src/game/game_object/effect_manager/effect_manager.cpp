@@ -8,26 +8,6 @@ CEffectManager::CEffectManager(aqua::IGameObject* parent)
 {
 }
 
-void CEffectManager::Initialize()
-{
-	IGameObject::Initialize();
-}
-
-void CEffectManager::Update()
-{
-	IGameObject::Update();
-}
-
-void CEffectManager::Draw()
-{
-	IGameObject::Draw();
-}
-
-void CEffectManager::Finalize()
-{
-	IGameObject::Finalize();
-}
-
 //ê∂ê¨
 void CEffectManager::Create(EFFECT_ID id, const aqua::CVector2& position)
 {

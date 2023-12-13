@@ -32,7 +32,7 @@ void CGameMain::Initialize()
 	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);
 
 	aqua::CreateGameObject<CUiManager>(this);
-	aqua::CreateGameObject<CEffectManager>(this);
+	//aqua::CreateGameObject<CEffectManager>(this);
 
 
 	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");

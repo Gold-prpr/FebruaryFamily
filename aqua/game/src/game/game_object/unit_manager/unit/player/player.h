@@ -13,8 +13,9 @@ class CItemIcon;
 class CStagePosBar;
 class CKeyIcon;
 class CCommonData;
-class CSpeedDownEffect;
-class CPlayerStunEffect;
+class CEffectIcon;
+//class CSpeedDownEffect;
+//class CPlayerStunEffect;
 
 class CPlayer :public IUnit
 {
@@ -85,6 +86,8 @@ public:
 
 	void UseItem(CPlayer* player);
 
+	//void EffectPosition(CPlayer* player);
+
 	bool m_HitSpikeFlag;
 
 	bool m_HitWireFlag;
@@ -126,8 +129,9 @@ private:
 	CStagePosBar* m_pStageBar;
 	CKeyIcon* m_pKeyIcon;
 	CCommonData* m_pCommonData;
-	CSpeedDownEffect* m_pSpeedDownEffect;
-	CPlayerStunEffect* m_pPlayerStunEffect;
+	CEffectIcon* m_pEffectIcon;
+	//CSpeedDownEffect* m_pSpeedDownEffect;
+	//CPlayerStunEffect* m_pPlayerStunEffect;
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 

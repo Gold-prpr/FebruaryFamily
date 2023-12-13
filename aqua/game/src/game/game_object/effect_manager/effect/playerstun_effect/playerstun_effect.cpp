@@ -18,7 +18,7 @@ void CPlayerStunEffect::Initialize(const aqua::CVector2& position)
 	m_PlayerStunEffectSprite.anchor.y = m_PlayerStunEffectSprite.GetTextureHeight() / 2.0f;
 
 	//åıÇÈà íu
-	m_PlayerStunEffectSprite.position = m_Position;
+	//m_PlayerStunEffectSprite.position = m_Position;
 
 	//è¡Ç¶ÇÈÇ‹Ç≈ÇÃéûä‘
 	m_PlayerStunEffectTimer.Setup(0.5f);
