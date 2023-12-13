@@ -5,6 +5,7 @@
 class CPlayer;
 class CStageObject;
 class IUnit;
+class CCommonData;
 
 class CStage
 	: public aqua::IGameObject
@@ -91,4 +92,6 @@ private:
 	int m_MapTileY;
 
 	CPlayer* m_pPlayer;
+
+	CCommonData* m_CommonData;
 };
