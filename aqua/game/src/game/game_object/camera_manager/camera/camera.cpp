@@ -12,14 +12,13 @@ CCamera::CCamera(IGameObject* parent)
 	, m_Gimmick(nullptr)
 	, m_pPlayer(nullptr)
 	, m_pStage(nullptr)
+	, m_Surface(nullptr)
 {
 }
 
-void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id)
+void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id, aqua::CSurface* surface)
 {
 	m_UnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
-	m_ItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
-	m_Gimmick = (CGimmickAct*)aqua::FindGameObject("GimmickAct");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 
 	m_Position = position;
@@ -28,9 +27,12 @@ void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id)
 
 	m_pPlayer = m_UnitManager->GetPlayer(m_PlayerID);
 
-	m_Surface.Create((int)m_pStage->GetMapWidth(), (int)m_pStage->GetMapHeight());
+	m_Surface = surface;
 
-	m_SurfaceSprite.Create(m_Surface);
+	//m_Surface.Create((int)m_pStage->GetMapWidth(), (int)m_pStage->GetMapHeight());
+	//m_Surface.Create(aqua::GetWindowSize().x, aqua::GetWindowSize().y);
+
+	m_SurfaceSprite.Create(*m_Surface);
 	m_SurfaceSprite.position = m_Position;
 	m_SurfaceSprite.rect.top = aqua::GetWindowSize().y / 2;
 	m_SurfaceSprite.rect.bottom = m_SurfaceSprite.rect.top + aqua::GetWindowSize().y / 2;
@@ -40,11 +42,20 @@ void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id)
 
 void CCamera::Update()
 {
+	if (m_SurfaceSprite.GetResourceHandle() == -1 && m_Surface)
+	{
+		//m_Surface.Create(aqua::GetWindowSize().x, aqua::GetWindowSize().y);
+		//m_Surface.Create((int)m_pStage->GetMapWidth(), (int)m_pStage->GetMapHeight());
+		m_SurfaceSprite.Create(*m_Surface);
+
+		m_SurfaceSprite.position = m_Position;
+	}
+
 	aqua::CVector2
 		target = aqua::CVector2((float)aqua::GetWindowWidth(),
 			(float)aqua::GetWindowHeight()) / 2.0f - m_pPlayer->GetPosition();
 
-	target.y += 200.0f ;
+	target.y += 200.0f;
 
 	m_Scroll += (target - m_Scroll) * 0.1f;
 
@@ -60,32 +71,17 @@ void CCamera::Update()
 	m_SurfaceSprite.rect.bottom = m_SurfaceSprite.rect.top + aqua::GetWindowSize().y / 2;
 
 	aqua::IGameObject::Update();
-
 }
 
 void CCamera::Draw()
 {
-	m_Surface.Begin();
-
-	aqua::Clear(0xff808080);
-
-	m_pStage->Draw();
-
-	m_ItemManager->Draw();
-	m_Gimmick->Draw();
-
-	m_UnitManager->Draw();
-
-	m_Surface.End();
-
 	m_SurfaceSprite.Draw();
 
-
+	m_SurfaceSprite.Delete();
 }
 
 void CCamera::Finalize()
 {
-	m_Surface.Delete();
 	m_SurfaceSprite.Delete();
 }
 

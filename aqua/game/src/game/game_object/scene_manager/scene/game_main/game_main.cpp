@@ -11,6 +11,7 @@
 CGameMain::CGameMain(aqua::IGameObject* parent)
 	:IScene(parent, "GameMain", SCENE_ID::RESULT, CHANGE_SCENE_ID::FADE)
 	, m_pUnitManager(nullptr)
+	, m_pUiManager(nullptr)
 {
 }
 
@@ -29,10 +30,7 @@ void CGameMain::Initialize()
 
 	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);
 
-	aqua::CreateGameObject<CUiManager>(this);
-
-
-	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	m_pUiManager = aqua::CreateGameObject<CUiManager>(this);
 
 	IScene::Initialize();
 }
@@ -56,7 +54,7 @@ void CGameMain::Update()
 void CGameMain::Draw()
 {
 	m_pCameraManager->Draw();
-	IScene::Draw();
+	m_pUiManager->Draw();
 }
 
 void CGameMain::Finalize()
