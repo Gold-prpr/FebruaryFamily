@@ -33,7 +33,7 @@ public:
 	void EffectCheck(CPlayer* player);
 
 	//プレイヤーの効果が切れたら
-	void DeleteEffect(CPlayer* player);
+	void DeleteEffect(void);
 
 private:
 	aqua::CSprite		m_1PEffectIconSprite;	//1Pアイテム枠

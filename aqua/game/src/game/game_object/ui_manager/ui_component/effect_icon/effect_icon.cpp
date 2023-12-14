@@ -15,8 +15,8 @@ void CEffectIcon::Initialize(const aqua::CVector2& position)
 	//アイテムマネージャーの中身を読み込む
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 
-	m_1PEffectIconSprite.position = m_Position + aqua::CVector2{ aqua::GetWindowWidth() - 100.0f, 0.0f };
-	m_2PEffectIconSprite.position = m_Position + aqua::CVector2{ aqua::GetWindowWidth() - 100.0f, aqua::GetWindowHeight() / 2.0f };
+	m_1PEffectIconSprite.position = m_Position + aqua::CVector2{ aqua::GetWindowWidth() - 150.0f, 0.0f };
+	m_2PEffectIconSprite.position = m_Position + aqua::CVector2{ aqua::GetWindowWidth() - 150.0f, aqua::GetWindowHeight() / 2.0f };
 
 	IUiComponent::Initialize(position);
 	IGameObject::Initialize();
@@ -46,21 +46,29 @@ void CEffectIcon::Finalize(void)
 //プレイヤーがアイテム使ったら
 void CEffectIcon::EffectCheck(CPlayer* player)
 {
+	if (m_pItemManager->m_ItemRand == 0)
+	{
+		if (player->GetDeviceID() == DEVICE_ID::P1)
+			m_2PEffectIconSprite.Create("data\\speeddowneffecticon.png");
+		else
+			m_1PEffectIconSprite.Create("data\\speeddowneffecticon.png");
+	}
+	 
 	if (m_pItemManager->m_ItemRand == 1)
 	{
 		if (player->GetDeviceID() == DEVICE_ID::P1)
-			m_1PEffectIconSprite.Create("data\\speeddown.png");
+			m_2PEffectIconSprite.Create("data\\playerstuneffecticon.png");
 		else
-			m_2PEffectIconSprite.Create("data\\speeddown.png");
+			m_1PEffectIconSprite.Create("data\\playerstuneffecticon.png");
 	}
 
 }
 
 //プレイヤーの効果が切れたら
-void CEffectIcon::DeleteEffect(CPlayer* player)
+void CEffectIcon::DeleteEffect()
 {
-	if (player->GetDeviceID() == DEVICE_ID::P1)
-		m_1PEffectIconSprite.Delete();
-	else
+	if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
 		m_2PEffectIconSprite.Delete();
+	else
+		m_1PEffectIconSprite.Delete();
 }

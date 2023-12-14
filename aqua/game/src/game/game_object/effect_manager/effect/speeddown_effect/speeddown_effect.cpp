@@ -17,8 +17,8 @@ void CSpeedDownEffect::Initialize(const aqua::CVector2& position)
 	m_SpeedDownEffectSprite.anchor.x = m_SpeedDownEffectSprite.GetTextureWidth() / 2.0f;
 	m_SpeedDownEffectSprite.anchor.y = m_SpeedDownEffectSprite.GetTextureHeight() / 2.0f;
 
-	//åıÇÈà íu
-	m_SpeedDownEffectSprite.position = m_Position;
+	////åıÇÈà íu
+	//m_SpeedDownEffectSprite.position = m_Position;
 
 	//è¡Ç¶ÇÈÇ‹Ç≈ÇÃéûä‘
 	m_SpeedDownEffectTimer.Setup(0.5f);
@@ -50,7 +50,7 @@ void CSpeedDownEffect::Update(void)
 	if (m_SpeedDownEffectSprite.color.alpha == 0)
 	{
 		m_SpeedDownEffectTimer.Reset();
-		m_SpeedDownEffectSprite.position = m_Position;
+		//m_SpeedDownEffectSprite.position = m_Position;
 	}
 
 	m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
