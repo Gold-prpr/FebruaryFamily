@@ -8,6 +8,7 @@ namespace keyboard = aqua::keyboard;
 namespace files = std::filesystem;
 
 const int CTileManager::m_tile_max_size = 60;
+const int CTileManager::m_max_field = 250;
 
 CTileManager::CTileManager(aqua::IGameObject* parent)
 	:IGameObject(parent, "TileManager")
@@ -327,8 +328,9 @@ void CTileManager::ReSize()
 	if (keyboard::Trigger(keyboard::KEY_ID::TAB))
 		m_ReSetSizeFlag = false;
 
-	if (keyboard::Trigger(keyboard::KEY_ID::RIGHT))
+	if (keyboard::Trigger(keyboard::KEY_ID::RIGHT) && m_TileCount.x < m_max_field)
 	{
+
 		for (int i = 0; i < m_TileCount.y; i++)
 		{
 			CTile* tile = nullptr;
@@ -344,7 +346,7 @@ void CTileManager::ReSize()
 
 		m_TileCount.x += keyboard::Trigger(keyboard::KEY_ID::RIGHT);
 	}
-	else if (keyboard::Trigger(keyboard::KEY_ID::LEFT))
+	else if (keyboard::Trigger(keyboard::KEY_ID::LEFT) && m_TileCount.x > 0)
 	{
 		auto tile_it = m_TileList.end();
 		bool flag = false;
@@ -392,7 +394,7 @@ void CTileManager::ReSize()
 
 	}
 
-	if (keyboard::Trigger(keyboard::KEY_ID::DOWN))
+	if (keyboard::Trigger(keyboard::KEY_ID::DOWN) && m_TileCount.y < m_max_field)
 	{
 		for (int i = 0; i < m_TileCount.x; i++)
 		{
@@ -407,7 +409,7 @@ void CTileManager::ReSize()
 
 		m_TileCount.y += keyboard::Trigger(keyboard::KEY_ID::DOWN);
 	}
-	else if (keyboard::Trigger(keyboard::KEY_ID::UP))
+	else if (keyboard::Trigger(keyboard::KEY_ID::UP) && m_TileCount.y > 0)
 	{
 		auto tile_it = m_TileList.end();
 		bool flag = false;
