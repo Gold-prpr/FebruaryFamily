@@ -402,7 +402,7 @@ void CPlayer::Draw()
 {
 	m_CharaSprite.Draw();//�L�����̕`��
 	IGameObject::Draw();
-	AQUA_DEBUG_LOG(std::to_string(m_Velocity.x));
+	//AQUA_DEBUG_LOG(std::to_string(m_Velocity.x));
 }
 
 void CPlayer::Finalize()
@@ -469,7 +469,7 @@ void CPlayer::Jump(void)
 //�J�n�̏��
 void CPlayer::State_Start()
 {
-	m_Position = aqua::CVector2(0.0f, 0.0f);
+	m_Position = aqua::CVector2(60.0f, 0.0f);
 	m_State = STATE::MOVE;
 }
 

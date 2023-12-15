@@ -53,6 +53,8 @@ void CSpeedDownItem::Update()
 				m_pEffectIcon->DeleteEffect();
 		}
 
+	//m_pEffectIcon->m_1PEffectIconSprite.rect.top = m_pEffectIcon->m_1PEffectIconSprite.GetTextureHeight()*(1.0f-)
+
 	m_EffectTimer.Update();
 	
 	IGameObject::Update();
