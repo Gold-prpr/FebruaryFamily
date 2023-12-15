@@ -26,7 +26,8 @@ private:
 	void ReSize();
 
 private:
-	static const int m_object_max_size;
+
+	static const int m_tile_max_size;
 
 	aqua::CPoint m_TileCount;
 	std::list<CTile*> m_TileList;

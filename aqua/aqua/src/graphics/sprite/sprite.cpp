@@ -64,6 +64,7 @@ Create( const CSurface& surface )
     rect.top    = 0;
     rect.right  = m_Texture.GetWidth( );
     rect.bottom = m_Texture.GetHeight( );
+
 }
 
 /*

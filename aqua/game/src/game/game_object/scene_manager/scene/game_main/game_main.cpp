@@ -7,11 +7,11 @@
 #include "../../../camera_manager/camera_manager.h"
 #include "../../../stage/gimmick/gimmick.h"
 #include "../../../ui_manager/ui_manager.h"
-#include "../../../effect_manager/effect_manager.h"
 
 CGameMain::CGameMain(aqua::IGameObject* parent)
 	:IScene(parent, "GameMain", SCENE_ID::RESULT, CHANGE_SCENE_ID::FADE)
 	, m_pUnitManager(nullptr)
+	, m_pUiManager(nullptr)
 {
 }
 
@@ -22,7 +22,6 @@ void CGameMain::Initialize()
 	aqua::CreateGameObject<CItemManager>(this);
 	m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
 
-
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P1);
 	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
 	m_pUnitManager->CreateUnit(UNIT_ID::SLIME, aqua::CVector2::ZERO,DEVICE_ID::MAX);
@@ -31,11 +30,7 @@ void CGameMain::Initialize()
 
 	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);
 
-	aqua::CreateGameObject<CUiManager>(this);
-	//aqua::CreateGameObject<CEffectManager>(this);
-
-
-	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+	m_pUiManager = aqua::CreateGameObject<CUiManager>(this);
 
 	IScene::Initialize();
 }
@@ -59,7 +54,7 @@ void CGameMain::Update()
 void CGameMain::Draw()
 {
 	m_pCameraManager->Draw();
-	IScene::Draw();
+	m_pUiManager->Draw();
 }
 
 void CGameMain::Finalize()

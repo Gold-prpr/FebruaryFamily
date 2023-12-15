@@ -23,7 +23,7 @@ public:
 	~CCamera() = default;
 
 	//èâä˙âª
-	void Initialize(aqua::CVector2 position, controller::DEVICE_ID id);
+	void Initialize(aqua::CVector2 position, controller::DEVICE_ID id,aqua::CSurface* surface);
 
 	//çXêV
 	void Update()override;
@@ -41,7 +41,7 @@ private:
 	
 	CUnitManager*	m_UnitManager;
 	CItemManager*	m_ItemManager;
-	CGimmickAct*		m_Gimmick;
+	CGimmickAct*	m_Gimmick;
 	CPlayer*		m_pPlayer;
 	CStage*			m_pStage;
 	//CEffectManager* m_pEffectManager;
@@ -49,7 +49,7 @@ private:
 
 	controller::DEVICE_ID m_PlayerID;
 
-	aqua::CSurface m_Surface;
+	aqua::CSurface* m_Surface;
 	aqua::CSprite  m_SurfaceSprite;
 	aqua::CVector2 m_Position;
 
