@@ -52,5 +52,6 @@ private:
 	std::string m_StageBackGroundName;
 	std::string m_LabelText;
 	std::string m_StageName;
+	std::string m_ObjectFileName;
 
 };

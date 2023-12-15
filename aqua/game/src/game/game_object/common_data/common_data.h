@@ -10,6 +10,8 @@ public:
 	{
 		std::string stage_name; // 生成するステージ名
 
+		std::string object_file; // 使用する素材画像
+
 		aqua::controller::DEVICE_ID m_device_id;
 	};
 
