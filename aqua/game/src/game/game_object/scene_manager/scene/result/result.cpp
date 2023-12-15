@@ -10,6 +10,9 @@ CResult::CResult(aqua::IGameObject* parent)
 
 void CResult::Initialize()
 {
+	IScene::Initialize();
+	m_GameSoundClass->Play(SOUND_ID::RESULT);
+
 	m_pCommonData = (CCommonData*)aqua::FindGameObject("CommonData");
 
 	int player = (int)(m_pCommonData->GetCommonDate().m_device_id) + 1;
@@ -41,4 +44,6 @@ void CResult::Draw()
 void CResult::Finalize()
 {
 	m_BackGround.Delete();
+
+	m_GameSoundClass->Stop(SOUND_ID::RESULT);
 }

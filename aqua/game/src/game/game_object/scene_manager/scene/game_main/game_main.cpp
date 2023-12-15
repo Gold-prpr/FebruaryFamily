@@ -17,6 +17,9 @@ CGameMain::CGameMain(aqua::IGameObject* parent)
 
 void CGameMain::Initialize()
 {
+	IScene::Initialize();
+	m_GameSoundClass->Play(SOUND_ID::GAME);
+
 	aqua::CreateGameObject<CStage>(this);
 
 	aqua::CreateGameObject<CItemManager>(this);
@@ -64,5 +67,6 @@ void CGameMain::Draw()
 
 void CGameMain::Finalize()
 {
+	m_GameSoundClass->Stop(SOUND_ID::GAME);
 	IScene::Finalize();
 }

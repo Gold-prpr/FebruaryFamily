@@ -1,6 +1,8 @@
 #pragma once
 #include "../scene.h"
 
+class CGameSound;
+
 class CTitle :
     public IScene
 {
