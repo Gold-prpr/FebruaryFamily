@@ -2,6 +2,7 @@
 
 enum class TileID
 {
+#if 0
 	AIR,
 	GRASS1_TILE,
 	GRASS2_TILE,
@@ -24,5 +25,21 @@ enum class TileID
 	START_FLAG,
 	SPIKE_BALL,
 	
+	MAX
+#endif
+	AIR,
+	GRASS1_TILE,
+	SAND1_TILE,
+	SAND2_TILE,
+	BRICK,
+	BOX,
+	GOAL_FLAG,
+	START_FLAG,
+	SPIKE_BALL,
+	BARBED_WIRE,
+	JAMP_RAMP,
+	DUSH_BROCK,
+	KEY,
+
 	MAX
 };

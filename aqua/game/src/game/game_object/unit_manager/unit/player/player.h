@@ -7,6 +7,12 @@ class CUnitManager;
 class CGimmickAct;
 class CSlime;
 class CItemManager;
+class CSpeedDownItem;
+class CPlayerStunItem;
+class CItemIcon;
+class CStagePosBar;
+class CKeyIcon;
+class CCommonData;
 
 class CPlayer :public IUnit
 {
@@ -19,13 +25,6 @@ private:
 		MOVE,
 		DEAD,
 		GOAL,
-	};
-
-	//キャラクターの向き
-	enum class CHARA_DIR : int
-	{
-		LEFT = -1,
-		RIGHT = 1,
 	};
 
 public:
@@ -59,7 +58,15 @@ public:
 	void Damage(void);
 
 	//アイテムを取った時のスピードの加算
-	void AddSpeed(float add_speed);
+	void AddItemSpeed(float add_item_speed);
+
+	void AddGimmickSpeed(float add_gimmick_speed);
+
+	void AddKeySpeed(float add_key_speed);
+
+	void AddMaxSpeed(float add_max_speed);
+
+	void Jump(void);
 
 	aqua::CVector2 GetSpeed(void) { return m_Velocity; }
 
@@ -70,15 +77,29 @@ public:
 
 	DEVICE_ID GetDeviceID();
 
-	bool m_HitFlag;
+	void CreateItme(void);
+
+	bool m_HitSpikeFlag;
+
+	bool m_HitWireFlag;
 
 	bool m_HitItemFlag;
 
+	bool m_GetItemFlag;
+
 	bool m_GoalFlag;
 
-	aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
+	bool m_JampRampFlag;
+
+	int m_KeyCount;
+
+	bool m_KeyFlag;
+
+	//aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
+	aqua::CSprite m_CharaSprite;
 
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
+
 private:
 
 	void State_Start();//開始の状態
@@ -87,17 +108,27 @@ private:
 	void State_Goal();//ゴールした状態
 
 	STATE m_State;//キャラの状態
-	CHARA_DIR m_DirNext;//キャラの次の向き
-	CHARA_DIR m_DirCurrent;//キャラの今の向き
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
 	CGimmickAct* m_pGimmick;//
 	CItemManager* m_pItemManager;
 	CSlime* m_pSlime;
+	CSpeedDownItem* m_pSpeedDownItem;
+	CPlayerStunItem* m_pStunItem;
+	CItemIcon* m_pItemIcon;
+	CStagePosBar* m_pStageBar;
+	CKeyIcon* m_pKeyIcon;
+	CCommonData* m_pCommonData;
 	
-	float m_AddSpeed;//スピード加算
-	float m_Accelerator;//加速度
+	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
+
+	float m_AddMaxSpeed;
+	float m_AddKeySpeed;//鍵を持ってる時のスピード
+	float m_AddItemSpeed;
+	float m_AddGimmickSpeed;
+	float m_Accelerator;//加速度]
+	float m_Speed;
 	int m_Timer;
 	static const float max_speed;//最高スピードの値
 	static const float min_speed;//最低スピードの値
@@ -108,5 +139,4 @@ private:
 	static const float dash;//ダッシュの値
 	static const int max_interval;
 	bool m_LandingFlag;//空中にいるときのフラグ
-
 };

@@ -1,0 +1,10 @@
+#pragma once
+#include "stage/stage.h"
+#include "unit_manager/unit_manager.h"
+#include "unit_manager/unit/player/player.h"
+#include "camera_manager/camera_manager.h"
+#include "item_manager/item_manager.h"
+#include "stage/stage_object/stage_object.h"
+#include "stage/gimmick/gimmick.h"
+#include "scene_manager/scene_manager.h"
+#include "input_manager/input_manager.h"

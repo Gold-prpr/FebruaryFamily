@@ -1,6 +1,8 @@
 #include "scene_manager.h"
 #include "scene/scene_channel.h"
 #include "change_scene/change_scecne_channel.h"
+#include "../common_data/common_data.h"
+#include "../game_sound/game_sound.h"
 
 CSceneManager::CSceneManager(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "SceneManager")
@@ -17,10 +19,13 @@ CSceneManager::CSceneManager(aqua::IGameObject* parent)
 */
 void CSceneManager::Initialize()
 {
-	m_SceneSurface.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
+	aqua::CreateGameObject<CCommonData>(this);
+	aqua::CreateGameObject<CGameSound>(this);
 
 	// ƒV[ƒ“‚Ì¶¬
 	CreateScene(m_NextSceneID);
+
+	aqua::IGameObject::Initialize();
 }
 
 /*
@@ -38,7 +43,7 @@ void CSceneManager::Update()
 
 		if (m_ChangeSceneClass->In())
 		{
-			DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
+			DeleteChildObject(&m_ChangeSceneClass,"ChangeScene");
 
 			// ŽŸ‚Ìó‘Ô‚ÉÝ’è
 			m_SceneState = SCENE_STATE::UPDATE;
@@ -77,7 +82,7 @@ void CSceneManager::Update()
 		{
 			m_SceneState = SCENE_STATE::SCENE_IN;
 
-			DeleteChildObject(&m_SceneClass, "Scene");
+			DeleteChildObject(&m_SceneClass,"Scene");
 		}
 
 		break;
@@ -105,11 +110,9 @@ void CSceneManager::Draw()
 */
 void CSceneManager::Finalize()
 {
-	DeleteChildObject(&m_SceneClass, "Scene");
+	DeleteChildObject(&m_SceneClass,"Scene");
 
-	DeleteChildObject(&m_ChangeSceneClass, "ChangeScene");
-
-	m_SceneSurface.Delete();
+	DeleteChildObject(&m_ChangeSceneClass,"ChangeScene");
 
 	aqua::IGameObject::Finalize();
 }
@@ -149,6 +152,8 @@ void CSceneManager::CreateScene(SCENE_ID scene_id)
 	}
 
 	m_SceneClass->Initialize();
+
+	m_SceneClass->Update();
 }
 
 /*

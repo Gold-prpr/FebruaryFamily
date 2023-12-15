@@ -1,34 +1,58 @@
 #include "stage.h"
-#include "../camera_manager/camera_manager.h"
 #include "stage_object/stage_object.h"
+#include "../unit_manager/unit_manager.h"
+#include "../unit_manager/unit/player/player.h"
 
-const int CStage::map_chip_size = 60;
+const int CStage::map_chip_size = CStageObject::GetObjectSize();
 
 const int CStage::num_chip_size_x = 5;
 const int CStage::num_chip_size_y = 1;
 
 const int CStage::all_num_chip = num_chip_size_x * num_chip_size_y;
 
-const float CStage::m_gravity = 0.98f;
+const float CStage::m_gravity = 1.0f;
 
 CStage::CStage(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "Stage")
+	, m_UnitManager(nullptr)
 {
 }
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data9.csv";
+	std::string file_name = "data\\scene\\game\\map_data8.csv";
+
+	m_GoalPos = aqua::CVector2::ZERO;
 
 	Parse(file_name);
 
-	m_CoolTime.Setup(3.0f);
-
 	IGameObject::Initialize();
+
+	CStageObject* stage_object = nullptr;
+	stage_object = (CStageObject*)aqua::FindGameObject("StageObject");
+
+	m_GoalPos = stage_object->GoalPos();
 }
 
 void CStage::Update(void)
 {
+	if (!m_UnitManager)
+	{
+		m_UnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	}
+
+	
+
+	for (int i = 0; i <= (int)aqua::controller::DEVICE_ID::P2; i++)
+	{
+		CPlayer* player = m_UnitManager->GetPlayer((aqua::controller::DEVICE_ID)i);
+
+		for (auto& it : m_StageObject)
+		{
+
+		}
+	}
+
 	IGameObject::Update();
 }
 
@@ -77,9 +101,10 @@ void CStage::Parse(const std::string& file_name)
 
 		stage_object = aqua::CreateGameObject<CStageObject>(this);
 
-		stage_object->Create(aqua::CVector2(loader.GetFloat(y, 1), loader.GetFloat(y, 2)), aqua::CVector2::ONE * map_chip_size);
+		StageObjectID id = (StageObjectID)loader.GetInteger(y, 0);
+		aqua::CVector2 pos = aqua::CVector2(loader.GetFloat(y, 1), loader.GetFloat(y, 2));
 
-		stage_object->stage_object_id = (StageObjectID)loader.GetInteger(y, 0);
+		stage_object->Create(id, pos);
 
 		m_StageObject.push_back(stage_object);
 
@@ -103,73 +128,99 @@ float CStage::GetGravity(void)
 	return m_gravity;
 }
 
-bool CStage::CheckHit(int x, int y)
+bool CStage::CheckObject(int x, int y, StageObjectID id)
 {
 	for (auto& stage_it : m_StageObject)
 	{
-		aqua::CVector2 pos = stage_it->GetPosition();
-
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			(int)stage_it->stage_object_id != (int)StageObjectID::AIR &&
-			(int)stage_it->stage_object_id == (int)StageObjectID::GRASS1_TILE)
+		if (stage_it->CheckObject(x, y, id))
 			return true;
 	}
-
 	return false;
 }
 
-int CStage::GetTileSize(void)
+bool CStage::CheckObject_Jamp(int x, int y, StageObjectID id)
 {
-	return map_chip_size;
+	for (auto& stage_it : m_StageObject)
+	{
+		if (stage_it->CheckObject(x, y, id))
+			return true;
+	}
+	return false;
+}
+
+bool CStage::CheckObject(int x, int y)
+{
+	if (CheckObject(x, y, StageObjectID::GRASS1_TILE) ||
+		CheckObject(x, y, StageObjectID::BRICK))
+		return true;
+	else
+		return false;
+}
+
+void CStage::ChangeAir(int x, int y, StageObjectID id)
+{
+	for (auto& stage_it : m_StageObject)
+	{
+		stage_it->ChangeAir(x, y, id);
+	}
+}
+
+bool CStage::CheckObject_Jamp(int x, int y)
+{
+	if (CheckObject_Jamp(x, y, StageObjectID::JAMP_RAMP))
+		return true;
+	else
+		return false;
 }
 
 bool CStage::CheckGoal(int x, int y)
 {
-	for (auto& stage_it : m_StageObject)
-	{
-		aqua::CVector2 pos = stage_it->GetPosition();
-
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			stage_it->stage_object_id == StageObjectID::GOAL_FLAG)
-			return true;
-	}
-
-	return false;
+	return CheckObject(x, y, StageObjectID::GOAL_FLAG);
 }
 
 bool CStage::CheckItem(int x, int y)
 {
-	for (auto& stage_it : m_StageObject)
+	if (CheckObject(x, y, StageObjectID::BOX))
 	{
-		aqua::CVector2 pos = stage_it->GetPosition();
-
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			stage_it->stage_object_id == StageObjectID::BOX)
-		{
-			stage_it->stage_object_id = StageObjectID::AIR;
-
-			return true;
-		}
-
+		ChangeAir(x, y, StageObjectID::BOX);
+		return true;
 	}
 
 	return false;
 }
 
-bool CStage::CheckGimmick(int x, int y)
+bool CStage::CheckSpike(int x, int y)
 {
-	for (auto& stage_it : m_StageObject)
-	{
-		aqua::CVector2 pos = stage_it->GetPosition();
+	return CheckObject(x, y, StageObjectID::SPIKE_BALL);
+}
 
-		if (pos.x <= x && pos.x + map_chip_size > x &&
-			pos.y <= y && pos.y + map_chip_size > y &&
-			stage_it->stage_object_id == StageObjectID::SPIKE_BALL)
-			return true;
+bool CStage::CheckJampRamp(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::JAMP_RAMP);
+}
+
+bool CStage::CheckDushBrock(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::DUSH_BROCK);
+}
+
+bool CStage::CheckKey(int x, int y)
+{
+	if (CheckObject(x, y, StageObjectID::KEY))
+	{
+		ChangeAir(x, y, StageObjectID::KEY);
+		return true;
 	}
 
 	return false;
+}
+
+bool CStage::CheckWire(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::BARBED_WIRE);
+}
+
+aqua::CVector2 CStage::GetGoalPos(void)
+{
+	return m_GoalPos;
 }
