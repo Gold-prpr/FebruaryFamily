@@ -68,7 +68,10 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 void CEffectIcon::DeleteEffect()
 {
 	if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
-		m_2PEffectIconSprite.Delete();
-	else
+	{
 		m_1PEffectIconSprite.Delete();
+		m_2PEffectIconSprite.Delete();
+	}
+	//else
+	//	m_1PEffectIconSprite.Delete();
 }
