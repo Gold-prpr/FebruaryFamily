@@ -2,70 +2,64 @@
 #include "../../../stage/stage.h"
 #include "../../../unit_manager/unit_manager.h"
 #include "../../../unit_manager/unit/player/player.h"
+#include "../../../unit_manager/unit/enemy/slime/slime.h"
 #include "../../../Item_manager/item_manager.h"
-#include "../../../camera/camera.h"
-#include "../../../stage/stage_object/gimmick.h"
+#include "../../../camera_manager/camera_manager.h"
+#include "../../../stage/gimmick/gimmick.h"
+#include "../../../ui_manager/ui_manager.h"
 
 CGameMain::CGameMain(aqua::IGameObject* parent)
-	:IScene(parent,"GameMain",SCENE_ID::RESULT,CHANGE_SCENE_ID::FADE)
-	, m_pPlayer(nullptr)
-	, m_pStage(nullptr)
+	:IScene(parent, "GameMain", SCENE_ID::RESULT, CHANGE_SCENE_ID::FADE)
 	, m_pUnitManager(nullptr)
 {
 }
 
 void CGameMain::Initialize()
 {
-	aqua::CreateGameObject<CCamera>(this);
-	m_pStage = aqua::CreateGameObject<CStage>(this);
+	aqua::CreateGameObject<CStage>(this);
+
 	m_pUnitManager = aqua::CreateGameObject<CUnitManager>(this);
-	m_pPlayer = (CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P1);
-	(CPlayer*)m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
+
+	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P1);
+	m_pUnitManager->CreateUnit(UNIT_ID::PLAYER, aqua::CVector2::ZERO, DEVICE_ID::P2);
+	m_pUnitManager->CreateUnit(UNIT_ID::SLIME, aqua::CVector2::ZERO,DEVICE_ID::MAX);
+
 	aqua::CreateGameObject<CItemManager>(this);
-	aqua::CreateGameObject<CGimmick>(this);
+	aqua::CreateGameObject<CGimmickAct>(this);
+
+	m_pCameraManager = aqua::CreateGameObject<CCameraManager>(this);
+
+	aqua::CreateGameObject<CUiManager>(this);
+
+	//m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
+
 
 	IScene::Initialize();
-
-	m_DivScreen.Create(aqua::GetWindowWidth(), aqua::GetWindowHeight());
-
-	m_P1Stage.Create(m_DivScreen);
-	m_P2Stage.Create(m_DivScreen);
-	m_P2Stage.position.y = aqua::GetWindowHeight() / 2.0f;
-
-	CharaCameraPos(&m_P1Stage, aqua::CVector2(0.0f, aqua::GetWindowHeight() / 2.0f));
-	CharaCameraPos(&m_P2Stage, aqua::CVector2(0.0f, aqua::GetWindowHeight() / 2.0f));
-
 }
 
 void CGameMain::Update()
 {
+	if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::L))
+		m_ChangeSceneFlag = true;
+
+	m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P1);
+	if (m_pPlayer->m_GoalFlag == true)
+		m_ChangeSceneFlag = true;
+	m_pPlayer = m_pUnitManager->GetPlayer(aqua::controller::DEVICE_ID::P2);
+	if (m_pPlayer->m_GoalFlag == true)
+		m_ChangeSceneFlag = true;
+
+
 	IScene::Update();
 }
 
-void CGameMain::CharaCameraPos(aqua::CSprite* cp, aqua::CVector2 pos)
-{
-	(*cp).rect.left = (int)pos.x;
-	(*cp).rect.top = (int)pos.y;
-	(*cp).rect.right = cp->rect.left + (int)aqua::GetWindowWidth();
-	(*cp).rect.bottom = cp->rect.top + (int)aqua::GetWindowHeight() / 2.0f;
-}
-
-
 void CGameMain::Draw()
 {
-	//1P用のステージ
-	m_DivScreen.Begin();
-	m_pStage->Draw();
-	m_pPlayer->Draw();
-	m_DivScreen.End();
-
-	m_P1Stage.Draw();
-	m_P2Stage.Draw();
+	m_pCameraManager->Draw();
+	IScene::Draw();
 }
 
 void CGameMain::Finalize()
 {
-	m_P1Stage.Delete();
-	m_P2Stage.Delete();
 	IScene::Finalize();
 }

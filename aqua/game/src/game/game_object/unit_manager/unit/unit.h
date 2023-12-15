@@ -6,6 +6,7 @@ using namespace aqua::controller;
 enum class UNIT_ID
 {
 	PLAYER,
+	SLIME,
 	MAX
 };
 
@@ -14,9 +15,9 @@ class IUnit :public aqua::IGameObject
 public:
 	IUnit(IGameObject* parent, const std::string& object_name);
 
-	virtual ~IUnit(void) = default;
+	~IUnit(void) = default;
 
-	virtual void Initialize(const aqua::CVector2& position,DEVICE_ID device ) = 0;
+	virtual void Initialize(const aqua::CVector2& position) = 0;
 
 	virtual void Update() = 0;
 
@@ -34,7 +35,8 @@ public:
 
 	UNIT_ID GetUnitID() { return m_UnitID; }
 
-	virtual void Damage(void) = 0;
+	virtual void SetDeviceID(DEVICE_ID device_id) = 0 { }
+
 
 	aqua::CVector2 m_Position;
 protected:

@@ -50,7 +50,7 @@ void CSceneManager::Update()
 		// çXêVèÛë‘
 	case SCENE_STATE::UPDATE:
 
-		if (aqua::keyboard::Trigger(aqua::keyboard::KEY_ID::RETURN))
+		if (m_SceneClass->GetChangeSceneFlag())
 		{
 			// éüÇÃèÛë‘Ç…ê›íË
 			m_SceneState = SCENE_STATE::SCENE_OUT;
@@ -126,6 +126,12 @@ void CSceneManager::CreateScene(SCENE_ID scene_id)
 	case SCENE_ID::TITLE:
 
 		m_SceneClass = aqua::CreateGameObject<CTitle>(this);
+
+		break;
+
+	case SCENE_ID::SELECT:
+
+		m_SceneClass = aqua::CreateGameObject<CSelect>(this);
 
 		break;
 

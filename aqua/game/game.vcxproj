@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -62,6 +62,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableSpecificWarnings>4099;4100;26812;6386;26451;6385;26495;</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -98,8 +99,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\game\game_object\camera\camera.cpp" />
     <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\game_object\camera_manager\camera\camera.cpp" />
+    <ClCompile Include="src\game\game_object\camera_manager\camera_manager.cpp" />
+    <ClCompile Include="src\game\game_object\common_data\common_data.cpp" />
+    <ClCompile Include="src\game\game_object\input_manager\input_manager.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item_manager.cpp" />
@@ -111,20 +115,30 @@
     <ClCompile Include="src\game\game_object\scene_manager\scene\game_main\game_main.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\result\result.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\scene.cpp" />
+    <ClCompile Include="src\game\game_object\scene_manager\scene\select\select.cpp" />
+    <ClCompile Include="src\game\game_object\scene_manager\scene\select\select_stage_box\select_stage_box.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene\title\title.cpp" />
     <ClCompile Include="src\game\game_object\scene_manager\scene_manager.cpp" />
+    <ClCompile Include="src\game\game_object\stage\gimmick\gimmick.cpp" />
     <ClCompile Include="src\game\game_object\stage\stage.cpp" />
-    <ClCompile Include="src\game\game_object\stage\stage_object\gimmick.cpp" />
-    <ClCompile Include="src\game\game_object\ui\ui.cpp" />
+    <ClCompile Include="src\game\game_object\stage\stage_object\stage_object.cpp" />
+    <ClCompile Include="src\game\game_object\ui_manager\ui_component\item_frame\item_frame.cpp" />
+    <ClCompile Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.cpp" />
+    <ClCompile Include="src\game\game_object\ui_manager\ui_component\ui_component.cpp" />
+    <ClCompile Include="src\game\game_object\ui_manager\ui_manager.cpp" />
+    <ClCompile Include="src\game\game_object\unit_manager\unit\enemy\slime\slime.cpp" />
     <ClCompile Include="src\game\game_object\unit_manager\unit\player\player.cpp" />
     <ClCompile Include="src\game\game_object\unit_manager\unit\unit.cpp" />
     <ClCompile Include="src\game\game_object\unit_manager\unit_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game\game_object\camera\camera.h" />
     <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\game\game_object\camera_manager\camera\camera.h" />
+    <ClInclude Include="src\game\game_object\camera_manager\camera_manager.h" />
+    <ClInclude Include="src\game\game_object\common_data\common_data.h" />
     <ClInclude Include="src\game\game_object\game_object.h" />
+    <ClInclude Include="src\game\game_object\input_manager\input_manager.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item_id.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.h" />
@@ -141,13 +155,21 @@
     <ClInclude Include="src\game\game_object\scene_manager\scene\scene.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene\scene_channel.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene\scene_id.h" />
+    <ClInclude Include="src\game\game_object\scene_manager\scene\select\select.h" />
+    <ClInclude Include="src\game\game_object\scene_manager\scene\select\select_stage_box\select_stage_box.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene\title\title.h" />
     <ClInclude Include="src\game\game_object\scene_manager\scene_manager.h" />
+    <ClInclude Include="src\game\game_object\stage\gimmick\gimmick.h" />
+    <ClInclude Include="src\game\game_object\stage\gimmick\gimmick_id.h" />
     <ClInclude Include="src\game\game_object\stage\stage.h" />
-    <ClInclude Include="src\game\game_object\stage\stage_object\gimmick.h" />
-    <ClInclude Include="src\game\game_object\stage\stage_object\gimmick_id.h" />
+    <ClInclude Include="src\game\game_object\stage\stage_object\stage_object.h" />
+    <ClInclude Include="src\game\game_object\stage\stage_object\stage_object_id.h" />
     <ClInclude Include="src\game\game_object\stage\tile_id.h" />
-    <ClInclude Include="src\game\game_object\ui\ui.h" />
+    <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_frame\item_frame.h" />
+    <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.h" />
+    <ClInclude Include="src\game\game_object\ui_manager\ui_component\ui_component.h" />
+    <ClInclude Include="src\game\game_object\ui_manager\ui_manager.h" />
+    <ClInclude Include="src\game\game_object\unit_manager\unit\enemy\slime\slime.h" />
     <ClInclude Include="src\game\game_object\unit_manager\unit\player\player.h" />
     <ClInclude Include="src\game\game_object\unit_manager\unit\unit.h" />
     <ClInclude Include="src\game\game_object\unit_manager\unit_manager.h" />

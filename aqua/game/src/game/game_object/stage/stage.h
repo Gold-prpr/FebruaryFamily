@@ -1,8 +1,8 @@
 #pragma once
 #include "aqua.h"
-#include "tile_id.h"
+#include "stage_object/stage_object_id.h"
 
-class CCamera;
+class CStageObject;
 
 class CStage
 	: public aqua::IGameObject
@@ -22,6 +22,9 @@ public:
 	void Draw(void);
 	//解放
 	void Finalize(void);
+
+	// スクロールの設定
+	void SetScroll(aqua::CVector2 scroll);
 
 	//CSV読み込み
 	void Parse(const std::string& file_name);
@@ -61,8 +64,6 @@ public:
 	////ゴール演出
 	void GoalMove(void);*/
 
-	aqua::CSprite* m_TileSprite;			//Tile描画
-
 	aqua::CVector2 m_Scroll;
 
 private:
@@ -73,20 +74,19 @@ private:
 
 	static const int all_num_chip;			//Tileの合計
 
-	static const int map_x;					//マップの横のタイルの数
-	static const int map_y;					//マップの縦のタイルの数
 
 	static const float m_gravity;			//重力
 
-	std::vector<int> m_MapData;
+	std::vector<CStageObject*> m_StageObject;
+
+	aqua::CSprite              m_BackGround;
 
 	aqua::CVector2 m_MapPos;
 
-	//aqua::CSprite m_background;				//背景
-	//aqua::CSprite m_goal;					//ゴール
+	int map_x;					//マップの横のタイルの数
+	int map_y;					//マップの縦のタイルの数
 
 	int m_MapTileX;
 	int m_MapTileY;
 
-	CCamera* m_pCamera;
 };
