@@ -18,8 +18,8 @@ void CItemIcon::Initialize(const aqua::CVector2& position)
 	//アイテムマネージャーの中身を読み込む
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 
-	m_1PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 70.0f };
-	m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 70.0f, 600.0f };
+	m_1PItemIconSprite.position = m_Position + aqua::CVector2{ 20.0f, 40.0f };
+	m_2PItemIconSprite.position = m_Position + aqua::CVector2{ 20.0f, 580.0f };
 
 	IUiComponent::Initialize(position);
 	IGameObject::Initialize();
@@ -61,9 +61,9 @@ void CItemIcon::Check(CPlayer* player)
 		if (m_pItemManager->m_ItemRand == 1)
 		{
 			if (player->GetDeviceID() == DEVICE_ID::P1)
-				m_1PItemIconSprite.Create("data\\speedup.png");
+				m_1PItemIconSprite.Create("data\\playerstun.png");
 			else
-				m_2PItemIconSprite.Create("data\\speedup.png");
+				m_2PItemIconSprite.Create("data\\playerstun.png");
 		}
 
 		player->AddItemSpeed(2.0f);

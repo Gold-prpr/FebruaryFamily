@@ -24,4 +24,6 @@ private:
 
 	aqua::CLabel m_WinPlayerLabel;
 
+	aqua::CSprite m_WinPlayerSprite;
+
 };
