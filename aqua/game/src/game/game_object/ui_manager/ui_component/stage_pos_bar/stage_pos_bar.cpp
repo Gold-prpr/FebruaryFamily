@@ -34,12 +34,12 @@ void CStagePosBar::Initialize(const aqua::CVector2& position)
 	m_Pos1p.position =
 		aqua::CVector2(
 			0.0f,
-			m_StageBar.position.y);
+			m_StageBar.position.y - m_Pos1p.GetTextureHeight());
 
 	m_Pos2p.position =
 		aqua::CVector2(
 			0.0f,
-			m_StageBar.position.y);
+			m_StageBar.position.y + m_StageBar.GetTextureHeight());
 
 	IGameObject::Initialize();
 }
@@ -81,7 +81,7 @@ void CStagePosBar::Move(CPlayer* player)
 
 	if (m_pStage->GetGoalPos().x != 0.0f)
 	{
-		m_PlayerRatio = (player->m_Position.x / 5820.0f);
+		m_PlayerRatio = (player->m_Position.x / 11940.0f);
 
 		if (player->GetDeviceID() == DEVICE_ID::P1)
 			m_Pos1p.position.x = m_StageBar.position.x + ((m_StageBar.GetTextureWidth()) * m_PlayerRatio);
