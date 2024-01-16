@@ -50,7 +50,8 @@ void CSpeedDownItem::Update()
 			m_pPlayer->AddEffectItemSpeed(1.0f);
 			m_ItemFlag = false;
 			if (m_pEffectIcon)
-				m_pEffectIcon->DeleteEffect();
+				//m_pEffectIcon->DeleteEffect();
+				m_pEffectIcon->DeleteEffectB(m_pPlayer);
 		}
 
 	//m_pEffectIcon->m_1PEffectIconSprite.rect.top = m_pEffectIcon->m_1PEffectIconSprite.GetTextureHeight()*(1.0f-)
