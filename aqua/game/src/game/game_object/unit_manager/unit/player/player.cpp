@@ -145,7 +145,7 @@ void CPlayer::Update()
 	}
 
 	//EffectPosition(this);
-	
+
 	IGameObject::Update();
 }
 
@@ -358,7 +358,7 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else
+		else if(m_pItemManager->m_ItemRand == 1)
 		{
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
 
@@ -377,26 +377,12 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pItemIcon->DeleteItem(this);
 	}
 
+	/*switch (item_id)
+	{
+	case ITEM_ID::SPEEDDOWN: m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem"); break;
+	case ITEM_ID::PLAYERSTUN: m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem"); break;
+	}*/
 }
-
-//void CPlayer::EffectPosition(CPlayer* player)
-//{
-//	m_pSpeedDownEffect = (CSpeedDownEffect*)aqua::FindGameObject("SpeedDownEffect");
-//	if (m_pSpeedDownEffect)
-//	{
-//		//if (m_Device == DEVICE_ID::P1)
-//		//	m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = m_CharaSprite.position + m_pCamera->GetScroll(DEVICE_ID::P1);
-//		//if (m_Device == DEVICE_ID::P2)
-//		//	m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = m_CharaSprite.position + m_pCamera->GetScroll(DEVICE_ID::P2);
-//		m_pSpeedDownEffect->m_SpeedDownEffectSprite.position = m_Position + m_pCamera->GetScroll(player->m_Device);
-//	}
-//	m_pPlayerStunEffect = (CPlayerStunEffect*)aqua::FindGameObject("PlayerStunEffect");
-//	if (m_pPlayerStunEffect)
-//	{
-//		m_pPlayerStunEffect->m_PlayerStunEffectSprite.position = m_Position + m_pCamera->GetScroll(player ->m_Device);
-//	}
-//
-//}
 
 void CPlayer::Draw()
 {
@@ -515,7 +501,7 @@ void CPlayer::State_Move()
 		Jump();
 	}
 
-	
+
 
 	m_Velocity.x = m_Velocity.x * m_AddEffectItemSpeed * m_AddGimmickSpeed;
 
