@@ -13,6 +13,7 @@
 #include "../../../ui_manager/ui_component/key_icon/key_icon.h"
 #include "../../../common_data/common_data.h"
 #include "../../../ui_manager/ui_component/effect_icon/effect_icon.h"
+#include "../../../Item_manager/item/dark_item/dark_item.h"
 //#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 //#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
@@ -40,6 +41,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pItemIcon(nullptr)
 	, m_pCommonData(nullptr)
 	, m_pEffectIcon(nullptr)
+	, m_pDarkItem(nullptr)
 	//, m_pSpeedDownEffect(nullptr)
 	//, m_pPlayerStunEffect(nullptr)
 	, m_State(STATE::START)
@@ -370,7 +372,13 @@ void CPlayer::UseItem(CPlayer* player)
 		}
 		else if (m_pItemManager->m_ItemRand == 2) //仮アイテム
 		{
-			m_pItemManager->Create(ITEM_ID::MAX);
+			m_pItemManager->Create(ITEM_ID::DARK);
+
+			m_pDarkItem = (CDarkItem*)aqua::FindGameObject("DarkItem");
+			m_pDarkItem->Initialize(player->m_Device);
+			m_pDarkItem->Dark(player->m_Device);
+
+			player->m_GetItemFlag = false;
 		}
 
 		if (m_pEffectIcon)
