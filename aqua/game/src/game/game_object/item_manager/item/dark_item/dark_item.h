@@ -4,18 +4,16 @@
 class CUnitManager;
 class CPlayer;
 class CEffectIcon;
-//class CPlayerStunEffect;
-//class CEffectManager;
 
-class CPlayerStunItem
+class CDarkItem
 	:public IItem
 {
 public:
 	//コンストラクタ
-	CPlayerStunItem(aqua::IGameObject* parent);
+	CDarkItem(aqua::IGameObject* parent);
 
 	//デストラクタ
-	~CPlayerStunItem(void) = default;
+	~CDarkItem(void) = default;
 
 	//初期化
 	void Initialize(aqua::controller::DEVICE_ID other_id);
@@ -23,13 +21,14 @@ public:
 	//更新
 	void Update()override;
 
-	//止める
-	void PlayerStun();
+	//暗くする
+	void Dark(aqua::controller::DEVICE_ID other_id);
 
 private:
 	CUnitManager* m_pUnitManager;
 	CPlayer* m_pPlayer;
 	CEffectIcon* m_pEffectIcon;
-	//CEffectManager* m_pEffectManager;
-	//CPlayerStunEffect* m_pPlayerStunEffect;
+
+	aqua::CSprite		m_1PDark;
+	aqua::CSprite		m_2PDark;
 };
