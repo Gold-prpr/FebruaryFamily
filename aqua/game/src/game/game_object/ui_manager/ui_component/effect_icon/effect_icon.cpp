@@ -64,16 +64,16 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 
 }
 
-//プレイヤーの効果が切れたら
-void CEffectIcon::DeleteEffect()
-{
-	if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
-		m_1PEffectIconSprite.Delete();
-	else
-		m_2PEffectIconSprite.Delete();
-}
+////プレイヤーの効果が切れたら
+//void CEffectIcon::DeleteEffect()
+//{
+//	if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
+//		m_1PEffectIconSprite.Delete();
+//	else
+//		m_2PEffectIconSprite.Delete();
+//}
 
-void CEffectIcon::DeleteEffectB(CPlayer* player)
+void CEffectIcon::DeleteEffect(CPlayer* player)
 {
 	if (player->GetDeviceID() == DEVICE_ID::P1)
 		m_1PEffectIconSprite.Delete();
