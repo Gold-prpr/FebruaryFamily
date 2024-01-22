@@ -348,7 +348,7 @@ void CPlayer::UseItem(CPlayer* player)
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
 	if ((Button(player->m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I)) && player->m_GetItemFlag == true)
 	{
-		if (m_pItemManager->m_ItemRand == 0)
+		if (m_pItemManager->m_ItemRand == 0)//相手のスピードを下げるアイテム
 		{
 			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
 
@@ -358,7 +358,7 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if(m_pItemManager->m_ItemRand == 1)
+		else if(m_pItemManager->m_ItemRand == 1)//相手の行動を止めるアイテム
 		{
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
 
@@ -367,6 +367,10 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pStunItem->PlayerStun();
 
 			player->m_GetItemFlag = false;
+		}
+		else if (m_pItemManager->m_ItemRand == 2) //仮アイテム
+		{
+			m_pItemManager->Create(ITEM_ID::MAX);
 		}
 
 		if (m_pEffectIcon)
