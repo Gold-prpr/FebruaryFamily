@@ -2,6 +2,7 @@
 #include "../../../unit_manager/unit_manager.h"
 #include "../../../unit_manager/unit/player/player.h"
 #include "../../../ui_manager/ui_component/effect_icon/effect_icon.h"
+#include "../../../ui_manager/ui_component/dark/dark.h"
 
 //コンストラクタ
 CDarkItem::CDarkItem(aqua::IGameObject* parent)
@@ -9,6 +10,7 @@ CDarkItem::CDarkItem(aqua::IGameObject* parent)
 	, m_pUnitManager(nullptr)
 	, m_pPlayer(nullptr)
 	, m_pEffectIcon(nullptr)
+	, m_pDark(nullptr)
 {
 }
 
@@ -19,18 +21,14 @@ void CDarkItem::Initialize(aqua::controller::DEVICE_ID other_id)
 
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
 
+	m_pDark = (CDark*)aqua::FindGameObject("Dark");
+
 	if (other_id == DEVICE_ID::P1)
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
 	else
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P1);
 
 	m_EffectTimer.Setup(5.0f);
-
-	m_1PDark.position = aqua::CVector2::ZERO;
-	m_2PDark.position = aqua::CVector2(960.0f, 0.0f);
-
-	m_1PDark.Create("data\\dark.png");
-
 
 	IGameObject::Initialize();
 }
@@ -43,8 +41,8 @@ void CDarkItem::Update()
 		{
 			m_ItemFlag = false;
 
-			//m_1PDark.Delete();
-			//m_2PDark.Delete();
+			m_pDark->m_1PDark.Delete();
+			m_pDark->m_2PDark.Delete();
 
 			if (m_pEffectIcon)
 				m_pEffectIcon->DeleteEffect(m_pPlayer);
@@ -62,9 +60,5 @@ void CDarkItem::Dark(aqua::controller::DEVICE_ID other_id)
 
 	m_ItemFlag = true;
 
-	//アイテムを使っていたら
-	if (other_id == DEVICE_ID::P1)
-		m_2PDark.Create("data/dark.png");
-	else
-		m_1PDark.Create("data/dark.png");
+	m_pDark->Dark(other_id);
 }

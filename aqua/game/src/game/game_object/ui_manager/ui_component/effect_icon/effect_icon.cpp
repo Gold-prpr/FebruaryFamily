@@ -57,9 +57,9 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 	if (m_pItemManager->m_ItemRand == 1)
 	{
 		if (player->GetDeviceID() == DEVICE_ID::P1)
-			m_2PEffectIconSprite.Create("data\\playerstuneffecticon.png");
+			m_2PEffectIconSprite.Create("data\\Stan_Item.png");
 		else
-			m_1PEffectIconSprite.Create("data\\playerstuneffecticon.png");
+			m_1PEffectIconSprite.Create("data\\Stan_Item.png");
 	}
 
 	if (m_pItemManager->m_ItemRand == 2)

@@ -4,6 +4,7 @@
 class CUnitManager;
 class CPlayer;
 class CEffectIcon;
+class CDark;
 
 class CDarkItem
 	:public IItem
@@ -28,6 +29,7 @@ private:
 	CUnitManager* m_pUnitManager;
 	CPlayer* m_pPlayer;
 	CEffectIcon* m_pEffectIcon;
+	CDark* m_pDark;
 
 	aqua::CSprite		m_1PDark;
 	aqua::CSprite		m_2PDark;
