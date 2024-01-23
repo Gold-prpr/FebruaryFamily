@@ -43,8 +43,8 @@ void CDarkItem::Update()
 		{
 			m_ItemFlag = false;
 
-			m_1PDark.Delete();
-			m_2PDark.Delete();
+			//m_1PDark.Delete();
+			//m_2PDark.Delete();
 
 			if (m_pEffectIcon)
 				m_pEffectIcon->DeleteEffect(m_pPlayer);
@@ -64,7 +64,7 @@ void CDarkItem::Dark(aqua::controller::DEVICE_ID other_id)
 
 	//アイテムを使っていたら
 	if (other_id == DEVICE_ID::P1)
-		m_2PDark.Create("data\\dark.png");
+		m_2PDark.Create("data/dark.png");
 	else
-		m_1PDark.Create("data\\dark.png");
+		m_1PDark.Create("data/dark.png");
 }

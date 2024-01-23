@@ -13,6 +13,7 @@
 #include "../../../ui_manager/ui_component/key_icon/key_icon.h"
 #include "../../../common_data/common_data.h"
 #include "../../../ui_manager/ui_component/effect_icon/effect_icon.h"
+#include "../../../Item_manager/item/dark_item/dark_item.h"
 //#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 //#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
@@ -40,6 +41,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pItemIcon(nullptr)
 	, m_pCommonData(nullptr)
 	, m_pEffectIcon(nullptr)
+	, m_pDarkItem(nullptr)
 	//, m_pSpeedDownEffect(nullptr)
 	//, m_pPlayerStunEffect(nullptr)
 	, m_State(STATE::START)
@@ -348,7 +350,7 @@ void CPlayer::UseItem(CPlayer* player)
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
 	if ((Button(player->m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I)) && player->m_GetItemFlag == true)
 	{
-		if (m_pItemManager->m_ItemRand == 0)
+		if (m_pItemManager->m_ItemRand == 0)//相手のスピードを下げるアイテム
 		{
 			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
 
@@ -358,13 +360,23 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if(m_pItemManager->m_ItemRand == 1)
+		else if(m_pItemManager->m_ItemRand == 1)//相手の行動を止めるアイテム
 		{
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
 
 			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
 			m_pStunItem->Initialize(player->m_Device);
 			m_pStunItem->PlayerStun();
+
+			player->m_GetItemFlag = false;
+		}
+		else if (m_pItemManager->m_ItemRand == 2) //仮アイテム
+		{
+			m_pItemManager->Create(ITEM_ID::DARK);
+
+			m_pDarkItem = (CDarkItem*)aqua::FindGameObject("DarkItem");
+			m_pDarkItem->Initialize(player->m_Device);
+			m_pDarkItem->Dark(player->m_Device);
 
 			player->m_GetItemFlag = false;
 		}

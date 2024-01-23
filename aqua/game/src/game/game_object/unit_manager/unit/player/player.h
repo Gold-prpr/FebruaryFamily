@@ -9,6 +9,7 @@ class CSlime;
 class CItemManager;
 class CSpeedDownItem;
 class CPlayerStunItem;
+class CDarkItem;
 class CItemIcon;
 class CStagePosBar;
 class CKeyIcon;
@@ -130,6 +131,7 @@ private:
 	CKeyIcon* m_pKeyIcon;
 	CCommonData* m_pCommonData;
 	CEffectIcon* m_pEffectIcon;
+	CDarkItem* m_pDarkItem;
 	//CSpeedDownEffect* m_pSpeedDownEffect;
 	//CPlayerStunEffect* m_pPlayerStunEffect;
 	

@@ -23,4 +23,6 @@ private:
 	CUnitManager*		m_pUnitManager;
 	CCameraManager*		m_pCameraManager;
 	CPlayer* m_pPlayer;
+
+	aqua::CSprite m_Sprite;
 };
