@@ -61,9 +61,16 @@ void CItemIcon::Check(CPlayer* player)
 		if (m_pItemManager->m_ItemRand == 1)
 		{
 			if (player->GetDeviceID() == DEVICE_ID::P1)
-				m_1PItemIconSprite.Create("data\\playerstun.png");
+				m_1PItemIconSprite.Create("data\\Stan_Item.png");
 			else
-				m_2PItemIconSprite.Create("data\\playerstun.png");
+				m_2PItemIconSprite.Create("data\\Stan_Item.png");
+		}
+		if (m_pItemManager->m_ItemRand == 2)
+		{
+			if (player->GetDeviceID() == DEVICE_ID::P1)
+				m_1PItemIconSprite.Create("data\\Black_Item.png");
+			else
+				m_2PItemIconSprite.Create("data\\Black_Item.png");
 		}
 
 		player->AddItemSpeed(2.0f);

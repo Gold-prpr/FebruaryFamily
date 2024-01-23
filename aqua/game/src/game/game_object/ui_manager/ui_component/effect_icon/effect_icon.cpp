@@ -62,6 +62,14 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 			m_1PEffectIconSprite.Create("data\\playerstuneffecticon.png");
 	}
 
+	if (m_pItemManager->m_ItemRand == 2)
+	{
+		if (player->GetDeviceID() == DEVICE_ID::P1)
+			m_2PEffectIconSprite.Create("data\\Black_Item.png");
+		else
+			m_1PEffectIconSprite.Create("data\\Black_Item.png");
+	}
+
 }
 
 ////ƒvƒŒƒCƒ„[‚ÌŒø‰Ê‚ªØ‚ê‚½‚ç

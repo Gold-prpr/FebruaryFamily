@@ -29,6 +29,9 @@ void CDarkItem::Initialize(aqua::controller::DEVICE_ID other_id)
 	m_1PDark.position = aqua::CVector2::ZERO;
 	m_2PDark.position = aqua::CVector2(960.0f, 0.0f);
 
+	m_1PDark.Create("data\\dark.png");
+
+
 	IGameObject::Initialize();
 }
 
