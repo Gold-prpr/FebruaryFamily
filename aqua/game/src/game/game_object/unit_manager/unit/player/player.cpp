@@ -262,12 +262,12 @@ void CPlayer::CheckHitBlock(void)
 		m_HitItemFlag = false;
 	}
 
-	if (m_pStage->CheckKey(nx, y)
+	if (m_KeyCount < 3 && (m_pStage->CheckKey(nx, y)
 		|| m_pStage->CheckKey(nx + w - 1, y)
 		|| m_pStage->CheckKey(nx, y + h / 2)
 		|| m_pStage->CheckKey(nx + w - 1, y + h / 2)
 		|| m_pStage->CheckKey(nx, y + h - 1)
-		|| m_pStage->CheckKey(nx + w - 1, y + h - 1))
+		|| m_pStage->CheckKey(nx + w - 1, y + h - 1)))
 	{
 		m_KeyFlag = true;
 	}
