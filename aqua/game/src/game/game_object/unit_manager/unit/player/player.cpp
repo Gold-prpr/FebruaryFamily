@@ -240,13 +240,13 @@ void CPlayer::CheckHitBlock(void)
 
 	if (m_KeyCount >= 1)
 	{
-		if (m_pStage->CheckItem(nx, y)
+		if (m_GetItemFlag == false	&&
+			  (m_pStage->CheckItem(nx, y)
 			|| m_pStage->CheckItem(nx + w - 1, y)
 			|| m_pStage->CheckItem(nx, y + h / 2)
 			|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
 			|| m_pStage->CheckItem(nx, y + h - 1)
-			|| m_pStage->CheckItem(nx + w - 1, y + h - 1)
-			&& m_GetItemFlag == false)
+			|| m_pStage->CheckItem(nx + w - 1, y + h - 1)))
 		{
 			m_HitItemFlag = true;
 			m_GetItemFlag = true;

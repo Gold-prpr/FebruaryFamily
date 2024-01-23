@@ -58,7 +58,7 @@ void CItemManager::Create(ITEM_ID id)
 
 void CItemManager::RandPick(CPlayer* player)
 {
-	if (player->m_HitItemFlag == true)
+	if (player->m_HitItemFlag == true && player->m_GetItemFlag == true)
 	{
 		m_ItemRand = rand() % m_item;
 
