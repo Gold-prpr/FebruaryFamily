@@ -20,7 +20,7 @@ void CSakuraEffect::Initialize(const aqua::CVector2& position)
 	m_Sakura.position.y = 0;
 
 	//ƒ‰ƒ“ƒ_ƒ€‚È‘å‚«‚³
-	m_Sakura.scale.x = (float)aqua::Rand(5) / 10.0f;
+	m_Sakura.scale.x = (float)aqua::Rand(30) / 10.0f;
 	m_Sakura.scale.y = m_Sakura.scale.x;
 
 	m_angle = 0;
