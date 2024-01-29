@@ -122,11 +122,6 @@ void CResult::Draw()
 	m_LosePlayerSprite.Draw();
 	m_WinPlayerSprite.Draw();
 
-	for (int i = 0; i < m_max_belt_sprite; i++)
-	{
-		m_ResultBeltSprite[i].Draw();
-	}
-
 	IGameObject::Draw();
 }
 
