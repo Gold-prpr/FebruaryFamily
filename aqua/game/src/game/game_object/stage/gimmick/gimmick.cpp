@@ -55,6 +55,10 @@ void CGimmickAct::JumpAct(CPlayer* player)
 {
 	if (player->m_JampRampFlag == true)
 	{
-		player->Jump();
+		if (player->m_LandingFlag == true)
+		{
+			player->JumpRamp();
+			player->m_LandingFlag = false;
+		}
 	}
 }
