@@ -24,7 +24,7 @@ const float CPlayer::min_speed = 3.0f;//�L�����̍Œ�X�s�[�h
 const float CPlayer::jump = -27.5f;//�L�����̃W�����v
 const float CPlayer::width = 50.0f;//�L�����̕�
 const float CPlayer::height = 50.0f;//�L�����̍���
-const float CPlayer::radius = 20.0f;//�L�����̔��a
+const float CPlayer::radius = 25.0f;//�L�����̔��a
 const float CPlayer::dash = 1.7f;//�L�����̃_�b�V����
 const int CPlayer::max_interval = 40;
 
@@ -98,6 +98,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_Speed = 0.0f;
 
+
 	IGameObject::Initialize();
 }
 
@@ -145,6 +146,9 @@ void CPlayer::Update()
 		m_pKeyIcon->KeyCount(this);
 		m_pKeyIcon->AddKeyCount(this);
 	}
+
+
+
 
 	//EffectPosition(this);
 
@@ -240,13 +244,13 @@ void CPlayer::CheckHitBlock(void)
 
 	if (m_KeyCount >= 1)
 	{
-		if (m_GetItemFlag == false	&&
-			  (m_pStage->CheckItem(nx, y)
-			|| m_pStage->CheckItem(nx + w - 1, y)
-			|| m_pStage->CheckItem(nx, y + h / 2)
-			|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
-			|| m_pStage->CheckItem(nx, y + h - 1)
-			|| m_pStage->CheckItem(nx + w - 1, y + h - 1)))
+		if (m_GetItemFlag == false &&
+			(m_pStage->CheckItem(nx, y)
+				|| m_pStage->CheckItem(nx + w - 1, y)
+				|| m_pStage->CheckItem(nx, y + h / 2)
+				|| m_pStage->CheckItem(nx + w - 1, y + h / 2)
+				|| m_pStage->CheckItem(nx, y + h - 1)
+				|| m_pStage->CheckItem(nx + w - 1, y + h - 1)))
 		{
 			m_HitItemFlag = true;
 			m_GetItemFlag = true;
@@ -360,7 +364,7 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if(m_pItemManager->m_ItemRand == 1)//相手の行動を止めるアイテム
+		else if (m_pItemManager->m_ItemRand == 1)//相手の行動を止めるアイテム
 		{
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
 
@@ -513,9 +517,9 @@ void CPlayer::State_Move()
 		Jump();
 	}
 
-
-
 	m_Velocity.x = m_Velocity.x * m_AddEffectItemSpeed * m_AddGimmickSpeed;
+
+	m_CharaSprite.rotation +=  aqua::DegToRad(m_Velocity.x);
 
 	UseItem(this);
 
