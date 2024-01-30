@@ -73,6 +73,14 @@ void CItemIcon::Check(CPlayer* player)
 				m_2PItemIconSprite.Create("data\\Black_Item.png");
 		}
 
+		if (m_pItemManager->m_ItemRand == 3)
+		{
+			if (player->GetDeviceID() == DEVICE_ID::P1)
+				m_1PItemIconSprite.Create("data\\speedup.png");
+			else
+				m_2PItemIconSprite.Create("data\\speedup.png");
+		}
+
 		player->AddItemSpeed(2.0f);
 	}
 	else

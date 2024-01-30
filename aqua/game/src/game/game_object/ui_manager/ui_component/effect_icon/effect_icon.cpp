@@ -49,9 +49,9 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 	if (m_pItemManager->m_ItemRand == 0)
 	{
 		if (player->GetDeviceID() == DEVICE_ID::P1)
-			m_2PEffectIconSprite.Create("data\\speeddowneffecticon.png");
+			m_2PEffectIconSprite.Create("data\\speeddown.png");
 		else
-			m_1PEffectIconSprite.Create("data\\speeddowneffecticon.png");
+			m_1PEffectIconSprite.Create("data\\speeddown.png");
 	}
 	 
 	if (m_pItemManager->m_ItemRand == 1)
@@ -68,6 +68,14 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 			m_2PEffectIconSprite.Create("data\\Black_Item.png");
 		else
 			m_1PEffectIconSprite.Create("data\\Black_Item.png");
+	}
+
+	if (m_pItemManager->m_ItemRand == 3)
+	{
+		if (player->GetDeviceID() == DEVICE_ID::P1)
+			m_1PEffectIconSprite.Create("data\\speedup.png");
+		else
+			m_2PEffectIconSprite.Create("data\\speedup.png");
 	}
 
 }

@@ -10,6 +10,7 @@ class CItemManager;
 class CSpeedDownItem;
 class CPlayerStunItem;
 class CDarkItem;
+class CSpeedUpItem;
 class CItemIcon;
 class CStagePosBar;
 class CKeyIcon;
@@ -113,6 +114,7 @@ public:
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
 
 	bool m_LandingFlag;//空中にいるときのフラグ
+	int max_interval;
 
 private:
 
@@ -136,6 +138,7 @@ private:
 	CCommonData* m_pCommonData;
 	CEffectIcon* m_pEffectIcon;
 	CDarkItem* m_pDarkItem;
+	CSpeedUpItem* m_pSpeedUpItem;
 	//CSpeedDownEffect* m_pSpeedDownEffect;
 	//CPlayerStunEffect* m_pPlayerStunEffect;
 	
@@ -156,5 +159,4 @@ private:
 	static const float height;//高さ
 	static const float radius;//半径
 	static const float dash;//ダッシュの値
-	static const int max_interval;
 };

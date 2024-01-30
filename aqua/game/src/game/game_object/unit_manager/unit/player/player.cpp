@@ -14,6 +14,7 @@
 #include "../../../common_data/common_data.h"
 #include "../../../ui_manager/ui_component/effect_icon/effect_icon.h"
 #include "../../../Item_manager/item/dark_item/dark_item.h"
+#include "../../../item_manager/item/speedup_item/speedup_item.h"
 //#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 //#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
@@ -26,8 +27,6 @@ const float CPlayer::width = 50.0f;//�L�����̕�
 const float CPlayer::height = 50.0f;//�L�����̍���
 const float CPlayer::radius = 25.0f;//�L�����̔��a
 const float CPlayer::dash = 1.7f;//�L�����̃_�b�V����
-const int CPlayer::max_interval = 40;
-
 
 CPlayer::CPlayer(aqua::IGameObject* parent)
 	:IUnit(parent, "Player")
@@ -42,6 +41,7 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pCommonData(nullptr)
 	, m_pEffectIcon(nullptr)
 	, m_pDarkItem(nullptr)
+	, m_pSpeedUpItem(nullptr)
 	//, m_pSpeedDownEffect(nullptr)
 	//, m_pPlayerStunEffect(nullptr)
 	, m_State(STATE::START)
@@ -98,6 +98,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_Speed = 0.0f;
 
+	max_interval = 40.0f;
 
 	IGameObject::Initialize();
 }
@@ -374,13 +375,23 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if (m_pItemManager->m_ItemRand == 2) //仮アイテム
+		else if (m_pItemManager->m_ItemRand == 2) //相手の両端を暗くする
 		{
 			m_pItemManager->Create(ITEM_ID::DARK);
 
 			m_pDarkItem = (CDarkItem*)aqua::FindGameObject("DarkItem");
 			m_pDarkItem->Initialize(player->m_Device);
 			m_pDarkItem->Dark(player->m_Device);
+
+			player->m_GetItemFlag = false;
+		}
+		else if (m_pItemManager->m_ItemRand == 3) //自分のスピードを上げる
+		{
+			m_pItemManager->Create(ITEM_ID::SPEEDUP);
+
+			m_pSpeedUpItem = (CSpeedUpItem*)aqua::FindGameObject("SpeedUpItem");
+			m_pSpeedUpItem->Initialize(player->m_Device);
+			m_pSpeedUpItem->SpeedUp();
 
 			player->m_GetItemFlag = false;
 		}

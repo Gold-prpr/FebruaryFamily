@@ -5,8 +5,6 @@
 //#include "../../../effect_manager/effect_manager.h"
 //#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 
-using namespace aqua::keyboard;
-using namespace aqua::controller;
 
 //コンストラクタ
 CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
