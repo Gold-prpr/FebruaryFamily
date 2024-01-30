@@ -200,11 +200,6 @@ bool CStage::CheckKey(int x, int y)
 	return false;
 }
 
-bool CStage::CheckBrick(int x, int y)
-{
-	return CheckObject(x, y, StageObjectID::BRICK);
-}
-
 bool CStage::CheckWire(int x, int y)
 {
 	return CheckObject(x, y, StageObjectID::BARBED_WIRE);

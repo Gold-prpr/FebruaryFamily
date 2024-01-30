@@ -63,8 +63,6 @@ public:
 
 	bool CheckKey(int x, int y);
 
-	bool CheckBrick(int x, int y);
-
 	//—Lh“Sü”»’è
 	bool CheckWire(int x, int y);
 

@@ -102,8 +102,6 @@ public:
 
 	bool m_GetItemFlag;
 
-	bool m_BrickFlag;
-
 	bool m_GoalFlag;
 
 	bool m_JampRampFlag;
@@ -118,6 +116,7 @@ public:
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
 
 	bool m_LandingFlag;//空中にいるときのフラグ
+
 	int max_interval;
 
 	float m_VeloTemp;
