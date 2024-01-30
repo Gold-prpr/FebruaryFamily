@@ -3,7 +3,7 @@
 
 class CStage;
 class CPlayer;
-class CUnitManager;
+class IUnit;
 
 class CGimmickAct :
 	public aqua::IGameObject
@@ -20,6 +20,8 @@ public:
 	void SlowAct(CPlayer* player);
 
 	void JumpAct(CPlayer* player);
+
+	
 	
 private:
 	static const int alpha_cnt;
@@ -30,5 +32,5 @@ private:
 
 	CStage* m_pStage;
 	CPlayer* m_pPlayer;
-	CUnitManager* m_pUnitManager;
+	IUnit* m_pUnit;
 };

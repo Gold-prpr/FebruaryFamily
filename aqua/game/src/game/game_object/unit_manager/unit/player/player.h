@@ -90,6 +90,8 @@ public:
 
 	void UseItem(CPlayer* player);
 
+	void AttackAct(CPlayer* player);
+
 	//void EffectPosition(CPlayer* player);
 
 	bool m_HitSpikeFlag;
@@ -99,6 +101,8 @@ public:
 	bool m_HitItemFlag;
 
 	bool m_GetItemFlag;
+
+	bool m_BrickFlag;
 
 	bool m_GoalFlag;
 
@@ -115,6 +119,8 @@ public:
 
 	bool m_LandingFlag;//‹ó’†‚É‚¢‚é‚Æ‚«‚Ìƒtƒ‰ƒO
 	int max_interval;
+
+	float m_VeloTemp;
 
 private:
 

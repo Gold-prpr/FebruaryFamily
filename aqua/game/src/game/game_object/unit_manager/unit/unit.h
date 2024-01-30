@@ -39,8 +39,8 @@ public:
 
 	aqua::CVector2 m_Position;
 
-protected:
 	aqua::CVector2 m_Velocity;
+protected:
 	float m_Width;
 	float m_Height;
 	UNIT_ID m_UnitID;

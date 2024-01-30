@@ -94,11 +94,16 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_GetItemFlag = false;
 
+	m_BrickFlag = false;
+
 	m_KeyCount = 0;
 
 	m_Speed = 0.0f;
 
 	max_interval = 40.0f;
+
+	m_VeloTemp = 0.0f;
+
 
 	IGameObject::Initialize();
 }
@@ -120,6 +125,9 @@ void CPlayer::Update()
 
 		m_PrevPosition = m_Position;
 
+		if(m_Velocity.x != 0.0f)
+			m_VeloTemp = m_Velocity.x;
+
 		CheckHitBlock();//�ǂ̓����蔻��
 	}
 
@@ -131,6 +139,7 @@ void CPlayer::Update()
 		m_pGimmick->DamageAct(this);
 		m_pGimmick->SlowAct(this);
 		m_pGimmick->JumpAct(this);
+		AttackAct(this);
 	}
 
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
@@ -281,6 +290,20 @@ void CPlayer::CheckHitBlock(void)
 		m_KeyFlag = false;
 	}
 
+	if (m_pStage->CheckBrick(nx, y)
+		|| m_pStage->CheckBrick(nx + w - 1, y)
+		|| m_pStage->CheckBrick(nx, y + h / 2)
+		|| m_pStage->CheckBrick(nx + w - 1, y + h / 2)
+		|| m_pStage->CheckBrick(nx, y + h - 1)
+		|| m_pStage->CheckBrick(nx + w - 1, y + h - 1))
+	{
+		m_BrickFlag = true;
+	}
+	else
+	{
+		m_BrickFlag = false;
+	}
+
 	if (m_LandingFlag == true)
 	{
 		// �����𒲂ׂău���b�N���Ȃ���Η���
@@ -411,11 +434,38 @@ void CPlayer::UseItem(CPlayer* player)
 	}*/
 }
 
+void CPlayer::AttackAct(CPlayer* player)
+{
+	int x = (int)(m_Position.x);
+	int y = (int)(m_Position.y);
+	int nx = 0;
+	if (m_Velocity.x >= 0)
+		nx = (int)(m_Position.x + m_Velocity.x);
+	else if (m_Velocity.x <= 0)
+	{
+		nx = (int)ceil(m_Position.x + m_Velocity.x);
+	}
+
+	int ny = (int)(m_Position.y + m_Velocity.y);
+	int w = (int)m_Width;
+	int h = (int)m_Height;
+
+	if (m_VeloTemp >= 6.0f || -6.0f >= m_VeloTemp)
+	{
+		m_pStage->ChangeAir(nx, y, StageObjectID::BRICK);
+		m_pStage->ChangeAir(nx + w - 1, y, StageObjectID::BRICK);
+		m_pStage->ChangeAir(nx, y + h / 2, StageObjectID::BRICK);
+		m_pStage->ChangeAir(nx + w - 1, y + h / 2, StageObjectID::BRICK);
+		m_pStage->ChangeAir(nx, y + h - 1, StageObjectID::BRICK);
+		m_pStage->ChangeAir(nx + w - 1, y + h - 1, StageObjectID::BRICK);
+	}
+}
+
 void CPlayer::Draw()
 {
 	m_CharaSprite.Draw();//�L�����̕`��
 	IGameObject::Draw();
-	//AQUA_DEBUG_LOG(std::to_string(m_Velocity.x));
+	AQUA_DEBUG_LOG(std::to_string(m_VeloTemp));
 }
 
 void CPlayer::Finalize()
@@ -537,7 +587,7 @@ void CPlayer::State_Move()
 
 	m_Velocity.x = m_Velocity.x * m_AddEffectItemSpeed * m_AddGimmickSpeed;
 
-	m_CharaSprite.rotation +=  aqua::DegToRad(m_Velocity.x);
+	m_CharaSprite.rotation += aqua::DegToRad(m_Velocity.x);
 
 	UseItem(this);
 
