@@ -74,6 +74,8 @@ public:
 
 	void Jump(void);
 
+	void JumpRamp(void);
+
 	aqua::CVector2 GetSpeed(void) { return m_Velocity; }
 
 	//壁の当たり判定
@@ -109,6 +111,8 @@ public:
 	aqua::CSprite m_CharaSprite;
 
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
+
+	bool m_LandingFlag;//空中にいるときのフラグ
 
 private:
 
@@ -153,5 +157,4 @@ private:
 	static const float radius;//半径
 	static const float dash;//ダッシュの値
 	static const int max_interval;
-	bool m_LandingFlag;//空中にいるときのフラグ
 };
