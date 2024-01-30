@@ -36,7 +36,7 @@ void CStage::Update(void)
 	CStageObject* stage_object = nullptr;
 	stage_object = (CStageObject*)aqua::FindGameObject("StageObject");
 
-	m_GoalPos = stage_object->GoalPos();
+	//m_GoalPos = stage_object->GoalPos();
 
 	IGameObject::Update();
 }
@@ -198,6 +198,11 @@ bool CStage::CheckKey(int x, int y)
 	}
 
 	return false;
+}
+
+bool CStage::CheckBrick(int x, int y)
+{
+	return CheckObject(x, y, StageObjectID::BRICK);
 }
 
 bool CStage::CheckWire(int x, int y)

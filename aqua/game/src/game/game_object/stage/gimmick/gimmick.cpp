@@ -1,7 +1,7 @@
 #include "gimmick.h"
 #include "../../stage/stage.h"
 #include "../../unit_manager/unit/player/player.h"
-#include "../../unit_manager/unit_manager.h"
+#include "../../unit_manager/unit/unit.h"
 const int CGimmickAct::alpha_cnt = 3;
 const int CGimmickAct::alpha_interval = 10;
 CGimmickAct::CGimmickAct(aqua::IGameObject* parent)
@@ -12,7 +12,7 @@ void CGimmickAct::Initialize()
 {
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
 	m_pPlayer = (CPlayer*)aqua::FindGameObject("Player");
-	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
+	m_pUnit = (IUnit*)aqua::FindGameObject("Unit");
 	m_AlphaCurrCnt = 0;
 	m_AlphaTimer = 0;
 	IGameObject::Initialize();

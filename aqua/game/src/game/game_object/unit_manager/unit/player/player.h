@@ -89,6 +89,8 @@ public:
 
 	void UseItem(CPlayer* player);
 
+	void AttackAct(CPlayer* player);
+
 	//void EffectPosition(CPlayer* player);
 
 	bool m_HitSpikeFlag;
@@ -98,6 +100,8 @@ public:
 	bool m_HitItemFlag;
 
 	bool m_GetItemFlag;
+
+	bool m_BrickFlag;
 
 	bool m_GoalFlag;
 
@@ -113,6 +117,8 @@ public:
 	DEVICE_ID m_Device;//プレイヤーのコントローラ割り当て
 
 	bool m_LandingFlag;//空中にいるときのフラグ
+
+	float m_VeloTemp;
 
 private:
 
