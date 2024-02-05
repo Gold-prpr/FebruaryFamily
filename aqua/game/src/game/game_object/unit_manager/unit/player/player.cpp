@@ -157,9 +157,6 @@ void CPlayer::Update()
 		m_pKeyIcon->AddKeyCount(this);
 	}
 
-
-
-
 	//EffectPosition(this);
 
 	IGameObject::Update();
