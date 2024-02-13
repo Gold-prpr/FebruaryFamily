@@ -114,6 +114,7 @@
     <ClCompile Include="src\game\game_object\item_manager\item\dark_item\dark_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\playerstun_item\playerstun_item.cpp" />
+    <ClCompile Include="src\game\game_object\item_manager\item\reverse_item\reverse_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speedup_item\speedup_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item_manager.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="src\game\game_object\item_manager\item\item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item_id.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\playerstun_item\playerstun_item.h" />
+    <ClInclude Include="src\game\game_object\item_manager\item\reverse_item\reverse_item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\speedup_item\speedup_item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item_manager.h" />
