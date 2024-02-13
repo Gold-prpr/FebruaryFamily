@@ -425,6 +425,10 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
+		else if (m_pItemManager->m_ItemRand == 4)
+		{
+			m_pItemManager->Create(ITEM_ID::)
+		}
 
 		if (m_pEffectIcon)
 			m_pEffectIcon->EffectCheck(player);
