@@ -60,7 +60,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pCommonData = (CCommonData*)aqua::FindGameObject("CommonData");
 	m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
 
-	std::string name;
+
 
 	if (m_Device == DEVICE_ID::P1)
 		name = "data//player_1p_kari.png";
@@ -125,8 +125,18 @@ void CPlayer::Update()
 
 		m_PrevPosition = m_Position;
 
-		if(m_Velocity.x != 0.0f)
+		if (m_Velocity.x != 0.0f)
 			m_VeloTemp = m_Velocity.x;
+
+		if (GameTrigger(GameKey::X, m_Device))
+		{
+			if (m_Device == DEVICE_ID::P1)
+				name = "data//player_1p_kari_2.png";
+			else
+				name = "data//player_2p_kari_2.png";
+		}
+
+		m_CharaSprite.Create(name);
 
 		CheckHitBlock();//�ǂ̓����蔻��
 	}

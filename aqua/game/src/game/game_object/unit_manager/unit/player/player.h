@@ -129,6 +129,8 @@ private:
 	void State_Dead();//死んだ状態
 	void State_Goal();//ゴールした状態
 
+	std::string name;
+
 	STATE m_State;//キャラの状態
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
