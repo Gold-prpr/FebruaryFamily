@@ -3,10 +3,11 @@
 #include "item/playerstun_item/playerstun_item.h"
 #include "item/dark_item/dark_item.h"
 #include "item/speedup_item/speedup_item.h"
+#include "item/reverse_item/reverse_item.h"
 #include "../unit_manager/unit_manager.h"
 #include "../ui_manager/ui_component/item_icon/item_icon.h"
 
-const int CItemManager::m_item = 4;		//アイテム数
+const int CItemManager::m_item = 5;		//アイテム数
 using namespace aqua::keyboard;
 using namespace aqua::controller;
 
@@ -53,6 +54,7 @@ void CItemManager::Create(ITEM_ID id)
 	case ITEM_ID::PLAYERSTUN:	item = aqua::CreateGameObject<CPlayerStunItem>(this);	break;
 	case ITEM_ID::DARK:			item = aqua::CreateGameObject<CDarkItem>(this);			break;
 	case ITEM_ID::SPEEDUP:		item = aqua::CreateGameObject<CSpeedUpItem>(this);		break;
+	case ITEM_ID::REVERSE:		item = aqua::CreateGameObject<CReverseItem>(this);		break;
 	}
 
 	if (!item) return;
@@ -70,6 +72,7 @@ void CItemManager::RandPick(CPlayer* player)
 		case 1:Create(ITEM_ID::PLAYERSTUN); break;
 		case 2:Create(ITEM_ID::DARK);		break;
 		case 3:Create(ITEM_ID::SPEEDUP);	break;
+		case 4:Create(ITEM_ID::REVERSE);	break;
 		}
 	}
 

@@ -6,6 +6,7 @@ enum class ITEM_ID
 	PLAYERSTUN,		//相手をスタンさせ動けなくする
 	DARK,			//相手の画面を暗くする		
 	SPEEDUP,		//自分をスピードアップ
+	REVERSE,		//操作逆
 
 	MAX
 };
