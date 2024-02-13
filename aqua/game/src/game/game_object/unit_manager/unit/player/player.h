@@ -16,6 +16,7 @@ class CStagePosBar;
 class CKeyIcon;
 class CCommonData;
 class CEffectIcon;
+class CReverseItem;
 //class CSpeedDownEffect;
 //class CPlayerStunEffect;
 
@@ -147,6 +148,8 @@ private:
 	CEffectIcon* m_pEffectIcon;
 	CDarkItem* m_pDarkItem;
 	CSpeedUpItem* m_pSpeedUpItem;
+	CReverseItem* m_pReverseItem;
+
 	//CSpeedDownEffect* m_pSpeedDownEffect;
 	//CPlayerStunEffect* m_pPlayerStunEffect;
 	
