@@ -123,6 +123,8 @@ public:
 
 	float m_VeloTemp;
 
+	bool m_ReverseFlag;
+
 private:
 
 	void State_Start();//ŠJn‚Ìó‘Ô

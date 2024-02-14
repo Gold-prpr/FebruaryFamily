@@ -106,6 +106,8 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_VeloTemp = 0.0f;
 
+	m_ReverseFlag = false;
+
 	IGameObject::Initialize();
 }
 
@@ -570,8 +572,12 @@ void CPlayer::State_Move()
 	if (std::abs(input_move) >= 0.7f)
 		input_x_value = input_move / std::abs(input_move);
 
-	if(m_pReverseItem)
-	if (m_pReverseItem->m_ReverseFlag == true)
+	//if(m_pReverseItem)
+	//if (m_pReverseItem->m_ReverseFlag == true)
+	//{
+	//	input_x_value = -1.0f * input_x_value;
+	//}
+	if(m_ReverseFlag == true)
 	{
 		input_x_value = -1.0f * input_x_value;
 	}
