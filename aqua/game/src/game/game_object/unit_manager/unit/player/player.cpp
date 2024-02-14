@@ -577,10 +577,7 @@ void CPlayer::State_Move()
 	//{
 	//	input_x_value = -1.0f * input_x_value;
 	//}
-	if(m_ReverseFlag == true)
-	{
-		input_x_value = -1.0f * input_x_value;
-	}
+
 
 	m_Velocity.x = 0;
 
@@ -625,6 +622,11 @@ void CPlayer::State_Move()
 	{
 		if (m_pSlime)
 			m_pSlime->Damage();
+	}
+
+	if (m_ReverseFlag == true)
+	{
+		m_Velocity.x = -1.0f * m_Velocity.x;
 	}
 }
 
