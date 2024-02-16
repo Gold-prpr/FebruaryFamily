@@ -601,7 +601,7 @@ void CPlayer::State_Move()
 
 	}
 
-	if ((int)input_x_value == 0)
+	if ((int)input_x_value == 0  || GameReleased(GameKey::X, m_Device))
 	{
 		m_Accelerator = 0;
 	}
