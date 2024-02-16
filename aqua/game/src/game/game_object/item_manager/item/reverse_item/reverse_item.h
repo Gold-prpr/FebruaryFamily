@@ -22,9 +22,8 @@ public:
 	void Update()override;
 
 	//‘€ì‹t
+	//void Reverse(aqua::controller::DEVICE_ID other_id);
 	void Reverse();
-
-	bool m_ReverseFlag;
 
 private:
 	CUnitManager* m_pUnitManager;
