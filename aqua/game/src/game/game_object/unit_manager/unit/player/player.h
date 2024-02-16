@@ -73,6 +73,8 @@ public:
 
 	void AddMaxSpeed(float add_max_speed);
 
+	float GetMaxSpeed(float) { return max_speed; };
+
 	void Jump(void);
 
 	void JumpRamp(void);
