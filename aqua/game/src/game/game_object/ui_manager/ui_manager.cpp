@@ -6,6 +6,7 @@
 #include "ui_component/stage_pos_bar/stage_pos_bar.h"
 #include "ui_component/key_icon/key_icon.h"
 #include "ui_component/dark/dark.h"
+#include "ui_component/speedgauge/speedgauge.h"
 
 const aqua::CVector2	CUiManager::m_ui_item_frame_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_item_icon_position = aqua::CVector2(0.0f, 0.0f);
@@ -14,6 +15,7 @@ const aqua::CVector2	CUiManager::m_ui_stage_bar_position = aqua::CVector2(0.0f, 
 const aqua::CVector2	CUiManager::m_ui_key_icon_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_ui_rank_icon_position = aqua::CVector2(0.0f, 0.0f);
 const aqua::CVector2	CUiManager::m_dark_position = aqua::CVector2(0.0f, 0.0f);
+const aqua::CVector2	CUiManager::m_speedgauge_position = aqua::CVector2(0.0f, 0.0f);
 
 CUiManager::CUiManager(aqua::IGameObject* parent)
 	: aqua::IGameObject(parent, "UiManager")
@@ -71,4 +73,8 @@ void CUiManager::Create(void)
 	CRankIcon* rankicon = aqua::CreateGameObject<CRankIcon>(this);
 
 	rankicon->Initialize(m_ui_rank_icon_position);
+
+	CSpeedGauge* speedgauge = aqua::CreateGameObject<CSpeedGauge>(this);
+
+	speedgauge->Initialize(m_speedgauge_position);
 }

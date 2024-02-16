@@ -138,6 +138,7 @@
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\key_icon\key_icon.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\rank_icon\rank_icon.cpp" />
+    <ClCompile Include="src\game\game_object\ui_manager\ui_component\speedgauge\speedgauge.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\stage_pos_bar\stage_pos_bar.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\ui_component.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_manager.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\key_icon\key_icon.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\rank_icon\rank_icon.h" />
+    <ClInclude Include="src\game\game_object\ui_manager\ui_component\speedgauge\speedgauge.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\stage_pos_bar\stage_pos_bar.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\ui_component.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_manager.h" />
