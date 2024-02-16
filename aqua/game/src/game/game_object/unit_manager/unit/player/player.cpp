@@ -15,7 +15,6 @@
 #include "../../../ui_manager/ui_component/effect_icon/effect_icon.h"
 #include "../../../Item_manager/item/dark_item/dark_item.h"
 #include "../../../item_manager/item/speedup_item/speedup_item.h"
-#include "../../../Item_manager/item/reverse_item/reverse_item.h"
 //#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 //#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
@@ -43,7 +42,6 @@ CPlayer::CPlayer(aqua::IGameObject* parent)
 	, m_pEffectIcon(nullptr)
 	, m_pDarkItem(nullptr)
 	, m_pSpeedUpItem(nullptr)
-	, m_pReverseItem(nullptr)
 	//, m_pSpeedDownEffect(nullptr)
 	//, m_pPlayerStunEffect(nullptr)
 	, m_State(STATE::START)
@@ -62,7 +60,7 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pCommonData = (CCommonData*)aqua::FindGameObject("CommonData");
 	m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
 
-
+	std::string name;
 
 	if (m_Device == DEVICE_ID::P1)
 		name = "data//player_1p_kari.png";
@@ -104,8 +102,6 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 
 	m_VeloTemp = 0.0f;
 
-	m_ReverseFlag = false;
-
 	IGameObject::Initialize();
 }
 
@@ -125,19 +121,6 @@ void CPlayer::Update()
 		}
 
 		m_PrevPosition = m_Position;
-
-		if (m_Velocity.x != 0.0f)
-			m_VeloTemp = m_Velocity.x;
-
-		/*if (GameTrigger(GameKey::X, m_Device))
-		{
-			if (m_Device == DEVICE_ID::P1)
-				name = "data//player_1p_kari_2.png";
-			else
-				name = "data//player_2p_kari_2.png";
-		}*/
-
-		m_CharaSprite.Create(name);
 
 		CheckHitBlock();//�ǂ̓����蔻��
 	}
@@ -421,16 +404,6 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if (m_pItemManager->m_ItemRand == 4)
-		{
-			m_pItemManager->Create(ITEM_ID::REVERSE);
-
-			m_pReverseItem = (CReverseItem*)aqua::FindGameObject("ReverseItem");
-			m_pReverseItem->Initialize(player->m_Device);
-			m_pReverseItem->Reverse();
-
-			player->m_GetItemFlag = false;
-		}
 
 		if (m_pEffectIcon)
 			m_pEffectIcon->EffectCheck(player);
@@ -538,13 +511,6 @@ void CPlayer::State_Move()
 	if (std::abs(input_move) >= 0.7f)
 		input_x_value = input_move / std::abs(input_move);
 
-	//if(m_pReverseItem)
-	//if (m_pReverseItem->m_ReverseFlag == true)
-	//{
-	//	input_x_value = -1.0f * input_x_value;
-	//}
-
-
 	m_Velocity.x = 0;
 
 	m_Timer += 1;
@@ -591,11 +557,6 @@ void CPlayer::State_Move()
 	{
 		if (m_pSlime)
 			m_pSlime->Damage();
-	}
-
-	if (m_ReverseFlag == true)
-	{
-		m_Velocity.x = -1.0f * m_Velocity.x;
 	}
 }
 

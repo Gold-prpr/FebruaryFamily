@@ -15,6 +15,8 @@ CReverseItem::CReverseItem(aqua::IGameObject* parent)
 //‰Šú‰»
 void CReverseItem::Initialize(aqua::controller::DEVICE_ID other_id)
 {
+	m_ReverseFlag = false;
+
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
@@ -36,7 +38,7 @@ void CReverseItem::Update()
 	if (m_EffectTimer.Finished() && m_ItemFlag == true)
 		if (m_pPlayer != nullptr)
 		{
-			m_pPlayer->m_ReverseFlag = false;
+			m_ReverseFlag = false;
 
 			m_ItemFlag = false;
 
@@ -56,5 +58,5 @@ void CReverseItem::Reverse()
 
 	m_ItemFlag = true;
 
-	m_pPlayer->m_ReverseFlag = true;
+	m_ReverseFlag = true;
 }

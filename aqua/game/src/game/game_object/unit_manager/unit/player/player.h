@@ -16,7 +16,6 @@ class CStagePosBar;
 class CKeyIcon;
 class CCommonData;
 class CEffectIcon;
-class CReverseItem;
 //class CSpeedDownEffect;
 //class CPlayerStunEffect;
 
@@ -122,16 +121,12 @@ public:
 
 	float m_VeloTemp;
 
-	bool m_ReverseFlag;
-
 private:
 
 	void State_Start();//開始の状態
 	void State_Move();//動ける状態
 	void State_Dead();//死んだ状態
 	void State_Goal();//ゴールした状態
-
-	std::string name;
 
 	STATE m_State;//キャラの状態
 	CStage* m_pStage;//ステージのポインタ
@@ -149,8 +144,6 @@ private:
 	CEffectIcon* m_pEffectIcon;
 	CDarkItem* m_pDarkItem;
 	CSpeedUpItem* m_pSpeedUpItem;
-	CReverseItem* m_pReverseItem;
-
 	//CSpeedDownEffect* m_pSpeedDownEffect;
 	//CPlayerStunEffect* m_pPlayerStunEffect;
 	

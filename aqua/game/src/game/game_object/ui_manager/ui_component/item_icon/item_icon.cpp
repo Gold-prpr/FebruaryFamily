@@ -81,14 +81,6 @@ void CItemIcon::Check(CPlayer* player)
 				m_2PItemIconSprite.Create("data\\speedup.png");
 		}
 
-		if (m_pItemManager->m_ItemRand == 4)
-		{
-			if (player->GetDeviceID() == DEVICE_ID::P1)
-				m_1PItemIconSprite.Create("data\\reverse.png");
-			else
-				m_2PItemIconSprite.Create("data\\reverse.png");
-		}
-
 		player->AddItemSpeed(2.0f);
 	}
 	else
