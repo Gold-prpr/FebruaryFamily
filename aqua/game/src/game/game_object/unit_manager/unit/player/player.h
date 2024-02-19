@@ -17,6 +17,7 @@ class CKeyIcon;
 class CCommonData;
 class CEffectIcon;
 class CReverseItem;
+class CSpeedGauge;
 //class CSpeedDownEffect;
 //class CPlayerStunEffect;
 
@@ -74,7 +75,7 @@ public:
 
 	void AddMaxSpeed(float add_max_speed);
 
-	float GetMaxSpeed(float) { return max_speed; };
+	float GetMaxSpeed(void) { return m_Speed; };
 
 	void Jump(void);
 
@@ -153,6 +154,7 @@ private:
 	CDarkItem* m_pDarkItem;
 	CSpeedUpItem* m_pSpeedUpItem;
 	CReverseItem* m_pReverseItem;
+	CSpeedGauge* m_pSpeedGauge;
 
 	//CSpeedDownEffect* m_pSpeedDownEffect;
 	//CPlayerStunEffect* m_pPlayerStunEffect;

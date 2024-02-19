@@ -16,6 +16,7 @@
 #include "../../../Item_manager/item/dark_item/dark_item.h"
 #include "../../../item_manager/item/speedup_item/speedup_item.h"
 #include "../../../Item_manager/item/reverse_item/reverse_item.h"
+#include "../../../ui_manager/ui_component/speedgauge/speedgauge.h"
 //#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 //#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
@@ -61,7 +62,6 @@ void CPlayer::Initialize(const aqua::CVector2& position)
 	m_pItemManager = (CItemManager*)aqua::FindGameObject("ItemManager");
 	m_pCommonData = (CCommonData*)aqua::FindGameObject("CommonData");
 	m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
-
 
 
 	if (m_Device == DEVICE_ID::P1)
@@ -115,6 +115,8 @@ void CPlayer::Update()
 {
 	if (!m_pCamera)
 		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
+
+	((CSpeedGauge*)aqua::FindGameObject("SpeedGauge"))->Gauge(this);
 
 	if (m_HitSpikeFlag != true)
 	{

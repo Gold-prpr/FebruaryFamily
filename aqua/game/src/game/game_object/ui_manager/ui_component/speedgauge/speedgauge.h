@@ -26,7 +26,7 @@ public:
 	void Finalize(void)override;
 
 	//ゲージ
-	void Gauge(void);
+	void Gauge(CPlayer* player);
 
 	aqua::CSprite		m_1PGaugeBaseSprite;	//1Pゲージの下
 	aqua::CSprite		m_1PGaugeSprite;		//1Pゲージ

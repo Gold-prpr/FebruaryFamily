@@ -15,11 +15,14 @@ void CSpeedGauge::Initialize(const aqua::CVector2& position)
 	m_1PGaugeBaseSprite.Create("data//speedgaugebase.png");
 	m_2PGaugeBaseSprite.Create("data//speedgaugebase.png");
 
-	m_1PGaugeBaseSprite.position = m_Position + aqua::CVector2{ 1350.0f,490.0f };
-	m_2PGaugeBaseSprite.position = m_Position + aqua::CVector2{ 1350.0f, 1030.0f };
+	m_1PGaugeSprite.Create("data//speedgauge.png");
+	m_2PGaugeSprite.Create("data//speedgauge.png");
 
-	m_1PGaugeSprite.position = m_Position + aqua::CVector2{ 1350.0f,490.0f };
-	m_2PGaugeSprite.position = m_Position + aqua::CVector2{ 1350.0f, 1030.0f };
+	m_1PGaugeBaseSprite.position = m_Position + aqua::CVector2{ 1400.0f, 490.0f };
+	m_2PGaugeBaseSprite.position = m_Position + aqua::CVector2{ 1400.0f, 1030.0f };
+
+	m_1PGaugeSprite.position = m_Position + aqua::CVector2{ 1400.0f, 490.0f };
+	m_2PGaugeSprite.position = m_Position + aqua::CVector2{ 1400.0f, 1030.0f };
 
 	IUiComponent::Initialize(position);
 	IGameObject::Initialize();
@@ -52,7 +55,11 @@ void CSpeedGauge::Finalize(void)
 }
 
 //ƒQ[ƒW
-void CSpeedGauge::Gauge(void)
-{/*
-	m_1PGaugeSprite.rect.right = (m_1PGaugeSprite.GetTextureWidth() * (1.0f - (m_pPlayer->m_Velocity.y / m_pPlayer->)));*/
+void CSpeedGauge::Gauge(CPlayer* player)
+{
+	if (player->GetDeviceID() == DEVICE_ID::P1)
+		m_1PGaugeSprite.rect.right = (m_1PGaugeSprite.GetTextureWidth() * (std::abs(player->m_Velocity.x) / player->GetMaxSpeed()));
+	else
+		m_2PGaugeSprite.rect.right = (m_2PGaugeSprite.GetTextureWidth() * (std::abs(player->m_Velocity.x) / player->GetMaxSpeed()));
+
 }
