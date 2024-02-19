@@ -23,7 +23,7 @@
 using namespace GameInputManager;
 
 const float CPlayer::max_speed = 8.0f;//�L�����̃X�s�[�h
-const float CPlayer::min_speed = 3.0f;//�L�����̍Œ�X�s�[�h
+const float CPlayer::min_speed = 1.0f;//�L�����̍Œ�X�s�[�h
 const float CPlayer::jump = -20.0f;//�L�����̃W�����v
 const float CPlayer::width = 50.0f;//�L�����̕�
 const float CPlayer::height = 50.0f;//�L�����̍���
