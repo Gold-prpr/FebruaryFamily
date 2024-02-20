@@ -49,9 +49,9 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 	if (m_pItemManager->m_ItemRand == 0)
 	{
 		if (player->GetDeviceID() == DEVICE_ID::P1)
-			m_2PEffectIconSprite.Create("data\\speeddown.png");
+			m_2PEffectIconSprite.Create("data\\speeddowneffecticon.png");
 		else
-			m_1PEffectIconSprite.Create("data\\speeddown.png");
+			m_1PEffectIconSprite.Create("data\\speeddowneffecticon.png");
 	}
 	 
 	if (m_pItemManager->m_ItemRand == 1)
@@ -70,24 +70,16 @@ void CEffectIcon::EffectCheck(CPlayer* player)
 			m_1PEffectIconSprite.Create("data\\Black_Item.png");
 	}
 
-	if (m_pItemManager->m_ItemRand == 3)
-	{
-		if (player->GetDeviceID() == DEVICE_ID::P1)
-			m_1PEffectIconSprite.Create("data\\speedup.png");
-		else
-			m_2PEffectIconSprite.Create("data\\speedup.png");
-	}
-
-	if (m_pItemManager->m_ItemRand == 4)
-	{
-		if (player->GetDeviceID() == DEVICE_ID::P1)
-			m_2PEffectIconSprite.Create("data\\reverse.png");
-		else
-			m_1PEffectIconSprite.Create("data\\reverse.png");
-	}
-
 }
 
+////ƒvƒŒƒCƒ„[‚ÌŒø‰Ê‚ªØ‚ê‚½‚ç
+//void CEffectIcon::DeleteEffect()
+//{
+//	if (m_pPlayer->GetDeviceID() == DEVICE_ID::P1)
+//		m_1PEffectIconSprite.Delete();
+//	else
+//		m_2PEffectIconSprite.Delete();
+//}
 
 void CEffectIcon::DeleteEffect(CPlayer* player)
 {

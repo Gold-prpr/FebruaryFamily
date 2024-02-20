@@ -12,14 +12,8 @@ void CTitle::Initialize()
 	IScene::Initialize();
 	m_GameSoundClass->Play(SOUND_ID::TITLE);
 
-	m_BackGround.Create("data\\scene\\title\\game_title_back(goal_flag)2.ass");
-	m_BackGround.Change("wind");
-	m_BackGround.Play();
+	m_RogoSprite.Create("data\\scene\\title\\ロゴ.png");
 
-	m_RogoSprite.Create("data\\タイトル(イメージ).png");
-
-	m_BackGround.scale = aqua::CVector2::ONE * 2.0f;
-	m_BackGround.position.x = (aqua::GetWindowSize().x/2.0f - m_BackGround.GetFrameWidth()) / 2.0f;
 }
 
 void CTitle::Update()
@@ -30,18 +24,15 @@ void CTitle::Update()
 		m_ChangeSceneFlag = true;
 
 
-	m_BackGround.Update();
 }
 
 void CTitle::Draw()
 {
-	m_BackGround.Draw();
 	m_RogoSprite.Draw();
 }
 
 void CTitle::Finalize()
 {
-	m_BackGround.Delete();
 	m_RogoSprite.Delete();
 
 	m_GameSoundClass->Stop(SOUND_ID::TITLE);

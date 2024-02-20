@@ -18,8 +18,6 @@ public:
 
 private:
 
-	aqua::CAnimationSprite m_BackGround;
-
 	aqua::CSprite			m_RogoSprite;
 
 };

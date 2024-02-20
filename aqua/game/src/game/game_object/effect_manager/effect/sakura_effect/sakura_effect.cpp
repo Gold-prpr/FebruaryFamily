@@ -33,7 +33,7 @@ void CSakuraEffect::Update()
 	if (m_Sakura.color.alpha == 3)
 		IGameObject::DeleteObject();
 
-	m_angle++;
+	m_angle += aqua::Rand(10) - 5;
 
 	//—h‚ç‚·
 	m_Sakura.position.x += cos(aqua::DegToRad((float)m_angle));
@@ -42,7 +42,7 @@ void CSakuraEffect::Update()
 	m_Sakura.color.alpha -= 1;
 
 	//‰º‚ÉˆÚ“®
-	m_Sakura.position.y += m_Sakura.scale.x * 5;
+	m_Sakura.position.y += m_Sakura.scale.x * 2;
 }
 
 //•`‰æ
