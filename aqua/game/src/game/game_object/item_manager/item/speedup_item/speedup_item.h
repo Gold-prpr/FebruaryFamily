@@ -18,7 +18,7 @@ public:
 	~CSpeedUpItem(void) = default;
 
 	//‰Šú‰»
-	void Initialize(aqua::controller::DEVICE_ID other_id);
+	void Initialize(CPlayer* player);
 
 	//XV
 	void Update()override;

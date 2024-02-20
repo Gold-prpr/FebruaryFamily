@@ -30,7 +30,7 @@ public:
 	void Finalize(void)override;
 
 	//‘ŠŽè‚Ì‰æ–Ê‚É•`‰æ
-	void Dark(aqua::controller::DEVICE_ID other_id);
+	void Dark(CPlayer* player);
 
 	aqua::CSprite		m_1PDark;	//1PˆÃˆÅ
 	aqua::CSprite		m_2PDark;	//2PˆÃˆÅ

@@ -13,13 +13,13 @@ CReverseItem::CReverseItem(aqua::IGameObject* parent)
 }
 
 //‰Šú‰»
-void CReverseItem::Initialize(aqua::controller::DEVICE_ID other_id)
+void CReverseItem::Initialize(CPlayer* player)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
 
-	if (other_id == DEVICE_ID::P1)
+	if (player->GetDeviceID() == DEVICE_ID::P1)
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
 	else
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P1);
@@ -36,12 +36,12 @@ void CReverseItem::Update()
 	if (m_EffectTimer.Finished() && m_ItemFlag == true)
 		if (m_pPlayer != nullptr)
 		{
+			if (m_pEffectIcon)
+				m_pEffectIcon->DeleteEffect(m_pPlayer);
 			m_pPlayer->m_ReverseFlag = false;
 
 			m_ItemFlag = false;
 
-			if (m_pEffectIcon)
-				m_pEffectIcon->DeleteEffect(m_pPlayer);
 		}
 
 	m_EffectTimer.Update();

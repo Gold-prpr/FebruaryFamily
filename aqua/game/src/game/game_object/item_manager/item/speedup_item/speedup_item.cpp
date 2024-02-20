@@ -13,13 +13,13 @@ CSpeedUpItem::CSpeedUpItem(aqua::IGameObject* parent)
 }
 
 //‰Šú‰»
-void CSpeedUpItem::Initialize(aqua::controller::DEVICE_ID other_id)
+void CSpeedUpItem::Initialize(CPlayer* player)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
 
-	if (other_id == DEVICE_ID::P1)
+	if (player->GetDeviceID() == DEVICE_ID::P1)
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P1);
 	else
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
@@ -35,13 +35,13 @@ void CSpeedUpItem::Initialize(aqua::controller::DEVICE_ID other_id)
 //XV
 void CSpeedUpItem::Update()
 {
-	if (m_EffectTimer.Finished() && m_ItemFlag == true)
+	if (m_EffectTimer.Finished() && m_ItemFlag ==true)
 		if (m_pPlayer != nullptr)
 		{
-			m_pPlayer->max_interval = 40.0f;
-			m_ItemFlag = false;
 			if (m_pEffectIcon)
 				m_pEffectIcon->DeleteEffect(m_pPlayer);
+			m_pPlayer->max_interval = 40.0f;
+			m_ItemFlag = false;
 		}
 
 	m_EffectTimer.Update();

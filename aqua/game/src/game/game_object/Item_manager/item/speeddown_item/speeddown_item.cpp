@@ -17,13 +17,13 @@ CSpeedDownItem::CSpeedDownItem(aqua::IGameObject* parent)
 }
 
 //‰Šú‰»
-void CSpeedDownItem::Initialize(aqua::controller::DEVICE_ID other_id)
+void CSpeedDownItem::Initialize(CPlayer* player)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
 
-	if(other_id == DEVICE_ID::P1)
+	if(player->GetDeviceID() == DEVICE_ID::P1)
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
 	else
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P1);
@@ -45,11 +45,12 @@ void CSpeedDownItem::Update()
 	if (m_EffectTimer.Finished()&& m_ItemFlag ==true)
 		if (m_pPlayer != nullptr)
 		{
-			m_pPlayer->AddEffectItemSpeed(1.0f);
-			m_ItemFlag = false;
 			if (m_pEffectIcon)
 				//m_pEffectIcon->DeleteEffect();
 				m_pEffectIcon->DeleteEffect(m_pPlayer);
+
+			m_pPlayer->AddEffectItemSpeed(1.0f);
+			m_ItemFlag = false;
 		}
 
 	//m_pEffectIcon->m_1PEffectIconSprite.rect.top = m_pEffectIcon->m_1PEffectIconSprite.GetTextureHeight()*(1.0f-)

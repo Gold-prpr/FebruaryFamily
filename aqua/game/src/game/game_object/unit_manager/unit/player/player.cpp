@@ -374,7 +374,7 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
 
 			m_pSpeedDownItem = (CSpeedDownItem*)aqua::FindGameObject("SpeedDownItem");
-			m_pSpeedDownItem->Initialize(player->m_Device);
+			m_pSpeedDownItem->Initialize(player);
 			m_pSpeedDownItem->SpeedDown();
 
 			player->m_GetItemFlag = false;
@@ -384,7 +384,7 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
 
 			m_pStunItem = (CPlayerStunItem*)aqua::FindGameObject("StunItem");
-			m_pStunItem->Initialize(player->m_Device);
+			m_pStunItem->Initialize(player);
 			m_pStunItem->PlayerStun();
 
 			player->m_GetItemFlag = false;
@@ -394,8 +394,8 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pItemManager->Create(ITEM_ID::DARK);
 
 			m_pDarkItem = (CDarkItem*)aqua::FindGameObject("DarkItem");
-			m_pDarkItem->Initialize(player->m_Device);
-			m_pDarkItem->Dark(player->m_Device);
+			m_pDarkItem->Initialize(player);
+			m_pDarkItem->Dark(player);
 
 			player->m_GetItemFlag = false;
 		}
@@ -404,7 +404,7 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pItemManager->Create(ITEM_ID::SPEEDUP);
 
 			m_pSpeedUpItem = (CSpeedUpItem*)aqua::FindGameObject("SpeedUpItem");
-			m_pSpeedUpItem->Initialize(player->m_Device);
+			m_pSpeedUpItem->Initialize(player);
 			m_pSpeedUpItem->SpeedUp();
 
 			player->m_GetItemFlag = false;
@@ -414,7 +414,7 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pItemManager->Create(ITEM_ID::REVERSE);
 
 			m_pReverseItem = (CReverseItem*)aqua::FindGameObject("ReverseItem");
-			m_pReverseItem->Initialize(player->m_Device);
+			m_pReverseItem->Initialize(player);
 			m_pReverseItem->Reverse();
 
 			player->m_GetItemFlag = false;

@@ -37,10 +37,10 @@ void CDark::Finalize(void)
 }
 
 //相手の画面に描画
-void CDark::Dark(aqua::controller::DEVICE_ID other_id)
+void CDark::Dark(CPlayer* player)
 {
 	//アイテムを使っていたら
-	if (other_id == DEVICE_ID::P1)
+	if (player->GetDeviceID() == DEVICE_ID::P1)
 		m_2PDark.Create("data/dark.png");
 	else
 		m_1PDark.Create("data/dark.png");
