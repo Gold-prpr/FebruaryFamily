@@ -1,0 +1,33 @@
+{
+  "file": "data\\scene\\result\\charactor\\player_1p.png",
+
+  "frame": {
+    "width": 60,
+    "height": 60,
+    "cols": 5,
+    "rows": 4
+  },
+
+  "animations": {
+    "wait_1": {
+      "frames": [ 0, 1, 2, 3, 2, 1, 0 ],
+      "interval": 0.05,
+      "loop": false
+    },
+    "wait_2": {
+      "frames": [ 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 6, 5 ],
+      "interval": 0.05,
+      "loop": false
+    },
+    "wait_3": {
+      "frames": [ 10, 11, 12, 13, 14, 13, 12, 11, 10 ],
+      "interval": 0.05,
+      "loop": false
+    },
+    "wait_4": {
+      "frames": [ 15, 16, 17, 18, 17, 16, 15 ],
+      "interval": 0.1,
+      "loop": false
+    }
+  }
+}
