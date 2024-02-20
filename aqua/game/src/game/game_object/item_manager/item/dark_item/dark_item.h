@@ -17,13 +17,13 @@ public:
 	~CDarkItem(void) = default;
 
 	//‰Šú‰»
-	void Initialize(CPlayer* player);
+	void Initialize(aqua::controller::DEVICE_ID other_id);
 
 	//XV
 	void Update()override;
 
 	//ˆÃ‚­‚·‚é
-	void Dark(CPlayer* player);
+	void Dark(aqua::controller::DEVICE_ID other_id);
 
 private:
 	CUnitManager* m_pUnitManager;

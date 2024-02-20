@@ -15,7 +15,7 @@ CDarkItem::CDarkItem(aqua::IGameObject* parent)
 }
 
 //‰Šú‰»
-void CDarkItem::Initialize(CPlayer* player)
+void CDarkItem::Initialize(aqua::controller::DEVICE_ID other_id)
 {
 	m_pUnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 
@@ -23,7 +23,7 @@ void CDarkItem::Initialize(CPlayer* player)
 
 	m_pDark = (CDark*)aqua::FindGameObject("Dark");
 
-	if (player->GetDeviceID() == DEVICE_ID::P1)
+	if (other_id == DEVICE_ID::P1)
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P2);
 	else
 		m_pPlayer = m_pUnitManager->GetPlayer(DEVICE_ID::P1);
@@ -39,14 +39,13 @@ void CDarkItem::Update()
 	if (m_EffectTimer.Finished() && m_ItemFlag == true)
 		if (m_pPlayer != nullptr)
 		{
-			if (m_pEffectIcon)
-				m_pEffectIcon->DeleteEffect(m_pPlayer);
-
 			m_ItemFlag = false;
 
 			m_pDark->m_1PDark.Delete();
 			m_pDark->m_2PDark.Delete();
 
+			if (m_pEffectIcon)
+				m_pEffectIcon->DeleteEffect(m_pPlayer);
 		}
 
 	m_EffectTimer.Update();
@@ -55,11 +54,11 @@ void CDarkItem::Update()
 }
 
 //ˆÃ‚­‚·‚é
-void CDarkItem::Dark(CPlayer* player)
+void CDarkItem::Dark(aqua::controller::DEVICE_ID other_id)
 {
 	m_EffectTimer.Reset();
 
 	m_ItemFlag = true;
 
-	m_pDark->Dark(player);
+	m_pDark->Dark(other_id);
 }
