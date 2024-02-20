@@ -24,7 +24,6 @@ public:
 	//‘€ì‹t
 	void Reverse();
 
-	bool m_ReverseFlag;
 
 private:
 	CUnitManager* m_pUnitManager;

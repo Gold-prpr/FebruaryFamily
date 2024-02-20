@@ -114,6 +114,8 @@ public:
 
 	bool m_KeyFlag;
 
+	bool m_ReverseFlag;
+
 	//aqua::CAnimationSprite m_Chara;//キャラクターのアニメーションスプライト
 	aqua::CSprite m_CharaSprite;
 
@@ -131,6 +133,8 @@ private:
 	void State_Move();//動ける状態
 	void State_Dead();//死んだ状態
 	void State_Goal();//ゴールした状態
+
+	std::string name;
 
 	STATE m_State;//キャラの状態
 	CStage* m_pStage;//ステージのポインタ
