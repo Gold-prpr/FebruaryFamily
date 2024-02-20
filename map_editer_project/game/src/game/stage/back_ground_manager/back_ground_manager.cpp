@@ -82,6 +82,7 @@ void CBackGroundManager::DropSprite()
 		}
 	}
 }
+
 /*
  *  ‰æ‘œ‚Ì•Û‘¶
  */

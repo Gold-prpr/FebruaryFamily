@@ -36,7 +36,7 @@ enum class StageObjectID
 	AIR,
 	GRASS1_TILE,
 	SAND1_TILE,
-	SAND2_TILE,
+	MUD_TILE,
 	BRICK,
 	BOX,
 	GOAL_FLAG,

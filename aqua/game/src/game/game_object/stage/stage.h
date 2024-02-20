@@ -6,6 +6,7 @@ class CPlayer;
 class CUnitManager;
 class CStageObject;
 class IUnit;
+class CCommonData;
 
 class CStage
 	: public aqua::IGameObject
@@ -91,5 +92,11 @@ private:
 	int m_MapTileX;
 	int m_MapTileY;
 
+<<<<<<< HEAD
 	CUnitManager* m_UnitManager;
+=======
+	CPlayer* m_pPlayer;
+
+	CCommonData* m_CommonData;
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 };

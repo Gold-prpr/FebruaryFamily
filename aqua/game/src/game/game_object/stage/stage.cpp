@@ -2,6 +2,7 @@
 #include "stage_object/stage_object.h"
 #include "../unit_manager/unit_manager.h"
 #include "../unit_manager/unit/player/player.h"
+#include "../common_data/common_data.h"
 
 const int CStage::map_chip_size = CStageObject::GetObjectSize();
 
@@ -20,7 +21,9 @@ CStage::CStage(aqua::IGameObject* parent)
 
 void CStage::Initialize(void)
 {
-	std::string file_name = "data\\scene\\game\\map_data8.csv";
+	m_CommonData = (CCommonData*)aqua::FindGameObject("CommonData");
+
+	std::string file_name = m_CommonData->GetCommonDate().stage_name;
 
 	m_GoalPos = aqua::CVector2::ZERO;
 

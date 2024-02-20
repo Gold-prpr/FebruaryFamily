@@ -11,16 +11,17 @@ void CTitle::Initialize()
 {
 	IScene::Initialize();
 	m_GameSoundClass->Play(SOUND_ID::TITLE);
+<<<<<<< HEAD
 	m_GameSoundClass->Play(SOUND_ID::TITLE);
 
 	m_BackGround.Create("data\\scene\\title\\game_title_back(goal_flag)2.ass");
 	m_BackGround.Change("wind");
 	m_BackGround.Play();
+=======
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 
-	m_RogoSprite.Create("data\\�^�C�g��(�C���[�W).png");
+	m_RogoSprite.Create("data\\scene\\title\\���S.png");
 
-	m_BackGround.scale = aqua::CVector2::ONE * 2.0f;
-	m_BackGround.position.x = (aqua::GetWindowSize().x/2.0f - m_BackGround.GetFrameWidth()) / 2.0f;
 }
 
 void CTitle::Update()
@@ -31,18 +32,19 @@ void CTitle::Update()
 		m_ChangeSceneFlag = true;
 
 
+<<<<<<< HEAD
 	m_BackGround.Update();
+=======
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 }
 
 void CTitle::Draw()
 {
-	m_BackGround.Draw();
 	m_RogoSprite.Draw();
 }
 
 void CTitle::Finalize()
 {
-	m_BackGround.Delete();
 	m_RogoSprite.Delete();
 
 	m_GameSoundClass->Stop(SOUND_ID::TITLE);

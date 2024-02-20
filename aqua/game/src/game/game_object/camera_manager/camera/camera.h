@@ -5,7 +5,13 @@ namespace controller = aqua::controller;
 
 class CPlayer;
 class CStage;
+<<<<<<< HEAD
 class CUnitManager;
+=======
+class CEffectManager;
+//class CSpeedDownEffect;
+//class CPlayerStunEffect;
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 
 class CCamera
 	:public aqua::IGameObject
@@ -34,6 +40,17 @@ private:
 
 	aqua::CVector2 m_Scroll;
 	
+<<<<<<< HEAD
+=======
+	CUnitManager*	m_UnitManager;
+	CItemManager*	m_ItemManager;
+	CGimmickAct*		m_Gimmick;
+	CPlayer*		m_pPlayer;
+	CStage*			m_pStage;
+	//CEffectManager* m_pEffectManager;
+
+
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 	controller::DEVICE_ID m_PlayerID;
 
 	CPlayer* m_pPlayer;

@@ -28,6 +28,9 @@ CSelect::CSelect(aqua::IGameObject* parent)
 */
 void CSelect::Initialize()
 {
+	IScene::Initialize();
+	m_GameSoundClass->Play(SOUND_ID::SELECT);
+
 	m_CommonDataClass = (CCommonData*)aqua::FindGameObject("CommonData");
 
 	// ‘¶Ý‚·‚éƒtƒ@ƒCƒ‹–¼‚ðŒŸõ
@@ -202,5 +205,7 @@ void CSelect::Draw()
 void CSelect::Finalize()
 {
 	m_BackGround.Delete();
+
+	m_GameSoundClass->Stop(SOUND_ID::SELECT);
 	IScene::Finalize();
 }

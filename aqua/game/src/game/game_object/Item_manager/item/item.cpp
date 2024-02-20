@@ -25,9 +25,12 @@ void IItem::Initialize(aqua::CVector2* position, std::string item_file)
 void IItem::Update()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	m_ItemSprite.position = aqua::CVector2(0, 0);
 >>>>>>> 6d8c1b073599bafcac7a7c5c76a0c3664e308d4b
+=======
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 	IGameObject::Update();
 }
 

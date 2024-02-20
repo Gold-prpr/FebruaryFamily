@@ -8,6 +8,7 @@ namespace keyboard = aqua::keyboard;
 namespace files = std::filesystem;
 
 const int CTileManager::m_object_max_size = 60;
+const std::string CTileManager::m_save_path = "data\\map_data\\map_data";
 
 CTileManager::CTileManager(aqua::IGameObject* parent)
 	:IGameObject(parent, "TileManager")
@@ -214,7 +215,64 @@ void CTileManager::Draw()
 void CTileManager::Finalize()
 {
 	m_SizeLabel.Delete();
+
+	//IGameObject::Finalize();
+
+	std::string tile_data_name = "";
+	int id_num = 0;
+	std::vector<int> tile_id_list;
+
+	// マップに使われているIDのみを記録
+	for (int i = 1; i < (int)TileID::MAX; i++)
+	{
+		for (auto& it : m_TileList)
+		{
+			if (it->tile_id == (TileID)i)
+			{
+				if (i < 10)
+					tile_data_name = tile_data_name + "0" + std::to_string(i);
+				else
+					tile_data_name = tile_data_name + std::to_string(i);
+				
+				id_num++;
+
+				tile_id_list.push_back(i);
+
+				break;
+			}
+		}
+	}
+	
 	IGameObject::Finalize();
+
+	int handle = MakeScreen(id_num * m_object_max_size, m_object_max_size,TRUE);
+	
+	SetDrawScreen(handle);
+
+	for (int i = 0; i < id_num;i++)
+	{
+		CTile* tile = nullptr;
+	
+		tile = aqua::CreateGameObject<CTile>(this);
+	
+		tile->Create(aqua::CVector2(i,0) * m_object_max_size, aqua::CVector2::ONE * m_object_max_size);
+	
+		tile->tile_id = (TileID)tile_id_list[i];
+		
+		tile->Update();
+		
+		tile->Draw();
+	}
+
+
+	tile_data_name = "data\\map_data\\"  + tile_data_name + ".png";
+
+	SaveDrawScreenToPNG(0,0,id_num * m_object_max_size, m_object_max_size, tile_data_name.c_str());
+
+	DeleteGraph(handle);
+
+	IGameObject::Finalize();
+
 }
 
 void CTileManager::SaveTile()
@@ -228,7 +286,7 @@ void CTileManager::SaveTile()
 	int j = 0;
 
 	do {
-		file = "data\\map_data\\map_data" + std::to_string(j) + ".csv";
+		file = m_save_path + std::to_string(j) + ".csv";
 		++j;
 	} while (files::exists(file));
 
@@ -259,7 +317,7 @@ void CTileManager::ReSize()
 	if (keyboard::Trigger(keyboard::KEY_ID::TAB))
 		m_ReSetSizeFlag = false;
 
-	if (keyboard::Trigger(keyboard::KEY_ID::RIGHT))
+	if (keyboard::Trigger(keyboard::KEY_ID::RIGHT) && m_TileCount.x < 250)
 	{
 		for (int i = 0; i < m_TileCount.y; i++)
 		{
@@ -268,8 +326,6 @@ void CTileManager::ReSize()
 			tile = aqua::CreateGameObject<CTile>(this);
 
 			tile->Create(aqua::CVector2(m_TileCount.x, i) * m_object_max_size, aqua::CVector2::ONE * m_object_max_size);
-
-
 
 			m_TileList.push_back(tile);
 		}
@@ -324,7 +380,7 @@ void CTileManager::ReSize()
 
 	}
 
-	if (keyboard::Trigger(keyboard::KEY_ID::DOWN))
+	if (keyboard::Trigger(keyboard::KEY_ID::DOWN) && m_TileCount.y < 250)
 	{
 		for (int i = 0; i < m_TileCount.x; i++)
 		{

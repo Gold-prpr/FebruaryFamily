@@ -32,7 +32,15 @@ public:
 =======
 
 	aqua::CSprite				m_ItemSprite;	//ƒAƒCƒeƒ€•`‰æ
+<<<<<<< HEAD
 >>>>>>> 6d8c1b073599bafcac7a7c5c76a0c3664e308d4b
 private:
 	aqua::CSprite				m_ItemSprite;		//ƒAƒCƒeƒ€•`‰æ
+=======
+
+	bool				m_ItemFlag;		//ƒAƒCƒeƒ€Œø‰Ê’†
+protected:
+
+	aqua::CTimer		m_EffectTimer;
+>>>>>>> origin/æˆ‘ã€æ–°ä¸–ç•Œä¹‹çŽ‹ã€€KAWAGISINï½žæ¯è¦ªã®ãƒ‘ãƒ³ãƒ„ã‚’æ·»ãˆã¦ï½ž
 };

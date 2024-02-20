@@ -52,7 +52,7 @@ bool CFade::In()
 		m_FadeTime.Reset();
 
 	m_FadeBox.color.alpha =
-		(unsigned char)aqua::easing::InBack
+		(unsigned char)aqua::easing::OutQuart
 		(
 			m_FadeTime.GetTime(),
 			m_FadeTime.GetLimit(),
@@ -75,7 +75,7 @@ bool CFade::Out()
 		m_FadeTime.Reset();
 
 	m_FadeBox.color.alpha =
-		(unsigned char)aqua::easing::OutBack
+		(unsigned char)aqua::easing::OutQuart
 		(
 			m_FadeTime.GetTime(),
 			m_FadeTime.GetLimit(),

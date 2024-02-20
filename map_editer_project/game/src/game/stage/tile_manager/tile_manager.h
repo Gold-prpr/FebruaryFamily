@@ -27,6 +27,7 @@ private:
 
 private:
 	static const int m_object_max_size;
+	static const std::string m_save_path;
 
 	aqua::CPoint m_TileCount;
 	std::list<CTile*> m_TileList;

@@ -9,10 +9,14 @@ class CSlime;
 class CItemManager;
 class CSpeedDownItem;
 class CPlayerStunItem;
+class CDarkItem;
 class CItemIcon;
 class CStagePosBar;
 class CKeyIcon;
 class CCommonData;
+class CEffectIcon;
+//class CSpeedDownEffect;
+//class CPlayerStunEffect;
 
 class CPlayer :public IUnit
 {
@@ -57,6 +61,8 @@ public:
 	//ダメージをくらった時の処理
 	void Damage(void);
 
+	void AddEffectItemSpeed(float add_effect_item_speed);
+
 	//アイテムを取った時のスピードの加算
 	void AddItemSpeed(float add_item_speed);
 
@@ -78,6 +84,10 @@ public:
 	DEVICE_ID GetDeviceID();
 
 	void CreateItme(void);
+
+	void UseItem(CPlayer* player);
+
+	//void EffectPosition(CPlayer* player);
 
 	bool m_HitSpikeFlag;
 
@@ -111,8 +121,8 @@ private:
 	CStage* m_pStage;//ステージのポインタ
 	CCameraManager* m_pCamera;//カメラのポインタ
 	CUnitManager* m_pUnitManager;//ユニットマネージャーのポインタ
-	CGimmickAct* m_pGimmick;//
-	CItemManager* m_pItemManager;
+	CGimmickAct* m_pGimmick;//ギミックのポインタ
+	CItemManager* m_pItemManager;//アイテムマネージャーのポインタ
 	CSlime* m_pSlime;
 	CSpeedDownItem* m_pSpeedDownItem;
 	CPlayerStunItem* m_pStunItem;
@@ -120,11 +130,16 @@ private:
 	CStagePosBar* m_pStageBar;
 	CKeyIcon* m_pKeyIcon;
 	CCommonData* m_pCommonData;
+	CEffectIcon* m_pEffectIcon;
+	CDarkItem* m_pDarkItem;
+	//CSpeedDownEffect* m_pSpeedDownEffect;
+	//CPlayerStunEffect* m_pPlayerStunEffect;
 	
 	aqua::CVector2 m_PrevPosition;// プレイヤーの前フレームの位置
 
 	float m_AddMaxSpeed;
 	float m_AddKeySpeed;//鍵を持ってる時のスピード
+	float m_AddEffectItemSpeed;
 	float m_AddItemSpeed;
 	float m_AddGimmickSpeed;
 	float m_Accelerator;//加速度]

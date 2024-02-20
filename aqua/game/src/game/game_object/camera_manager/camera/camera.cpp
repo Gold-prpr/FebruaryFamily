@@ -2,11 +2,18 @@
 #include "../../unit_manager/unit/player/player.h"
 #include "../../unit_manager/unit_manager.h"
 #include "../../stage/stage.h"
+<<<<<<< HEAD
+=======
+#include "../../stage/gimmick/gimmick.h"
+#include "../../Item_manager/item_manager.h"
+//#include "../../effect_manager/effect_manager.h"
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 
 CCamera::CCamera(IGameObject* parent)
 	:IGameObject(parent, "Camera")
 	, m_pPlayer(nullptr)
 	, m_pStage(nullptr)
+	//, m_pEffectManager(nullptr)
 {
 }
 
@@ -15,6 +22,7 @@ void CCamera::Initialize(aqua::CVector2 position, controller::DEVICE_ID id,aqua:
 
 	m_UnitManager = (CUnitManager*)aqua::FindGameObject("UnitManager");
 	m_pStage = (CStage*)aqua::FindGameObject("Stage");
+	//m_pEffectManager = (CEffectManager*)aqua::FindGameObject("EffectManager");
 
 	m_Position = position;
 
@@ -60,6 +68,11 @@ void CCamera::Update()
 void CCamera::Draw()
 {
 	m_SurfaceSprite.Draw();
+<<<<<<< HEAD
+=======
+
+	//m_pEffectManager->Draw();
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 }
 
 void CCamera::Finalize()

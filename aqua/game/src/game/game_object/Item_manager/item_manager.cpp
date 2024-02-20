@@ -1,12 +1,21 @@
 #include "item_manager.h"
 #include "item/speedup_item/speedup_item.h"
 #include "item/speeddown_item/speeddown_item.h"
+<<<<<<< HEAD
 #include "../unit_manager/unit_manager.h"
 #include "../ui_manager/ui_component/item_icon/item_icon.h"
 
 const int CItemManager::m_item = 2;		//�A�C�e����
 <<<<<<< HEAD
 =======
+=======
+#include "item/playerstun_item/playerstun_item.h"
+#include "item/dark_item/dark_item.h"
+#include "../unit_manager/unit_manager.h"
+#include "../ui_manager/ui_component/item_icon/item_icon.h"
+
+const int CItemManager::m_item = 3;		//�A�C�e����
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 using namespace aqua::keyboard;
 using namespace aqua::controller;
 >>>>>>> 6d8c1b073599bafcac7a7c5c76a0c3664e308d4b
@@ -78,6 +87,11 @@ void CItemManager::Create(ITEM_ID id)
 	{
 	case ITEM_ID::SPEEDUP:		item = aqua::CreateGameObject<CSpeedUpItem>(this);		break;
 	case ITEM_ID::SPEEDDOWN:	item = aqua::CreateGameObject<CSpeedDownItem>(this);	break;
+<<<<<<< HEAD
+=======
+	case ITEM_ID::PLAYERSTUN:	item = aqua::CreateGameObject<CPlayerStunItem>(this);	break;
+	case ITEM_ID::DARK:			item = aqua::CreateGameObject<CDarkItem>(this);			break;
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 	}
 
 	if (!item) return;
@@ -91,14 +105,24 @@ void CItemManager::Create(ITEM_ID id)
 
 void CItemManager::RandPick(CPlayer* player)
 {
-	if (player->m_HitItemFlag == true)
+	if (player->m_HitItemFlag == true && player->m_GetItemFlag == true)
 	{
+<<<<<<< HEAD
 		m_1p_item_rand = rand() % m_item;
+=======
+		m_ItemRand = rand() % m_item;
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 
 		switch (m_1p_item_rand)
 		{
+<<<<<<< HEAD
 		case 0:Create(ITEM_ID::SPEEDUP, &pos);	break;
 		case 1:Create(ITEM_ID::SPEEDDOWN, &pos);	break;
+=======
+		case 0:Create(ITEM_ID::SPEEDDOWN);	break;
+		case 1:Create(ITEM_ID::PLAYERSTUN); break;
+		case 2:Create(ITEM_ID::DARK);		break;
+>>>>>>> origin/我、新世界之王　KAWAGISIN～母親のパンツを添えて～
 		}
 
 		

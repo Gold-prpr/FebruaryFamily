@@ -28,4 +28,5 @@ private:
 	static const aqua::CVector2		m_ui_stage_bar_position;		//バーの位置
 	static const aqua::CVector2		m_ui_key_icon_position;			//鍵アイコンの位置
 	static const aqua::CVector2		m_ui_rank_icon_position;		//順位アイコンの位置
+	static const aqua::CVector2		m_dark_position;
 };

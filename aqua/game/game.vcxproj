@@ -105,10 +105,13 @@
     <ClCompile Include="src\game\game_object\camera_manager\camera_manager.cpp" />
     <ClCompile Include="src\game\game_object\common_data\common_data.cpp" />
     <ClCompile Include="src\game\game_object\effect_manager\effect\effect.cpp" />
+    <ClCompile Include="src\game\game_object\effect_manager\effect\playerstun_effect\playerstun_effect.cpp" />
+    <ClCompile Include="src\game\game_object\effect_manager\effect\sakura_effect\sakura_effect.cpp" />
     <ClCompile Include="src\game\game_object\effect_manager\effect\speeddown_effect\speeddown_effect.cpp" />
     <ClCompile Include="src\game\game_object\effect_manager\effect_manager.cpp" />
     <ClCompile Include="src\game\game_object\game_sound\game_sound.cpp" />
     <ClCompile Include="src\game\game_object\input_manager\input_manager.cpp" />
+    <ClCompile Include="src\game\game_object\item_manager\item\dark_item\dark_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\playerstun_item\playerstun_item.cpp" />
     <ClCompile Include="src\game\game_object\item_manager\item\speeddown_item\speeddown_item.cpp" />
@@ -127,6 +130,7 @@
     <ClCompile Include="src\game\game_object\stage\gimmick\gimmick.cpp" />
     <ClCompile Include="src\game\game_object\stage\stage.cpp" />
     <ClCompile Include="src\game\game_object\stage\stage_object\stage_object.cpp" />
+    <ClCompile Include="src\game\game_object\ui_manager\ui_component\dark\dark.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\effect_icon\effect_icon.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\item_frame\item_frame.cpp" />
     <ClCompile Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.cpp" />
@@ -148,12 +152,15 @@
     <ClInclude Include="src\game\game_object\common_data\common_data.h" />
     <ClInclude Include="src\game\game_object\effect_manager\effect\effect.h" />
     <ClInclude Include="src\game\game_object\effect_manager\effect\effect_id.h" />
+    <ClInclude Include="src\game\game_object\effect_manager\effect\playerstun_effect\playerstun_effect.h" />
+    <ClInclude Include="src\game\game_object\effect_manager\effect\sakura_effect\sakura_effect.h" />
     <ClInclude Include="src\game\game_object\effect_manager\effect\speeddown_effect\speeddown_effect.h" />
     <ClInclude Include="src\game\game_object\effect_manager\effect_manager.h" />
     <ClInclude Include="src\game\game_object\game_object.h" />
     <ClInclude Include="src\game\game_object\game_sound\game_sound.h" />
     <ClInclude Include="src\game\game_object\game_sound\game_sound_id.h" />
     <ClInclude Include="src\game\game_object\input_manager\input_manager.h" />
+    <ClInclude Include="src\game\game_object\item_manager\item\dark_item\dark_item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\item_id.h" />
     <ClInclude Include="src\game\game_object\item_manager\item\playerstun_item\playerstun_item.h" />
@@ -179,6 +186,7 @@
     <ClInclude Include="src\game\game_object\stage\stage.h" />
     <ClInclude Include="src\game\game_object\stage\stage_object\stage_object.h" />
     <ClInclude Include="src\game\game_object\stage\stage_object\stage_object_id.h" />
+    <ClInclude Include="src\game\game_object\ui_manager\ui_component\dark\dark.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\effect_icon\effect_icon.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_frame\item_frame.h" />
     <ClInclude Include="src\game\game_object\ui_manager\ui_component\item_icon\item_icon.h" />
