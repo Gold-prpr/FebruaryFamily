@@ -1,10 +1,11 @@
 #include "item_manager.h"
 #include "item/speeddown_item/speeddown_item.h"
 #include "item/playerstun_item/playerstun_item.h"
+#include "item/dark_item/dark_item.h"
 #include "../unit_manager/unit_manager.h"
 #include "../ui_manager/ui_component/item_icon/item_icon.h"
 
-const int CItemManager::m_item = 2;		//アイテム数
+const int CItemManager::m_item = 3;		//アイテム数
 using namespace aqua::keyboard;
 using namespace aqua::controller;
 
@@ -49,6 +50,7 @@ void CItemManager::Create(ITEM_ID id)
 	{
 	case ITEM_ID::SPEEDDOWN:	item = aqua::CreateGameObject<CSpeedDownItem>(this);	break;
 	case ITEM_ID::PLAYERSTUN:	item = aqua::CreateGameObject<CPlayerStunItem>(this);	break;
+	case ITEM_ID::DARK:			item = aqua::CreateGameObject<CDarkItem>(this);			break;
 	}
 
 	if (!item) return;
@@ -56,15 +58,15 @@ void CItemManager::Create(ITEM_ID id)
 
 void CItemManager::RandPick(CPlayer* player)
 {
-	if (player->m_HitItemFlag == true)
+	if (player->m_HitItemFlag == true && player->m_GetItemFlag == true)
 	{
 		m_ItemRand = rand() % m_item;
-		//m_item_rand = 0;
 
 		switch (m_ItemRand)
 		{
-		case 0:Create(ITEM_ID::SPEEDDOWN);	 break;
-		case 1:Create(ITEM_ID::PLAYERSTUN);  break;
+		case 0:Create(ITEM_ID::SPEEDDOWN);	break;
+		case 1:Create(ITEM_ID::PLAYERSTUN); break;
+		case 2:Create(ITEM_ID::DARK);		break;
 		}
 	}
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "../scene.h"
 
+class CGameSound;
+
 class CTitle :
     public IScene
 {
@@ -15,8 +17,6 @@ public:
 	void Finalize()override;
 
 private:
-
-	aqua::CAnimationSprite m_BackGround;
 
 	aqua::CSprite			m_RogoSprite;
 

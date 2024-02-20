@@ -6,9 +6,9 @@
 
 CSceneManager::CSceneManager(aqua::IGameObject* parent)
 	:aqua::IGameObject(parent, "SceneManager")
-	, m_SceneState(SCENE_STATE::UPDATE)
+	, m_SceneState(SCENE_STATE::SCENE_IN)
 	, m_NextSceneID(SCENE_ID::TITLE)
-	, m_NextChangeSceneID(CHANGE_SCENE_ID::SLIDE_CLOSE)
+	, m_NextChangeSceneID(CHANGE_SCENE_ID::FADE)
 	, m_SceneClass(nullptr)
 	, m_ChangeSceneClass(nullptr)
 {
@@ -23,7 +23,8 @@ void CSceneManager::Initialize()
 	aqua::CreateGameObject<CGameSound>(this);
 
 	// シーンの生成
-	CreateScene(m_NextSceneID);
+	//CreateScene(m_NextSceneID);
+	CreateChangeScene(m_NextChangeSceneID);
 
 	aqua::IGameObject::Initialize();
 }
@@ -57,11 +58,13 @@ void CSceneManager::Update()
 
 		if (m_SceneClass->GetChangeSceneFlag())
 		{
+
 			// 次の状態に設定
 			m_SceneState = SCENE_STATE::SCENE_OUT;
 
 			// シーン遷移の演出IDを取得
 			m_NextChangeSceneID = m_SceneClass->GetNextChangeSceneID();
+
 		}
 
 		m_SceneClass->Update();
@@ -80,17 +83,21 @@ void CSceneManager::Update()
 
 		if (m_ChangeSceneClass->Out())
 		{
+
 			m_SceneState = SCENE_STATE::SCENE_IN;
 
 			DeleteChildObject(&m_SceneClass,"Scene");
+
 		}
 
 		break;
+
 	}
 
 	// シーン遷移演出の更新
 	if (m_ChangeSceneClass)
 		m_ChangeSceneClass->Update();
+
 }
 
 /*

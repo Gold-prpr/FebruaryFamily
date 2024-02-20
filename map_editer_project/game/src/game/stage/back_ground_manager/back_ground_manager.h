@@ -36,13 +36,6 @@ public:
 	 *  @return 画像のパス
 	 */
 	std::string GetSpritePath();
-
-	/*
-	 *  @brief 保存ファイルのパス
-	 * 
-	 *  @return 保存ファイルのパス
-	 */
-	std::string GetDirectyoryPath();
 private:
 
 	/*

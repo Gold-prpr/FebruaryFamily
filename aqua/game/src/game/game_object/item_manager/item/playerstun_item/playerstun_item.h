@@ -3,6 +3,9 @@
 
 class CUnitManager;
 class CPlayer;
+class CEffectIcon;
+//class CPlayerStunEffect;
+//class CEffectManager;
 
 class CPlayerStunItem
 	:public IItem
@@ -20,10 +23,13 @@ public:
 	//çXêV
 	void Update()override;
 
-	//å∏ë¨
+	//é~ÇﬂÇÈ
 	void PlayerStun();
 
 private:
 	CUnitManager* m_pUnitManager;
 	CPlayer* m_pPlayer;
+	CEffectIcon* m_pEffectIcon;
+	//CEffectManager* m_pEffectManager;
+	//CPlayerStunEffect* m_pPlayerStunEffect;
 };

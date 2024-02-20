@@ -2,11 +2,6 @@
 #include "aqua.h"
 
 class CCamera;
-class CUnitManager;
-class CItemManager;
-class CGimmickAct;
-class CPlayer;
-class CStage;
 
 class CCameraManager
 	:public aqua::IGameObject
@@ -33,13 +28,7 @@ public:
 	aqua::CVector2 GetScroll(aqua::controller::DEVICE_ID id);
 
 private:
-	CUnitManager* m_UnitManager;
-	CItemManager* m_ItemManager;
-	CGimmickAct* m_Gimmick;
-	CStage* m_pStage;
 
 	std::vector<CCamera*> m_CameraClass;
-
-	aqua::CSurface m_Surface;
 
 };

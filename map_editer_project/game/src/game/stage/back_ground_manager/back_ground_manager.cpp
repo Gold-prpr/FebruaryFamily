@@ -82,6 +82,7 @@ void CBackGroundManager::DropSprite()
 		}
 	}
 }
+
 /*
  *  画像の保存
  */
@@ -101,7 +102,7 @@ bool CBackGroundManager::SaveSprite()
 		}
 	}
 
-	m_FilePath = "";
+	m_FilePath = m_DirectyoryName + "\\";
 
 	// コピー先の参照パスを作成
 	for (int i = file_buffer_num; i < MAX_PATH; i++)
@@ -115,8 +116,8 @@ bool CBackGroundManager::SaveSprite()
 	}
 
 	// ファイルが存在しなけれはコピー先に保存する
-	if (!file_sys::exists(GetDirectyoryPath() + m_FilePath))
-		file_sys::copy_file(buffer, GetDirectyoryPath() + m_FilePath);
+	if (!file_sys::exists(m_FilePath))
+		file_sys::copy_file(buffer, m_FilePath);
 
 	return true;
 }
@@ -132,9 +133,4 @@ void CBackGroundManager::SetGraph(std::string back_grond)
 std::string CBackGroundManager::GetSpritePath()
 {
 	return m_FilePath;
-}
-
-std::string CBackGroundManager::GetDirectyoryPath()
-{
-	return m_DirectyoryName + "\\";
 }

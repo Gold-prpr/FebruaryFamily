@@ -1,6 +1,8 @@
 #pragma once
 #include "../effect.h"
 
+class CSpeedDownItem;
+
 class CSpeedDownEffect : public IEffect
 {
 public:
@@ -21,8 +23,10 @@ public:
 
 	//‰ð•ú
 	void Finalize(void) override;
-
-private:
 	aqua::CSprite		m_SpeedDownEffectSprite;	//‚­‚ç‚Á‚Ä‚¢‚éƒLƒƒƒ‰‚ÌˆÊ’u
+private:
+
 	aqua::CTimer        m_SpeedDownEffectTimer;		//‚­‚ç‚Á‚Ä‚¢‚éŽžŠÔ
+
+	CSpeedDownItem* m_pSpeedDownItem;
 };

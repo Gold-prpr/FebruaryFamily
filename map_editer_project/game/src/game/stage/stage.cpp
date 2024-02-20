@@ -99,9 +99,9 @@ void CStage::Draw()
 
 void CStage::Finalize()
 {
-	IGameObject::Finalize();
 	m_ForeGroudoSprite.Delete();
 	m_MouseCorsorSprite.Delete();
 	m_SelectModeSprite.Delete();
 	m_DragSprite.Delete();
+	IGameObject::Finalize();
 }
