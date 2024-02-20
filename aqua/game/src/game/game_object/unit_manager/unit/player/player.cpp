@@ -15,13 +15,15 @@
 #include "../../../ui_manager/ui_component/effect_icon/effect_icon.h"
 #include "../../../Item_manager/item/dark_item/dark_item.h"
 #include "../../../item_manager/item/speedup_item/speedup_item.h"
+#include "../../../Item_manager/item/reverse_item/reverse_item.h"
+#include "../../../ui_manager/ui_component/speedgauge/speedgauge.h"
 //#include "../../../effect_manager/effect/speeddown_effect/speeddown_effect.h"
 //#include "../../../effect_manager/effect/playerstun_effect/playerstun_effect.h"
 
 using namespace GameInputManager;
 
 const float CPlayer::max_speed = 8.0f;//�L�����̃X�s�[�h
-const float CPlayer::min_speed = 3.0f;//�L�����̍Œ�X�s�[�h
+const float CPlayer::min_speed = 1.0f;//�L�����̍Œ�X�s�[�h
 const float CPlayer::jump = -20.0f;//�L�����̃W�����v
 const float CPlayer::width = 50.0f;//�L�����̕�
 const float CPlayer::height = 50.0f;//�L�����̍���
@@ -109,6 +111,8 @@ void CPlayer::Update()
 {
 	if (!m_pCamera)
 		m_pCamera = (CCameraManager*)aqua::FindGameObject("CameraManager");
+
+	((CSpeedGauge*)aqua::FindGameObject("SpeedGauge"))->Gauge(this);
 
 	if (m_HitSpikeFlag != true)
 	{
