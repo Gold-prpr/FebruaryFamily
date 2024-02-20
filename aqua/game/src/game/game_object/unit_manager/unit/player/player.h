@@ -150,7 +150,6 @@ private:
 	CSpeedUpItem* m_pSpeedUpItem;
 	CReverseItem* m_pReverseItem;
 	CSpeedGauge* m_pSpeedGauge;
-
 	//CSpeedDownEffect* m_pSpeedDownEffect;
 	//CPlayerStunEffect* m_pPlayerStunEffect;
 	
