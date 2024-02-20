@@ -36,7 +36,7 @@ void CStage::Update(void)
 	CStageObject* stage_object = nullptr;
 	stage_object = (CStageObject*)aqua::FindGameObject("StageObject");
 
-	//m_GoalPos = stage_object->GoalPos();
+	m_GoalPos = stage_object->GoalPos();
 
 	IGameObject::Update();
 }
