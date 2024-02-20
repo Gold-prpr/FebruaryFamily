@@ -28,12 +28,10 @@ private:
 
 	CCommonData* m_pCommonData;
 
-	aqua::CLabel m_WinPlayerLabel;
-
 	aqua::CAnimationSprite m_WinPlayerSprite;
 	aqua::CAnimationSprite m_LosePlayerSprite;
 
-	aqua::CSprite* m_ResultBeltSprite;
+	aqua::CSprite m_ResultWinSprite;
 
 	aqua::CTimer m_MoveTimer;
 	aqua::CTimer m_FiceCoolTimer;

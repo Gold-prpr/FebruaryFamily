@@ -40,12 +40,6 @@ void CResult::Initialize()
 	// 勝ったプレイヤーIDの取得
 	int player = (int)(m_pCommonData->GetCommonDate().m_device_id) + 1;
 
-	// 文字の初期化
-	m_WinPlayerLabel.Create(100);
-	m_WinPlayerLabel.text = "プレイヤー" + std::to_string(player) + "の勝ちです";
-	m_WinPlayerLabel.position.x = (float)(aqua::GetWindowSize().x - m_WinPlayerLabel.GetTextWidth()) / 2.0f;
-	m_WinPlayerLabel.position.y = (float)(aqua::GetWindowSize().x - m_WinPlayerLabel.GetFontHeight()) / 2.0f;
-
 	// 勝ちと負け画像の選択
 	if (m_pCommonData->GetCommonDate().m_device_id == aqua::controller::DEVICE_ID::P1)
 	{
@@ -83,6 +77,8 @@ void CResult::Initialize()
 	// 中心点の設定
 	m_WinPlayerSprite.anchor.x = m_WinPlayerSprite.GetTextureWidth() / 10.0f;
 	m_WinPlayerSprite.anchor.y = m_WinPlayerSprite.GetTextureHeight() / 8.0f;
+
+	m_ResultWinSprite.Create("data\\scene\\result\\win.png");
 
 	IGameObject::Initialize();
 }
@@ -150,8 +146,8 @@ void CResult::Update()
 void CResult::Draw()
 {
 	m_BackGround.Draw();
+	m_ResultWinSprite.Draw();
 
-	m_WinPlayerLabel.Draw();
 
 	m_LosePlayerSprite.Draw();
 	m_WinPlayerSprite.Draw();
@@ -166,6 +162,7 @@ void CResult::Finalize()
 {
 	m_BackGround.Delete();
 
+	m_ResultWinSprite.Delete();
 	m_LosePlayerSprite.Delete();
 	m_WinPlayerSprite.Delete();
 
