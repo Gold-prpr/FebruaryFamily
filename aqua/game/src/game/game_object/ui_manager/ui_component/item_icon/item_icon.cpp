@@ -51,21 +51,21 @@ void CItemIcon::Check(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true)
 	{
-		if (m_pItemManager->m_ItemRand == 0)
+		if (m_pItemManager->m_ItemRand[(int)player->GetDeviceID()] == 0)
 		{
 			if (player->GetDeviceID() == DEVICE_ID::P1)
 				m_1PItemIconSprite.Create("data\\speeddown.png");
 			else
 				m_2PItemIconSprite.Create("data\\speeddown.png");
 		}
-		if (m_pItemManager->m_ItemRand == 1)
+		if (m_pItemManager->m_ItemRand[(int)player->GetDeviceID()] == 1)
 		{
 			if (player->GetDeviceID() == DEVICE_ID::P1)
 				m_1PItemIconSprite.Create("data\\Stan_Item.png");
 			else
 				m_2PItemIconSprite.Create("data\\Stan_Item.png");
 		}
-		if (m_pItemManager->m_ItemRand == 2)
+		if (m_pItemManager->m_ItemRand[(int)player->GetDeviceID()] == 2)
 		{
 			if (player->GetDeviceID() == DEVICE_ID::P1)
 				m_1PItemIconSprite.Create("data\\Black_Item.png");
@@ -73,7 +73,7 @@ void CItemIcon::Check(CPlayer* player)
 				m_2PItemIconSprite.Create("data\\Black_Item.png");
 		}
 
-		if (m_pItemManager->m_ItemRand == 3)
+		if (m_pItemManager->m_ItemRand[(int)player->GetDeviceID()] == 3)
 		{
 			if (player->GetDeviceID() == DEVICE_ID::P1)
 				m_1PItemIconSprite.Create("data\\speedup.png");
@@ -81,7 +81,7 @@ void CItemIcon::Check(CPlayer* player)
 				m_2PItemIconSprite.Create("data\\speedup.png");
 		}	
 		
-		if (m_pItemManager->m_ItemRand == 4)
+		if (m_pItemManager->m_ItemRand[(int)player->GetDeviceID()] == 4)
 		{
 			if (player->GetDeviceID() == DEVICE_ID::P1)
 				m_1PItemIconSprite.Create("data\\reverse.png");

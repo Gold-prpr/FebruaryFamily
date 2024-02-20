@@ -367,9 +367,10 @@ void CPlayer::CreateItme(void)
 void CPlayer::UseItem(CPlayer* player)
 {
 	m_pEffectIcon = (CEffectIcon*)aqua::FindGameObject("EffectIcon");
+	
 	if ((Button(player->m_Device, BUTTON_ID::LEFT_SHOULDER) || Button(aqua::keyboard::KEY_ID::I)) && player->m_GetItemFlag == true)
 	{
-		if (m_pItemManager->m_ItemRand == 0)//相手のスピードを下げるアイテム
+		if (m_pItemManager->m_ItemRand[(int)m_Device] == 0)//相手のスピードを下げるアイテム
 		{
 			m_pItemManager->Create(ITEM_ID::SPEEDDOWN);
 
@@ -379,7 +380,7 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if (m_pItemManager->m_ItemRand == 1)//相手の行動を止めるアイテム
+		else if (m_pItemManager->m_ItemRand[(int)m_Device] == 1)//相手の行動を止めるアイテム
 		{
 			m_pItemManager->Create(ITEM_ID::PLAYERSTUN);
 
@@ -389,7 +390,7 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if (m_pItemManager->m_ItemRand == 2) //相手の両端を暗くする
+		else if (m_pItemManager->m_ItemRand[(int)m_Device] == 2) //相手の両端を暗くする
 		{
 			m_pItemManager->Create(ITEM_ID::DARK);
 
@@ -399,7 +400,7 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if (m_pItemManager->m_ItemRand == 3) //自分のスピードを上げる
+		else if (m_pItemManager->m_ItemRand[(int)m_Device] == 3) //自分のスピードを上げる
 		{
 			m_pItemManager->Create(ITEM_ID::SPEEDUP);
 
@@ -409,7 +410,7 @@ void CPlayer::UseItem(CPlayer* player)
 
 			player->m_GetItemFlag = false;
 		}
-		else if (m_pItemManager->m_ItemRand == 4)
+		else if (m_pItemManager->m_ItemRand[(int)m_Device] == 4)
 		{
 			m_pItemManager->Create(ITEM_ID::REVERSE);
 
@@ -424,6 +425,7 @@ void CPlayer::UseItem(CPlayer* player)
 			m_pEffectIcon->EffectCheck(player);
 
 		m_pItemIcon = (CItemIcon*)aqua::FindGameObject("ItemIcon");
+
 		if (m_pItemIcon)
 			m_pItemIcon->DeleteItem(this);
 	}

@@ -64,9 +64,9 @@ void CItemManager::RandPick(CPlayer* player)
 {
 	if (player->m_HitItemFlag == true && player->m_GetItemFlag == true)
 	{
-		m_ItemRand = rand() % m_item;
+		m_ItemRand[(int)player->GetDeviceID()] = rand() % m_item;
 
-		switch (m_ItemRand)
+		switch (m_ItemRand[(int)player->GetDeviceID()])
 		{
 		case 0:Create(ITEM_ID::SPEEDDOWN);	break;
 		case 1:Create(ITEM_ID::PLAYERSTUN); break;

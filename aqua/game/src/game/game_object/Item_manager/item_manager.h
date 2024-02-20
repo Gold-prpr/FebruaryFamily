@@ -33,7 +33,7 @@ public:
 
 	void RandPick(CPlayer* player);
 
-	int m_ItemRand;				//1Pのアイテムをランダムに出す
+	int m_ItemRand[(int)aqua::controller::DEVICE_ID::P3];				//1Pのアイテムをランダムに出す
 private:
 	static const int m_item;		//アイテム数
 
