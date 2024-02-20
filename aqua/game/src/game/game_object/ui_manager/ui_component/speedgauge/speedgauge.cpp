@@ -18,13 +18,15 @@ void CSpeedGauge::Initialize(const aqua::CVector2& position)
 	m_1PGaugeSprite.Create("data//speedgauge.png");
 	m_2PGaugeSprite.Create("data//speedgauge.png");
 
+	IUiComponent::Initialize(position);
+
 	m_1PGaugeBaseSprite.position = m_Position + aqua::CVector2{ 1400.0f, 490.0f };
 	m_2PGaugeBaseSprite.position = m_Position + aqua::CVector2{ 1400.0f, 1030.0f };
 
 	m_1PGaugeSprite.position = m_Position + aqua::CVector2{ 1400.0f, 490.0f };
 	m_2PGaugeSprite.position = m_Position + aqua::CVector2{ 1400.0f, 1030.0f };
 
-	IUiComponent::Initialize(position);
+	
 	IGameObject::Initialize();
 }
 
@@ -42,6 +44,8 @@ void CSpeedGauge::Draw(void)
 
 	m_1PGaugeSprite.Draw();
 	m_2PGaugeSprite.Draw();
+
+	IGameObject::Draw();
 }
 
 //âï˙
@@ -52,6 +56,8 @@ void CSpeedGauge::Finalize(void)
 
 	m_1PGaugeSprite.Delete();
 	m_2PGaugeSprite.Delete();
+
+	IGameObject::Finalize();
 }
 
 //ÉQÅ[ÉW
