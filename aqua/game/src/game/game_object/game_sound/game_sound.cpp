@@ -1,4 +1,6 @@
 #include "game_sound.h"
+#include "game_sound_resource/game_sound_resource.h"
+
 const std::pair<std::string, bool> CGameSound::m_SoundData[] =
 {
 	{"data\\sound\\title.mp3",true},
@@ -30,27 +32,11 @@ void CGameSound::Initialize()
 */
 void CGameSound::Update()
 {
-	auto sound_it = m_GameSoundList.begin();
-
-	while (sound_it != m_GameSoundList.end())
-	{
-		if (sound_it->second >= (int)SOUND_ID::BUTTON && !(*sound_it).first->IsPlaying())
-		{
-			(*sound_it).first->Delete();
-			sound_it = m_GameSoundList.erase(sound_it);
-		}
-
-		if (sound_it != m_GameSoundList.end())
-			sound_it++;
-	}
-
 	IGameObject::Update();
 }
 
 /*
 *  ‰ð•ú
-*
-*
 */
 void CGameSound::Finalize()
 {
@@ -72,24 +58,36 @@ void CGameSound::Play(SOUND_ID id)
 {
 	int num = (int)id;
 
+	auto sound_it = m_GameSoundList.begin();
+
 	if (m_SoundData[num].second)
 	{
-		auto sound_it = m_GameSoundList.begin();
+		sound_it = m_GameSoundList.begin();
+
 		while (sound_it != m_GameSoundList.end())
 		{
-			if ((*sound_it).second == num)
+			if ((*sound_it)->GetID() == num)
 			{
+				(*sound_it)->Play();
 				return;
 			}
+
 			sound_it++;
+
 		}
+
 	}
 
-	aqua::CSoundPlayer sp;
-	sp.Create(m_SoundData[num].first, m_SoundData[num].second);
-	sp.Play();
 
-	m_GameSoundList.push_back({ &sp , num });
+	CGameSoundResource* s = (CGameSoundResource*)aqua::CreateGameObject<CGameSoundResource>(this);
+
+	s->Initialize(m_SoundData[num].first, m_SoundData[num].second, num);
+
+	s->Play();
+
+	m_GameSoundList.push_back(s);
+
+
 }
 
 /*
@@ -98,14 +96,38 @@ void CGameSound::Play(SOUND_ID id)
 void CGameSound::Stop(SOUND_ID id)
 {
 	int num = (int)id;
+
 	if (m_SoundData[num].second)
 	{
 		auto sound_it = m_GameSoundList.begin();
 		while (sound_it != m_GameSoundList.end())
 		{
-			if ((*sound_it).second == num)
+			if ((*sound_it)->GetID() == num)
 			{
+				(*sound_it)->Stop();
+				(*sound_it)->Finalize();
 				sound_it = m_GameSoundList.erase(sound_it);
+			}
+
+			if (sound_it != m_GameSoundList.end())
+				sound_it++;
+		}
+	}
+}
+
+void CGameSound::ReStart(SOUND_ID id)
+{
+	int num = (int)id;
+
+	if (m_SoundData[num].second)
+	{
+		auto sound_it = m_GameSoundList.begin();
+		while (sound_it != m_GameSoundList.end())
+		{
+			if ((*sound_it)->GetID() == num)
+			{
+				(*sound_it)->Play();
+				return;
 			}
 
 			if (sound_it != m_GameSoundList.end())

@@ -100,6 +100,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\game_object\game_sound\game_sound_resource\game_sound_resource.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\game_object\camera_manager\camera\camera.cpp" />
     <ClCompile Include="src\game\game_object\camera_manager\camera_manager.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\game_object\game_sound\game_sound_resource\game_sound_resource.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\game_object\camera_manager\camera\camera.h" />
     <ClInclude Include="src\game\game_object\camera_manager\camera_manager.h" />

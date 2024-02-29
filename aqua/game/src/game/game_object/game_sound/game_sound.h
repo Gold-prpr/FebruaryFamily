@@ -2,6 +2,8 @@
 #include "aqua.h"
 #include "game_sound_id.h"
 
+class CGameSoundResource;
+
 class CGameSound :
 	public aqua::IGameObject
 {
@@ -35,9 +37,15 @@ public:
 	*/
 	void Stop(SOUND_ID id);
 
+	/*
+	*  @brief í‚é~ÇµÇΩèäÇ©ÇÁçƒê∂
+	*/
+	void ReStart(SOUND_ID id);
+
 private:
 	static const std::pair<std::string, bool> m_SoundData[(int)SOUND_ID::MAX];
 
-	std::list<std::pair<aqua::CSoundPlayer*, int>> m_GameSoundList; //! âπäy
+	std::list<CGameSoundResource*> m_GameSoundList; //! âπäy
+
 
 };
